@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FC26 Cranium Analyzer</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- MediaPipe Face Mesh Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="app-container">
+
+        <!-- Screen 1: Home -->
+        <section id="screen-home" class="screen active">
+            <div class="logo-container">
+                <h1>FC26 <span class="neon-text">CRANIUM</span></h1>
+                <p>Pro Face Geometry Analyzer</p>
+            </div>
+            <div class="action-buttons">
+                <button id="btn-camera" class="btn btn-primary">
+                    <span class="icon">📷</span> Live Camera
+                </button>
+                <div class="divider"><span>OR</span></div>
+                <label for="file-upload" class="btn btn-secondary">
+                    <span class="icon">📁</span> Upload Photo
+                    <input type="file" id="file-upload" accept="image/*" hidden>
+                </label>
+            </div>
+        </section>
+
+        <!-- Screen 2: Scan -->
+        <section id="screen-scan" class="screen">
+            <header>
+                <button class="btn-icon btn-back" data-target="screen-home">←</button>
+                <h2>Scanning</h2>
+            </header>
+            <div class="scanner-container">
+                <div class="media-container">
+                    <video id="input-video" class="input-media" autoplay playsinline hidden></video>
+                    <img id="input-image" class="input-media" hidden>
+                    <canvas id="output-canvas" class="output-canvas"></canvas>
+                    <div class="scan-overlay"></div>
+                </div>
+                <div id="loading-indicator" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Detecting 468 facial landmarks...</p>
+                </div>
+            </div>
+            <div class="scan-actions">
+                <button id="btn-capture" class="btn btn-primary hidden">Capture & Analyze</button>
+                <button id="btn-analyze-upload" class="btn btn-primary hidden">Analyze Photo</button>
+            </div>
+        </section>
+
+        <!-- Screen 3: Results -->
+        <section id="screen-results" class="screen">
+            <header>
+                <button class="btn-icon btn-back" data-target="screen-scan">←</button>
+                <h2>Results</h2>
+                <button id="btn-share" class="btn-icon">📤</button>
+            </header>
+
+            <div class="results-container">
+                <div class="tier-indicator">
+                    <span class="badge badge-free">Free Tier</span>
+                    <button class="btn-upgrade-sm" data-target="screen-premium">Unlock All</button>
+                </div>
+
+                <div id="results-accordion" class="accordion">
+                    <!-- Zones injected via JS -->
+                </div>
+            </div>
+
+            <div class="premium-gate">
+                <div class="gate-content">
+                    <p>Unlock 6 advanced zones (Crâne, Menton, Sourcils, Front, Bouche, Oreilles) and PDF Export.</p>
+                    <button id="btn-go-premium" class="btn btn-premium" data-target="screen-premium">Get
+                        Premium</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 4: Premium -->
+        <section id="screen-premium" class="screen">
+            <header>
+                <button class="btn-icon btn-back" data-target="screen-results">←</button>
+                <h2>Premium</h2>
+            </header>
+            <div class="premium-content">
+                <div class="premium-hero">
+                    <h1 class="neon-text">PRO ACCESS</h1>
+                    <p>Get the competitive edge in FC26</p>
+                </div>
+                <ul class="premium-features">
+                    <li>✓ Unlock all 10 facial zones</li>
+                    <li>✓ Pinpoint accuracy mapping</li>
+                    <li>✓ Export slider sheet to PDF</li>
+                    <li>✓ No ads</li>
+                </ul>
+                <div class="pricing">
+                    <span class="price">$4.99</span> <span class="period">one-time</span>
+                </div>
+                <button id="btn-purchase" class="btn btn-premium-action">Unlock Now</button>
+            </div>
+        </section>
+
+    </div>
+    <script src="./PRESETS_DB_v3.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
