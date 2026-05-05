@@ -1026,7 +1026,7 @@ function showQAWarning(message) {
 }
 
 // ── 5. Détection peau principale ─────────────────────────────
-function detectSkinToneFromCanvas(canvas, landmarks, onResult) {
+function detectSkinToneFromCanvas(imgElement, landmarks, onResult) {
   // Points de peau fiables (joues, front, nez, tempes)
   const SKIN_POINTS = [
     50, 280,   // joues hautes
@@ -1037,13 +1037,21 @@ function detectSkinToneFromCanvas(canvas, landmarks, onResult) {
     1, 4,      // nez
   ];
 
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  // Canvas temporaire aux dimensions réelles de la source (évite le décalage dû au scaling d'affichage)
+  const srcW = imgElement.naturalWidth || imgElement.videoWidth || imgElement.width;
+  const srcH = imgElement.naturalHeight || imgElement.videoHeight || imgElement.height;
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = srcW;
+  tempCanvas.height = srcH;
+  const ctx = tempCanvas.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(imgElement, 0, 0);
+
   const samples = [];
 
   for (const idx of SKIN_POINTS) {
     if (!landmarks[idx]) continue;
-    const px = Math.floor(landmarks[idx].x * canvas.width);
-    const py = Math.floor(landmarks[idx].y * canvas.height);
+    const px = Math.floor(landmarks[idx].x * srcW);
+    const py = Math.floor(landmarks[idx].y * srcH);
     try {
       const d = ctx.getImageData(Math.max(0, px-4), Math.max(0, py-4), 8, 8).data;
       let r=0, g=0, b=0, count=0;
@@ -1119,9 +1127,41 @@ const loadingIndicator = document.getElementById('loading-indicator');
 const resultsAccordion = document.getElementById('results-accordion');
 const btnShare = document.getElementById('btn-share');
 const btnPurchase = document.getElementById('btn-purchase');
+const capturedPhotoReview = document.getElementById('captured-photo-review');
+const reviewButtons = document.querySelector('.review-buttons');
+const btnRetake = document.getElementById('btn-retake');
+const btnConfirmAnalyze = document.getElementById('btn-confirm-analyze');
+
+let capturedBase64 = null;
+let capturedCanvas = null;
 
 // --- Navigation Logic ---
+function resetScanUI() {
+    // Stoppe le flux natif si actif
+    if (window.localStream) {
+        window.localStream.getTracks().forEach(track => track.stop());
+        window.localStream = null;
+    }
+    // Efface le canvas
+    canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+    // Réinitialise l'image de review
+    capturedPhotoReview.classList.add('hidden');
+    capturedPhotoReview.src = '';
+    capturedBase64 = null;
+    capturedCanvas = null;
+    // Réinitialise les boutons
+    reviewButtons.classList.add('hidden');
+    btnCapture.classList.add('hidden');
+    // Masque la vidéo
+    inputVideo.classList.add('hidden');
+}
+
 function navigateTo(targetId) {
+    const currentScreen = document.querySelector('.screen.active');
+    if (currentScreen && currentScreen.id === 'screen-scan' && targetId !== 'screen-scan') {
+        resetScanUI();
+    }
+
     screens.forEach(screen => {
         if (screen.id === targetId) {
             screen.classList.add('active');
@@ -1193,10 +1233,10 @@ fileUpload.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (camera) {
-        camera.stop();
-        inputVideo.classList.add('hidden');
+    if (window.localStream) {
+        window.localStream.getTracks().forEach(track => track.stop());
     }
+    inputVideo.classList.add('hidden');
 
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -1219,23 +1259,38 @@ fileUpload.addEventListener('change', (e) => {
 
 // --- Live Camera Flow ---
 btnCamera.addEventListener('click', () => {
+    // Réinitialisation complète de l'UI de scan
+    capturedBase64 = null;
+    capturedCanvas = null;
+    capturedPhotoReview.classList.add('hidden');
+    capturedPhotoReview.src = '';
+    canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+    reviewButtons.classList.add('hidden');
+
     inputImage.classList.add('hidden');
     inputVideo.classList.remove('hidden');
+    inputVideo.removeAttribute('hidden');
+    inputVideo.style.display = 'block';
     btnAnalyzeUpload.classList.add('hidden');
     btnCapture.classList.remove('hidden');
-    
+
     navigateTo('screen-scan');
 
-    camera = new Camera(inputVideo, {
-        onFrame: async () => {
-            // We only send to face mesh on capture button click to save processing power on mobile,
-            // or we could draw live. For this prototype, we'll draw live and capture frame.
-            await faceMesh.send({image: inputVideo});
-        },
-        width: 1280,
-        height: 720
-    });
-    camera.start();
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } } })
+        .then(function(stream) {
+            window.localStream = stream;
+            inputVideo.srcObject = stream;
+            inputVideo.muted = true;
+            inputVideo.play().catch(e => console.error("Erreur play:", e));
+        })
+        .catch(function(error) {
+            console.error("Erreur caméra:", error);
+            alert("Accès à la caméra impossible. Vérifiez les permissions.");
+        });
+    } else {
+        alert("Votre navigateur ne supporte pas la capture vidéo.");
+    }
 });
 
 async function checkPhotoQuality(base64Image) {
@@ -1272,29 +1327,62 @@ async function checkPhotoQuality(base64Image) {
     }
 }
 
-// Capture for analysis (Camera)
-btnCapture.addEventListener('click', async () => {
+// Capture — Étape 1 : figer la frame et afficher pour review (aucune IA ici)
+btnCapture.addEventListener('click', () => {
+    capturedCanvas = document.createElement('canvas');
+    capturedCanvas.width = inputVideo.videoWidth;
+    capturedCanvas.height = inputVideo.videoHeight;
+    capturedCanvas.getContext('2d').drawImage(inputVideo, 0, 0, capturedCanvas.width, capturedCanvas.height);
+    capturedBase64 = capturedCanvas.toDataURL('image/jpeg').split(',')[1];
+
+    capturedPhotoReview.src = 'data:image/jpeg;base64,' + capturedBase64;
+    capturedPhotoReview.classList.remove('hidden');
+    inputVideo.classList.add('hidden');
+
+    btnCapture.classList.add('hidden');
+    reviewButtons.classList.remove('hidden');
+});
+
+// Étape 1b : Reprendre — relancer le flux live
+btnRetake.addEventListener('click', () => {
+    capturedBase64 = null;
+    capturedCanvas = null;
+    capturedPhotoReview.classList.add('hidden');
+    capturedPhotoReview.src = '';
+    canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+    inputVideo.classList.remove('hidden');
+    reviewButtons.classList.add('hidden');
+    btnCapture.classList.remove('hidden');
+});
+
+// Confirmer — Étape 2 : Azure quality check, puis envoyer l'image à l'IA
+btnConfirmAnalyze.addEventListener('click', async () => {
+    if (!capturedBase64) return;
+
+    if (window.localStream) {
+        window.localStream.getTracks().forEach(t => t.stop());
+        window.localStream = null;
+    }
+
+    reviewButtons.classList.add('hidden');
     loadingIndicator.classList.remove('hidden');
-    
-    const canvas = document.createElement('canvas');
-    canvas.width = inputVideo.videoWidth;
-    canvas.height = inputVideo.videoHeight;
-    canvas.getContext('2d').drawImage(inputVideo, 0, 0, canvas.width, canvas.height);
-    const base64Image = canvas.toDataURL('image/jpeg').split(',')[1];
-    
-    const quality = await checkPhotoQuality(base64Image);
+
+    const quality = await checkPhotoQuality(capturedBase64);
     if (!quality.ok) {
         loadingIndicator.classList.add('hidden');
         if (quality.reason === 'no_face') showQAWarning("Aucun visage détecté. Réessaie.");
         else if (quality.reason === 'too_blurry') showQAWarning("Photo trop floue. Prends une photo plus nette.");
         else if (quality.reason === 'bad_lighting') showQAWarning("Éclairage insuffisant. Trouve un endroit plus lumineux.");
         else if (quality.reason === 'bad_angle') showQAWarning("Tiens ta tête droite face à la caméra.");
+        reviewButtons.classList.remove('hidden');
         return;
     }
 
-    if (camera) camera.stop();
-    // Send current video frame for final analysis
-    await faceMesh.send({image: inputVideo});
+    const img = new Image();
+    img.onload = async () => {
+        await faceMesh.send({image: img});
+    };
+    img.src = capturedPhotoReview.src;
 });
 
 // Analyze (Upload)
@@ -1347,7 +1435,7 @@ function onResults(results) {
         drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#00f0ff'});
 
         // Perform Calculations (async — ITA may show confirmation UI)
-        detectSkinToneFromCanvas(outputCanvas, landmarks, (skinTone, skinMeta) => {
+        detectSkinToneFromCanvas(results.image, landmarks, (skinTone, skinMeta) => {
             state.results = analyzeFace(landmarks, skinTone);
             state.results.skinMeta = skinMeta;
             loadingIndicator.classList.add('hidden');
@@ -1529,7 +1617,7 @@ function renderResults() {
     const rgb = detectSkinToneFromCanvas._lastRGB || {};
 
     let debugHtml = `
-      <div class="debug-banner" style="background:rgba(0,200,255,0.08); border:1px solid rgba(0,200,255,0.3); border-radius:8px; padding:12px 16px; margin-bottom:14px; font-size:0.82rem; color:var(--text-secondary,#aaa);">
+      <div class="debug-banner" style="display:none; background:rgba(0,200,255,0.08); border:1px solid rgba(0,200,255,0.3); border-radius:8px; padding:12px 16px; margin-bottom:14px; font-size:0.82rem; color:var(--text-secondary,#aaa);">
         <p style="font-weight:bold; color:#00c8ff; margin:0 0 6px;">🔍 <strong>Ce que l'IA a détecté sur ta photo</strong></p>
         <span>🎨 Peau (ITA: ${ita !== undefined ? Math.round(ita*10)/10 : '?'}°) : <strong>${result.skinTone}</strong>
         ${meta.auto ? '🤖 Auto' : '✅ Confirmé'}</span><br>
@@ -1549,6 +1637,7 @@ function renderResults() {
                 <p style="margin:5px 0;">ÉTAPE 1 — Choisis cette tête dans FC26 :</p>
                 <h3 style="margin:5px 0; font-size:1.5rem;">➡️ ${result.preset.label}</h3>
                 <p style="margin:0; font-size:0.9rem; opacity:0.8;">Preset ID : ${result.preset.id}</p>
+                <img src="./assets/presets/${result.preset.id}.png" class="preset-preview-img" alt="Visage recommandé" onerror="this.style.display='none'">
             </div>
         </div>
     `;

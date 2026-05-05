@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FC26 Cranium Analyzer</title>
+    <link rel="icon" type="image/png" href="./assets/favicon.png?v=3">
     <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" href="./style.css">
     <link
@@ -50,8 +51,9 @@
             </header>
             <div class="scanner-container">
                 <div class="media-container">
-                    <video id="input-video" class="input-media" autoplay playsinline hidden></video>
+                    <video id="input-video" class="input-media" autoplay playsinline muted hidden></video>
                     <img id="input-image" class="input-media" hidden>
+                    <img id="captured-photo-review" class="input-media hidden">
                     <canvas id="output-canvas" class="output-canvas"></canvas>
                     <div class="scan-overlay"></div>
                 </div>
@@ -63,6 +65,10 @@
             <div class="scan-actions">
                 <button id="btn-capture" class="btn btn-primary hidden">Capture & Analyze</button>
                 <button id="btn-analyze-upload" class="btn btn-primary hidden">Analyze Photo</button>
+                <div class="review-buttons hidden">
+                    <button id="btn-retake" class="btn btn-secondary">↩ Reprendre</button>
+                    <button id="btn-confirm-analyze" class="btn btn-primary">✓ Confirmer & Analyser</button>
+                </div>
             </div>
         </section>
 
