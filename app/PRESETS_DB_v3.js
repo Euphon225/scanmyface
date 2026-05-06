@@ -86,7 +86,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 13, bh: 0, aa: 100, ang: 0 },
       maxillaire: { re: 8, bh: 35, aa: 57, ang: 57 },
       mandibule: { re: 46, bh: 56, aa: 38, ang: 26 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 2,
@@ -175,7 +176,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 49, bh: 6, aa: 83, ang: 65 },
       maxillaire: { re: 73, bh: 35, aa: 20, ang: 20 },
       mandibule: { re: 16, bh: 0, aa: 49, ang: 35 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 3,
@@ -264,7 +266,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 56, bh: 29, aa: 84, ang: 25 },
       maxillaire: { re: 26, bh: 49, aa: 78, ang: 48 },
       mandibule: { re: 29, bh: 36, aa: 42, ang: 60 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 4,
@@ -353,7 +356,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 19, bh: 21, aa: 97, ang: 27 },
       maxillaire: { re: 20, bh: 45, aa: 53, ang: 59 },
       mandibule: { re: 35, bh: 50, aa: 50, ang: 72 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 5,
@@ -442,7 +446,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 12, bh: 24, aa: 100, ang: 0 },
       maxillaire: { re: 19, bh: 33, aa: 58, ang: 41 },
       mandibule: { re: 31, bh: 40, aa: 41, ang: 75 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 6,
@@ -531,7 +536,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 29, bh: 66, aa: 71, ang: 100 },
       maxillaire: { re: 76, bh: 16, aa: 57, ang: 45 },
       mandibule: { re: 31, bh: 30, aa: 74, ang: 23 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 7,
@@ -620,7 +626,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 43, bh: 22, aa: 100, ang: 50 },
       maxillaire: { re: 79, bh: 57, aa: 74, ang: 56 },
       mandibule: { re: 45, bh: 25, aa: 92, ang: 97 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 8,
@@ -709,7 +716,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 0, bh: 10, aa: 94, ang: 0 },
       maxillaire: { re: 10, bh: 39, aa: 63, ang: 77 },
       mandibule: { re: 35, bh: 62, aa: 39, ang: 97 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 9,
@@ -798,7 +806,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 12, bh: 10, aa: 100, ang: 9 },
       maxillaire: { re: 19, bh: 50, aa: 58, ang: 48 },
       mandibule: { re: 30, bh: 52, aa: 50, ang: 75 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 10,
@@ -887,7 +896,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 10, bh: 47, aa: 63, ang: 0 },
       maxillaire: { re: 6, bh: 74, aa: 52, ang: 44 },
       mandibule: { re: 67, bh: 60, aa: 8, ang: 100 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 11,
@@ -976,7 +986,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 47, bh: 68, aa: 56, ang: 58 },
       maxillaire: { re: 43, bh: 58, aa: 52, ang: 46 },
       mandibule: { re: 40, bh: 21, aa: 33, ang: 17 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 12,
@@ -1065,7 +1076,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 51, bh: 15, aa: 90, ang: 39 },
       maxillaire: { re: 34, bh: 31, aa: 76, ang: 39 },
       mandibule: { re: 3, bh: 31, aa: 62, ang: 59 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 13,
@@ -1154,7 +1166,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 6, bh: 8, aa: 71, ang: 0 },
       maxillaire: { re: 0, bh: 53, aa: 64, ang: 19 },
       mandibule: { re: 50, bh: 100, aa: 100, ang: 45 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 14,
@@ -1243,7 +1256,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 34, bh: 14, aa: 76, ang: 46 },
       maxillaire: { re: 0, bh: 46, aa: 91, ang: 50 },
       mandibule: { re: 62, bh: 59, aa: 56, ang: 25 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 15,
@@ -1332,7 +1346,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 46, bh: 38, aa: 81, ang: 22 },
       maxillaire: { re: 22, bh: 42, aa: 68, ang: 90 },
       mandibule: { re: 23, bh: 42, aa: 49, ang: 56 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 16,
@@ -1421,7 +1436,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 69, bh: 54, aa: 100, ang: 24 },
       maxillaire: { re: 24, bh: 47, aa: 53, ang: 56 },
       mandibule: { re: 31, bh: 24, aa: 48, ang: 36 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 17,
@@ -1510,7 +1526,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 24, bh: 83, aa: 65, ang: 4 },
       maxillaire: { re: 18, bh: 47, aa: 54, ang: 68 },
       mandibule: { re: 50, bh: 83, aa: 82, ang: 51 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 18,
@@ -1599,7 +1616,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 31, bh: 29, aa: 100, ang: 5 },
       maxillaire: { re: 8, bh: 59, aa: 71, ang: 55 },
       mandibule: { re: 38, bh: 61, aa: 63, ang: 72 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 19,
@@ -1688,7 +1706,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 63, bh: 25, aa: 100, ang: 16 },
       maxillaire: { re: 42, bh: 59, aa: 79, ang: 48 },
       mandibule: { re: 47, bh: 75, aa: 90, ang: 65 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 20,
@@ -1777,7 +1796,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 72, bh: 68, aa: 53, ang: 56 },
       maxillaire: { re: 45, bh: 52, aa: 38, ang: 69 },
       mandibule: { re: 19, bh: 45, aa: 31, ang: 37 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 21,
@@ -1866,7 +1886,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 41, bh: 61, aa: 79, ang: 1 },
       maxillaire: { re: 53, bh: 28, aa: 71, ang: 74 },
       mandibule: { re: 39, bh: 27, aa: 60, ang: 86 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 22,
@@ -1955,7 +1976,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 49, bh: 30, aa: 88, ang: 48 },
       maxillaire: { re: 5, bh: 42, aa: 58, ang: 50 },
       mandibule: { re: 1, bh: 39, aa: 52, ang: 40 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 23,
@@ -2044,7 +2066,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 31, bh: 0, aa: 100, ang: 34 },
       maxillaire: { re: 82, bh: 7, aa: 70, ang: 95 },
       mandibule: { re: 14, bh: 24, aa: 76, ang: 39 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 24,
@@ -2133,7 +2156,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 25, bh: 34, aa: 100, ang: 22 },
       maxillaire: { re: 26, bh: 7, aa: 72, ang: 57 },
       mandibule: { re: 50, bh: 67, aa: 74, ang: 74 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 25,
@@ -2222,7 +2246,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 35, bh: 0, aa: 100, ang: 41 },
       maxillaire: { re: 78, bh: 32, aa: 60, ang: 90 },
       mandibule: { re: 19, bh: 55, aa: 75, ang: 13 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 26,
@@ -2311,7 +2336,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 6, bh: 8, aa: 71, ang: 0 },
       maxillaire: { re: 0, bh: 53, aa: 64, ang: 19 },
       mandibule: { re: 50, bh: 100, aa: 100, ang: 45 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 27,
@@ -2400,7 +2426,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 78, bh: 20, aa: 81, ang: 37 },
       maxillaire: { re: 46, bh: 48, aa: 64, ang: 41 },
       mandibule: { re: 61, bh: 43, aa: 56, ang: 66 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 28,
@@ -2489,7 +2516,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 16, bh: 14, aa: 100, ang: 16 },
       maxillaire: { re: 57, bh: 47, aa: 61, ang: 86 },
       mandibule: { re: 18, bh: 41, aa: 55, ang: 99 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 29,
@@ -2578,7 +2606,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 100, bh: 75, aa: 97, ang: 42 },
       maxillaire: { re: 38, bh: 36, aa: 72, ang: 25 },
       mandibule: { re: 26, bh: 70, aa: 97, ang: 82 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 30,
@@ -2667,7 +2696,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 100, bh: 28, aa: 6, ang: 49 },
       maxillaire: { re: 33, bh: 54, aa: 54, ang: 42 },
       mandibule: { re: 50, bh: 43, aa: 72, ang: 12 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
   {
     position: 31,
@@ -2756,7 +2786,8 @@ const PRESETS_DB = [
       machoire_adv: { re: 13, bh: 0, aa: 100, ang: 0 },
       maxillaire: { re: 8, bh: 35, aa: 57, ang: 57 },
       mandibule: { re: 46, bh: 56, aa: 38, ang: 26 },
-    }
+    },
+    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
   },
 ];
 

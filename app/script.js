@@ -62,6 +62,29 @@ function extractMorphRatios(landmarks) {
   const eyeMidY           = ((landmarks[159] ? landmarks[159].y : 0) + (landmarks[386] ? landmarks[386].y : 0)) / 2;
   const eyeVerticalRatio  = (eyeMidY - (landmarks[10] ? landmarks[10].y : 0)) / (landmarks[152] ? (landmarks[152].y - landmarks[10].y) : 1); // position verticale des yeux
 
+  // Sourcils — distance verticale entre le bord du sourcil (lm105 G / lm334 D) et le haut de l'œil (lm159 G / lm386 D)
+  const eyebrowHeightRatio = (
+    dist(landmarks, 105, 159) + dist(landmarks, 334, 386)
+  ) / 2 / faceHeight;
+
+  // Écart sourcils — distance horizontale entre les deux sourcils normalisée par largeur faciale
+  const eyebrowGap = dist(landmarks, 55, 285) / faceWidth;
+
+  // Volume lèvres — distance verticale entre bord sup lèvre sup (lm0) et bord inf lèvre inf (lm17)
+  const lipFullness = dist(landmarks, 0, 17) / faceHeight;
+
+  // Évasement nez — rapport entre largeur des narines (lm49/279) et longueur du nez (lm6 pont → lm197 columelle)
+  const noseFlare = dist(landmarks, 49, 279) / (dist(landmarks, 6, 197) || 1);
+
+  // Philtrum — distance sous-nasale (lm2) à bord supérieur lèvre sup (lm0) normalisée par hauteur faciale
+  const philtrum = dist(landmarks, 2, 0) / faceHeight;
+
+  // Saillie pommettes — rapport joues (lm123/352) vs tempes (lm54/284)
+  const cheekProminence = cheekWidth / (dist(landmarks, 54, 284) || 1);
+
+  // Position yeux — distance front (lm10) au centre œil gauche (lm159) normalisée par hauteur faciale
+  const eyeHeightPos = dist(landmarks, 10, 159) / faceHeight;
+
   // Front / Tempes
   const foreheadWidthRatio = dist(landmarks, 54, 284) / faceWidth;     // largeur du front (tempes)
 
@@ -110,6 +133,8 @@ function extractMorphRatios(landmarks) {
     mouthPosRatio, lipThicknessRatio,
     jawHeightRatio, chinWidthRatio,
     eyeVerticalRatio, foreheadWidthRatio, cheekHeightRatio,
+    eyebrowHeightRatio, eyebrowGap, lipFullness, noseFlare,
+    philtrum, cheekProminence, eyeHeightPos,
     nez_arete_base, levres_ratio, menton_ratio, machoire_bigoniale
   });
 
@@ -160,26 +185,19 @@ function classifySkinByITA(ita) {
   let tone, ambiguous = false;
 
   if (ita > 68) {
-    // Très clair automatique : nordique, est-asiatique très clair
     tone = "Claire";
-    ambiguous = false;
   } else if (ita > 45) {
-    // Claire à Claire-bronzée — popup
     tone = "Claire";
-    ambiguous = true;
   } else if (ita > 22) {
-    // Métis — popup
     tone = "Métis";
-    ambiguous = true;
   } else if (ita > -5) {
-    // Foncée — popup
     tone = "Foncée";
-    ambiguous = true;
   } else {
-    // Très foncée automatique
     tone = "Très foncée";
-    ambiguous = false;
   }
+
+  // Force l'affichage de la confirmation peau à 100% du temps
+  ambiguous = true;
 
   return { tone, ambiguous, ita: Math.round(ita * 10) / 10 };
 }
@@ -310,96 +328,42 @@ function classifyFaceShape(ratios) {
 }
 
 // ─── 6. SCORE DE SIMILARITÉ ENTRE PHOTO ET PRESET ─────────
-// TÂCHE 1 — HARD FILTER COULEUR PEAU
-// La couleur de peau est ÉLIMINATOIRE. Un écart > 1 cran = score 0 forcé.
+// Algorithme : Matching par Distance Absolue sur ratios_cibles
 //
-// BUDGET DE POINTS (total max = 120) :
-//   1. Peau        : 60 pts (hard filter + bonus)
-//   2. Forme       : 20 pts (diminué car trop souvent mal classée)
-//   3. Labels nez/lèvres : 20 pts (NOUVEAU — favorise les traits afro)
-//   4. Ratios morpho     : 20 pts (nez, mâchoire, joues)
+//   Filtre strict peau (inchangé) : écart > 1 cran → score 0
+//   Score base peau               : 60 pts (même cran) ou 15 pts (±1 cran)
+//   Score morpho                  : distance absolue sur 6 ratios, max 100 pts
+//     → si ratios_cibles non remplis : score de stand-by 20 pts
 function computePresetScore(ratios, skinTone, preset) {
   const skinMap = { "Claire": 0, "Métis": 1, "Foncée": 2, "Très foncée": 3 };
   const skinDiff = Math.abs((skinMap[skinTone] ?? 0) - (skinMap[preset.couleur_peau] ?? 0));
 
-  // ▶ FILTRE ÉLIMINATOIRE : écart > 1 cran → ce preset est hors jeu
+  // ▶ FILTRE ÉLIMINATOIRE : écart > 1 cran → hors jeu
   if (skinDiff > 1) return 0;
 
   let score = 0;
 
-  // 1. Couleur peau (60 pts max)
+  // Score peau
   if (skinDiff === 0) score += 60;
   else score += 15;
 
-  // 2. Correspondance forme visage (20 pts — réduit de 30 à 20)
-  const faceShape = classifyFaceShape(ratios);
-  if (faceShape === preset.forme_visage) score += 20;
-    // Anti-monopole : pénalité légère si ce preset a déjà dominé
-    // (évite qu'une seule tête écrase toutes les autres dans sa catégorie)
-    if (preset.position === 23 && faceShape === "Ovale") score -= 8;
-  else if (
-    (faceShape === "Carré" && preset.forme_visage === "Rond") ||
-    (faceShape === "Rond"  && preset.forme_visage === "Carré")
-  ) score += 10;
-
-  // 3. NOUVEAU — Labels morphologiques (20 pts)
-  // Si l'IA détecte un nez large (ratio élevé) et que le preset a
-  // nez_label="Large", bonus de 10 pts. Idem pour les lèvres.
-  // Cela différencie les presets 20 vs 25 qui ont les mêmes peau/forme.
-  const userNoseIsWide  = ratios.noseToInterEye > 0.48;  // nez large (calibré : Mbappé 0.475→Moyen, Haaland 0.504→Large)
-  const userLipsThick   = ratios.mouthToFace   < 0.38;   // lèvres pleines (inversé : mouthToFace = largeur, non épaisseur)
-
-  if (preset.nez_label) {
-    if (userNoseIsWide && preset.nez_label === "Large") score += 10;
-    else if (!userNoseIsWide && preset.nez_label === "Moyen") score += 5;
-    else if (!userNoseIsWide && preset.nez_label === "Large") score -= 3;
-  }
-  if (preset.levres_label) {
-    if (userLipsThick && preset.levres_label === "Pleines") score += 10;
-    else if (!userLipsThick && preset.levres_label === "Fines") score += 5;
-    else if (userLipsThick && preset.levres_label === "Fines") score -= 3;
+  // ▶ MATCHING PAR RATIOS — stand-by sécurisé si données non remplies
+  if (!preset.ratios_cibles || preset.ratios_cibles.nez === null) {
+    return score + 20;
   }
 
-  // Mâchoire label (8 pts)
-  const userJawIsWide = ratios.jawToFaceRatio > 0.76;
-  if (preset.machoire_label) {
-    if (userJawIsWide && preset.machoire_label === "Large") score += 8;
-    else if (!userJawIsWide && preset.machoire_label === "Moyenne") score += 4;
-    else if (userJawIsWide && preset.machoire_label === "Fine") score -= 3;
-  }
+  const diffNez      = Math.abs(ratios.noseToInterEye          - preset.ratios_cibles.nez);
+  const diffMachoire = Math.abs(ratios.jawToFaceRatio           - preset.ratios_cibles.machoire);
+  const diffJoues    = Math.abs(ratios.cheekToFaceRatio         - preset.ratios_cibles.joues);
+  const diffBouche   = Math.abs(ratios.mouthToFace              - preset.ratios_cibles.bouche);
+  const diffYeux     = Math.abs(ratios.eyeOpenness              - preset.ratios_cibles.yeux);
+  const diffSourcils = Math.abs((ratios.eyebrowHeightRatio || 0) - preset.ratios_cibles.sourcils);
 
-  // Pommettes label (6 pts)
-  const userCheekHigh = ratios.cheekToFaceRatio > 0.88;
-  if (preset.pommettes_label) {
-    if (userCheekHigh && preset.pommettes_label === "Hautes") score += 6;
-    else if (!userCheekHigh && preset.pommettes_label === "Moyennes") score += 3;
-    else if (userCheekHigh && preset.pommettes_label === "Basses") score -= 2;
-  }
+  const totalDiff = diffNez + diffMachoire + diffJoues + diffBouche + diffYeux + diffSourcils;
 
-  // Front label (6 pts)
-  const userFrontWide = ratios.widthHeightRatio > 0.80;
-  if (preset.front_label) {
-    if (userFrontWide && preset.front_label === "Large") score += 6;
-    else if (!userFrontWide && preset.front_label === "Moyen") score += 3;
-    else if (userFrontWide && preset.front_label === "Étroit") score -= 2;
-  }
-
-  // 4. Ratios morpho vs sliders du preset (20 pts)
-  // CORRECTIF v6 — plages calibrées (données terrain)
-  //   Nez    : [0.28, 0.55]  → 0.461 donne 67%
-  //   Mâch.  : [0.60, 0.85]  → 0.781 donne 72%
-  //   Joues  : [0.70, 0.95]  → inchangé
-  const presetNoseNorm  = preset.faconner.nez.reduire_elargir / 100;
-  const userNoseNorm    = Math.min(1, Math.max(0, (ratios.noseToInterEye - 0.28) / 0.27));
-  score += Math.max(0, 7 - Math.abs(presetNoseNorm - userNoseNorm) * 14);
-
-  const presetJawNorm   = preset.faconner.machoire.reduire_elargir / 100;
-  const userJawNorm     = Math.min(1, Math.max(0, (ratios.jawToFaceRatio - 0.60) / 0.25));
-  score += Math.max(0, 7 - Math.abs(presetJawNorm - userJawNorm) * 14);
-
-  const presetCheekNorm = preset.faconner.joues.reduire_elargir / 100;
-  const userCheekNorm   = Math.min(1, Math.max(0, (ratios.cheekToFaceRatio - 0.70) / 0.25));
-  score += Math.max(0, 6 - Math.abs(presetCheekNorm - userCheekNorm) * 12);
+  // Conversion diff → points (ratios sont de petits décimaux → ×100 pour pénalité lisible)
+  const penalty = totalDiff * 100;
+  score += Math.max(0, 100 - penalty);
 
   return score;
 }
@@ -1106,11 +1070,42 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+console.log('App Initialized');
+
 // --- App State ---
 const state = {
     isPremium: false,
     results: null
 };
+
+// --- Cropper helper — instancie ou réinstancie Cropper sur un <img> ---
+function initCropper(img) {
+    if (cropper) { cropper.destroy(); cropper = null; }
+    cropper = new Cropper(img, {
+        viewMode: 0,
+        dragMode: 'move',
+        aspectRatio: 9 / 16,
+        autoCropArea: 1,
+        cropBoxMovable: false,
+        cropBoxResizable: false,
+        background: false,
+        ready: function () {
+            const containerData = this.cropper.getContainerData();
+            const imageData = this.cropper.getImageData();
+            // Calcule le ratio pour que l'image couvre tout le conteneur (object-fit: cover)
+            const scaleRatio = Math.max(
+                containerData.width  / imageData.naturalWidth,
+                containerData.height / imageData.naturalHeight
+            );
+            this.cropper.zoomTo(scaleRatio);
+            // Centre l'image dans le conteneur
+            this.cropper.moveTo(
+                (containerData.width  - imageData.naturalWidth  * scaleRatio) / 2,
+                (containerData.height - imageData.naturalHeight * scaleRatio) / 2
+            );
+        }
+    });
+}
 
 // --- DOM Elements ---
 const screens = document.querySelectorAll('.screen');
@@ -1127,13 +1122,13 @@ const loadingIndicator = document.getElementById('loading-indicator');
 const resultsAccordion = document.getElementById('results-accordion');
 const btnShare = document.getElementById('btn-share');
 const btnPurchase = document.getElementById('btn-purchase');
-const capturedPhotoReview = document.getElementById('captured-photo-review');
 const reviewButtons = document.querySelector('.review-buttons');
 const btnRetake = document.getElementById('btn-retake');
 const btnConfirmAnalyze = document.getElementById('btn-confirm-analyze');
 
 let capturedBase64 = null;
 let capturedCanvas = null;
+let cropper = null;
 
 // --- Navigation Logic ---
 function resetScanUI() {
@@ -1142,16 +1137,19 @@ function resetScanUI() {
         window.localStream.getTracks().forEach(track => track.stop());
         window.localStream = null;
     }
+    // Détruit le cropper s'il est actif
+    if (cropper) { cropper.destroy(); cropper = null; }
     // Efface le canvas
     canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
-    // Réinitialise l'image de review
-    capturedPhotoReview.classList.add('hidden');
-    capturedPhotoReview.src = '';
+    // Réinitialise l'image
+    inputImage.classList.add('hidden');
+    inputImage.src = '';
     capturedBase64 = null;
     capturedCanvas = null;
     // Réinitialise les boutons
     reviewButtons.classList.add('hidden');
     btnCapture.classList.add('hidden');
+    btnAnalyzeUpload.classList.add('hidden');
     // Masque la vidéo
     inputVideo.classList.add('hidden');
 }
@@ -1230,44 +1228,48 @@ let camera = null;
 
 // --- Upload Photo Flow ---
 fileUpload.addEventListener('change', (e) => {
+    console.log('Button Clicked: fileUpload');
     const file = e.target.files[0];
     if (!file) return;
 
     if (window.localStream) {
         window.localStream.getTracks().forEach(track => track.stop());
+        window.localStream = null;
     }
-    inputVideo.classList.add('hidden');
+    capturedBase64 = null;
+    capturedCanvas = null;
+    if (cropper) { cropper.destroy(); cropper = null; }
 
     const reader = new FileReader();
     reader.onload = (event) => {
-        inputImage.src = event.target.result;
+        const dataUrl = event.target.result;
+
         inputImage.onload = () => {
-            inputImage.classList.remove('hidden');
+            initCropper(inputImage);
             inputVideo.classList.add('hidden');
-            btnAnalyzeUpload.classList.remove('hidden');
             btnCapture.classList.add('hidden');
-            
-            // Adjust canvas size
-            outputCanvas.width = inputImage.width;
-            outputCanvas.height = inputImage.height;
-            
+            btnAnalyzeUpload.classList.add('hidden');
+            reviewButtons.classList.remove('hidden');
             navigateTo('screen-scan');
-        }
+        };
+
+        inputImage.classList.remove('hidden');
+        inputImage.src = dataUrl;
     };
     reader.readAsDataURL(file);
+    fileUpload.value = '';
 });
 
 // --- Live Camera Flow ---
 btnCamera.addEventListener('click', () => {
-    // Réinitialisation complète de l'UI de scan
+    console.log('Button Clicked: btnCamera');
     capturedBase64 = null;
     capturedCanvas = null;
-    capturedPhotoReview.classList.add('hidden');
-    capturedPhotoReview.src = '';
+    if (cropper) { cropper.destroy(); cropper = null; }
     canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
     reviewButtons.classList.add('hidden');
-
     inputImage.classList.add('hidden');
+    inputImage.src = '';
     inputVideo.classList.remove('hidden');
     inputVideo.removeAttribute('hidden');
     inputVideo.style.display = 'block';
@@ -1327,37 +1329,68 @@ async function checkPhotoQuality(base64Image) {
     }
 }
 
-// Capture — Étape 1 : figer la frame et afficher pour review (aucune IA ici)
+// Capture — Étape 1 : figer la frame, corriger le miroir, injecter dans Cropper
 btnCapture.addEventListener('click', () => {
+    console.log('Button Clicked: btnCapture');
     capturedCanvas = document.createElement('canvas');
-    capturedCanvas.width = inputVideo.videoWidth;
+    capturedCanvas.width  = inputVideo.videoWidth;
     capturedCanvas.height = inputVideo.videoHeight;
-    capturedCanvas.getContext('2d').drawImage(inputVideo, 0, 0, capturedCanvas.width, capturedCanvas.height);
-    capturedBase64 = capturedCanvas.toDataURL('image/jpeg').split(',')[1];
 
-    capturedPhotoReview.src = 'data:image/jpeg;base64,' + capturedBase64;
-    capturedPhotoReview.classList.remove('hidden');
+    // La vidéo CSS est scaleX(-1) — on ré-inverse le canvas pour l'image naturelle
+    const ctx = capturedCanvas.getContext('2d');
+    ctx.translate(capturedCanvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(inputVideo, 0, 0, capturedCanvas.width, capturedCanvas.height);
+
+    const dataUrl = capturedCanvas.toDataURL('image/jpeg', 0.95);
+    capturedBase64 = dataUrl.split(',')[1];
+
+    inputImage.onload = () => {
+        initCropper(inputImage);
+        inputImage.onload = null;
+    };
+    inputImage.src = dataUrl;
+    inputImage.classList.remove('hidden');
     inputVideo.classList.add('hidden');
-
     btnCapture.classList.add('hidden');
     reviewButtons.classList.remove('hidden');
 });
 
-// Étape 1b : Reprendre — relancer le flux live
+// Étape 1b : Reprendre — détruit le cropper, relance live ou retourne à l'accueil
 btnRetake.addEventListener('click', () => {
+    console.log('Button Clicked: btnRetake');
     capturedBase64 = null;
     capturedCanvas = null;
-    capturedPhotoReview.classList.add('hidden');
-    capturedPhotoReview.src = '';
     canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
-    inputVideo.classList.remove('hidden');
     reviewButtons.classList.add('hidden');
-    btnCapture.classList.remove('hidden');
+
+    if (cropper) { cropper.destroy(); cropper = null; }
+    inputImage.classList.add('hidden');
+    inputImage.src = '';
+
+    // Stream live encore actif → mode Live Camera → relance la vidéo
+    if (window.localStream) {
+        inputVideo.classList.remove('hidden');
+        btnCapture.classList.remove('hidden');
+        return;
+    }
+
+    // Sinon mode Upload → retour à l'accueil
+    navigateTo('screen-home');
 });
 
-// Confirmer — Étape 2 : Azure quality check, puis envoyer l'image à l'IA
+// Confirmer — Étape 2 : extraire le crop, Azure quality check, puis MediaPipe
 btnConfirmAnalyze.addEventListener('click', async () => {
-    if (!capturedBase64) return;
+    console.log('Button Clicked: btnConfirmAnalyze');
+    if (!cropper) return;
+
+    const croppedCanvas = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' });
+    const imageDataUrl = croppedCanvas.toDataURL('image/jpeg', 0.95);
+    capturedBase64 = imageDataUrl.split(',')[1];
+
+    cropper.destroy();
+    cropper = null;
+    inputImage.classList.add('hidden');
 
     if (window.localStream) {
         window.localStream.getTracks().forEach(t => t.stop());
@@ -1380,9 +1413,11 @@ btnConfirmAnalyze.addEventListener('click', async () => {
 
     const img = new Image();
     img.onload = async () => {
-        await faceMesh.send({image: img});
+        outputCanvas.width  = img.naturalWidth;
+        outputCanvas.height = img.naturalHeight;
+        await faceMesh.send({ image: img });
     };
-    img.src = capturedPhotoReview.src;
+    img.src = imageDataUrl;
 });
 
 // Analyze (Upload)
@@ -1436,11 +1471,18 @@ function onResults(results) {
 
         // Perform Calculations (async — ITA may show confirmation UI)
         detectSkinToneFromCanvas(results.image, landmarks, (skinTone, skinMeta) => {
-            state.results = analyzeFace(landmarks, skinTone);
-            state.results.skinMeta = skinMeta;
+            const tempRatios = extractMorphRatios(landmarks);
             loadingIndicator.classList.add('hidden');
-            
-            showMorphoConfirmation(state.results.ratios, () => {
+
+            showMorphoConfirmation(tempRatios, () => {
+                state.results = analyzeFace(landmarks, skinTone);
+                state.results.skinMeta = skinMeta;
+                // Merge user-confirmed labels so renderResults can display them
+                if (state.results.ratios) {
+                    state.results.ratios.levres_label  = tempRatios.levres_label;
+                    state.results.ratios.nez_label     = tempRatios.nez_label;
+                    state.results.ratios.machoire_label = tempRatios.machoire_label;
+                }
                 navigateTo('screen-results');
             });
         });
@@ -1617,7 +1659,7 @@ function renderResults() {
     const rgb = detectSkinToneFromCanvas._lastRGB || {};
 
     let debugHtml = `
-      <div class="debug-banner" style="display:none; background:rgba(0,200,255,0.08); border:1px solid rgba(0,200,255,0.3); border-radius:8px; padding:12px 16px; margin-bottom:14px; font-size:0.82rem; color:var(--text-secondary,#aaa);">
+      <div class="debug-banner" style="background:rgba(0,200,255,0.08); border:1px solid rgba(0,200,255,0.3); border-radius:8px; padding:12px 16px; margin-bottom:14px; font-size:0.82rem; color:var(--text-secondary,#aaa);">
         <p style="font-weight:bold; color:#00c8ff; margin:0 0 6px;">🔍 <strong>Ce que l'IA a détecté sur ta photo</strong></p>
         <span>🎨 Peau (ITA: ${ita !== undefined ? Math.round(ita*10)/10 : '?'}°) : <strong>${result.skinTone}</strong>
         ${meta.auto ? '🤖 Auto' : '✅ Confirmé'}</span><br>
@@ -1625,7 +1667,7 @@ function renderResults() {
         <span>🎯 Preset : <strong>${result.preset.couleur_peau || result.detection?.presetSkinTone} / ${result.preset.forme_visage || result.detection?.presetFaceShape}</strong></span>
         <span>📊 Confiance : ✅ Haute (${result.score} pts)</span>
         <span>🔬 RGB : R${rgb.r} G${rgb.g} B${rgb.b} | Lab: L=${Math.round(lab.L||0)} a=${Math.round(lab.a||0)} b=${Math.round(lab.b||0)}</span>
-        <span>📐 Ratios bruts : Nez=${result.ratios?.noseToInterEye?.toFixed(3)} | Mâch=${result.ratios?.jawToFaceRatio?.toFixed(3)} | Joues=${result.ratios?.cheekToFaceRatio?.toFixed(3)} | Bouche=${result.ratios?.mouthToFace?.toFixed(3)}</span>
+        <span>📐 Ratios bruts : Nez=${result.ratios?.noseToInterEye?.toFixed(3)} | Mâch=${result.ratios?.jawToFaceRatio?.toFixed(3)} | Joues=${result.ratios?.cheekToFaceRatio?.toFixed(3)} | Bouche=${result.ratios?.mouthToFace?.toFixed(3)} | Yeux=${result.ratios?.eyeOpenness?.toFixed(3)} | Sourcils=${result.ratios?.eyebrowHeightRatio?.toFixed(3)} | EcartSourcils=${result.ratios?.eyebrowGap?.toFixed(3)} | VolLevres=${result.ratios?.lipFullness?.toFixed(3)} | EvasNez=${result.ratios?.noseFlare?.toFixed(3)} | Philtrum=${result.ratios?.philtrum?.toFixed(3)} | Pommettes=${result.ratios?.cheekProminence?.toFixed(3)} | PosYeux=${result.ratios?.eyeHeightPos?.toFixed(3)}</span>
       </div>
     `;
 

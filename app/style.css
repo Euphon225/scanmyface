@@ -218,6 +218,10 @@ header h2 {
     z-index: 1;
 }
 
+#input-video {
+    transform: scaleX(-1);
+}
+
 .review-buttons {
     display: flex;
     gap: 12px;
@@ -528,4 +532,26 @@ header h2 {
         box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         overflow: hidden;
     }
+}
+
+/* --- Cropper.js overrides — zone de crop invisible, libre mouvement --- */
+.cropper-view-box {
+    outline: none !important;
+    border: none !important;
+    border-radius: 50%;
+}
+.cropper-dashed,
+.cropper-point,
+.cropper-line,
+.cropper-center {
+    display: none !important;
+}
+.cropper-modal {
+    opacity: 0 !important;
+}
+.cropper-bg {
+    background: none !important;
+}
+.cropper-face {
+    background-color: transparent !important;
 }
