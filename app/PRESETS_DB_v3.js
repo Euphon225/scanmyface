@@ -87,7 +87,8 @@ const PRESETS_DB = [
       maxillaire: { re: 8, bh: 35, aa: 57, ang: 57 },
       mandibule: { re: 46, bh: 56, aa: 38, ang: 26 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.455, machoire: 0.817, joues: 0.881, bouche: 0.343, yeux: 0.068, sourcils: 0.129, eyebrowGap: 0.19, lipFullness: 0.101, noseFlare: 11.081, philtrum: 0.087, cheekProminence: 1.026, eyeHeightPos: 0.47 },
+    notes: ''
   },
   {
     position: 2,
@@ -177,13 +178,14 @@ const PRESETS_DB = [
       maxillaire: { re: 73, bh: 35, aa: 20, ang: 20 },
       mandibule: { re: 16, bh: 0, aa: 49, ang: 35 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.485, machoire: 0.825, joues: 0.902, bouche: 0.378, yeux: 0.052, sourcils: 0.141, eyebrowGap: 0.179, lipFullness: 0.144, noseFlare: 10.546, philtrum: 0.075, cheekProminence: 1.063, eyeHeightPos: 0.435 },
+    notes: 'visage asiatique avec nez gros nez (nez de cochon)'
   },
   {
     position: 3,
     preset_id: 170,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Claire-bronzée",
     forme_visage: "Rond",
     peau_detail: "Claire",
     forme_detail: "Rond",
@@ -267,13 +269,14 @@ const PRESETS_DB = [
       maxillaire: { re: 26, bh: 49, aa: 78, ang: 48 },
       mandibule: { re: 29, bh: 36, aa: 42, ang: 60 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.464, machoire: 0.79, joues: 0.889, bouche: 0.351, yeux: 0.061, sourcils: 0.126, eyebrowGap: 0.174, lipFullness: 0.101, noseFlare: 9.427, philtrum: 0.092, cheekProminence: 1.051, eyeHeightPos: 0.439 },
+    notes: 'visage asiatique'
   },
   {
     position: 4,
     preset_id: 17,
     // ── Labels morpho ──
-    couleur_peau: "Métis",
+    couleur_peau: "Claire-bronzée",
     forme_visage: "Ovale",
     peau_detail: "Métis claire",
     forme_detail: "Long",
@@ -357,13 +360,14 @@ const PRESETS_DB = [
       maxillaire: { re: 20, bh: 45, aa: 53, ang: 59 },
       mandibule: { re: 35, bh: 50, aa: 50, ang: 72 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.455, machoire: 0.797, joues: 0.896, bouche: 0.348, yeux: 0.061, sourcils: 0.138, eyebrowGap: 0.185, lipFullness: 0.112, noseFlare: 10.434, philtrum: 0.092, cheekProminence: 1.072, eyeHeightPos: 0.449 },
+    notes: 'joue creuse'
   },
   {
     position: 5,
     preset_id: 260,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Métis",
     forme_visage: "Ovale",
     peau_detail: "Claire-bronzée",
     forme_detail: "Ovale",
@@ -447,13 +451,14 @@ const PRESETS_DB = [
       maxillaire: { re: 19, bh: 33, aa: 58, ang: 41 },
       mandibule: { re: 31, bh: 40, aa: 41, ang: 75 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.483, machoire: 0.819, joues: 0.899, bouche: 0.388, yeux: 0.071, sourcils: 0.126, eyebrowGap: 0.175, lipFullness: 0.115, noseFlare: 10.137, philtrum: 0.078, cheekProminence: 1.043, eyeHeightPos: 0.455 },
+    notes: ''
   },
   {
     position: 6,
     preset_id: 116,
     // ── Labels morpho ──
-    couleur_peau: "Très foncée",
+    couleur_peau: "Foncée",
     forme_visage: "Ovale",
     peau_detail: "Foncée",
     forme_detail: "Ovale plein",
@@ -537,7 +542,8 @@ const PRESETS_DB = [
       maxillaire: { re: 76, bh: 16, aa: 57, ang: 45 },
       mandibule: { re: 31, bh: 30, aa: 74, ang: 23 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.492, machoire: 0.798, joues: 0.909, bouche: 0.382, yeux: 0.059, sourcils: 0.151, eyebrowGap: 0.194, lipFullness: 0.143, noseFlare: 11.566, philtrum: 0.081, cheekProminence: 1.053, eyeHeightPos: 0.453 },
+    notes: 'enorme narrine'
   },
   {
     position: 7,
@@ -627,7 +633,8 @@ const PRESETS_DB = [
       maxillaire: { re: 79, bh: 57, aa: 74, ang: 56 },
       mandibule: { re: 45, bh: 25, aa: 92, ang: 97 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.488, machoire: 0.815, joues: 0.906, bouche: 0.419, yeux: 0.057, sourcils: 0.139, eyebrowGap: 0.185, lipFullness: 0.126, noseFlare: 11.319, philtrum: 0.071, cheekProminence: 1.075, eyeHeightPos: 0.438 },
+    notes: ''
   },
   {
     position: 8,
@@ -717,13 +724,14 @@ const PRESETS_DB = [
       maxillaire: { re: 10, bh: 39, aa: 63, ang: 77 },
       mandibule: { re: 35, bh: 62, aa: 39, ang: 97 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.472, machoire: 0.793, joues: 0.887, bouche: 0.349, yeux: 0.053, sourcils: 0.142, eyebrowGap: 0.177, lipFullness: 0.093, noseFlare: 10.876, philtrum: 0.096, cheekProminence: 1.048, eyeHeightPos: 0.438 },
+    notes: ''
   },
   {
     position: 9,
     preset_id: 52,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Claire-bronzée",
     forme_visage: "Ovale",
     peau_detail: "Claire",
     forme_detail: "Carré large",
@@ -807,7 +815,8 @@ const PRESETS_DB = [
       maxillaire: { re: 19, bh: 50, aa: 58, ang: 48 },
       mandibule: { re: 30, bh: 52, aa: 50, ang: 75 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.459, machoire: 0.783, joues: 0.894, bouche: 0.376, yeux: 0.059, sourcils: 0.132, eyebrowGap: 0.184, lipFullness: 0.105, noseFlare: 10.254, philtrum: 0.1, cheekProminence: 1.056, eyeHeightPos: 0.435 },
+    notes: ''
   },
   {
     position: 10,
@@ -897,7 +906,8 @@ const PRESETS_DB = [
       maxillaire: { re: 6, bh: 74, aa: 52, ang: 44 },
       mandibule: { re: 67, bh: 60, aa: 8, ang: 100 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.457, machoire: 0.793, joues: 0.906, bouche: 0.346, yeux: 0.056, sourcils: 0.151, eyebrowGap: 0.211, lipFullness: 0.109, noseFlare: 10.522, philtrum: 0.089, cheekProminence: 1.035, eyeHeightPos: 0.456 },
+    notes: 'visage avec une jawline remarquable'
   },
   {
     position: 11,
@@ -987,13 +997,14 @@ const PRESETS_DB = [
       maxillaire: { re: 43, bh: 58, aa: 52, ang: 46 },
       mandibule: { re: 40, bh: 21, aa: 33, ang: 17 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.488, machoire: 0.808, joues: 0.905, bouche: 0.437, yeux: 0.054, sourcils: 0.15, eyebrowGap: 0.194, lipFullness: 0.165, noseFlare: 12.157, philtrum: 0.068, cheekProminence: 1.044, eyeHeightPos: 0.474 },
+    notes: ''
   },
   {
     position: 12,
     preset_id: 134,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Claire-bronzée",
     forme_visage: "Rond",
     peau_detail: "Claire",
     forme_detail: "Rond",
@@ -1077,7 +1088,8 @@ const PRESETS_DB = [
       maxillaire: { re: 34, bh: 31, aa: 76, ang: 39 },
       mandibule: { re: 3, bh: 31, aa: 62, ang: 59 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.488, machoire: 0.808, joues: 0.888, bouche: 0.34, yeux: 0.06, sourcils: 0.123, eyebrowGap: 0.178, lipFullness: 0.115, noseFlare: 10.462, philtrum: 0.107, cheekProminence: 1.071, eyeHeightPos: 0.425 },
+    notes: 'visage rond asiatique'
   },
   {
     position: 13,
@@ -1167,7 +1179,8 @@ const PRESETS_DB = [
       maxillaire: { re: 0, bh: 53, aa: 64, ang: 19 },
       mandibule: { re: 50, bh: 100, aa: 100, ang: 45 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.453, machoire: 0.802, joues: 0.877, bouche: 0.336, yeux: 0.064, sourcils: 0.124, eyebrowGap: 0.179, lipFullness: 0.102, noseFlare: 9.663, philtrum: 0.087, cheekProminence: 1.015, eyeHeightPos: 0.436 },
+    notes: ''
   },
   {
     position: 14,
@@ -1257,7 +1270,8 @@ const PRESETS_DB = [
       maxillaire: { re: 0, bh: 46, aa: 91, ang: 50 },
       mandibule: { re: 62, bh: 59, aa: 56, ang: 25 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.459, machoire: 0.781, joues: 0.901, bouche: 0.35, yeux: 0.057, sourcils: 0.139, eyebrowGap: 0.189, lipFullness: 0.07, noseFlare: 10.211, philtrum: 0.099, cheekProminence: 1.029, eyeHeightPos: 0.477 },
+    notes: ''
   },
   {
     position: 15,
@@ -1347,13 +1361,14 @@ const PRESETS_DB = [
       maxillaire: { re: 22, bh: 42, aa: 68, ang: 90 },
       mandibule: { re: 23, bh: 42, aa: 49, ang: 56 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.467, machoire: 0.796, joues: 0.891, bouche: 0.348, yeux: 0.059, sourcils: 0.149, eyebrowGap: 0.193, lipFullness: 0.107, noseFlare: 9.99, philtrum: 0.093, cheekProminence: 1.019, eyeHeightPos: 0.463 },
+    notes: 'Mono sourcils'
   },
   {
     position: 16,
     preset_id: 203,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Claire-bronzée",
     forme_visage: "Carré",
     peau_detail: "Claire",
     forme_detail: "Carré large",
@@ -1437,7 +1452,8 @@ const PRESETS_DB = [
       maxillaire: { re: 24, bh: 47, aa: 53, ang: 56 },
       mandibule: { re: 31, bh: 24, aa: 48, ang: 36 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.473, machoire: 0.809, joues: 0.89, bouche: 0.352, yeux: 0.067, sourcils: 0.125, eyebrowGap: 0.178, lipFullness: 0.113, noseFlare: 10.542, philtrum: 0.083, cheekProminence: 1.05, eyeHeightPos: 0.44 },
+    notes: ''
   },
   {
     position: 17,
@@ -1527,7 +1543,8 @@ const PRESETS_DB = [
       maxillaire: { re: 18, bh: 47, aa: 54, ang: 68 },
       mandibule: { re: 50, bh: 83, aa: 82, ang: 51 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.474, machoire: 0.771, joues: 0.892, bouche: 0.368, yeux: 0.055, sourcils: 0.136, eyebrowGap: 0.185, lipFullness: 0.094, noseFlare: 10.782, philtrum: 0.092, cheekProminence: 1.024, eyeHeightPos: 0.469 },
+    notes: ''
   },
   {
     position: 18,
@@ -1617,13 +1634,14 @@ const PRESETS_DB = [
       maxillaire: { re: 8, bh: 59, aa: 71, ang: 55 },
       mandibule: { re: 38, bh: 61, aa: 63, ang: 72 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.462, machoire: 0.783, joues: 0.889, bouche: 0.356, yeux: 0.061, sourcils: 0.14, eyebrowGap: 0.183, lipFullness: 0.117, noseFlare: 9.658, philtrum: 0.091, cheekProminence: 1.04, eyeHeightPos: 0.436 },
+    notes: 'visage asiatique'
   },
   {
     position: 19,
     preset_id: 57,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Foncée",
     forme_visage: "Ovale",
     peau_detail: "Claire-bronzée",
     forme_detail: "Ovale",
@@ -1707,7 +1725,8 @@ const PRESETS_DB = [
       maxillaire: { re: 42, bh: 59, aa: 79, ang: 48 },
       mandibule: { re: 47, bh: 75, aa: 90, ang: 65 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.451, machoire: 0.784, joues: 0.887, bouche: 0.355, yeux: 0.062, sourcils: 0.137, eyebrowGap: 0.193, lipFullness: 0.088, noseFlare: 9.68, philtrum: 0.09, cheekProminence: 1.047, eyeHeightPos: 0.449 },
+    notes: 'visage typé asie (thailandais)'
   },
   {
     position: 20,
@@ -1797,13 +1816,14 @@ const PRESETS_DB = [
       maxillaire: { re: 45, bh: 52, aa: 38, ang: 69 },
       mandibule: { re: 19, bh: 45, aa: 31, ang: 37 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.476, machoire: 0.786, joues: 0.904, bouche: 0.357, yeux: 0.053, sourcils: 0.147, eyebrowGap: 0.191, lipFullness: 0.135, noseFlare: 11.218, philtrum: 0.091, cheekProminence: 1.041, eyeHeightPos: 0.467 },
+    notes: ''
   },
   {
     position: 21,
     preset_id: 99,
     // ── Labels morpho ──
-    couleur_peau: "Foncée",
+    couleur_peau: "Métis",
     forme_visage: "Carré",
     peau_detail: "Métis foncée",
     forme_detail: "Ovale",
@@ -1887,7 +1907,8 @@ const PRESETS_DB = [
       maxillaire: { re: 53, bh: 28, aa: 71, ang: 74 },
       mandibule: { re: 39, bh: 27, aa: 60, ang: 86 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.485, machoire: 0.797, joues: 0.888, bouche: 0.372, yeux: 0.064, sourcils: 0.133, eyebrowGap: 0.183, lipFullness: 0.1, noseFlare: 10.13, philtrum: 0.118, cheekProminence: 1.033, eyeHeightPos: 0.431 },
+    notes: ''
   },
   {
     position: 22,
@@ -1977,7 +1998,8 @@ const PRESETS_DB = [
       maxillaire: { re: 5, bh: 42, aa: 58, ang: 50 },
       mandibule: { re: 1, bh: 39, aa: 52, ang: 40 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.454, machoire: 0.804, joues: 0.891, bouche: 0.374, yeux: 0.057, sourcils: 0.129, eyebrowGap: 0.183, lipFullness: 0.071, noseFlare: 10.384, philtrum: 0.086, cheekProminence: 1.039, eyeHeightPos: 0.46 },
+    notes: ''
   },
   {
     position: 23,
@@ -2067,13 +2089,14 @@ const PRESETS_DB = [
       maxillaire: { re: 82, bh: 7, aa: 70, ang: 95 },
       mandibule: { re: 14, bh: 24, aa: 76, ang: 39 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.489, machoire: 0.803, joues: 0.914, bouche: 0.399, yeux: 0.059, sourcils: 0.135, eyebrowGap: 0.197, lipFullness: 0.161, noseFlare: 11.456, philtrum: 0.076, cheekProminence: 1.076, eyeHeightPos: 0.452 },
+    notes: ''
   },
   {
     position: 24,
     preset_id: 151,
     // ── Labels morpho ──
-    couleur_peau: "Métis",
+    couleur_peau: "Foncée",
     forme_visage: "Long",
     peau_detail: "Métis",
     forme_detail: "Long",
@@ -2157,7 +2180,8 @@ const PRESETS_DB = [
       maxillaire: { re: 26, bh: 7, aa: 72, ang: 57 },
       mandibule: { re: 50, bh: 67, aa: 74, ang: 74 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.45, machoire: 0.801, joues: 0.908, bouche: 0.397, yeux: 0.055, sourcils: 0.135, eyebrowGap: 0.217, lipFullness: 0.165, noseFlare: 11.512, philtrum: 0.073, cheekProminence: 1.034, eyeHeightPos: 0.493 },
+    notes: ''
   },
   {
     position: 25,
@@ -2247,7 +2271,8 @@ const PRESETS_DB = [
       maxillaire: { re: 78, bh: 32, aa: 60, ang: 90 },
       mandibule: { re: 19, bh: 55, aa: 75, ang: 13 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.48, machoire: 0.81, joues: 0.901, bouche: 0.404, yeux: 0.063, sourcils: 0.149, eyebrowGap: 0.196, lipFullness: 0.132, noseFlare: 11.184, philtrum: 0.076, cheekProminence: 1.044, eyeHeightPos: 0.471 },
+    notes: ''
   },
   {
     position: 26,
@@ -2337,7 +2362,8 @@ const PRESETS_DB = [
       maxillaire: { re: 0, bh: 53, aa: 64, ang: 19 },
       mandibule: { re: 50, bh: 100, aa: 100, ang: 45 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.447, machoire: 0.806, joues: 0.885, bouche: 0.339, yeux: 0.07, sourcils: 0.141, eyebrowGap: 0.184, lipFullness: 0.068, noseFlare: 9.537, philtrum: 0.098, cheekProminence: 1.044, eyeHeightPos: 0.442 },
+    notes: ''
   },
   {
     position: 27,
@@ -2427,13 +2453,14 @@ const PRESETS_DB = [
       maxillaire: { re: 46, bh: 48, aa: 64, ang: 41 },
       mandibule: { re: 61, bh: 43, aa: 56, ang: 66 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.491, machoire: 0.823, joues: 0.919, bouche: 0.439, yeux: 0.065, sourcils: 0.149, eyebrowGap: 0.205, lipFullness: 0.129, noseFlare: 10.683, philtrum: 0.082, cheekProminence: 1.052, eyeHeightPos: 0.456 },
+    notes: ''
   },
   {
     position: 28,
     preset_id: 1003,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Claire-bronzée",
     forme_visage: "Carré",
     peau_detail: "Claire-bronzée",
     forme_detail: "Long",
@@ -2517,13 +2544,14 @@ const PRESETS_DB = [
       maxillaire: { re: 57, bh: 47, aa: 61, ang: 86 },
       mandibule: { re: 18, bh: 41, aa: 55, ang: 99 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.483, machoire: 0.808, joues: 0.897, bouche: 0.402, yeux: 0.064, sourcils: 0.131, eyebrowGap: 0.182, lipFullness: 0.104, noseFlare: 9.472, philtrum: 0.082, cheekProminence: 1.053, eyeHeightPos: 0.427 },
+    notes: ''
   },
   {
     position: 29,
     preset_id: 1004,
     // ── Labels morpho ──
-    couleur_peau: "Claire",
+    couleur_peau: "Claire-bronzée",
     forme_visage: "Ovale",
     peau_detail: "Claire",
     forme_detail: "Long",
@@ -2607,7 +2635,8 @@ const PRESETS_DB = [
       maxillaire: { re: 38, bh: 36, aa: 72, ang: 25 },
       mandibule: { re: 26, bh: 70, aa: 97, ang: 82 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.473, machoire: 0.808, joues: 0.904, bouche: 0.372, yeux: 0.061, sourcils: 0.139, eyebrowGap: 0.178, lipFullness: 0.093, noseFlare: 10.536, philtrum: 0.085, cheekProminence: 1.058, eyeHeightPos: 0.467 },
+    notes: ''
   },
   {
     position: 30,
@@ -2697,7 +2726,8 @@ const PRESETS_DB = [
       maxillaire: { re: 33, bh: 54, aa: 54, ang: 42 },
       mandibule: { re: 50, bh: 43, aa: 72, ang: 12 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.463, machoire: 0.805, joues: 0.895, bouche: 0.37, yeux: 0.067, sourcils: 0.135, eyebrowGap: 0.183, lipFullness: 0.098, noseFlare: 9.716, philtrum: 0.085, cheekProminence: 1.05, eyeHeightPos: 0.45 },
+    notes: ''
   },
   {
     position: 31,
@@ -2787,7 +2817,8 @@ const PRESETS_DB = [
       maxillaire: { re: 8, bh: 35, aa: 57, ang: 57 },
       mandibule: { re: 46, bh: 56, aa: 38, ang: 26 },
     },
-    ratios_cibles: { nez: null, machoire: null, joues: null, bouche: null, yeux: null, sourcils: null, eyebrowGap: null, lipFullness: null, noseFlare: null, philtrum: null, cheekProminence: null, eyeHeightPos: null }
+    ratios_cibles: { nez: 0.462, machoire: 0.799, joues: 0.894, bouche: 0.36, yeux: 0.06, sourcils: 0.139, eyebrowGap: 0.192, lipFullness: 0.097, noseFlare: 10.968, philtrum: 0.087, cheekProminence: 1.04, eyeHeightPos: 0.465 },
+    notes: ''
   },
 ];
 

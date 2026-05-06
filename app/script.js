@@ -1,7 +1,397 @@
 // ============================================================
 // FC26 CRANIUM ANALYZER — PRESET MATCHER v1.0
-// Intégrer dans script.js (Antigravity)
 // ============================================================
+
+// --- 1. SURVIVAL & i18n BLOCK ---
+let capturedBase64 = null;
+let capturedCanvas = null;
+let cropper = null;
+let currentLang = 'fr';
+
+const state = {
+    results: null,
+    zoneMix: null,
+    pendingAnalysis: null,
+    isPremium: false
+};
+
+const i18n = {
+    fr: {
+        // === ÉCRANS PRINCIPAUX ===
+        'app.title': 'FC26 CRANIUM',
+        'app.title.cranium': 'CRANIUM',
+        'app.subtitle': 'Pro Face Geometry Analyzer',
+        'screen.scan.title': 'Scanning',
+        'screen.preset.title': 'Choix du Modèle',
+        'preset.head': 'TÊTE',
+        'screen.results.title': 'Résultats',
+        'screen.premium.title': 'Premium',
+        
+        // === BOUTONS PRINCIPAUX ===
+        'btn.camera': 'Live Camera',
+        'btn.upload': 'Upload Photo',
+        'btn.capture': 'Capturer & Analyser',
+        'btn.analyze.upload': 'Analyser la Photo',
+        'btn.retake': '↩ Reprendre',
+        'btn.confirm.analyze': '✓ Confirmer & Analyser',
+        'btn.choose': 'Choisir',
+        'btn.unlock.all': 'Déverrouiller Tout',
+        'btn.get.premium': 'Obtenir Premium',
+        'btn.unlock.now': 'Déverrouiller Maintenant',
+        'btn.share': 'Partager',
+        
+        // === ZONES FACIALES ===
+        'zone.front': 'Front',
+        'zone.machoire': 'Mâchoire',
+        'zone.joues': 'Joues',
+        'zone.menton': 'Menton',
+        'zone.oreilles': 'Oreilles',
+        'zone.cou': 'Cou',
+        'zone.yeux': 'Yeux',
+        'zone.sourcils': 'Sourcils',
+        'zone.nez': 'Nez',
+        'zone.bouche': 'Bouche',
+        
+        // === ZONES AVANCÉES ===
+        'adv.zone.head': 'Tête',
+        'adv.zone.front': 'Front',
+        'adv.zone.brows': 'Sourcils',
+        'adv.zone.eyes': 'Yeux',
+        'adv.zone.nose': 'Nez',
+        'adv.zone.cheeks': 'Joues',
+        'adv.zone.mouth': 'Bouche',
+        'adv.zone.chin': 'Menton',
+        'adv.zone.jaw': 'Mâchoire',
+        
+        // === SOUS-LABELS AVANCÉS ===
+        'adv.crane.principal': 'Crâne principal',
+        'adv.crane.couronne': 'Couronne',
+        'adv.crane.arriere': 'Arrière du crâne',
+        'adv.crane.tempes': 'Tempes',
+        'adv.front.sup': 'Partie supérieure',
+        'adv.front.inf': 'Partie inférieure',
+        'adv.sourcils.principal': 'Sourcils',
+        'adv.sourcils.centre': 'Partie centrale',
+        'adv.sourcils.ext': 'Partie extérieure',
+        'adv.yeux.principal': 'Yeux',
+        'adv.yeux.orbites': 'Orbites',
+        'adv.nez.principal': 'Nez principal',
+        'adv.nez.arete.cotes': 'Arête côtés',
+        'adv.nez.arete.centre': 'Arête centrale',
+        'adv.nez.arete.sup': 'Arête supérieure',
+        'adv.joues.principal': 'Joues',
+        'adv.bouche.principal': 'Bouche',
+        'adv.bouche.ext': 'Extérieur sup.',
+        'adv.menton.principal': 'Menton',
+        'adv.menton.sup': 'Partie supérieure',
+        'adv.machoire.principal': 'Mâchoire',
+        'adv.machoire.maxillaire': 'Maxillaire',
+        'adv.machoire.mandibule': 'Mandibule',
+        
+        // === KEY LABELS POUR SLIDERS ===
+        'slider.re': 'Réduire/Élargir',
+        'slider.bh': 'Bas/Haut',
+        'slider.na': 'Neutre/Avant',
+        'slider.aa': 'Arrière/Avant',
+        'slider.ang': 'Arrondi/Angulaire',
+        'slider.gd': 'Gauche/Droite',
+        'slider.nr': 'Neutre/Arrondi',
+        'slider.nh': 'Neutre/Haut',
+        'slider.gp': 'Plus grande/Petite',
+        
+        // === CONFIRMATION MORPHOLOGIE ===
+        'morph.confirm.title': 'CONFIRMATION',
+        'morph.lips.question': '1. Tes lèvres sont :',
+        'morph.nose.question': '2. Ton nez est :',
+        'morph.jaw.question': '3. Ta mâchoire est :',
+        'morph.lips.fine': 'Fines',
+        'morph.lips.medium': 'Moyennes',
+        'morph.lips.full': 'Pleines',
+        'morph.nose.fine': 'Fin',
+        'morph.nose.medium': 'Moyen',
+        'morph.nose.large': 'Large',
+        'morph.jaw.fine': 'Fine',
+        'morph.jaw.medium': 'Moyenne',
+        'morph.jaw.large': 'Large',
+        'morph.confirm.btn': 'CONFIRMER',
+        
+        // === RÉSULTATS & INSTRUCTIONS ===
+        'results.title': '🎯 Résultat pour ton visage',
+        'step1.title': 'ÉTAPE 1 — Choisis cette tête dans FC26 :',
+        'step2.title': 'ÉTAPE 2 — Onglet Tête',
+        'step2.desc': 'Dans FC26, onglet Tête — une tête par zone',
+        'adv.title': 'Façonnage Avancé',
+        'adv.desc': 'Active "Façonnage Avancé" dans FC26 puis applique ces valeurs',
+        
+        // === QUALITÉ AUDIO/VIDÉO ===
+        'qa.noface': 'Aucun visage détecté. Réessaie.',
+        'qa.blur': 'Photo trop floue. Prends une photo plus nette.',
+        'qa.light': 'Éclairage insuffisant. Trouve un endroit plus lumineux.',
+        'qa.angle': 'Tiens ta tête droite face à la caméra.',
+        
+        // === CHARGEMENT & MESSAGES ===
+        'loading.landmarks': 'Détection de 468 points faciaux...',
+        'copied': 'Copié !',
+        'preset.id': 'ID Preset',
+        
+        // === BADGE & PREMIUM ===
+        'badge.free': 'Free Tier',
+        'divider.or': 'OU',
+        'preset.message': 'L\'IA a trouvé ces 3 modèles. Lequel te semble le plus proche ?',
+        'premium.gate.text': 'Déverrouille 6 zones avancées supplémentaires (Crâne, Menton, Sourcils, Front, Bouche, Oreilles) et l\'Export PDF.',
+        'premium.hero.sub': 'Obtiens l\'avantage concurrentiel dans FC26',
+        'premium.access': 'ACCÈS PRO',
+        'premium.feat1': '✓ Déverrouille les 10 zones faciales',
+        'premium.feat2': '✓ Mappage de précision extrême',
+        'premium.feat3': '✓ Exporte la feuille de sliders en PDF',
+        'premium.feat4': '✓ Sans publicités',
+        'premium.price': '$4.99',
+        'premium.period': 'une seule fois',
+        
+        // === TONES DE PEAU ===
+        'skin.tone.very.light': 'Très claire',
+        'skin.tone.light': 'Claire',
+        'skin.tone.light.tanned': 'Claire-bronzée',
+        'skin.tone.medium': 'Métisse',
+        'skin.tone.dark': 'Foncée',
+        'skin.tone.very.dark': 'Très foncée',
+        'skin.confirm': 'Confirme ta teinte de peau',
+        'skin.ai.suggests': 'L\'IA suggère :',
+        
+        // === ALERTES ===
+        'alert.camera.permission': 'Accès à la caméra impossible. Vérifie les permissions.',
+        'alert.camera.not.supported': 'Ton navigateur ne supporte pas la capture vidéo.',
+        'alert.no.face': 'Aucun visage détecté. Réessaie avec une autre photo.',
+        'alert.share.not.supported': 'L\'API Web Share n\'est pas supportée sur ce navigateur.'
+    },
+    en: {
+        // === MAIN SCREENS ===
+        'app.title': 'FC26 CRANIUM',
+        'app.title.cranium': 'CRANIUM',
+        'app.subtitle': 'Pro Face Geometry Analyzer',
+        'screen.scan.title': 'Scanning',
+        'screen.preset.title': 'Choose Model',
+        'preset.head': 'HEAD',
+        'screen.results.title': 'Results',
+        'screen.premium.title': 'Premium',
+        
+        // === MAIN BUTTONS ===
+        'btn.camera': 'Live Camera',
+        'btn.upload': 'Upload Photo',
+        'btn.capture': 'Capture & Analyze',
+        'btn.analyze.upload': 'Analyze Photo',
+        'btn.retake': '↩ Retake',
+        'btn.confirm.analyze': '✓ Confirm & Analyze',
+        'btn.choose': 'Choose',
+        'btn.unlock.all': 'Unlock All',
+        'btn.get.premium': 'Get Premium',
+        'btn.unlock.now': 'Unlock Now',
+        'btn.share': 'Share',
+        
+        // === FACIAL ZONES ===
+        'zone.front': 'Forehead',
+        'zone.machoire': 'Jaw',
+        'zone.joues': 'Cheeks',
+        'zone.menton': 'Chin',
+        'zone.oreilles': 'Ears',
+        'zone.cou': 'Neck',
+        'zone.yeux': 'Eyes',
+        'zone.sourcils': 'Brows',
+        'zone.nez': 'Nose',
+        'zone.bouche': 'Mouth',
+        
+        // === ADVANCED ZONES ===
+        'adv.zone.head': 'Head',
+        'adv.zone.front': 'Forehead',
+        'adv.zone.brows': 'Brows',
+        'adv.zone.eyes': 'Eyes',
+        'adv.zone.nose': 'Nose',
+        'adv.zone.cheeks': 'Cheeks',
+        'adv.zone.mouth': 'Mouth',
+        'adv.zone.chin': 'Chin',
+        'adv.zone.jaw': 'Jaw',
+        
+        // === ADVANCED SUB-LABELS ===
+        'adv.crane.principal': 'Main Skull',
+        'adv.crane.couronne': 'Crown',
+        'adv.crane.arriere': 'Back of Head',
+        'adv.crane.tempes': 'Temples',
+        'adv.front.sup': 'Upper Part',
+        'adv.front.inf': 'Lower Part',
+        'adv.sourcils.principal': 'Brows',
+        'adv.sourcils.centre': 'Central Part',
+        'adv.sourcils.ext': 'Outer Part',
+        'adv.yeux.principal': 'Eyes',
+        'adv.yeux.orbites': 'Eye Sockets',
+        'adv.nez.principal': 'Main Nose',
+        'adv.nez.arete.cotes': 'Bridge Sides',
+        'adv.nez.arete.centre': 'Bridge Center',
+        'adv.nez.arete.sup': 'Upper Bridge',
+        'adv.joues.principal': 'Cheeks',
+        'adv.bouche.principal': 'Mouth',
+        'adv.bouche.ext': 'Upper Exterior',
+        'adv.menton.principal': 'Chin',
+        'adv.menton.sup': 'Upper Part',
+        'adv.machoire.principal': 'Jaw',
+        'adv.machoire.maxillaire': 'Maxilla',
+        'adv.machoire.mandibule': 'Mandible',
+        
+        // === KEY LABELS FOR SLIDERS ===
+        'slider.re': 'Reduce/Widen',
+        'slider.bh': 'Down/Up',
+        'slider.na': 'Neutral/Forward',
+        'slider.aa': 'Back/Forward',
+        'slider.ang': 'Rounded/Angular',
+        'slider.gd': 'Left/Right',
+        'slider.nr': 'Neutral/Rounded',
+        'slider.nh': 'Neutral/Up',
+        'slider.gp': 'Larger/Smaller',
+        
+        // === MORPHOLOGY CONFIRMATION ===
+        'morph.confirm.title': 'CONFIRMATION',
+        'morph.lips.question': '1. Your lips are:',
+        'morph.nose.question': '2. Your nose is:',
+        'morph.jaw.question': '3. Your jaw is:',
+        'morph.lips.fine': 'Thin',
+        'morph.lips.medium': 'Medium',
+        'morph.lips.full': 'Full',
+        'morph.nose.fine': 'Thin',
+        'morph.nose.medium': 'Medium',
+        'morph.nose.large': 'Large',
+        'morph.jaw.fine': 'Thin',
+        'morph.jaw.medium': 'Medium',
+        'morph.jaw.large': 'Large',
+        'morph.confirm.btn': 'CONFIRM',
+        
+        // === RESULTS & INSTRUCTIONS ===
+        'results.title': '🎯 Result for your face',
+        'step1.title': 'STEP 1 — Choose this head in FC26:',
+        'step2.title': 'STEP 2 — Head Tab',
+        'step2.desc': 'In FC26, Head tab — one head per zone',
+        'adv.title': 'Advanced Sculpting',
+        'adv.desc': 'Enable "Advanced Sculpting" in FC26 then apply these values',
+        
+        // === QUALITY CHECKS ===
+        'qa.noface': 'No face detected. Try again.',
+        'qa.blur': 'Photo too blurry. Take a clearer photo.',
+        'qa.light': 'Insufficient lighting. Find a brighter spot.',
+        'qa.angle': 'Keep your head straight facing the camera.',
+        
+        // === LOADING & MESSAGES ===
+        'loading.landmarks': 'Detecting 468 facial landmarks...',
+        'copied': 'Copied!',
+        'preset.id': 'Preset ID',
+        
+        // === BADGE & PREMIUM ===
+        'badge.free': 'Free Tier',
+        'divider.or': 'OR',
+        'preset.message': 'The AI found these 3 models. Which one looks closest to you?',
+        'premium.gate.text': 'Unlock 6 advanced zones (Head, Chin, Brows, Forehead, Mouth, Ears) and PDF Export.',
+        'premium.hero.sub': 'Get the competitive edge in FC26',
+        'premium.access': 'PRO ACCESS',
+        'premium.feat1': '✓ Unlock all 10 facial zones',
+        'premium.feat2': '✓ Pinpoint accuracy mapping',
+        'premium.feat3': '✓ Export slider sheet to PDF',
+        'premium.feat4': '✓ No ads',
+        'premium.price': '$4.99',
+        'premium.period': 'one-time',
+        
+        // === SKIN TONES ===
+        'skin.tone.very.light': 'Very Light',
+        'skin.tone.light': 'Light',
+        'skin.tone.light.tanned': 'Light-Tanned',
+        'skin.tone.medium': 'Medium',
+        'skin.tone.dark': 'Dark',
+        'skin.tone.very.dark': 'Very Dark',
+        'skin.confirm': 'Confirm your skin tone',
+        'skin.ai.suggests': 'The AI suggests:',
+        
+        // === ALERTS ===
+        'alert.camera.permission': 'Camera access denied. Please check your permissions.',
+        'alert.camera.not.supported': 'Your browser does not support video capture.',
+        'alert.no.face': 'No face detected. Please try another photo.',
+        'alert.share.not.supported': 'Web Share API is not supported on this browser.',
+        'btn.unlock.now': 'Unlock Now'
+    }
+};
+
+window.setLanguage = function(lang) {
+    if (!i18n[lang]) return;
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        if (btn) btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        if (el) {
+            const key = el.dataset.i18n;
+            if (i18n[lang][key]) el.textContent = i18n[lang][key];
+        }
+    });
+    if (document.querySelector('#screen-preset-choice.active') && (state.pendingTop3 || state.pendingAnalysis)) {
+      const top3 = state.pendingTop3 || state.pendingAnalysis.scores.slice(0, 3)
+        .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
+        .filter(item => item.preset);
+      showPresetChoiceScreen(top3);
+    }
+    if (state.zoneMix && typeof renderZoneMix === 'function') renderZoneMix(state.zoneMix);
+    if (document.querySelector('.preset-header')) {
+        if (typeof renderResults === 'function') renderResults();
+    }
+};
+
+window.t = function(key) {
+    return i18n[currentLang] && i18n[currentLang][key] ? i18n[currentLang][key] : key;
+};
+
+// Global handles for Survival
+let btnCamera, fileUpload, screens, navButtons, btnCapture, btnAnalyzeUpload, inputVideo, inputImage, outputCanvas, canvasCtx, loadingIndicator, resultsAccordion, btnShare, btnPurchase, reviewButtons, btnRetake, btnConfirmAnalyze;
+
+window.addEventListener('DOMContentLoaded', () => {
+    // Basic elements
+    screens = document.querySelectorAll('.screen');
+    navButtons = document.querySelectorAll('[data-target]');
+    fileUpload = document.getElementById('file-upload');
+    btnCamera = document.getElementById('btn-camera');
+    btnCapture = document.getElementById('btn-capture');
+    btnAnalyzeUpload = document.getElementById('btn-analyze-upload');
+    inputVideo = document.getElementById('input-video');
+    inputImage = document.getElementById('input-image');
+    outputCanvas = document.getElementById('output-canvas');
+    if (outputCanvas) canvasCtx = outputCanvas.getContext('2d');
+    loadingIndicator = document.getElementById('loading-indicator');
+    resultsAccordion = document.getElementById('results-accordion');
+    btnShare = document.getElementById('btn-share');
+    btnPurchase = document.getElementById('btn-purchase');
+    reviewButtons = document.querySelector('.review-buttons');
+    btnRetake = document.getElementById('btn-retake');
+    btnConfirmAnalyze = document.getElementById('btn-confirm-analyze');
+
+    // Survival Listeners
+    if (btnCamera) btnCamera.addEventListener('click', () => { if (typeof startLiveScan === 'function') startLiveScan(); });
+    if (fileUpload) fileUpload.addEventListener('change', (e) => { if (typeof handleFileUpload === 'function') handleFileUpload(e); });
+    if (btnCapture) btnCapture.addEventListener('click', () => { if (typeof capturePhoto === 'function') capturePhoto(); });
+    if (btnRetake) btnRetake.addEventListener('click', () => { if (typeof retakePhoto === 'function') retakePhoto(); });
+    if (btnConfirmAnalyze) btnConfirmAnalyze.addEventListener('click', () => { if (typeof confirmAndAnalyze === 'function') confirmAndAnalyze(); });
+    if (btnAnalyzeUpload) btnAnalyzeUpload.addEventListener('click', () => { if (typeof analyzeUpload === 'function') analyzeUpload(); });
+    if (btnShare) btnShare.addEventListener('click', () => { if (typeof shareResults === 'function') shareResults(); });
+    if (btnPurchase) btnPurchase.addEventListener('click', () => { if (typeof purchasePremium === 'function') purchasePremium(); });
+
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (typeof navigateTo === 'function') navigateTo(btn.dataset.target);
+        });
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            setLanguage(btn.dataset.lang);
+        });
+    });
+    setLanguage('fr');
+});
+
 
 
 // ─── 2. HELPER : DISTANCE ENTRE 2 LANDMARKS ───────────────
@@ -182,39 +572,49 @@ function classifySkinByITA(ita) {
   // Approche pragmatique : popup pour presque tout le monde
   // L'éclairage de photo rend toute classification automatique
   // trop risquée dans la plage 0°-68°
-  let tone, ambiguous = false;
+  let toneKey, ambiguous = false;
 
   if (ita > 68) {
-    tone = "Claire";
+    toneKey = "skin.tone.very.light";
   } else if (ita > 45) {
-    tone = "Claire";
+    toneKey = "skin.tone.light";
   } else if (ita > 22) {
-    tone = "Métis";
+    toneKey = "skin.tone.medium";
   } else if (ita > -5) {
-    tone = "Foncée";
+    toneKey = "skin.tone.dark";
   } else {
-    tone = "Très foncée";
+    toneKey = "skin.tone.very.dark";
   }
 
   // Force l'affichage de la confirmation peau à 100% du temps
   ambiguous = true;
 
-  return { tone, ambiguous, ita: Math.round(ita * 10) / 10 };
+  return { toneKey, ambiguous, ita: Math.round(ita * 10) / 10 };
 }
 
 // ── 4. UI de confirmation peau ────────────────────────────────
 // Affiche une bottom sheet avec 5 swatches quand ITA est ambigu
-function showSkinConfirmUI(suggestedTone, ita, onConfirm) {
+function showSkinConfirmUI(suggestedToneKey, ita, onConfirm) {
   // Supprime popup existant
   const existing = document.getElementById('skin-confirm-overlay');
   if (existing) existing.remove();
 
+  // Mapping des clés de traduction aux données des swatches
+  const toneMapping = {
+    'skin.tone.very.light': { lab: "#F5DEB3", emoji: "🏻" },
+    'skin.tone.light': { lab: "#F5DEB3", emoji: "🏻" },  // Re-utilisé pour "Very Light"
+    'skin.tone.light.tanned': { lab: "#D4A574", emoji: "🏼" },
+    'skin.tone.medium': { lab: "#C68642", emoji: "🏽" },
+    'skin.tone.dark': { lab: "#8D5524", emoji: "🏾" },
+    'skin.tone.very.dark': { lab: "#4A2912", emoji: "🏿" },
+  };
+
   const swatches = [
-    { tone: "Claire",         lab: "#F5DEB3", label: "Claire",         emoji: "🏻" },
-    { tone: "Claire",         lab: "#D4A574", label: "Claire-bronzée", emoji: "🏼" },
-    { tone: "Métis",          lab: "#C68642", label: "Métis",          emoji: "🏽" },
-    { tone: "Foncée",         lab: "#8D5524", label: "Foncée",         emoji: "🏾" },
-    { tone: "Très foncée",    lab: "#4A2912", label: "Très foncée",    emoji: "🏿" },
+    { key: 'skin.tone.very.light', ...toneMapping['skin.tone.very.light'] },
+    { key: 'skin.tone.light.tanned', ...toneMapping['skin.tone.light.tanned'] },
+    { key: 'skin.tone.medium', ...toneMapping['skin.tone.medium'] },
+    { key: 'skin.tone.dark', ...toneMapping['skin.tone.dark'] },
+    { key: 'skin.tone.very.dark', ...toneMapping['skin.tone.very.dark'] },
   ];
 
   const overlay = document.createElement('div');
@@ -256,19 +656,19 @@ function showSkinConfirmUI(suggestedTone, ita, onConfirm) {
 
     <div style="text-align:center; margin-bottom:20px;">
       <p style="color:#a0aab2; font-size:13px; margin-bottom:4px;">
-        L'IA suggère : <strong style="color:#00f0ff;">${suggestedTone}</strong>
+        ${t('skin.ai.suggests')} <strong style="color:#00f0ff;">${t(suggestedToneKey)}</strong>
         <span style="color:#555; font-size:11px;">(ITA: ${ita}°)</span>
       </p>
       <h3 style="color:#fff; font-size:1.1rem; font-family:'Outfit',sans-serif; text-transform:uppercase; letter-spacing:1px;">
-        Confirme ta teinte de peau
+        ${t('skin.confirm')}
       </h3>
     </div>
 
     <div style="display:flex; gap:4px; justify-content:center; margin-bottom:24px;" id="swatches-row">
       ${swatches.map((s, i) => `
-        <button class="swatch-btn" data-tone="${s.tone}" data-index="${i}" onclick="selectSwatch(this)">
+        <button class="swatch-btn" data-tone-key="${s.key}" data-index="${i}" onclick="selectSwatch(this)">
           <div class="swatch-circle" style="background:${s.lab};"></div>
-          <span class="swatch-label">${s.label}</span>
+          <span class="swatch-label">${t(s.key)}</span>
         </button>
       `).join('')}
     </div>
@@ -279,7 +679,7 @@ function showSkinConfirmUI(suggestedTone, ita, onConfirm) {
       font-weight:700; font-size:1rem; text-transform:uppercase;
       cursor:pointer; opacity:0.4; pointer-events:none;
       transition: opacity 0.2s;
-    ">Confirmer →</button>
+    ">${t('morph.confirm.btn')}</button>
   `;
 
   overlay.appendChild(sheet);
@@ -287,11 +687,11 @@ function showSkinConfirmUI(suggestedTone, ita, onConfirm) {
 
   // Stocke le callback
   window._skinConfirmCallback = onConfirm;
-  window._selectedSkinTone = null;
+  window._selectedSkinToneKey = null;
 
   // Pré-sélectionne la suggestion
   setTimeout(() => {
-    const suggIdx = swatches.findIndex(s => s.tone === suggestedTone);
+    const suggIdx = swatches.findIndex(s => s.key === suggestedToneKey);
     const btns = document.querySelectorAll('.swatch-btn');
     if (btns[suggIdx]) {
       btns[suggIdx].click();
@@ -302,7 +702,7 @@ function showSkinConfirmUI(suggestedTone, ita, onConfirm) {
 window.selectSwatch = function(btn) {
   document.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
-  window._selectedSkinTone = btn.dataset.tone;
+  window._selectedSkinToneKey = btn.dataset.toneKey;
   const confirmBtn = document.getElementById('skin-confirm-btn');
   if (confirmBtn) {
     confirmBtn.style.opacity = '1';
@@ -313,8 +713,8 @@ window.selectSwatch = function(btn) {
 window.confirmSkinChoice = function() {
   const overlay = document.getElementById('skin-confirm-overlay');
   if (overlay) overlay.remove();
-  if (window._skinConfirmCallback && window._selectedSkinTone) {
-    window._skinConfirmCallback(window._selectedSkinTone);
+  if (window._skinConfirmCallback && window._selectedSkinToneKey) {
+    window._skinConfirmCallback(window._selectedSkinToneKey);
   }
 };
 
@@ -328,54 +728,115 @@ function classifyFaceShape(ratios) {
 }
 
 // ─── 6. SCORE DE SIMILARITÉ ENTRE PHOTO ET PRESET ─────────
-// Algorithme : Matching par Distance Absolue sur ratios_cibles
-//
-//   Filtre strict peau (inchangé) : écart > 1 cran → score 0
-//   Score base peau               : 60 pts (même cran) ou 15 pts (±1 cran)
-//   Score morpho                  : distance absolue sur 6 ratios, max 100 pts
-//     → si ratios_cibles non remplis : score de stand-by 20 pts
+// Cache des stats DB (min/max) pour normalisation 0-1 des métriques
+let _dbStatsCache = null;
+function getDbStats() {
+  if (_dbStatsCache) return _dbStatsCache;
+  const fields = ['nez','machoire','joues','bouche','yeux','sourcils',
+                  'eyebrowGap','lipFullness','noseFlare','philtrum',
+                  'cheekProminence','eyeHeightPos'];
+  const mn = {}, mx = {};
+  for (const key of fields) {
+    const vals = PRESETS_DB.map(p => p.ratios_cibles?.[key]).filter(v => v != null && isFinite(v));
+    mn[key] = Math.min(...vals);
+    mx[key] = Math.max(...vals);
+  }
+  _dbStatsCache = { mn, mx };
+  return _dbStatsCache;
+}
+
+function normalizeSkinToneLabel(skinTone) {
+  const skinToneAliases = {
+    'skin.tone.very.light': 'Claire',
+    'skin.tone.light': 'Claire',
+    'skin.tone.light.tanned': 'Claire-bronzée',
+    'skin.tone.medium': 'Métis',
+    'skin.tone.dark': 'Foncée',
+    'skin.tone.very.dark': 'Très foncée'
+  };
+  return skinToneAliases[skinTone] ?? skinTone;
+}
+
+// Algorithme : Matching Pondéré avec voisinage peau et règle asiatique
 function computePresetScore(ratios, skinTone, preset) {
-  const skinMap = { "Claire": 0, "Métis": 1, "Foncée": 2, "Très foncée": 3 };
-  const skinDiff = Math.abs((skinMap[skinTone] ?? 0) - (skinMap[preset.couleur_peau] ?? 0));
+  const resolvedSkinTone = normalizeSkinToneLabel(skinTone);
 
-  // ▶ FILTRE ÉLIMINATOIRE : écart > 1 cran → hors jeu
-  if (skinDiff > 1) return 0;
+  // A. Voisinage peau — éliminatoire si hors voisinage
+  const neighborhoods = {
+    "Claire":        ["Claire", "Claire-bronzée"],
+    "Claire-bronzée":["Claire", "Claire-bronzée", "Métis"],
+    "Métis":         ["Claire-bronzée", "Métis", "Foncée"],
+    "Foncée":        ["Métis", "Foncée", "Très foncée"],
+    "Très foncée":   ["Foncée", "Très foncée"],
+  };
+  const allowed = neighborhoods[resolvedSkinTone] ?? [resolvedSkinTone];
+  if (!allowed.includes(preset.couleur_peau)) return 0;
 
-  let score = 0;
+  const rc = preset.ratios_cibles;
+  if (!rc || rc.nez === null) return 20;
 
-  // Score peau
-  if (skinDiff === 0) score += 60;
-  else score += 15;
+  // B. Erreurs pondérées — chaque métrique normalisée 0-1 sur le range DB
+  const { mn, mx } = getDbStats();
+  const norm = (val, key) => {
+    const range = mx[key] - mn[key];
+    const numericVal = Number(val);
+    if (!Number.isFinite(range) || range === 0 || !Number.isFinite(numericVal)) return 0;
+    return (numericVal - mn[key]) / range;
+  };
+  const normRC = (key) => {
+    const range = mx[key] - mn[key];
+    const numericVal = Number(rc[key]);
+    if (!Number.isFinite(range) || range === 0 || !Number.isFinite(numericVal)) return 0;
+    return (numericVal - mn[key]) / range;
+  };
 
-  // ▶ MATCHING PAR RATIOS — stand-by sécurisé si données non remplies
-  if (!preset.ratios_cibles || preset.ratios_cibles.nez === null) {
-    return score + 20;
+  // Poids Extrême ×10 — Ancreurs Fixes (impossibles à corriger par sliders)
+  const errLipFullness  = Math.abs(norm(ratios.lipFullness,     'lipFullness')      - normRC('lipFullness'))      * 10;
+  const errNoseFlare    = Math.abs(norm(ratios.noseFlare,       'noseFlare')        - normRC('noseFlare'))        * 10;
+  const errPhiltrum     = Math.abs(norm(ratios.philtrum,        'philtrum')         - normRC('philtrum'))         * 10;
+  const errCheekProm    = Math.abs(norm(ratios.cheekProminence, 'cheekProminence')  - normRC('cheekProminence'))  * 10;
+  const errEyebrowGap   = Math.abs(norm(ratios.eyebrowGap,      'eyebrowGap')       - normRC('eyebrowGap'))       * 10;
+  // Poids Faible ×1 — Ajustables (corrigibles via façonnage 0-100)
+  const errNez          = Math.abs(norm(ratios.noseToInterEye,      'nez')          - normRC('nez'))              * 1;
+  const errMachoire     = Math.abs(norm(ratios.jawToFaceRatio,      'machoire')     - normRC('machoire'))         * 1;
+  const errJoues        = Math.abs(norm(ratios.cheekToFaceRatio,    'joues')        - normRC('joues'))            * 1;
+  const errBouche       = Math.abs(norm(ratios.mouthToFace,         'bouche')       - normRC('bouche'))           * 1;
+  const errYeux         = Math.abs(norm(ratios.eyeOpenness,         'yeux')         - normRC('yeux'))             * 1;
+  const errSourcils     = Math.abs(norm(ratios.eyebrowHeightRatio,  'sourcils')     - normRC('sourcils'))         * 1;
+  const errEyeHeightPos = Math.abs(norm(ratios.eyeHeightPos,        'eyeHeightPos') - normRC('eyeHeightPos'))     * 1;
+
+  let totalError = errLipFullness + errNoseFlare + errPhiltrum + errCheekProm + errEyebrowGap +
+                   errNez + errMachoire + errJoues + errBouche + errYeux + errSourcils + errEyeHeightPos;
+
+  // C. Règle asiatique : mega-pénalité si preset asiatique mais yeux non bridés
+  if (preset.notes && /asiatique/i.test(preset.notes) && (ratios.eyeOpenness || 0) > 0.075) {
+    totalError += 50;
   }
 
-  const diffNez      = Math.abs(ratios.noseToInterEye          - preset.ratios_cibles.nez);
-  const diffMachoire = Math.abs(ratios.jawToFaceRatio           - preset.ratios_cibles.machoire);
-  const diffJoues    = Math.abs(ratios.cheekToFaceRatio         - preset.ratios_cibles.joues);
-  const diffBouche   = Math.abs(ratios.mouthToFace              - preset.ratios_cibles.bouche);
-  const diffYeux     = Math.abs(ratios.eyeOpenness              - preset.ratios_cibles.yeux);
-  const diffSourcils = Math.abs((ratios.eyebrowHeightRatio || 0) - preset.ratios_cibles.sourcils);
-
-  const totalDiff = diffNez + diffMachoire + diffJoues + diffBouche + diffYeux + diffSourcils;
-
-  // Conversion diff → points (ratios sont de petits décimaux → ×100 pour pénalité lisible)
-  const penalty = totalDiff * 100;
-  score += Math.max(0, 100 - penalty);
-
-  return score;
+  // D. Score final — normalisation par le poids max (57) pour garder l'échelle 0-100
+  // sum des poids = 10×5 + 1×7 = 57
+  return Math.max(0, 100 - (totalError / 57) * 100);
 }
 
 // ─── 7. SÉLECTION DU MEILLEUR PRESET ──────────────────────
 function selectBestPreset(landmarks, skinTone) {
-  const ratios = extractMorphRatios(landmarks);
+  const ratios = Array.isArray(landmarks) ? extractMorphRatios(landmarks) : (landmarks || {});
+  const resolvedSkinTone = normalizeSkinToneLabel(skinTone);
+  const neighborhoods = {
+    "Claire":        ["Claire", "Claire-bronzée"],
+    "Claire-bronzée":["Claire", "Claire-bronzée", "Métis"],
+    "Métis":         ["Claire-bronzée", "Métis", "Foncée"],
+    "Foncée":        ["Métis", "Foncée", "Très foncée"],
+    "Très foncée":   ["Foncée", "Très foncée"],
+  };
+  const allowedSkinTones = neighborhoods[resolvedSkinTone] ?? [resolvedSkinTone];
+  const candidates = PRESETS_DB.filter(p => allowedSkinTones.includes(p.couleur_peau));
+  const scoringPool = candidates.length > 0 ? candidates : PRESETS_DB;
   let bestPreset = null;
   let bestScore  = -1;
   const scores   = [];
 
-  for (const preset of PRESETS_DB) {
+  for (const preset of scoringPool) {
     const score = computePresetScore(ratios, skinTone, preset);
     scores.push({ preset_id: preset.preset_id, position: preset.position, score });
     if (score > bestScore) {
@@ -443,207 +904,110 @@ function softClampSlider(ratio, minVal, range, steepness = 5) {
 }
 
 function computeAdjustments(ratios, selectedPreset, zoneMix = null) {
-  const f = selectedPreset.faconner;
   const adjustments = {};
 
-  // NEZ — Réduire/Élargir (soft clamped)
-  const userNoseVal = softClampSlider(ratios.noseToInterEye, 0.28, 0.27);
-  const nozDelta = userNoseVal - f.nez.reduire_elargir;
-  if (Math.abs(nozDelta) > 5) {
-    adjustments.nez = adjustments.nez || {};
-    adjustments.nez.reduire_elargir = Math.max(0, Math.min(100,
-      Math.round(f.nez.reduire_elargir + nozDelta * 0.95)
-    ));
+  // ── Min/Max dynamiques depuis PRESETS_DB (1 seul passage) ──────
+  const rcFields = ['nez','machoire','joues','bouche','yeux','sourcils',
+                    'eyebrowGap','lipFullness','noseFlare','philtrum',
+                    'cheekProminence','eyeHeightPos'];
+  const dbMin = {}, dbMax = {};
+  for (const key of rcFields) {
+    const vals = PRESETS_DB.map(p => p.ratios_cibles?.[key]).filter(v => v != null && isFinite(v));
+    dbMin[key] = Math.min(...vals);
+    dbMax[key] = Math.max(...vals);
   }
 
-  // MÂCHOIRE — Réduire/Élargir (soft clamped)
-  const userJawVal = softClampSlider(ratios.jawToFaceRatio, 0.60, 0.25);
-  const jawDelta = userJawVal - f.machoire.reduire_elargir;
-  if (Math.abs(jawDelta) > 5) {
-    adjustments.machoire = adjustments.machoire || {};
-    adjustments.machoire.reduire_elargir = Math.max(0, Math.min(100,
-      Math.round(f.machoire.reduire_elargir + jawDelta * 0.95)
-    ));
+  function dynSlider(userRatio, key) {
+    const mn = dbMin[key], mx = dbMax[key];
+    if (!isFinite(mn) || !isFinite(mx) || mx === mn) return 50;
+    return Math.max(0, Math.min(100, Math.round(((userRatio - mn) / (mx - mn)) * 100)));
   }
 
-  // JOUES — Réduire/Élargir (soft clamped)
-  const userCheekVal = softClampSlider(ratios.cheekToFaceRatio, 0.70, 0.25);
-  const cheekDelta = userCheekVal - f.joues.reduire_elargir;
-  if (Math.abs(cheekDelta) > 5) {
-    adjustments.joues = adjustments.joues || {};
-    adjustments.joues.reduire_elargir = Math.max(0, Math.min(100,
-      Math.round(f.joues.reduire_elargir + cheekDelta * 0.95)
-    ));
-  }
+  // NEZ — Réduire/Élargir
+  adjustments.nez = {};
+  adjustments.nez.reduire_elargir = dynSlider(ratios.noseToInterEye || 0, 'nez');
 
-  // BOUCHE — Réduire/Élargir (soft clamped)
-  const userMouthVal = softClampSlider(ratios.mouthToFace, 0.22, 0.17);
-  const mouthDelta = userMouthVal - f.bouche.reduire_elargir;
-  if (Math.abs(mouthDelta) > 5) {
-    adjustments.bouche = adjustments.bouche || {};
-    adjustments.bouche.reduire_elargir = Math.max(0, Math.min(100,
-      Math.round(f.bouche.reduire_elargir + mouthDelta * 0.95)
-    ));
-  }
+  // NEZ — Arrondi/Angulaire (évasement narines)
+  adjustments.nez.arrondi_angulaire = dynSlider(ratios.noseFlare || 0, 'noseFlare');
 
-  // ── PHASE 1 — AJUSTEMENTS SUPPLÉMENTAIRES ───────────────────
+  // NEZ — Bas/Haut (position verticale, softClampSlider car hors ratios_cibles)
+  adjustments.nez.bas_haut = softClampSlider(ratios.noseHeightRatio, 0.33, 0.20);
 
-  // NEZ — bas_haut (position verticale)
-  // Un nez "haut" sur le visage → slider bas (valeur faible)
-  // plage calibrée : [0.33, 0.20] — plus le ratio est petit, plus le nez est haut
-  const userNoseHeightVal = softClampSlider(ratios.noseHeightRatio, 0.33, 0.20);
-  const noseHeightDelta = userNoseHeightVal - f.nez.bas_haut;
-  if (Math.abs(noseHeightDelta) > 5) {
-    adjustments.nez = adjustments.nez || {};
-    adjustments.nez.bas_haut = Math.max(0, Math.min(100,
-      Math.round(f.nez.bas_haut + Math.max(-15, Math.min(15, noseHeightDelta)) * 0.85)
-    ));
-  }
+  // NEZ — Arrière/Avant (coordonnée Z)
+  adjustments.nez.arriere_avant = softClampSlider(ratios.noseTipZ, -0.09, 0.07);
 
-  // NEZ — arriere_avant (profondeur, via coordonnée Z MediaPipe)
-  // Z négatif = nez proéminent (en avant). plage: [-0.09, 0.07]
-  const userNoseZVal = softClampSlider(ratios.noseTipZ, -0.09, 0.07);
-  const noseZDelta = userNoseZVal - f.nez.arriere_avant;
-  if (Math.abs(noseZDelta) > 5) {
-    adjustments.nez = adjustments.nez || {};
-    adjustments.nez.arriere_avant = Math.max(0, Math.min(100,
-      Math.round(f.nez.arriere_avant + Math.max(-15, Math.min(15, noseZDelta)) * 0.80)
-    ));
-  }
+  // MÂCHOIRE — Réduire/Élargir
+  adjustments.machoire = {};
+  adjustments.machoire.reduire_elargir = dynSlider(ratios.jawToFaceRatio || 0, 'machoire');
 
-  // BOUCHE — bas_haut (position entre nez et menton)
-  // plage : [0.35, 0.30] (ratio dist_nez_bouche / dist_nez_menton)
-  const userMouthPosVal = softClampSlider(ratios.mouthPosRatio, 0.35, 0.30);
-  const mouthPosDelta = userMouthPosVal - f.bouche.bas_haut;
-  if (Math.abs(mouthPosDelta) > 5) {
-    adjustments.bouche = adjustments.bouche || {};
-    adjustments.bouche.bas_haut = Math.max(0, Math.min(100,
-      Math.round(f.bouche.bas_haut + Math.max(-15, Math.min(15, mouthPosDelta)) * 0.85)
-    ));
-  }
+  // MÂCHOIRE — Bas/Haut (angle gonial)
+  adjustments.machoire.bas_haut = softClampSlider(ratios.jawHeightRatio, 0.60, 0.25);
 
-  // BOUCHE — arrondi_angulaire (épaisseur lèvres)
-  // plage : [0.010, 0.030]
-  const userLipThickVal = softClampSlider(ratios.lipThicknessRatio, 0.010, 0.030);
-  const lipThickDelta = userLipThickVal - f.bouche.arrondi_angulaire;
-  if (Math.abs(lipThickDelta) > 5) {
-    adjustments.bouche = adjustments.bouche || {};
-    adjustments.bouche.arrondi_angulaire = Math.max(0, Math.min(100,
-      Math.round(f.bouche.arrondi_angulaire + Math.max(-15, Math.min(15, lipThickDelta)) * 0.80)
-    ));
-  }
+  // JOUES — Réduire/Élargir
+  adjustments.joues = {};
+  adjustments.joues.reduire_elargir = dynSlider(ratios.cheekToFaceRatio || 0, 'joues');
 
-  // MÂCHOIRE — bas_haut (hauteur de l'angle gonial)
-  // plage : [0.60, 0.25]
-  const userJawHeightVal = softClampSlider(ratios.jawHeightRatio, 0.60, 0.25);
-  const jawHeightDelta = userJawHeightVal - f.machoire.bas_haut;
-  if (Math.abs(jawHeightDelta) > 5) {
-    adjustments.machoire = adjustments.machoire || {};
-    adjustments.machoire.bas_haut = Math.max(0, Math.min(100,
-      Math.round(f.machoire.bas_haut + Math.max(-15, Math.min(15, jawHeightDelta)) * 0.85)
-    ));
-  }
+  // JOUES — Arrière/Avant (saillie pommettes)
+  adjustments.joues.arriere_avant = dynSlider(ratios.cheekProminence || 0, 'cheekProminence');
 
-  // MENTON — reduire_elargir (largeur du menton)
-  // plage : [0.15, 0.20]
-  const userChinWidthVal = softClampSlider(ratios.chinWidthRatio, 0.15, 0.20);
-  const chinWidthDelta = userChinWidthVal - f.menton.reduire_elargir;
-  if (Math.abs(chinWidthDelta) > 5) {
-    adjustments.menton = adjustments.menton || {};
-    adjustments.menton.reduire_elargir = Math.max(0, Math.min(100,
-      Math.round(f.menton.reduire_elargir + Math.max(-15, Math.min(15, chinWidthDelta)) * 0.85)
-    ));
-  }
+  // JOUES — Bas/Haut (hauteur pommettes)
+  adjustments.joues.bas_haut = softClampSlider(ratios.cheekHeightRatio, 0.40, 0.20);
 
-  // MENTON — bas_haut (hauteur du menton)
-  // chinToFace déjà calculé dans extractMorphRatios. plage : [0.04, 0.10]
-  const userChinHeightVal = softClampSlider(ratios.chinToFace, 0.04, 0.10);
-  const chinHeightDelta = userChinHeightVal - f.menton.bas_haut;
-  if (Math.abs(chinHeightDelta) > 5) {
-    adjustments.menton = adjustments.menton || {};
-    adjustments.menton.bas_haut = Math.max(0, Math.min(100,
-      Math.round(f.menton.bas_haut + Math.max(-15, Math.min(15, chinHeightDelta)) * 0.85)
-    ));
-  }
+  // BOUCHE — Réduire/Élargir
+  adjustments.bouche = {};
+  adjustments.bouche.reduire_elargir = dynSlider(ratios.mouthToFace || 0, 'bouche');
 
-  // ORBITES — plus_grande_petite (taille des yeux)
-  // eyeOpenness déjà calculé. plage : [0.15, 0.20]
-  const userEyeSizeVal = softClampSlider(ratios.eyeOpenness, 0.15, 0.20);
-  const eyeSizeDelta = userEyeSizeVal - f.orbites.plus_grande_petite;
-  if (Math.abs(eyeSizeDelta) > 5) {
-    adjustments.orbites = adjustments.orbites || {};
-    adjustments.orbites.plus_grande_petite = Math.max(0, Math.min(100,
-      Math.round(f.orbites.plus_grande_petite + Math.max(-15, Math.min(15, eyeSizeDelta)) * 0.80)
-    ));
-  }
+  // BOUCHE — Arrondi/Angulaire (volume lèvres)
+  adjustments.bouche.arrondi_angulaire = dynSlider(ratios.lipFullness || 0, 'lipFullness');
 
-  // ORBITES — bas_haut (position verticale des yeux)
-  // plage : [0.25, 0.20]
-  const userEyeVertVal = softClampSlider(ratios.eyeVerticalRatio, 0.25, 0.20);
-  const eyeVertDelta = userEyeVertVal - f.orbites.bas_haut;
-  if (Math.abs(eyeVertDelta) > 5) {
-    adjustments.orbites = adjustments.orbites || {};
-    adjustments.orbites.bas_haut = Math.max(0, Math.min(100,
-      Math.round(f.orbites.bas_haut + Math.max(-15, Math.min(15, eyeVertDelta)) * 0.80)
-    ));
-  }
+  // BOUCHE — Bas/Haut (philtrum → position verticale)
+  adjustments.bouche.bas_haut = dynSlider(ratios.philtrum || 0, 'philtrum');
 
-  // JOUES — bas_haut (hauteur des pommettes)
-  // plage : [0.40, 0.20]
-  const userCheekHeightVal = softClampSlider(ratios.cheekHeightRatio, 0.40, 0.20);
-  const cheekHeightDelta = userCheekHeightVal - f.joues.bas_haut;
-  if (Math.abs(cheekHeightDelta) > 5) {
-    adjustments.joues = adjustments.joues || {};
-    adjustments.joues.bas_haut = Math.max(0, Math.min(100,
-      Math.round(f.joues.bas_haut + Math.max(-15, Math.min(15, cheekHeightDelta)) * 0.85)
-    ));
-  }
+  // SOURCILS — Réduire/Élargir (écart inter-sourcils)
+  adjustments.sourcils = {};
+  adjustments.sourcils.reduire_elargir = dynSlider(ratios.eyebrowGap || 0, 'eyebrowGap');
 
-  // FRONT — reduire_elargir (largeur tempes)
-  // plage : [0.75, 0.30]
-  const userForeheadVal = softClampSlider(ratios.foreheadWidthRatio, 0.75, 0.30);
-  const foreheadDelta = userForeheadVal - f.front_superieur.reduire_elargir;
-  if (Math.abs(foreheadDelta) > 5) {
-    adjustments.front_superieur = adjustments.front_superieur || {};
-    adjustments.front_superieur.reduire_elargir = Math.max(0, Math.min(100,
-      Math.round(f.front_superieur.reduire_elargir + Math.max(-15, Math.min(15, foreheadDelta)) * 0.80)
-    ));
-  }
+  // SOURCILS — Bas/Haut (hauteur sourcil/œil)
+  adjustments.sourcils.bas_haut = dynSlider(ratios.eyebrowHeightRatio || 0, 'sourcils');
 
-  // ── PART 2: FAÇONNAGE AVANCÉ ──────────────────────────────────
+  // ORBITES — Plus grande/petite (ouverture œil)
+  adjustments.orbites = {};
+  adjustments.orbites.plus_grande_petite = dynSlider(ratios.eyeOpenness || 0, 'yeux');
+
+  // ORBITES — Bas/Haut (position verticale des yeux)
+  adjustments.orbites.bas_haut = dynSlider(ratios.eyeHeightPos || 0, 'eyeHeightPos');
+
+  // MENTON — Réduire/Élargir
+  adjustments.menton = {};
+  adjustments.menton.reduire_elargir = softClampSlider(ratios.chinWidthRatio, 0.15, 0.20);
+
+  // MENTON — Bas/Haut
+  adjustments.menton.bas_haut = softClampSlider(ratios.chinToFace, 0.04, 0.10);
+
+  // FRONT — Réduire/Élargir
+  adjustments.front_superieur = {};
+  adjustments.front_superieur.reduire_elargir = softClampSlider(ratios.foreheadWidthRatio, 0.75, 0.30);
+
+  // ── FAÇONNAGE AVANCÉ (softClampSlider direct, sans delta ±15) ──
   const clampAdv = (zone, slider, ratio, maxV, minV, zoneMixPresetId) => {
     if (!ratio || ratio === 0 || isNaN(ratio)) return;
     const basePreset = zoneMixPresetId
       ? PRESETS_DB.find(p => p.preset_id === zoneMixPresetId)
       : selectedPreset;
     if (basePreset?.avance?.[zone]?.[slider] === undefined) return;
-
-    const userVal = softClampSlider(ratio, maxV, minV);
-    const baseVal = basePreset.avance[zone][slider];
-    const delta = userVal - baseVal;
-
-    if (Math.abs(delta) > 5) {
-      adjustments.avance = adjustments.avance || {};
-      adjustments.avance[zone] = adjustments.avance[zone] || {};
-      adjustments.avance[zone][slider] = Math.max(0, Math.min(100, Math.round(baseVal + delta * 0.85)));
-    }
+    adjustments.avance = adjustments.avance || {};
+    adjustments.avance[zone] = adjustments.avance[zone] || {};
+    adjustments.avance[zone][slider] = softClampSlider(ratio, maxV, minV);
   };
 
-  // NEZ — largeur arête (base et centrale)
-  clampAdv('arete_cotes',    're', ratios.nez_arete_base,      0.22, 0.18, zoneMix?.nez);
-  clampAdv('arete_centrale', 're', ratios.nez_arete_base,      0.22, 0.18, zoneMix?.nez);
-
-  // BOUCHE — rapport vermillon inf/sup
-  clampAdv('bouche_ext', 'bh', ratios.levres_ratio, 1.6, 1.1, zoneMix?.bouche);
-  clampAdv('bouche_adv', 'bh', ratios.levres_ratio, 1.6, 1.1, zoneMix?.bouche);
-
-  // MENTON — rapport hauteur menton/philtrum
-  clampAdv('menton_adv', 'bh', ratios.menton_ratio, 2.3, 1.7, zoneMix?.menton);
-  clampAdv('menton_sup', 'bh', ratios.menton_ratio, 2.3, 1.7, zoneMix?.menton);
-
-  // MÂCHOIRE — largeur bigoniale
-  clampAdv('mandibule',  're', ratios.machoire_bigoniale, 0.80, 0.70, zoneMix?.machoire);
-  clampAdv('maxillaire', 're', ratios.machoire_bigoniale, 0.80, 0.70, zoneMix?.machoire);
+  clampAdv('arete_cotes',    're', ratios.nez_arete_base,     0.22, 0.18, zoneMix?.nez);
+  clampAdv('arete_centrale', 're', ratios.nez_arete_base,     0.22, 0.18, zoneMix?.nez);
+  clampAdv('bouche_ext',     'bh', ratios.levres_ratio,       1.6,  1.1,  zoneMix?.bouche);
+  clampAdv('bouche_adv',     'bh', ratios.levres_ratio,       1.6,  1.1,  zoneMix?.bouche);
+  clampAdv('menton_adv',     'bh', ratios.menton_ratio,       2.3,  1.7,  zoneMix?.menton);
+  clampAdv('menton_sup',     'bh', ratios.menton_ratio,       2.3,  1.7,  zoneMix?.menton);
+  clampAdv('mandibule',      're', ratios.machoire_bigoniale, 0.80, 0.70, zoneMix?.machoire);
+  clampAdv('maxillaire',     're', ratios.machoire_bigoniale, 0.80, 0.70, zoneMix?.machoire);
 
   return adjustments;
 }
@@ -720,90 +1084,88 @@ function analyzeFace(landmarks, skinTone = "Foncée") {
 // Retourne pour chaque zone du Head tab le preset_id le plus adapté.
 // Le filtre peau identique à computePresetScore s'applique sur les candidats.
 function computeZoneMix(detectedMorpho, mainPreset, allPresets) {
-  const skinMap = { "Claire": 0, "Métis": 1, "Foncée": 2, "Très foncée": 3 };
+  const skinMap = { "Claire": 0, "Claire-bronzée": 1, "Métis": 2, "Foncée": 3, "Très foncée": 4 };
   const mainSkinLevel = skinMap[mainPreset.couleur_peau] ?? 0;
 
-  // Candidats : filtre peau ±2 crans (±1 était trop restrictif pour Très foncée : seulement 8/31 candidats)
+  // Candidats : filtre peau ±2 crans
   const candidates = allPresets.filter(p =>
     Math.abs((skinMap[p.couleur_peau] ?? 0) - mainSkinLevel) <= 2
   );
 
   console.log(`🔬 [ZoneMix] mainPreset #${mainPreset.preset_id} peau="${mainPreset.couleur_peau}" (lvl ${mainSkinLevel}) → ${candidates.length}/${allPresets.length} candidats (filtre peau ±2)`);
 
-  // Sélectionne le meilleur candidat pour une zone donnée.
-  // Initialise avec le score du mainPreset → un autre ne gagne que s'il est STRICTEMENT meilleur
-  // (stabilité : pas de diff inutile quand les scores sont égaux).
-  // dbgName : si fourni, affiche les scores de chaque candidat dans la console.
-  function bestForZone(labelKey, scoreFn, dbgName) {
+  function bestForZoneMath(scoreFn, dbgName) {
     let best = mainPreset;
-    let bestScore = scoreFn(mainPreset[labelKey] ?? null);
-    if (dbgName) console.group(`🔬 [ZoneMix ${dbgName}] mainPreset #${mainPreset.preset_id} ${labelKey}="${mainPreset[labelKey]}" score=${bestScore}`);
+    let bestError = scoreFn(mainPreset);
+    if (dbgName) console.group(`🔬 [ZoneMix ${dbgName}] mainPreset #${mainPreset.preset_id} error=${bestError}`);
     for (const p of candidates) {
       if (p.preset_id === mainPreset.preset_id) continue;
-      const s = scoreFn(p[labelKey] ?? null);
-      if (dbgName) console.log(`  #${p.preset_id} [${p.couleur_peau}] ${labelKey}="${p[labelKey]}" → ${s}${s > bestScore ? ' ★ MEILLEUR' : ''}`);
-      if (s > bestScore) { bestScore = s; best = p; }
+      const error = scoreFn(p);
+      if (dbgName) console.log(`  #${p.preset_id} [${p.couleur_peau}] → error=${error}${error < bestError ? ' ★ MEILLEUR' : ''}`);
+      if (error < bestError) { bestError = error; best = p; }
     }
     if (dbgName) { console.log(`  ✅ WINNER: Preset #${best.preset_id} [${best.couleur_peau}]`); console.groupEnd(); }
     return best.preset_id;
   }
 
-  // FRONT — front_label vs foreheadWidthRatio
-  // Échelle 3 niveaux : Étroit(0) · Moyen(1) · Large(2) → score = 2 - |distance|
+  // Helper to safely get preset ratios
+  const getPRatio = (p, key) => p.ratios_cibles && p.ratios_cibles[key] !== undefined ? p.ratios_cibles[key] : 0;
+  const getURatio = (key) => detectedMorpho[key] || 0;
+
+  // NEZ
+  const nezPreset = bestForZoneMath(p => {
+    return (Math.abs(getURatio('noseFlare') - getPRatio(p, 'noseFlare')) * 20) + 
+           (Math.abs(getURatio('philtrum') - getPRatio(p, 'philtrum')) * 10) + 
+           (Math.abs(getURatio('noseToInterEye') - getPRatio(p, 'nez')) * 1);
+  }, 'NEZ');
+
+  // BOUCHE
+  const bouchePreset = bestForZoneMath(p => {
+    return (Math.abs(getURatio('lipFullness') - getPRatio(p, 'lipFullness')) * 20) + 
+           (Math.abs(getURatio('mouthToFace') - getPRatio(p, 'bouche')) * 1);
+  }, 'BOUCHE');
+
+  // YEUX/SOURCILS
+  const yeuxPreset = bestForZoneMath(p => {
+    return (Math.abs(getURatio('eyebrowGap') - getPRatio(p, 'eyebrowGap')) * 15) + 
+           (Math.abs(getURatio('eyeOpenness') - getPRatio(p, 'yeux')) * 10) + 
+           (Math.abs(getURatio('eyebrowHeightRatio') - getPRatio(p, 'sourcils')) * 1);
+  }, 'YEUX/SOURCILS');
+
+  // JOUES/MÂCHOIRE
+  const machoirePreset = bestForZoneMath(p => {
+    return (Math.abs(getURatio('cheekProminence') - getPRatio(p, 'cheekProminence')) * 15) + 
+           (Math.abs(getURatio('jawToFaceRatio') - getPRatio(p, 'machoire')) * 1) + 
+           (Math.abs(getURatio('cheekToFaceRatio') - getPRatio(p, 'joues')) * 1);
+  }, 'JOUES/MÂCHOIRE');
+
+  // FRONT
+  function bestForZoneLabel(labelKey, userLevel, orderMap) {
+    let best = mainPreset;
+    let bestScore = mainPreset[labelKey] != null ? 2 - Math.abs((orderMap[mainPreset[labelKey]] ?? 1) - userLevel) : 0;
+    for (const p of candidates) {
+      if (p.preset_id === mainPreset.preset_id) continue;
+      const s = p[labelKey] != null ? 2 - Math.abs((orderMap[p[labelKey]] ?? 1) - userLevel) : 0;
+      if (s > bestScore) { bestScore = s; best = p; }
+    }
+    return best.preset_id;
+  }
   const fwRatio = detectedMorpho.foreheadWidthRatio ?? 0;
   const userFrontLevel = fwRatio > 0.88 ? 2 : fwRatio > 0.78 ? 1 : 0;
   const frontOrder = { "Étroit": 0, "Moyen": 1, "Large": 2 };
-  const frontPreset = bestForZone('front_label', label =>
-    label != null ? 2 - Math.abs((frontOrder[label] ?? 1) - userFrontLevel) : 0
-  );
+  const frontPreset = bestForZoneLabel('front_label', userFrontLevel, frontOrder);
 
-  // MÂCHOIRE — machoire_label vs jawToFaceRatio
-  const jawRatio = detectedMorpho.jawToFaceRatio ?? 0;
-  const jawOrder = { "Fine": 0, "Moyenne": 1, "Large": 2 };
-  const userJawLevel = detectedMorpho.machoire_label ? jawOrder[detectedMorpho.machoire_label] : (jawRatio > 0.76 ? 2 : jawRatio > 0.65 ? 1 : 0);
-  const machoirePreset = bestForZone('machoire_label', label =>
-    label != null ? 2 - Math.abs((jawOrder[label] ?? 1) - userJawLevel) : 0
-  );
-
-  // JOUES — pommettes_label vs cheekToFaceRatio
-  // Échelle 3 niveaux : Basses(0) · Moyennes(1) · Hautes(2)
-  const cheekRatio = detectedMorpho.cheekToFaceRatio ?? 0;
-  const userCheekLevel = cheekRatio > 0.88 ? 2 : cheekRatio > 0.78 ? 1 : 0;
-  const cheekOrder = { "Basses": 0, "Moyennes": 1, "Hautes": 2 };
-  const jouPreset = bestForZone('pommettes_label', label =>
-    label != null ? 2 - Math.abs((cheekOrder[label] ?? 1) - userCheekLevel) : 0
-  );
-
-  // NEZ — nez_label vs noseToInterEye
-  const nezRatio = detectedMorpho.noseToInterEye ?? 0;
-  const nezOrder = { "Fin": 0, "Moyen": 1, "Large": 2 };
-  const userNezLevel = detectedMorpho.nez_label ? nezOrder[detectedMorpho.nez_label] : (nezRatio > 0.48 ? 2 : 1);
-  const nezPreset = bestForZone('nez_label', label =>
-    label != null ? 2 - Math.abs((nezOrder[label] ?? 1) - userNezLevel) : 0,
-    `NEZ userLevel=${userNezLevel}`
-  );
-
-  // BOUCHE — levres_label vs mouthToFace
-  const boucheRatio = detectedMorpho.mouthToFace ?? 0;
-  const boucheOrder = { "Fines": 0, "Moyennes": 1, "Pleines": 2 };
-  const userBoucheLevel = detectedMorpho.levres_label ? boucheOrder[detectedMorpho.levres_label] : (boucheRatio < 0.38 ? 2 : 0);
-  const bouchePreset = bestForZone('levres_label', label =>
-    label != null ? 2 - Math.abs((boucheOrder[label] ?? 1) - userBoucheLevel) : 0,
-    `BOUCHE userLevel=${userBoucheLevel}`
-  );
-
-  // MENTON, OREILLES, COU, YEUX, SOURCILS → mainPreset
   return {
     front:    frontPreset,
     machoire: machoirePreset,
-    joues:    jouPreset,
+    joues:    machoirePreset,
     nez:      nezPreset,
     bouche:   bouchePreset,
     menton:   mainPreset.preset_id,
     oreilles: mainPreset.preset_id,
     cou:      mainPreset.preset_id,
-    yeux:     mainPreset.preset_id,
-    sourcils: mainPreset.preset_id,
+    yeux:     yeuxPreset,
+    sourcils: yeuxPreset,
   };
 }
 
@@ -1043,7 +1405,7 @@ function detectSkinToneFromCanvas(imgElement, landmarks, onResult) {
 
   const lab = rgbToLab(medR, medG, medB);
   const ita = computeITA(lab.L, lab.b);
-  const { tone, ambiguous } = classifySkinByITA(ita);
+  const { toneKey, ambiguous } = classifySkinByITA(ita);
 
   // Stocke pour le debug
   detectSkinToneFromCanvas._lastLab = lab;
@@ -1052,12 +1414,12 @@ function detectSkinToneFromCanvas(imgElement, landmarks, onResult) {
 
   if (ambiguous) {
     // Affiche l'UI de confirmation
-    showSkinConfirmUI(tone, Math.round(ita * 10) / 10, (confirmedTone) => {
-      onResult(confirmedTone, { auto: false, ita, ambiguous: true, confirmed: confirmedTone });
+    showSkinConfirmUI(toneKey, Math.round(ita * 10) / 10, (confirmedToneKey) => {
+      onResult(confirmedToneKey, { auto: false, ita, ambiguous: true, confirmed: confirmedToneKey });
     });
   } else {
     // Résultat automatique direct
-    onResult(tone, { auto: true, ita, ambiguous: false });
+    onResult(toneKey, { auto: true, ita, ambiguous: false });
   }
 }
 
@@ -1070,13 +1432,9 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-console.log('App Initialized');
+console.log('App Initialized (Logic)');
 
-// --- App State ---
-const state = {
-    isPremium: false,
-    results: null
-};
+// Redundant state removed, already defined at top.
 
 // --- Cropper helper — instancie ou réinstancie Cropper sur un <img> ---
 function initCropper(img) {
@@ -1107,28 +1465,7 @@ function initCropper(img) {
     });
 }
 
-// --- DOM Elements ---
-const screens = document.querySelectorAll('.screen');
-const navButtons = document.querySelectorAll('[data-target]');
-const fileUpload = document.getElementById('file-upload');
-const btnCamera = document.getElementById('btn-camera');
-const btnCapture = document.getElementById('btn-capture');
-const btnAnalyzeUpload = document.getElementById('btn-analyze-upload');
-const inputVideo = document.getElementById('input-video');
-const inputImage = document.getElementById('input-image');
-const outputCanvas = document.getElementById('output-canvas');
-const canvasCtx = outputCanvas.getContext('2d');
-const loadingIndicator = document.getElementById('loading-indicator');
-const resultsAccordion = document.getElementById('results-accordion');
-const btnShare = document.getElementById('btn-share');
-const btnPurchase = document.getElementById('btn-purchase');
-const reviewButtons = document.querySelector('.review-buttons');
-const btnRetake = document.getElementById('btn-retake');
-const btnConfirmAnalyze = document.getElementById('btn-confirm-analyze');
-
-let capturedBase64 = null;
-let capturedCanvas = null;
-let cropper = null;
+// DOM Elements and State moved to top for survival.
 
 // --- Navigation Logic ---
 function resetScanUI() {
@@ -1171,16 +1508,22 @@ function navigateTo(targetId) {
     if (targetId === 'screen-results') {
         renderResults();
     }
+
+    if (targetId === 'screen-preset-choice' && state.pendingAnalysis) {
+        const grid = document.getElementById('preset-grid');
+        if (grid && grid.children.length === 0) {
+            const { scores } = state.pendingAnalysis;
+            const top3 = scores.slice(0, 3)
+                .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
+                .filter(item => item.preset);
+            showPresetChoiceScreen(top3);
+        }
+    }
 }
 
-navButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        navigateTo(btn.dataset.target);
-    });
-});
+// Navigation initialized in DOMContentLoaded.
 
-// --- Share API ---
-btnShare.addEventListener('click', async () => {
+async function shareResults() {
     if (navigator.share) {
         try {
             await navigator.share({
@@ -1192,12 +1535,11 @@ btnShare.addEventListener('click', async () => {
             console.log('Error sharing', err);
         }
     } else {
-        alert('Web Share API not supported on this browser.');
+        alert(t('alert.share.not.supported'));
     }
-});
+}
 
-// --- Premium Gate ---
-btnPurchase.addEventListener('click', () => {
+function purchasePremium() {
     // Simulate Stripe purchase
     alert('Simulating Stripe Checkout...');
     setTimeout(() => {
@@ -1208,7 +1550,7 @@ btnPurchase.addEventListener('click', () => {
         document.querySelector('.premium-gate').classList.add('hidden');
         navigateTo('screen-results'); // Re-render results
     }, 1000);
-});
+}
 
 // --- MediaPipe Face Mesh Initialization ---
 const faceMesh = new FaceMesh({locateFile: (file) => {
@@ -1226,8 +1568,7 @@ faceMesh.onResults(onResults);
 
 let camera = null;
 
-// --- Upload Photo Flow ---
-fileUpload.addEventListener('change', (e) => {
+function handleFileUpload(e) {
     console.log('Button Clicked: fileUpload');
     const file = e.target.files[0];
     if (!file) return;
@@ -1258,10 +1599,9 @@ fileUpload.addEventListener('change', (e) => {
     };
     reader.readAsDataURL(file);
     fileUpload.value = '';
-});
+}
 
-// --- Live Camera Flow ---
-btnCamera.addEventListener('click', () => {
+function startLiveScan() {
     console.log('Button Clicked: btnCamera');
     capturedBase64 = null;
     capturedCanvas = null;
@@ -1288,12 +1628,12 @@ btnCamera.addEventListener('click', () => {
         })
         .catch(function(error) {
             console.error("Erreur caméra:", error);
-            alert("Accès à la caméra impossible. Vérifiez les permissions.");
+            alert(t("alert.camera.permission"));
         });
     } else {
-        alert("Votre navigateur ne supporte pas la capture vidéo.");
+        alert(t("alert.camera.not.supported"));
     }
-});
+}
 
 async function checkPhotoQuality(base64Image) {
     try {
@@ -1330,7 +1670,7 @@ async function checkPhotoQuality(base64Image) {
 }
 
 // Capture — Étape 1 : figer la frame, corriger le miroir, injecter dans Cropper
-btnCapture.addEventListener('click', () => {
+function capturePhoto() {
     console.log('Button Clicked: btnCapture');
     capturedCanvas = document.createElement('canvas');
     capturedCanvas.width  = inputVideo.videoWidth;
@@ -1354,10 +1694,10 @@ btnCapture.addEventListener('click', () => {
     inputVideo.classList.add('hidden');
     btnCapture.classList.add('hidden');
     reviewButtons.classList.remove('hidden');
-});
+}
 
 // Étape 1b : Reprendre — détruit le cropper, relance live ou retourne à l'accueil
-btnRetake.addEventListener('click', () => {
+function retakePhoto() {
     console.log('Button Clicked: btnRetake');
     capturedBase64 = null;
     capturedCanvas = null;
@@ -1377,10 +1717,9 @@ btnRetake.addEventListener('click', () => {
 
     // Sinon mode Upload → retour à l'accueil
     navigateTo('screen-home');
-});
+}
 
-// Confirmer — Étape 2 : extraire le crop, Azure quality check, puis MediaPipe
-btnConfirmAnalyze.addEventListener('click', async () => {
+async function confirmAndAnalyze() {
     console.log('Button Clicked: btnConfirmAnalyze');
     if (!cropper) return;
 
@@ -1403,10 +1742,10 @@ btnConfirmAnalyze.addEventListener('click', async () => {
     const quality = await checkPhotoQuality(capturedBase64);
     if (!quality.ok) {
         loadingIndicator.classList.add('hidden');
-        if (quality.reason === 'no_face') showQAWarning("Aucun visage détecté. Réessaie.");
-        else if (quality.reason === 'too_blurry') showQAWarning("Photo trop floue. Prends une photo plus nette.");
-        else if (quality.reason === 'bad_lighting') showQAWarning("Éclairage insuffisant. Trouve un endroit plus lumineux.");
-        else if (quality.reason === 'bad_angle') showQAWarning("Tiens ta tête droite face à la caméra.");
+        if (quality.reason === 'no_face') showQAWarning(t('qa.noface'));
+        else if (quality.reason === 'too_blurry') showQAWarning(t('qa.blur'));
+        else if (quality.reason === 'bad_lighting') showQAWarning(t('qa.light'));
+        else if (quality.reason === 'bad_angle') showQAWarning(t('qa.angle'));
         reviewButtons.classList.remove('hidden');
         return;
     }
@@ -1416,51 +1755,52 @@ btnConfirmAnalyze.addEventListener('click', async () => {
         outputCanvas.width  = img.naturalWidth;
         outputCanvas.height = img.naturalHeight;
         await faceMesh.send({ image: img });
+        loadingIndicator.classList.add('hidden');
     };
     img.src = imageDataUrl;
-});
+}
 
-// Analyze (Upload)
-btnAnalyzeUpload.addEventListener('click', async () => {
+async function analyzeUpload() {
     loadingIndicator.classList.remove('hidden');
     
     const base64Image = inputImage.src.includes(',') ? inputImage.src.split(',')[1] : inputImage.src;
     const quality = await checkPhotoQuality(base64Image);
     if (!quality.ok) {
         loadingIndicator.classList.add('hidden');
-        if (quality.reason === 'no_face') showQAWarning("Aucun visage détecté. Réessaie.");
-        else if (quality.reason === 'too_blurry') showQAWarning("Photo trop floue. Prends une photo plus nette.");
-        else if (quality.reason === 'bad_lighting') showQAWarning("Éclairage insuffisant. Trouve un endroit plus lumineux.");
-        else if (quality.reason === 'bad_angle') showQAWarning("Tiens ta tête droite face à la caméra.");
+        if (quality.reason === 'no_face') showQAWarning(t('qa.noface'));
+        else if (quality.reason === 'too_blurry') showQAWarning(t('qa.blur'));
+        else if (quality.reason === 'bad_lighting') showQAWarning(t('qa.light'));
+        else if (quality.reason === 'bad_angle') showQAWarning(t('qa.angle'));
         return;
     }
 
-    await faceMesh.send({image: inputImage});
-});
+    const img = new Image();
+    img.onload = async () => {
+        await faceMesh.send({ image: img });
+        loadingIndicator.classList.add('hidden');
+    };
+    img.src = inputImage.src;
+}
 
 // --- Results Callback ---
 function onResults(results) {
-    // Clear canvas
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
 
     if (results.image) {
-        // Draw the original image/video to canvas to match aspect ratio
         canvasCtx.drawImage(results.image, 0, 0, outputCanvas.width, outputCanvas.height);
     }
 
     if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
         const landmarks = results.multiFaceLandmarks[0];
 
-        // ── QA GATE — Qualité de capture ──────────────────────────
         const qa = checkCaptureQuality(landmarks, outputCanvas);
         if (!qa.ok) {
             loadingIndicator.classList.add('hidden');
             showQAWarning(qa.reason);
             return;
         }
-        
-        // Draw Mesh
+
         drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {color: '#C0C0C070', lineWidth: 1});
         drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#00f0ff'});
         drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#00f0ff'});
@@ -1469,31 +1809,117 @@ function onResults(results) {
         drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
         drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#00f0ff'});
 
-        // Perform Calculations (async — ITA may show confirmation UI)
         detectSkinToneFromCanvas(results.image, landmarks, (skinTone, skinMeta) => {
-            const tempRatios = extractMorphRatios(landmarks);
             loadingIndicator.classList.add('hidden');
 
-            showMorphoConfirmation(tempRatios, () => {
-                state.results = analyzeFace(landmarks, skinTone);
-                state.results.skinMeta = skinMeta;
-                // Merge user-confirmed labels so renderResults can display them
-                if (state.results.ratios) {
-                    state.results.ratios.levres_label  = tempRatios.levres_label;
-                    state.results.ratios.nez_label     = tempRatios.nez_label;
-                    state.results.ratios.machoire_label = tempRatios.machoire_label;
-                }
-                navigateTo('screen-results');
-            });
+            const { bestPreset, ratios, scores } = selectBestPreset(landmarks, skinTone);
+
+            const top3 = scores.slice(0, 3)
+                .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
+                .filter(item => item.preset);
+
+            state.pendingAnalysis = { landmarks, skinTone, skinMeta, scores };
+
+            showPresetChoiceScreen(top3);
         });
     } else {
         loadingIndicator.classList.add('hidden');
-        // Only alert if they clicked capture
         if (!inputVideo.classList.contains('hidden') === false) {
-             alert("No face detected. Please try another photo.");
+            alert(t("alert.no.face"));
         }
     }
     canvasCtx.restore();
+}
+
+// ─── PRESET CHOICE SCREEN ──────────────────────────────────────
+function showPresetChoiceScreen(top3) {
+    const grid = document.getElementById('preset-grid');
+  state.pendingTop3 = top3;
+    grid.innerHTML = '';
+
+    top3.forEach(({ preset, score }) => {
+      const scorePercent = Number.isFinite(score) ? Math.max(0, Math.min(100, Math.round(score))) : 0;
+        const card = document.createElement('div');
+        card.className = 'preset-choice-card';
+        card.innerHTML = `
+            <img src="./assets/presets/${preset.preset_id}.png"
+                 alt="Preset ${preset.preset_id}"
+                 onerror="this.style.opacity='0.3'"
+                 class="preset-choice-img">
+        <div class="preset-choice-id">${t('preset.head')} #${preset.preset_id}</div>
+            <div class="preset-choice-score">${scorePercent}%</div>
+            <button class="preset-choice-btn" data-id="${preset.preset_id}">${t('btn.choose')}</button>
+        `;
+        card.querySelector('.preset-choice-btn').addEventListener('click', () => {
+            selectPreset(preset.preset_id);
+        });
+        grid.appendChild(card);
+    });
+
+    navigateTo('screen-preset-choice');
+}
+
+function selectPreset(presetId) {
+    if (!state.pendingAnalysis) return;
+    const { landmarks, skinTone, skinMeta, scores } = state.pendingAnalysis;
+    const chosenPreset = PRESETS_DB.find(p => p.preset_id === presetId);
+    if (!chosenPreset) return;
+
+    state.results = analyzeWithPreset(landmarks, skinTone, chosenPreset, scores);
+    state.results.skinMeta = skinMeta;
+    navigateTo('screen-results');
+};
+
+// Analyze using a specific chosen preset (bypasses auto-selection)
+function analyzeWithPreset(landmarks, skinTone, chosenPreset, allScores) {
+    const ratios = extractMorphRatios(landmarks);
+    const faceShape = classifyFaceShape(ratios);
+    const chosenScore = allScores.find(s => s.preset_id === chosenPreset.preset_id)?.score ?? 0;
+
+    const zoneMix = computeZoneMix(ratios, chosenPreset, PRESETS_DB);
+    const adjustments = computeAdjustments(ratios, chosenPreset, zoneMix);
+
+    const result = {
+        preset: {
+            id: chosenPreset.preset_id,
+            position: chosenPreset.position,
+            label: `Tête n°${chosenPreset.position} dans la grille FC26`,
+            couleur_peau: chosenPreset.couleur_peau,
+            forme_visage: chosenPreset.forme_visage,
+            avance: chosenPreset.avance || null
+        },
+        skinTone,
+        faceShape,
+        score: chosenScore,
+        ratios,
+        detection: {
+            skinTone,
+            faceShape,
+            presetSkinTone: chosenPreset.couleur_peau,
+            presetFaceShape: chosenPreset.forme_visage,
+            topScore: allScores[0]?.score ?? 0,
+            top3: allScores.slice(0, 3),
+            ratios: {
+                noseToInterEye: ratios.noseToInterEye,
+                jawToFaceRatio: ratios.jawToFaceRatio,
+                cheekToFaceRatio: ratios.cheekToFaceRatio,
+                mouthToFace: ratios.mouthToFace
+            }
+        },
+        base_sliders: chosenPreset.faconner,
+        adjustments,
+        final_sliders: {}
+    };
+
+    for (const zone of Object.keys(chosenPreset.faconner)) {
+        result.final_sliders[zone] = { ...chosenPreset.faconner[zone] };
+        if (adjustments[zone]) {
+            Object.assign(result.final_sliders[zone], adjustments[zone]);
+        }
+    }
+
+    console.log("🎮 Résultat final (preset choisi) :", result);
+    return result;
 }
 
 // ─── ZONE MIX — Rendu de la section "ÉTAPE 2 — Onglet Tête" ────
@@ -1501,16 +1927,16 @@ function renderZoneMix(zoneMix) {
   const mainPresetId = state.results?.preset?.id;
 
   const zones = [
-    { key: 'front',    label: 'FRONT',    sub: 'Frente' },
-    { key: 'machoire', label: 'MÂCHOIRE', sub: 'Jaw' },
-    { key: 'joues',    label: 'JOUES',    sub: 'Cheeks' },
-    { key: 'menton',   label: 'MENTON',   sub: 'Chin' },
-    { key: 'oreilles', label: 'OREILLES', sub: 'Ears' },
-    { key: 'cou',      label: 'COU',      sub: 'Neck' },
-    { key: 'yeux',     label: 'YEUX',     sub: 'Eyes' },
-    { key: 'sourcils', label: 'SOURCILS', sub: 'Brows' },
-    { key: 'nez',      label: 'NEZ',      sub: 'Nose' },
-    { key: 'bouche',   label: 'BOUCHE',   sub: 'Mouth' },
+    { key: 'front',    label: t('zone.front'),    sub: 'Frente' },
+    { key: 'machoire', label: t('zone.machoire'), sub: 'Jaw' },
+    { key: 'joues',    label: t('zone.joues'),    sub: 'Cheeks' },
+    { key: 'menton',   label: t('zone.menton'),   sub: 'Chin' },
+    { key: 'oreilles', label: t('zone.oreilles'), sub: 'Ears' },
+    { key: 'cou',      label: t('zone.cou'),      sub: 'Neck' },
+    { key: 'yeux',     label: t('zone.yeux'),     sub: 'Eyes' },
+    { key: 'sourcils', label: t('zone.sourcils'), sub: 'Brows' },
+    { key: 'nez',      label: t('zone.nez'),      sub: 'Nose' },
+    { key: 'bouche',   label: t('zone.bouche'),   sub: 'Mouth' },
   ];
 
   const section = document.createElement('div');
@@ -1538,8 +1964,8 @@ function renderZoneMix(zoneMix) {
     <div style="background:linear-gradient(135deg,rgba(0,240,255,0.1),rgba(0,240,255,0.05)); padding:12px 16px; border-bottom:1px solid rgba(0,240,255,0.2); display:flex; align-items:center; gap:10px;">
       <span style="font-size:1.2rem">🎯</span>
       <div>
-        <div style="font-family:'Outfit',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#00f0ff; font-size:0.9rem;">ÉTAPE 2 — Onglet Tête</div>
-        <div style="font-size:0.75rem; color:#666; margin-top:2px;">Dans FC26, onglet Tête — une tête par zone</div>
+        <div style="font-family:'Outfit',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#00f0ff; font-size:0.9rem;">${t('step2.title')}</div>
+        <div style="font-size:0.75rem; color:#666; margin-top:2px;">${t('step2.desc')}</div>
       </div>
     </div>
     <div style="padding:8px 0;">${rowsHtml}</div>
@@ -1550,13 +1976,13 @@ function renderZoneMix(zoneMix) {
 
 function showMorphoConfirmation(detectedData, callback) {
     const jawRatio = detectedData.jawToFaceRatio ?? 0;
-    const initialMachoire = jawRatio > 0.76 ? "Large" : jawRatio > 0.65 ? "Moyenne" : "Fine";
+    const initialMachoire = jawRatio > 0.76 ? t('morph.jaw.large') : jawRatio > 0.65 ? t('morph.jaw.medium') : t('morph.jaw.fine');
     
     const nezRatio = detectedData.noseToInterEye ?? 0;
-    const initialNez = nezRatio > 0.48 ? "Large" : "Moyen";
+    const initialNez = nezRatio > 0.48 ? t('morph.nose.large') : t('morph.nose.medium');
     
     const boucheRatio = detectedData.mouthToFace ?? 0;
-    const initialLevres = boucheRatio < 0.38 ? "Pleines" : "Fines";
+    const initialLevres = boucheRatio < 0.38 ? t('morph.lips.full') : t('morph.lips.fine');
     
     const modal = document.createElement('div');
     modal.style.cssText = `
@@ -1585,24 +2011,28 @@ function showMorphoConfirmation(detectedData, callback) {
         `;
     };
 
+    const lipsOptions = [t('morph.lips.fine'), t('morph.lips.medium'), t('morph.lips.full')];
+    const noseOptions = [t('morph.nose.fine'), t('morph.nose.medium'), t('morph.nose.large')];
+    const jawOptions = [t('morph.jaw.fine'), t('morph.jaw.medium'), t('morph.jaw.large')];
+
     modal.innerHTML = `
         <div style="
             background: #0a0a0c; border: 1px solid #00f0ff; border-radius: 12px;
             padding: 24px; width: 90%; max-width: 400px; box-shadow: 0 0 20px rgba(0,240,255,0.2);
         ">
             <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-align: center; font-weight: 800; text-transform: uppercase;">
-                CONFIRMATION
+                ${t('morph.confirm.title')}
             </h3>
             
-            ${makeGroup("1. Tes lèvres sont :", ["Fines", "Moyennes", "Pleines"], initialLevres)}
-            ${makeGroup("2. Ton nez est :", ["Fin", "Moyen", "Large"], initialNez)}
-            ${makeGroup("3. Ta mâchoire est :", ["Fine", "Moyenne", "Large"], initialMachoire)}
+            ${makeGroup(t('morph.lips.question'), lipsOptions, initialLevres)}
+            ${makeGroup(t('morph.nose.question'), noseOptions, initialNez)}
+            ${makeGroup(t('morph.jaw.question'), jawOptions, initialMachoire)}
 
             <button id="btn-morpho-confirm" style="
                 width: 100%; padding: 14px; background: #00f0ff; color: #0a0a0c;
                 border: none; border-radius: 8px; font-weight: 800; font-size: 1.1rem;
                 cursor: pointer; margin-top: 10px; text-transform: uppercase;
-            ">CONFIRMER</button>
+            ">${t('morph.confirm.btn')}</button>
         </div>
     `;
 
@@ -1652,31 +2082,11 @@ function renderResults() {
     const existingZoneMix = document.getElementById('zone-mix-section');
     if (existingZoneMix) existingZoneMix.remove();
 
-    // Bandeau de détection IA (v6 : ITA)
-    const meta = result.skinMeta || {};
-    const lab = detectSkinToneFromCanvas._lastLab || {};
-    const ita = detectSkinToneFromCanvas._lastITA;
-    const rgb = detectSkinToneFromCanvas._lastRGB || {};
-
-    let debugHtml = `
-      <div class="debug-banner" style="background:rgba(0,200,255,0.08); border:1px solid rgba(0,200,255,0.3); border-radius:8px; padding:12px 16px; margin-bottom:14px; font-size:0.82rem; color:var(--text-secondary,#aaa);">
-        <p style="font-weight:bold; color:#00c8ff; margin:0 0 6px;">🔍 <strong>Ce que l'IA a détecté sur ta photo</strong></p>
-        <span>🎨 Peau (ITA: ${ita !== undefined ? Math.round(ita*10)/10 : '?'}°) : <strong>${result.skinTone}</strong>
-        ${meta.auto ? '🤖 Auto' : '✅ Confirmé'}</span><br>
-        <span>📐 Forme : <strong>${result.faceShape}</strong></span>
-        <span>🎯 Preset : <strong>${result.preset.couleur_peau || result.detection?.presetSkinTone} / ${result.preset.forme_visage || result.detection?.presetFaceShape}</strong></span>
-        <span>📊 Confiance : ✅ Haute (${result.score} pts)</span>
-        <span>🔬 RGB : R${rgb.r} G${rgb.g} B${rgb.b} | Lab: L=${Math.round(lab.L||0)} a=${Math.round(lab.a||0)} b=${Math.round(lab.b||0)}</span>
-        <span>📐 Ratios bruts : Nez=${result.ratios?.noseToInterEye?.toFixed(3)} | Mâch=${result.ratios?.jawToFaceRatio?.toFixed(3)} | Joues=${result.ratios?.cheekToFaceRatio?.toFixed(3)} | Bouche=${result.ratios?.mouthToFace?.toFixed(3)} | Yeux=${result.ratios?.eyeOpenness?.toFixed(3)} | Sourcils=${result.ratios?.eyebrowHeightRatio?.toFixed(3)} | EcartSourcils=${result.ratios?.eyebrowGap?.toFixed(3)} | VolLevres=${result.ratios?.lipFullness?.toFixed(3)} | EvasNez=${result.ratios?.noseFlare?.toFixed(3)} | Philtrum=${result.ratios?.philtrum?.toFixed(3)} | Pommettes=${result.ratios?.cheekProminence?.toFixed(3)} | PosYeux=${result.ratios?.eyeHeightPos?.toFixed(3)}</span>
-      </div>
-    `;
-
     let headerHtml = `
-        ${debugHtml}
         <div class="preset-header" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1)); border: 1px solid gold; padding: 15px; border-radius: 8px; margin-bottom: 20px; color: gold; text-align: center;">
-            <h2 style="margin-top:0; font-size:1.2rem;">🎯 Résultat pour ton visage</h2>
+            <h2 style="margin-top:0; font-size:1.2rem;">${t('results.title')}</h2>
             <div class="preset-card">
-                <p style="margin:5px 0;">ÉTAPE 1 — Choisis cette tête dans FC26 :</p>
+                <p style="margin:5px 0;">${t('step1.title')}</p>
                 <h3 style="margin:5px 0; font-size:1.5rem;">➡️ ${result.preset.label}</h3>
                 <p style="margin:0; font-size:0.9rem; opacity:0.8;">Preset ID : ${result.preset.id}</p>
                 <img src="./assets/presets/${result.preset.id}.png" class="preset-preview-img" alt="Visage recommandé" onerror="this.style.display='none'">
@@ -1715,19 +2125,25 @@ function renderResults() {
     const mentonP   = getZonePreset('menton');
     const machoireP = getZonePreset('machoire');
 
-    // Labels lisibles pour chaque clé
+    // Labels lisibles pour chaque clé — utiliser les traductions
     const keyLabels = {
-      re: 'Réduire/Élargir', bh: 'Bas/Haut', na: 'Neutre/Avant',
-      aa: 'Arrière/Avant', ang: 'Arrondi/Angulaire', gd: 'Gauche/Droite',
-      nr: 'Neutre/Arrondi', nh: 'Neutre/Haut', gp: 'Plus grande/Petite'
+      re: t('slider.re'), 
+      bh: t('slider.bh'), 
+      na: t('slider.na'),
+      aa: t('slider.aa'), 
+      ang: t('slider.ang'), 
+      gd: t('slider.gd'),
+      nr: t('slider.nr'), 
+      nh: t('slider.nh'), 
+      gp: t('slider.gp')
     };
 
     // Structure des zones avancées — base DNA par zone via zoneMix
     const advZones = [
       {
-        label: 'Tête', icon: '👤', basePresetId: craneP?.preset_id,
+        label: t('adv.zone.head'), icon: '👤', basePresetId: craneP?.preset_id,
         subs: [
-          { label: 'Crane principal', avanceKey: 'crane', noAdjust: true,
+          { label: t('adv.crane.principal'), avanceKey: 'crane', noAdjust: true,
             data: craneP?.avance?.crane ? {
               re: craneP.avance.crane.re,
               bh: craneP.avance.crane.bh,
@@ -1736,7 +2152,7 @@ function renderResults() {
               gd: craneP.avance.crane.gd
             } : undefined
           },
-          { label: 'Couronne', avanceKey: 'couronne', noAdjust: true,
+          { label: t('adv.crane.couronne'), avanceKey: 'couronne', noAdjust: true,
             data: craneP?.avance?.couronne ? {
               re: craneP.avance.couronne.re,
               bh: craneP.avance.couronne.bh,
@@ -1745,7 +2161,7 @@ function renderResults() {
               gd: craneP.avance.couronne.gd
             } : undefined
           },
-          { label: 'Arrière du crâne', avanceKey: 'arriere_crane', noAdjust: true,
+          { label: t('adv.crane.arriere'), avanceKey: 'arriere_crane', noAdjust: true,
             data: craneP?.avance?.arriere_crane ? {
               re: craneP.avance.arriere_crane.re,
               bh: craneP.avance.arriere_crane.bh,
@@ -1754,7 +2170,7 @@ function renderResults() {
               gd: craneP.avance.arriere_crane.gd
             } : undefined
           },
-          { label: 'Tempes', avanceKey: 'tempes', noAdjust: true,
+          { label: t('adv.crane.tempes'), avanceKey: 'tempes', noAdjust: true,
             data: craneP?.avance?.tempes ? {
               re: craneP.avance.tempes.re,
               bh: craneP.avance.tempes.bh,
@@ -1765,62 +2181,62 @@ function renderResults() {
         ]
       },
       {
-        label: 'Front', icon: '🗣️', basePresetId: frontP?.preset_id,
+        label: t('adv.zone.front'), icon: '🗣️', basePresetId: frontP?.preset_id,
         subs: [
-          { label: 'Partie supérieure', avanceKey: 'front_sup', data: frontP?.avance?.front_sup },
-          { label: 'Partie inférieure', avanceKey: 'front_inf', data: frontP?.avance?.front_inf },
+          { label: t('adv.front.sup'), avanceKey: 'front_sup', data: frontP?.avance?.front_sup },
+          { label: t('adv.front.inf'), avanceKey: 'front_inf', data: frontP?.avance?.front_inf },
         ]
       },
       {
-        label: 'Sourcils', icon: '👁️', basePresetId: sourcilsP?.preset_id,
+        label: t('adv.zone.brows'), icon: '👁️', basePresetId: sourcilsP?.preset_id,
         subs: [
-          { label: 'Sourcils',           avanceKey: 'sourcils',     data: sourcilsP?.avance?.sourcils },
-          { label: 'Partie centrale',    avanceKey: 'sourcils_ctr', data: sourcilsP?.avance?.sourcils_ctr },
-          { label: 'Partie extérieure',  avanceKey: 'sourcils_ext', data: sourcilsP?.avance?.sourcils_ext },
+          { label: t('adv.sourcils.principal'),           avanceKey: 'sourcils',     data: sourcilsP?.avance?.sourcils },
+          { label: t('adv.sourcils.centre'),    avanceKey: 'sourcils_ctr', data: sourcilsP?.avance?.sourcils_ctr },
+          { label: t('adv.sourcils.ext'),  avanceKey: 'sourcils_ext', data: sourcilsP?.avance?.sourcils_ext },
         ]
       },
       {
-        label: 'Yeux', icon: '👁️', basePresetId: yeuxP?.preset_id,
+        label: t('adv.zone.eyes'), icon: '👁️', basePresetId: yeuxP?.preset_id,
         subs: [
-          { label: 'Yeux',    avanceKey: 'yeux',    data: yeuxP?.avance?.yeux },
-          { label: 'Orbites', avanceKey: 'orbites', data: yeuxP?.avance?.orbites },
+          { label: t('adv.yeux.principal'),    avanceKey: 'yeux',    data: yeuxP?.avance?.yeux },
+          { label: t('adv.yeux.orbites'), avanceKey: 'orbites', data: yeuxP?.avance?.orbites },
         ]
       },
       {
-        label: 'Nez', icon: '👃', basePresetId: nezP?.preset_id,
+        label: t('adv.zone.nose'), icon: '👃', basePresetId: nezP?.preset_id,
         subs: [
-          { label: 'Nez principal',    avanceKey: 'nez_adv',        data: nezP?.avance?.nez_adv },
-          { label: 'Arête côtés',      avanceKey: 'arete_cotes',    data: nezP?.avance?.arete_cotes },
-          { label: 'Arête centrale',   avanceKey: 'arete_centrale', data: nezP?.avance?.arete_centrale },
-          { label: 'Arête supérieure', avanceKey: 'arete_sup',      data: nezP?.avance?.arete_sup },
+          { label: t('adv.nez.principal'),    avanceKey: 'nez_adv',        data: nezP?.avance?.nez_adv },
+          { label: t('adv.nez.arete.cotes'),      avanceKey: 'arete_cotes',    data: nezP?.avance?.arete_cotes },
+          { label: t('adv.nez.arete.centre'),   avanceKey: 'arete_centrale', data: nezP?.avance?.arete_centrale },
+          { label: t('adv.nez.arete.sup'), avanceKey: 'arete_sup',      data: nezP?.avance?.arete_sup },
         ]
       },
       {
-        label: 'Joues', icon: '😊', basePresetId: jouesP?.preset_id,
+        label: t('adv.zone.cheeks'), icon: '😊', basePresetId: jouesP?.preset_id,
         subs: [
-          { label: 'Joues', avanceKey: 'joues_adv', data: jouesP?.avance?.joues_adv },
+          { label: t('adv.joues.principal'), avanceKey: 'joues_adv', data: jouesP?.avance?.joues_adv },
         ]
       },
       {
-        label: 'Bouche', icon: '👄', basePresetId: boucheP?.preset_id,
+        label: t('adv.zone.mouth'), icon: '👄', basePresetId: boucheP?.preset_id,
         subs: [
-          { label: 'Bouche',         avanceKey: 'bouche_adv', data: boucheP?.avance?.bouche_adv },
-          { label: 'Extérieur sup.', avanceKey: 'bouche_ext', data: boucheP?.avance?.bouche_ext },
+          { label: t('adv.bouche.principal'),         avanceKey: 'bouche_adv', data: boucheP?.avance?.bouche_adv },
+          { label: t('adv.bouche.ext'), avanceKey: 'bouche_ext', data: boucheP?.avance?.bouche_ext },
         ]
       },
       {
-        label: 'Menton', icon: '🫦', basePresetId: mentonP?.preset_id,
+        label: t('adv.zone.chin'), icon: '🫦', basePresetId: mentonP?.preset_id,
         subs: [
-          { label: 'Menton',            avanceKey: 'menton_adv', data: mentonP?.avance?.menton_adv },
-          { label: 'Partie supérieure', avanceKey: 'menton_sup', data: mentonP?.avance?.menton_sup },
+          { label: t('adv.menton.principal'),            avanceKey: 'menton_adv', data: mentonP?.avance?.menton_adv },
+          { label: t('adv.menton.sup'), avanceKey: 'menton_sup', data: mentonP?.avance?.menton_sup },
         ]
       },
       {
-        label: 'Mâchoire', icon: '💪', basePresetId: machoireP?.preset_id,
+        label: t('adv.zone.jaw'), icon: '💪', basePresetId: machoireP?.preset_id,
         subs: [
-          { label: 'Mâchoire',   avanceKey: 'machoire_adv', data: machoireP?.avance?.machoire_adv },
-          { label: 'Maxillaire', avanceKey: 'maxillaire',   data: machoireP?.avance?.maxillaire },
-          { label: 'Mandibule',  avanceKey: 'mandibule',    data: machoireP?.avance?.mandibule },
+          { label: t('adv.machoire.principal'),   avanceKey: 'machoire_adv', data: machoireP?.avance?.machoire_adv },
+          { label: t('adv.machoire.maxillaire'), avanceKey: 'maxillaire',   data: machoireP?.avance?.maxillaire },
+          { label: t('adv.machoire.mandibule'),  avanceKey: 'mandibule',    data: machoireP?.avance?.mandibule },
         ]
       },
     ];
@@ -1839,10 +2255,10 @@ function renderResults() {
       <div>
         <div style="font-family:'Outfit',sans-serif; font-weight:700;
           text-transform:uppercase; letter-spacing:2px; color:#b026ff; font-size:0.9rem;">
-          Façonnage Avancé
+          ${t('adv.title')}
         </div>
         <div style="font-size:0.75rem; color:#666; margin-top:2px;">
-          Active "Façonnage Avancé" dans FC26 puis applique ces valeurs
+          ${t('adv.desc')}
         </div>
       </div>
     `;
@@ -1940,7 +2356,7 @@ window.toggleAccordion = function(element) {
 window.copyValue = function(value, btn) {
     navigator.clipboard.writeText(value.toString()).then(() => {
         const originalText = btn.innerText;
-        btn.innerText = 'Copied!';
+        btn.innerText = t('copied');
         btn.style.color = 'var(--success)';
         btn.style.borderColor = 'var(--success)';
         setTimeout(() => {

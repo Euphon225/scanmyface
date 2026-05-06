@@ -24,21 +24,31 @@
 </head>
 
 <body>
+    <header class="main-header">
+        <div class="logo">FC26</div>
+        <div id="lang-bar">
+            <button class="lang-btn active" data-lang="fr">FR</button>
+            <span class="lang-sep">|</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+    </header>
     <div id="app-container">
 
         <!-- Screen 1: Home -->
         <section id="screen-home" class="screen active">
             <div class="logo-container">
-                <h1>FC26 <span class="neon-text">CRANIUM</span></h1>
-                <p>Pro Face Geometry Analyzer</p>
+                <h1>FC26 <span class="neon-text" data-i18n="app.title.cranium">CRANIUM</span></h1>
+                <p data-i18n="app.subtitle">Pro Face Geometry Analyzer</p>
             </div>
             <div class="action-buttons">
                 <button id="btn-camera" class="btn btn-primary">
-                    <span class="icon">📷</span> Live Camera
+                    <span class="icon">📷</span>
+                    <span data-i18n="btn.camera">Live Camera</span>
                 </button>
-                <div class="divider"><span>OR</span></div>
+                <div class="divider"><span data-i18n="divider.or">OR</span></div>
                 <label for="file-upload" class="btn btn-secondary">
-                    <span class="icon">📁</span> Upload Photo
+                    <span class="icon">📁</span>
+                    <span data-i18n="btn.upload">Upload Photo</span>
                     <input type="file" id="file-upload" accept="image/*" hidden>
                 </label>
             </div>
@@ -48,7 +58,7 @@
         <section id="screen-scan" class="screen">
             <header>
                 <button class="btn-icon btn-back" data-target="screen-home">←</button>
-                <h2>Scanning</h2>
+                <h2 data-i18n="screen.scan.title">Scanning</h2>
             </header>
             <div class="scanner-container">
                 <div class="media-container">
@@ -60,31 +70,45 @@
                 </div>
                 <div id="loading-indicator" class="loading hidden">
                     <div class="spinner"></div>
-                    <p>Detecting 468 facial landmarks...</p>
+                    <p data-i18n="loading.landmarks">Detecting 468 facial landmarks...</p>
                 </div>
             </div>
             <div class="scan-actions">
-                <button id="btn-capture" class="btn btn-primary hidden">Capture & Analyze</button>
-                <button id="btn-analyze-upload" class="btn btn-primary hidden">Analyze Photo</button>
+                <button id="btn-capture" class="btn btn-primary hidden" data-i18n="btn.capture">Capture &amp; Analyze</button>
+                <button id="btn-analyze-upload" class="btn btn-primary hidden" data-i18n="btn.analyze.upload">Analyze Photo</button>
                 <div class="review-buttons hidden">
-                    <button id="btn-retake" class="btn btn-secondary">↩ Reprendre</button>
-                    <button id="btn-confirm-analyze" class="btn btn-primary">✓ Confirmer & Analyser</button>
+                    <button id="btn-retake" class="btn btn-secondary" data-i18n="btn.retake">↩ Reprendre</button>
+                    <button id="btn-confirm-analyze" class="btn btn-primary" data-i18n="btn.confirm.analyze">✓ Confirmer &amp; Analyser</button>
                 </div>
             </div>
         </section>
 
-        <!-- Screen 3: Results -->
+        <!-- Screen 3: Preset Choice -->
+        <section id="screen-preset-choice" class="screen">
+            <header>
+                <button class="btn-icon btn-back" data-target="screen-home">←</button>
+                <h2 data-i18n="screen.preset.title">Choix du Modèle</h2>
+            </header>
+            <div class="preset-choice-container">
+                <p class="preset-choice-message" data-i18n="preset.message">L'IA a trouvé ces 3 modèles. Lequel te semble le plus proche ?</p>
+                <div class="preset-grid" id="preset-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 4: Results -->
         <section id="screen-results" class="screen">
             <header>
-                <button class="btn-icon btn-back" data-target="screen-scan">←</button>
-                <h2>Results</h2>
+                <button class="btn-icon btn-back" data-target="screen-preset-choice">←</button>
+                <h2 data-i18n="screen.results.title">Résultats</h2>
                 <button id="btn-share" class="btn-icon">📤</button>
             </header>
 
             <div class="results-container">
                 <div class="tier-indicator">
-                    <span class="badge badge-free">Free Tier</span>
-                    <button class="btn-upgrade-sm" data-target="screen-premium">Unlock All</button>
+                    <span class="badge badge-free" data-i18n="badge.free">Free Tier</span>
+                    <button class="btn-upgrade-sm" data-target="screen-premium" data-i18n="btn.unlock.all">Unlock All</button>
                 </div>
 
                 <div id="results-accordion" class="accordion">
@@ -94,34 +118,33 @@
 
             <div class="premium-gate">
                 <div class="gate-content">
-                    <p>Unlock 6 advanced zones (Crâne, Menton, Sourcils, Front, Bouche, Oreilles) and PDF Export.</p>
-                    <button id="btn-go-premium" class="btn btn-premium" data-target="screen-premium">Get
-                        Premium</button>
+                    <p data-i18n="premium.gate.text">Unlock 6 advanced zones (Crâne, Menton, Sourcils, Front, Bouche, Oreilles) and PDF Export.</p>
+                    <button id="btn-go-premium" class="btn btn-premium" data-target="screen-premium" data-i18n="btn.get.premium">Get Premium</button>
                 </div>
             </div>
         </section>
 
-        <!-- Screen 4: Premium -->
+        <!-- Screen 5: Premium -->
         <section id="screen-premium" class="screen">
             <header>
                 <button class="btn-icon btn-back" data-target="screen-results">←</button>
-                <h2>Premium</h2>
+                <h2 data-i18n="screen.premium.title">Premium</h2>
             </header>
             <div class="premium-content">
                 <div class="premium-hero">
-                    <h1 class="neon-text">PRO ACCESS</h1>
-                    <p>Get the competitive edge in FC26</p>
+                    <h1 class="neon-text" data-i18n="premium.access">PRO ACCESS</h1>
+                    <p data-i18n="premium.hero.sub">Get the competitive edge in FC26</p>
                 </div>
                 <ul class="premium-features">
-                    <li>✓ Unlock all 10 facial zones</li>
-                    <li>✓ Pinpoint accuracy mapping</li>
-                    <li>✓ Export slider sheet to PDF</li>
-                    <li>✓ No ads</li>
+                    <li data-i18n="premium.feat1">✓ Unlock all 10 facial zones</li>
+                    <li data-i18n="premium.feat2">✓ Pinpoint accuracy mapping</li>
+                    <li data-i18n="premium.feat3">✓ Export slider sheet to PDF</li>
+                    <li data-i18n="premium.feat4">✓ No ads</li>
                 </ul>
                 <div class="pricing">
-                    <span class="price">$4.99</span> <span class="period">one-time</span>
+                    <span class="price">$4.99</span> <span class="period" data-i18n="premium.period">one-time</span>
                 </div>
-                <button id="btn-purchase" class="btn btn-premium-action">Unlock Now</button>
+                <button id="btn-purchase" class="btn btn-premium-action" data-i18n="btn.unlock.now">Unlock Now</button>
             </div>
         </section>
 
