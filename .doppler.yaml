@@ -1,0 +1,39 @@
+---
+# Doppler Project Configuration for FC26 CRANIUM
+# https://docs.doppler.com/docs/doppler-yaml
+
+project: scanmyface-fc26
+config: dev
+environment: development
+
+# Environments managed in Doppler Dashboard:
+# - dev       (local development with func/npm)
+# - staging   (test Azure Functions)
+# - prod      (live Azure Functions)
+
+# Secrets injected at deploy-time (never committed):
+# Backend:
+#   MONGODB_URI               - MongoDB Atlas connection string (secret)
+#   MONGODB_DB                - Database name (default: scanmyface)
+#   MONGODB_COLLECTION        - Collection name (default: presets)
+# 
+# Frontend:
+#   VITE_AZURE_FUNCTION_ENDPOINT  - Azure Function URL (public)
+#   VITE_APPWRITE_ENDPOINT        - Appwrite endpoint (public, deprecated)
+
+# Ignored files (don't sync to Doppler):
+ignore:
+  - node_modules/
+  - .git/
+  - dist/
+  - functions/node_modules/
+  - __pycache__/
+  - "*.local.settings.json"
+  - .env.local
+
+# Post-login hooks
+# post_login:
+#   - func start
+
+# Fallback for missing secrets (dev only)
+fallback_command: echo "⚠️ Secret not found in Doppler. Check DOPPLER_TOKEN"

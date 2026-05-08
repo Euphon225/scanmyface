@@ -2,6 +2,14 @@
 // FC26 CRANIUM ANALYZER — PRESET MATCHER v1.0
 // ============================================================
 
+// ═══════════════════════════════════════════════════════════════════════
+// CONFIGURATION BLOCK — Frontend Endpoints
+// ═══════════════════════════════════════════════════════════════════════
+const CONFIG = {
+  AZURE_FUNCTION_ENDPOINT: 'https://scanmyface-engine-bmeahnduccgvcrcc.germanywestcentral-01.azurewebsites.net/api/matchFace',
+  APPWRITE_ENDPOINT: 'https://69f56e82003365eb237a.fra.appwrite.run'
+};
+
 // --- 1. SURVIVAL & i18n BLOCK ---
 let capturedBase64 = null;
 let capturedCanvas = null;
@@ -128,6 +136,7 @@ const i18n = {
         'qa.blur': 'Photo trop floue. Prends une photo plus nette.',
         'qa.light': 'Éclairage insuffisant. Trouve un endroit plus lumineux.',
         'qa.angle': 'Tiens ta tête droite face à la caméra.',
+        'alert.matching.failed': 'Le service de matching est indisponible. Réessaie.',
         
         // === CHARGEMENT & MESSAGES ===
         'loading.landmarks': 'Détection de 468 points faciaux...',
@@ -311,6 +320,7 @@ const i18n = {
         'alert.camera.not.supported': 'Your browser does not support video capture.',
         'alert.no.face': 'No face detected. Please try another photo.',
         'alert.share.not.supported': 'Web Share API is not supported on this browser.',
+        'alert.matching.failed': 'Matching service unavailable. Please try again.',
         'btn.unlock.now': 'Unlock Now'
     }
 };
@@ -850,6 +860,30 @@ function selectBestPreset(landmarks, skinTone) {
   console.log("🏆 Top 3 presets :", scores.slice(0, 3));
 
   return { bestPreset, ratios, scores };
+}
+
+async function fetchBestPresetFromAzure(ratios, skinTone) {
+  const response = await fetch(CONFIG.AZURE_FUNCTION_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ratios, skinTone })
+  });
+
+  let data;
+  try {
+    data = await response.json();
+    console.log(data);
+  } catch (error) {
+    throw new Error('Invalid response from matching service.');
+  }
+
+  if (!response.ok || !data?.success) {
+    throw new Error(data?.error || 'Matching service unavailable.');
+  }
+
+  return data;
 }
 
 // ─── 8. CALCUL DES AJUSTEMENTS FINS — Z-SCORE SOFT CLAMPING (v4) ──
@@ -1586,6 +1620,7 @@ function handleFileUpload(e) {
         const dataUrl = event.target.result;
 
         inputImage.onload = () => {
+            inputImage.onload = null;
             initCropper(inputImage);
             inputVideo.classList.add('hidden');
             btnCapture.classList.add('hidden');
@@ -1595,6 +1630,7 @@ function handleFileUpload(e) {
         };
 
         inputImage.classList.remove('hidden');
+        inputImage.removeAttribute('hidden');
         inputImage.src = dataUrl;
     };
     reader.readAsDataURL(file);
@@ -1637,7 +1673,7 @@ function startLiveScan() {
 
 async function checkPhotoQuality(base64Image) {
     try {
-        const response = await fetch('https://69f56e82003365eb237a.fra.appwrite.run', {
+        const response = await fetch(CONFIG.APPWRITE_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ image: base64Image })
@@ -1691,6 +1727,7 @@ function capturePhoto() {
     };
     inputImage.src = dataUrl;
     inputImage.classList.remove('hidden');
+    inputImage.removeAttribute('hidden');
     inputVideo.classList.add('hidden');
     btnCapture.classList.add('hidden');
     reviewButtons.classList.remove('hidden');
@@ -1737,33 +1774,22 @@ async function confirmAndAnalyze() {
     }
 
     reviewButtons.classList.add('hidden');
-    loadingIndicator.classList.remove('hidden');
-
-    const quality = await checkPhotoQuality(capturedBase64);
-    if (!quality.ok) {
-        loadingIndicator.classList.add('hidden');
-        if (quality.reason === 'no_face') showQAWarning(t('qa.noface'));
-        else if (quality.reason === 'too_blurry') showQAWarning(t('qa.blur'));
-        else if (quality.reason === 'bad_lighting') showQAWarning(t('qa.light'));
-        else if (quality.reason === 'bad_angle') showQAWarning(t('qa.angle'));
-        reviewButtons.classList.remove('hidden');
-        return;
-    }
-
-    const img = new Image();
-    img.onload = async () => {
-        outputCanvas.width  = img.naturalWidth;
-        outputCanvas.height = img.naturalHeight;
-        await faceMesh.send({ image: img });
-        loadingIndicator.classList.add('hidden');
-    };
-    img.src = imageDataUrl;
+    await runImageAnalysis(imageDataUrl, {
+        onQualityFail: () => reviewButtons.classList.remove('hidden')
+    });
 }
 
-async function analyzeUpload() {
+async function analyzeUpload(source = inputImage.src) {
+    console.log('Starting uploaded photo analysis');
+    await runImageAnalysis(source);
+}
+
+async function runImageAnalysis(imageSource, options = {}) {
+    if (!imageSource) return;
+
     loadingIndicator.classList.remove('hidden');
-    
-    const base64Image = inputImage.src.includes(',') ? inputImage.src.split(',')[1] : inputImage.src;
+
+    const base64Image = imageSource.includes(',') ? imageSource.split(',')[1] : imageSource;
     const quality = await checkPhotoQuality(base64Image);
     if (!quality.ok) {
         loadingIndicator.classList.add('hidden');
@@ -1771,15 +1797,30 @@ async function analyzeUpload() {
         else if (quality.reason === 'too_blurry') showQAWarning(t('qa.blur'));
         else if (quality.reason === 'bad_lighting') showQAWarning(t('qa.light'));
         else if (quality.reason === 'bad_angle') showQAWarning(t('qa.angle'));
+        if (typeof options.onQualityFail === 'function') options.onQualityFail(quality);
         return;
     }
 
-    const img = new Image();
-    img.onload = async () => {
-        await faceMesh.send({ image: img });
+    await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = async () => {
+            try {
+                outputCanvas.width = img.naturalWidth;
+                outputCanvas.height = img.naturalHeight;
+                await faceMesh.send({ image: img });
+                loadingIndicator.classList.add('hidden');
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        };
+        img.onerror = () => reject(new Error('Unable to load image for analysis.'));
+        img.src = imageSource;
+    }).catch((error) => {
         loadingIndicator.classList.add('hidden');
-    };
-    img.src = inputImage.src;
+        console.error('Image analysis failed:', error);
+        showQAWarning(t('alert.matching.failed'));
+    });
 }
 
 // --- Results Callback ---
@@ -1809,18 +1850,88 @@ function onResults(results) {
         drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
         drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#00f0ff'});
 
-        detectSkinToneFromCanvas(results.image, landmarks, (skinTone, skinMeta) => {
-            loadingIndicator.classList.add('hidden');
+        detectSkinToneFromCanvas(results.image, landmarks, async (skinTone, skinMeta) => {
+          loadingIndicator.classList.add('hidden');
+          const ratios = extractMorphRatios(landmarks);
 
-            const { bestPreset, ratios, scores } = selectBestPreset(landmarks, skinTone);
+          try {
+            // Ancienne logique locale conservée au cas où un retour en secours serait nécessaire.
+            // const { bestPreset, ratios, scores } = selectBestPreset(landmarks, skinTone);
+            // const top3 = scores.slice(0, 3)
+            //     .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
+            //     .filter(item => item.preset);
+            // state.pendingAnalysis = { landmarks, skinTone, skinMeta, scores };
+            // showPresetChoiceScreen(top3);
 
-            const top3 = scores.slice(0, 3)
-                .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
-                .filter(item => item.preset);
+            const azureData = await fetchBestPresetFromAzure(ratios, skinTone);
+            console.log('Azure response received:', azureData);
 
-            state.pendingAnalysis = { landmarks, skinTone, skinMeta, scores };
+            // Check for Azure errors first
+            if (!azureData.success) {
+                alert('Erreur Azure: ' + (azureData.error || 'Réponse invalide'));
+                console.error('Azure error:', azureData.error);
+                loadingIndicator.classList.add('hidden');
+                return;
+            }
 
-            showPresetChoiceScreen(top3);
+            // Ensure we have top 3 candidates from Azure
+            let top3Candidates = null;
+            if (Array.isArray(azureData.top3)) {
+                top3Candidates = azureData.top3;
+                console.log('Using top3 from Azure:', top3Candidates.length, 'items');
+            } else if (Array.isArray(azureData.players)) {
+                top3Candidates = azureData.players;
+                console.log('Using players from Azure:', top3Candidates.length, 'items');
+            } else if (Array.isArray(azureData.presets)) {
+                top3Candidates = azureData.presets;
+                console.log('Using presets from Azure:', top3Candidates.length, 'items');
+            }
+
+            // Validate that we have candidates
+            if (!top3Candidates || top3Candidates.length === 0) {
+                alert(t('alert.matching.failed') + ' - Aucun résultat trouvé');
+                console.warn('No top3 array found in Azure response');
+                loadingIndicator.classList.add('hidden');
+                return;
+            }
+
+            // Normalize and filter candidates
+            console.log('Processing', top3Candidates.length, 'candidates for choice screen');
+            const normalizedTop3 = top3Candidates.slice(0, 3).map((entry) => {
+                const player = entry?.player ?? entry?.preset ?? entry;
+                const presetId = player?.preset_id ?? player?.presetId ?? player?.id ?? null;
+                const preset = PRESETS_DB.find((item) => item.preset_id === presetId) || player;
+                const score = entry?.score ?? player?.score ?? 0;
+                console.log(`Card: presetId=${presetId}, score=${score}, found in DB=${!!PRESETS_DB.find((item) => item.preset_id === presetId)}`);
+                return { preset, score };
+            }).filter((entry) => {
+                if (!entry.preset) {
+                    console.warn('Filtered out entry: missing preset');
+                    return false;
+                }
+                if (!entry.preset.preset_id) {
+                    console.warn('Filtered out entry: missing preset_id');
+                    return false;
+                }
+                return true;
+            });
+
+            // Validate normalized data
+            if (normalizedTop3.length === 0) {
+                alert(t('alert.matching.failed') + ' - Données invalides');
+                console.error('No valid presets after normalization');
+                loadingIndicator.classList.add('hidden');
+                return;
+            }
+
+            // Display choice screen
+            console.log('✅ Displaying choice screen with', normalizedTop3.length, 'valid presets');
+            state.pendingAnalysis = { landmarks, skinTone, skinMeta, scores: normalizedTop3.map((entry) => ({ preset_id: entry.preset.preset_id, score: entry.score })) };
+            showPresetChoiceScreen(normalizedTop3);
+          } catch (error) {
+            console.error('Azure matching error:', error);
+            showQAWarning(t('alert.matching.failed'));
+          }
         });
     } else {
         loadingIndicator.classList.add('hidden');
@@ -1832,26 +1943,50 @@ function onResults(results) {
 }
 
 // ─── PRESET CHOICE SCREEN ──────────────────────────────────────
+function getPresetImageSrc(player) {
+    const presetId = player?.preset_id ?? player?.presetId ?? player?.id ?? null;
+    if (presetId != null && presetId !== '') {
+        return `./assets/presets/${presetId}.png`;
+    }
+
+    const fallbackName = (player?.name ?? player?.label ?? player?.preset_name ?? '').toString().trim();
+    if (fallbackName) {
+        const safeName = fallbackName.replace(/[^a-z0-9_-]+/gi, '_');
+        return `./assets/presets/${safeName}.png`;
+    }
+
+    return 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22500%22 viewBox=%220 0 400 500%22%3E%3Crect width=%22400%22 height=%22500%22 fill=%22%23161a1f%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23a0aab2%22 font-family=%22Arial%2Csans-serif%22 font-size=%2220%22%3EImage indisponible%3C/text%3E%3C/svg%3E';
+}
+
 function showPresetChoiceScreen(top3) {
     const grid = document.getElementById('preset-grid');
-  state.pendingTop3 = top3;
+    state.pendingTop3 = top3;
     grid.innerHTML = '';
 
-    top3.forEach(({ preset, score }) => {
-      const scorePercent = Number.isFinite(score) ? Math.max(0, Math.min(100, Math.round(score))) : 0;
+    top3.forEach((entry) => {
+        const player = entry?.player ?? entry?.preset ?? entry;
+        const presetId = player?.preset_id ?? player?.presetId ?? player?.id ?? null;
+        const playerName = player?.name ?? player?.label ?? player?.preset_name ?? `Preset ${presetId ?? ''}`;
+        const scoreValue = Number(entry?.score ?? player?.score ?? 0);
+        const scorePercent = Number.isFinite(scoreValue) ? Math.max(0, Math.min(100, Math.round(scoreValue))) : 0;
+        const imageSrc = getPresetImageSrc(player);
         const card = document.createElement('div');
         card.className = 'preset-choice-card';
         card.innerHTML = `
-            <img src="./assets/presets/${preset.preset_id}.png"
-                 alt="Preset ${preset.preset_id}"
-                 onerror="this.style.opacity='0.3'"
+            <img src="${imageSrc}"
+                 alt="${playerName}"
+                 loading="lazy"
+                 decoding="async"
+                 onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22500%22 viewBox=%220 0 400 500%22%3E%3Crect width=%22400%22 height=%22500%22 fill=%22%23161a1f%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23a0aab2%22 font-family=%22Arial%2Csans-serif%22 font-size=%2220%22%3EImage indisponible%3C/text%3E%3C/svg%3E';this.style.opacity='0.3'"
                  class="preset-choice-img">
-        <div class="preset-choice-id">${t('preset.head')} #${preset.preset_id}</div>
+        <div class="preset-choice-id">${playerName}</div>
             <div class="preset-choice-score">${scorePercent}%</div>
-            <button class="preset-choice-btn" data-id="${preset.preset_id}">${t('btn.choose')}</button>
+            <button class="preset-choice-btn" data-id="${presetId ?? ''}">${t('btn.choose')}</button>
         `;
         card.querySelector('.preset-choice-btn').addEventListener('click', () => {
-            selectPreset(preset.preset_id);
+            if (presetId != null) {
+                selectPreset(presetId);
+            }
         });
         grid.appendChild(card);
     });
