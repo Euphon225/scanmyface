@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ScanMyFace - Cranium Analyzer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Lexend:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#e5e1e4",
+            "error-container": "#93000a",
+            "on-secondary-fixed-variant": "#5516be",
+            "error": "#ffb4ab",
+            "on-secondary-fixed": "#23005c",
+            "outline-variant": "#3b494b",
+            "on-primary-fixed": "#002022",
+            "on-secondary": "#3c0091",
+            "on-tertiary-fixed-variant": "#554500",
+            "inverse-on-surface": "#313032",
+            "surface": "#131315",
+            "surface-container-lowest": "#0e0e10",
+            "surface-tint": "#00dbe9",
+            "inverse-primary": "#006970",
+            "on-background": "#e5e1e4",
+            "outline": "#849495",
+            "on-secondary-container": "#c4abff",
+            "on-primary-container": "#006970",
+            "tertiary": "#fff5de",
+            "secondary": "#d0bcff",
+            "primary": "#dbfcff",
+            "secondary-container": "#571bc1",
+            "surface-bright": "#39393b",
+            "secondary-fixed-dim": "#d0bcff",
+            "primary-fixed-dim": "#00dbe9",
+            "tertiary-fixed-dim": "#eac324",
+            "on-surface-variant": "#b9cacb",
+            "primary-container": "#00f0ff",
+            "surface-dim": "#131315",
+            "on-tertiary-fixed": "#231b00",
+            "on-primary-fixed-variant": "#004f54",
+            "tertiary-fixed": "#ffe179",
+            "surface-container": "#201f21",
+            "surface-container-highest": "#353437",
+            "on-error-container": "#ffdad6",
+            "surface-variant": "#353437",
+            "background": "#131315",
+            "on-error": "#690005",
+            "surface-container-low": "#1c1b1d",
+            "on-primary": "#00363a",
+            "inverse-surface": "#e5e1e4",
+            "on-tertiary-container": "#715d00",
+            "secondary-fixed": "#e9ddff",
+            "tertiary-container": "#fed639",
+            "surface-container-high": "#2a2a2c",
+            "on-tertiary": "#3b2f00",
+            "primary-fixed": "#7df4ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "unit": "4px",
+            "sm": "8px",
+            "md": "16px",
+            "lg": "24px",
+            "container-max": "1280px",
+            "gutter": "20px",
+            "xs": "4px",
+            "xl": "48px"
+          },
+          "fontFamily": {
+            "title-sm": ["Lexend"],
+            "label-caps": ["Inter"],
+            "display-lg": ["Lexend"],
+            "headline-md": ["Lexend"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "title-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom Slider Styles */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #00f0ff;
+      cursor: pointer;
+      margin-top: -5px;
+      transition: box-shadow 0.2s;
+    }
+    input[type=range]::-webkit-slider-thumb:hover, input[type=range]:active::-webkit-slider-thumb {
+      box-shadow: 0 0 15px 4px rgba(0, 240, 255, 0.6);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: #353437;
+      border-radius: 2px;
+    }
+    input[type=range]:focus {
+      outline: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(0, 240, 255, 0.3);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="bg-[#0A0A0C] text-on-surface min-h-screen flex flex-col overflow-hidden relative">
+<!-- Background Layer -->
+<div class="absolute inset-0 z-0 opacity-30 pointer-events-none flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-lg py-md w-full sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/10">
+<div class="font-display-lg text-headline-md font-bold text-primary-container drop-shadow-[0_0_8px_rgba(0,240,255,0.6)] tracking-tighter">
+      SCANMYFACE.tech
+    </div>
+<div class="hidden md:flex gap-lg items-center">
+<span class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors duration-300">How it works</span>
+<span class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors duration-300">Features</span>
+<span class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors duration-300">Pricing</span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="material-symbols-outlined">settings</span>
+</div>
+</header>
+<!-- Hero Content -->
+<main class="flex-1 flex items-center justify-center relative">
+<!-- Decorative Grid/Circles -->
+<div class="absolute inset-0 flex items-center justify-center opacity-20">
+<div class="w-[800px] h-[800px] border border-primary-container rounded-full absolute"></div>
+<div class="w-[500px] h-[500px] border border-primary-container rounded-full absolute"></div>
+<div class="w-full h-[1px] bg-primary-container absolute"></div>
+<div class="h-full w-[1px] bg-primary-container absolute"></div>
+</div>
+<div class="text-center z-10">
+<h1 class="font-display-lg text-display-lg text-white mb-md">Scan your face.<br/><span class="text-primary-container">Build your player.</span></h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto mb-lg">AI face scanning that auto-generates FC26 player creation settings — 100% on-device.</p>
+<button class="bg-primary-container text-[#0A0A0C] font-label-caps text-label-caps px-lg py-md rounded shadow-[0_0_15px_rgba(0,240,255,0.4)]">START SCANNING</button>
+</div>
+</main>
+</div>
+<!-- Modal System Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-md md:p-lg">
+<!-- Modal Container -->
+<div class="w-full max-w-[1200px] bg-surface-container-lowest/90 backdrop-blur-[16px] border border-primary-container/50 rounded-xl shadow-[0_0_40px_rgba(0,240,255,0.2)] relative flex flex-col h-[90vh] max-h-[921px]">
+<!-- Close Button -->
+<button aria-label="Close" class="absolute top-md right-md text-on-surface-variant hover:text-primary-container transition-colors z-20">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Modal Header -->
+<div class="px-xl py-md border-b border-primary-container/20 flex items-center justify-between shrink-0 bg-gradient-to-r from-transparent via-primary-container/5 to-transparent">
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary-container transition-colors flex items-center">
+<span class="material-symbols-outlined mr-xs text-[18px]">arrow_back</span>
+<span class="font-label-caps text-[10px]">RESULTS</span>
+</button>
+</div>
+<span class="font-title-sm text-title-sm text-primary-container tracking-widest uppercase font-bold drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]">FAÇONNAGE AVANCÉ</span>
+<div class="w-20"></div> <!-- Spacer for center alignment -->
+</div>
+<!-- Original Scanning/Results View (Hidden for edit transition) -->
+<div class="hidden flex-1 overflow-y-auto grid-cols-1 lg:grid-cols-2">
+<!-- Hidden original content -->
+<button id="btnCamera"></button>
+<button id="btnCapture"></button>
+<div id="result-container"></div>
+</div>
+<!-- Advanced Shaping View -->
+<div class="flex-1 overflow-hidden flex flex-col lg:flex-row">
+<!-- Left Column: Character Preview & HUD -->
+<div class="w-full lg:w-[40%] p-lg border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col items-center relative bg-[#050505]">
+<!-- HUD Overlays -->
+<div class="absolute top-lg left-lg text-primary-container font-label-caps text-[9px] opacity-70 flex flex-col gap-1">
+<span>SYS.OP: ONLINE</span>
+<span>COORD: X-14.22 Y-8.91</span>
+<span>MESH: ACTIVE</span>
+</div>
+<div class="absolute bottom-lg right-lg text-primary-container font-label-caps text-[9px] opacity-70 text-right">
+<span>TARGET: FC26_PRO</span>
+<span>RENDER: 4K_RTX</span>
+</div>
+<div class="absolute inset-0 pointer-events-none border-[1px] border-primary-container/10 m-sm rounded">
+<div class="absolute top-0 left-0 w-8 h-8 border-t border-l border-primary-container/50"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t border-r border-primary-container/50"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-primary-container/50"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-primary-container/50"></div>
+</div>
+<div class="relative w-full max-w-[380px] aspect-[3/4] rounded border border-primary-container/30 bg-black overflow-hidden flex items-center justify-center mt-md shadow-[0_0_30px_rgba(0,240,255,0.1)_inset]">
+<img alt="Generated Character Preview" class="w-full h-full object-cover mix-blend-lighten opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGQPJZ5Sc7--R5VYRDegtsvRHycsyEGKElg5EEZNOgLQHD0XeaDr0f6XdeDCK_9TzRwTZ7PcaR7OYo1mFQOyauIdV76Bz880bEj7lvH6OADlSAoy4MTkn6suuKnyuKz9rnmlWCv6I-PkrnHhITogyXGM5Q-uQkrAwbX4aqqsVhz1TBM_6HXJsGIEM9Nd8hOnUN44CdHhXO73__mTAHZ5oXam-dGfGcDWjIAccJrm0TLGgMU8ehKhuATadwnrIK_3aimmJPo7AGOq3W"/>
+<!-- Scanning line animation -->
+<div class="absolute top-1/2 left-0 w-full h-[1px] bg-primary-container shadow-[0_0_12px_2px_#00F0FF] opacity-50"></div>
+<!-- Wireframe/Points overlay simulation -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMC41IiBmaWxsPSIjMDBmMGZmIiBmaWxsLW9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4=')] opacity-30"></div>
+</div>
+</div>
+<!-- Right Column: Mixing Controls & Export -->
+<div class="w-full lg:w-[60%] flex flex-col h-full bg-surface-container-low/50 relative">
+<!-- Navigation Tabs -->
+<div class="flex overflow-x-auto border-b border-white/10 hide-scrollbar bg-surface-container-highest/30 shrink-0">
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-primary-container text-primary-container bg-primary-container/5 font-label-caps text-[11px] whitespace-nowrap">
+    👤 Tête
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    🗣️ Front
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    👁️ Sourcils
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    👁️ Yeux
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    👃 Nez
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    😊 Joues
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    👄 Bouche
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    🫦 Menton
+  </button>
+<button class="flex items-center gap-xs px-md py-sm border-b-[2px] border-transparent text-on-surface-variant hover:text-primary-container whitespace-nowrap font-label-caps text-[11px] transition-colors">
+    💪 Mâchoire
+  </button>
+</div>
+<div class="flex-1 overflow-y-auto p-md lg:p-lg flex flex-col gap-md custom-scrollbar">
+<!-- Category Header -->
+<div class="flex items-center justify-between border-b border-primary-container/20 pb-sm">
+<h2 class="font-title-sm text-[16px] text-primary-container tracking-widest uppercase font-bold drop-shadow-[0_0_5px_rgba(0,240,255,0.4)]">Tête — base Preset 268</h2>
+</div>
+<!-- Sub-sections Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md flex-1">
+<!-- Sub-section: Crâne principal -->
+<div class="bg-surface/80 border border-white/5 rounded-lg p-md shadow-sm h-max">
+<h3 class="font-label-caps text-[13px] text-on-surface mb-md opacity-90 border-l-2 border-primary-container pl-2">Crâne principal</h3>
+<div class="space-y-md">
+<div>
+<div class="flex items-center justify-between font-label-caps text-[10px] text-on-surface-variant mb-2">
+<span>Réduire/Élargir</span>
+<div class="flex items-center gap-xs bg-surface-container-highest px-2 py-0.5 rounded border border-white/10">
+<span class="text-primary-container font-bold text-[12px]">70</span>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors" title="Copy"><span class="material-symbols-outlined text-[12px]">content_copy</span></button>
+</div>
+</div>
+<input max="100" min="0" type="range" value="70"/>
+</div>
+<div>
+<div class="flex items-center justify-between font-label-caps text-[10px] text-on-surface-variant mb-2">
+<span>Aplatir/Allonger</span>
+<div class="flex items-center gap-xs bg-surface-container-highest px-2 py-0.5 rounded border border-white/10">
+<span class="text-primary-container font-bold text-[12px]">45</span>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors" title="Copy"><span class="material-symbols-outlined text-[12px]">content_copy</span></button>
+</div>
+</div>
+<input max="100" min="0" type="range" value="45"/>
+</div>
+</div>
+</div>
+<!-- Sub-section: Couronne -->
+<div class="bg-surface/80 border border-white/5 rounded-lg p-md shadow-sm h-max">
+<h3 class="font-label-caps text-[13px] text-on-surface mb-md opacity-90 border-l-2 border-primary-container pl-2">Couronne</h3>
+<div class="space-y-md">
+<div>
+<div class="flex items-center justify-between font-label-caps text-[10px] text-on-surface-variant mb-2">
+<span>Rétrécir/Élargir</span>
+<div class="flex items-center gap-xs bg-surface-container-highest px-2 py-0.5 rounded border border-white/10">
+<span class="text-primary-container font-bold text-[12px]">82</span>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors" title="Copy"><span class="material-symbols-outlined text-[12px]">content_copy</span></button>
+</div>
+</div>
+<input max="100" min="0" type="range" value="82"/>
+</div>
+<div>
+<div class="flex items-center justify-between font-label-caps text-[10px] text-on-surface-variant mb-2">
+<span>Abaisser/Relever</span>
+<div class="flex items-center gap-xs bg-surface-container-highest px-2 py-0.5 rounded border border-white/10">
+<span class="text-primary-container font-bold text-[12px]">30</span>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors" title="Copy"><span class="material-symbols-outlined text-[12px]">content_copy</span></button>
+</div>
+</div>
+<input max="100" min="0" type="range" value="30"/>
+</div>
+</div>
+</div>
+<!-- Sub-section: Arrière du crâne -->
+<div class="bg-surface/80 border border-white/5 rounded-lg p-md shadow-sm h-max">
+<h3 class="font-label-caps text-[13px] text-on-surface mb-md opacity-90 border-l-2 border-primary-container pl-2">Arrière du crâne</h3>
+<div class="space-y-md">
+<div>
+<div class="flex items-center justify-between font-label-caps text-[10px] text-on-surface-variant mb-2">
+<span>Aplatir/Allonger</span>
+<div class="flex items-center gap-xs bg-surface-container-highest px-2 py-0.5 rounded border border-white/10">
+<span class="text-primary-container font-bold text-[12px]">55</span>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors" title="Copy"><span class="material-symbols-outlined text-[12px]">content_copy</span></button>
+</div>
+</div>
+<input max="100" min="0" type="range" value="55"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Copy All Category -->
+<button class="mt-md w-full max-w-[300px] mx-auto py-2 border border-primary-container/30 text-primary-container font-label-caps text-[11px] rounded hover:bg-primary-container/10 transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">copy_all</span> COPY ALL TÊTE SETTINGS
+</button>
+</div>
+<!-- Export & ID Card Section -->
+<div class="border-t border-primary-container/20 bg-surface-container/90 p-md shrink-0 z-10 shadow-[0_-10px_20px_rgba(0,0,0,0.5)]">
+<!-- Hidden Technical ID Card for Export (Will be targeted by html2canvas) -->
+<div class="relative bg-[#08080A] border border-primary-container p-md rounded-lg mb-md overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMC41IiBmaWxsPSIjMDBmMGZmIiBmaWxsLW9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4=')] before:opacity-20 before:pointer-events-none" id="technical-id-card">
+<div class="absolute top-0 right-0 bg-primary-container text-black font-label-caps text-[8px] px-2 py-0.5 rounded-bl-md font-bold">CONFIDENTIAL // VERIFIED</div>
+<div class="flex gap-md items-center relative z-10">
+<div class="w-16 h-16 rounded border border-primary-container/50 overflow-hidden shrink-0">
+<img alt="ID Card Avatar" class="w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGQPJZ5Sc7--R5VYRDegtsvRHycsyEGKElg5EEZNOgLQHD0XeaDr0f6XdeDCK_9TzRwTZ7PcaR7OYo1mFQOyauIdV76Bz880bEj7lvH6OADlSAoy4MTkn6suuKnyuKz9rnmlWCv6I-PkrnHhITogyXGM5Q-uQkrAwbX4aqqsVhz1TBM_6HXJsGIEM9Nd8hOnUN44CdHhXO73__mTAHZ5oXam-dGfGcDWjIAccJrm0TLGgMU8ehKhuATadwnrIK_3aimmJPo7AGOq3W"/>
+</div>
+<div class="flex-1">
+<h4 class="font-display-lg text-[16px] text-white tracking-tight leading-none mb-1 shadow-primary-container drop-shadow-md">SCANMYFACE.tech</h4>
+<div class="text-[10px] font-label-caps text-primary-container tracking-widest mb-2 opacity-80">PRO CLUBS RECIPE - ID: 8992X</div>
+<p class="font-mono text-[9px] text-on-surface-variant leading-tight break-words">
+<span class="text-white">TÊTE (Base 268):</span> Crâne[R:70 A:45] Couronne[R:82 A:30] Arr.[A:55] | <span class="text-white">FRONT (Base 175):</span> ... | <span class="text-white">NEZ:</span> 45 (Y:68 X:34)
+                </p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-sm items-center">
+<button class="flex-1 w-full py-2 bg-primary-container/10 border border-primary-container text-primary-container font-label-caps text-[11px] hover:bg-primary-container hover:text-black transition-colors rounded flex items-center justify-center gap-xs shadow-[0_0_10px_rgba(0,240,255,0.2)]">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+              COPY ALL TABS RECIPE
+            </button>
+<button class="flex-1 w-full py-2 bg-primary-container text-black font-label-caps text-[11px] hover:scale-[1.02] transition-transform rounded flex items-center justify-center gap-xs shadow-[0_0_15px_rgba(0,240,255,0.4)] font-bold">
+<span class="material-symbols-outlined text-[16px]">download</span>
+              DOWNLOAD ID CARD
+            </button>
+</div>
+<div class="mt-sm flex justify-center gap-sm">
+<span class="font-label-caps text-[10px] text-on-surface-variant self-center">SHARE RESULT:</span>
+<a class="w-8 h-8 rounded-full bg-[#1DA1F2]/20 text-[#1DA1F2] border border-[#1DA1F2]/50 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-colors" href="https://twitter.com/intent/tweet?text=I%20just%20found%20my%20perfect%20FC26%20Pro%20Clubs%20preset%20using%20ScanMyFace.tech!%20Check%20out%20my%20Technical%20ID%20Card.%20%23FC26%20%23ProClubs%20%23ScanMyFace" target="_blank">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
+</a>
+<a class="w-8 h-8 rounded-full bg-[#FF4500]/20 text-[#FF4500] border border-[#FF4500]/50 flex items-center justify-center hover:bg-[#FF4500] hover:text-white transition-colors" href="https://reddit.com/submit?title=My%20FC26%20Pro%20Clubs%20Preset&amp;url=https://scanmyface.tech" target="_blank">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-2.467 3.928c-1.295 0-2.046-.714-2.096-.764a.345.345 0 1 0-.493.483c.105.105 1.002 1.026 2.589 1.026 1.587 0 2.484-.92 2.589-1.026a.345.345 0 1 0-.493-.483c-.05.05-.801.764-2.096.764z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

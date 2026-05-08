@@ -23,334 +23,69 @@ const state = {
     isPremium: false
 };
 
-const i18n = {
-    fr: {
-        // === ÉCRANS PRINCIPAUX ===
-        'app.title': 'FC26 CRANIUM',
-        'app.title.cranium': 'CRANIUM',
-        'app.subtitle': 'Pro Face Geometry Analyzer',
-        'screen.scan.title': 'Scanning',
-        'screen.preset.title': 'Choix du Modèle',
-        'preset.head': 'TÊTE',
-        'screen.results.title': 'Résultats',
-        'screen.premium.title': 'Premium',
-        
-        // === BOUTONS PRINCIPAUX ===
-        'btn.camera': 'Live Camera',
-        'btn.upload': 'Upload Photo',
-        'btn.capture': 'Capturer & Analyser',
-        'btn.analyze.upload': 'Analyser la Photo',
-        'btn.retake': '↩ Reprendre',
-        'btn.confirm.analyze': '✓ Confirmer & Analyser',
-        'btn.choose': 'Choisir',
-        'btn.unlock.all': 'Déverrouiller Tout',
-        'btn.get.premium': 'Obtenir Premium',
-        'btn.unlock.now': 'Déverrouiller Maintenant',
-        'btn.share': 'Partager',
-        
-        // === ZONES FACIALES ===
-        'zone.front': 'Front',
-        'zone.machoire': 'Mâchoire',
-        'zone.joues': 'Joues',
-        'zone.menton': 'Menton',
-        'zone.oreilles': 'Oreilles',
-        'zone.cou': 'Cou',
-        'zone.yeux': 'Yeux',
-        'zone.sourcils': 'Sourcils',
-        'zone.nez': 'Nez',
-        'zone.bouche': 'Bouche',
-        
-        // === ZONES AVANCÉES ===
-        'adv.zone.head': 'Tête',
-        'adv.zone.front': 'Front',
-        'adv.zone.brows': 'Sourcils',
-        'adv.zone.eyes': 'Yeux',
-        'adv.zone.nose': 'Nez',
-        'adv.zone.cheeks': 'Joues',
-        'adv.zone.mouth': 'Bouche',
-        'adv.zone.chin': 'Menton',
-        'adv.zone.jaw': 'Mâchoire',
-        
-        // === SOUS-LABELS AVANCÉS ===
-        'adv.crane.principal': 'Crâne principal',
-        'adv.crane.couronne': 'Couronne',
-        'adv.crane.arriere': 'Arrière du crâne',
-        'adv.crane.tempes': 'Tempes',
-        'adv.front.sup': 'Partie supérieure',
-        'adv.front.inf': 'Partie inférieure',
-        'adv.sourcils.principal': 'Sourcils',
-        'adv.sourcils.centre': 'Partie centrale',
-        'adv.sourcils.ext': 'Partie extérieure',
-        'adv.yeux.principal': 'Yeux',
-        'adv.yeux.orbites': 'Orbites',
-        'adv.nez.principal': 'Nez principal',
-        'adv.nez.arete.cotes': 'Arête côtés',
-        'adv.nez.arete.centre': 'Arête centrale',
-        'adv.nez.arete.sup': 'Arête supérieure',
-        'adv.joues.principal': 'Joues',
-        'adv.bouche.principal': 'Bouche',
-        'adv.bouche.ext': 'Extérieur sup.',
-        'adv.menton.principal': 'Menton',
-        'adv.menton.sup': 'Partie supérieure',
-        'adv.machoire.principal': 'Mâchoire',
-        'adv.machoire.maxillaire': 'Maxillaire',
-        'adv.machoire.mandibule': 'Mandibule',
-        
-        // === KEY LABELS POUR SLIDERS ===
-        'slider.re': 'Réduire/Élargir',
-        'slider.bh': 'Bas/Haut',
-        'slider.na': 'Neutre/Avant',
-        'slider.aa': 'Arrière/Avant',
-        'slider.ang': 'Arrondi/Angulaire',
-        'slider.gd': 'Gauche/Droite',
-        'slider.nr': 'Neutre/Arrondi',
-        'slider.nh': 'Neutre/Haut',
-        'slider.gp': 'Plus grande/Petite',
-        
-        // === CONFIRMATION MORPHOLOGIE ===
-        'morph.confirm.title': 'CONFIRMATION',
-        'morph.lips.question': '1. Tes lèvres sont :',
-        'morph.nose.question': '2. Ton nez est :',
-        'morph.jaw.question': '3. Ta mâchoire est :',
-        'morph.lips.fine': 'Fines',
-        'morph.lips.medium': 'Moyennes',
-        'morph.lips.full': 'Pleines',
-        'morph.nose.fine': 'Fin',
-        'morph.nose.medium': 'Moyen',
-        'morph.nose.large': 'Large',
-        'morph.jaw.fine': 'Fine',
-        'morph.jaw.medium': 'Moyenne',
-        'morph.jaw.large': 'Large',
-        'morph.confirm.btn': 'CONFIRMER',
-        
-        // === RÉSULTATS & INSTRUCTIONS ===
-        'results.title': '🎯 Résultat pour ton visage',
-        'step1.title': 'ÉTAPE 1 — Choisis cette tête dans FC26 :',
-        'step2.title': 'ÉTAPE 2 — Onglet Tête',
-        'step2.desc': 'Dans FC26, onglet Tête — une tête par zone',
-        'adv.title': 'Façonnage Avancé',
-        'adv.desc': 'Active "Façonnage Avancé" dans FC26 puis applique ces valeurs',
-        
-        // === QUALITÉ AUDIO/VIDÉO ===
-        'qa.noface': 'Aucun visage détecté. Réessaie.',
-        'qa.blur': 'Photo trop floue. Prends une photo plus nette.',
-        'qa.light': 'Éclairage insuffisant. Trouve un endroit plus lumineux.',
-        'qa.angle': 'Tiens ta tête droite face à la caméra.',
-        'alert.matching.failed': 'Le service de matching est indisponible. Réessaie.',
-        
-        // === CHARGEMENT & MESSAGES ===
-        'loading.landmarks': 'Détection de 468 points faciaux...',
-        'copied': 'Copié !',
-        'preset.id': 'ID Preset',
-        
-        // === BADGE & PREMIUM ===
-        'badge.free': 'Free Tier',
-        'divider.or': 'OU',
-        'preset.message': 'L\'IA a trouvé ces 3 modèles. Lequel te semble le plus proche ?',
-        'premium.gate.text': 'Déverrouille 6 zones avancées supplémentaires (Crâne, Menton, Sourcils, Front, Bouche, Oreilles) et l\'Export PDF.',
-        'premium.hero.sub': 'Obtiens l\'avantage concurrentiel dans FC26',
-        'premium.access': 'ACCÈS PRO',
-        'premium.feat1': '✓ Déverrouille les 10 zones faciales',
-        'premium.feat2': '✓ Mappage de précision extrême',
-        'premium.feat3': '✓ Exporte la feuille de sliders en PDF',
-        'premium.feat4': '✓ Sans publicités',
-        'premium.price': '$4.99',
-        'premium.period': 'une seule fois',
-        
-        // === TONES DE PEAU ===
-        'skin.tone.very.light': 'Très claire',
-        'skin.tone.light': 'Claire',
-        'skin.tone.light.tanned': 'Claire-bronzée',
-        'skin.tone.medium': 'Métisse',
-        'skin.tone.dark': 'Foncée',
-        'skin.tone.very.dark': 'Très foncée',
-        'skin.confirm': 'Confirme ta teinte de peau',
-        'skin.ai.suggests': 'L\'IA suggère :',
-        
-        // === ALERTES ===
-        'alert.camera.permission': 'Accès à la caméra impossible. Vérifie les permissions.',
-        'alert.camera.not.supported': 'Ton navigateur ne supporte pas la capture vidéo.',
-        'alert.no.face': 'Aucun visage détecté. Réessaie avec une autre photo.',
-        'alert.share.not.supported': 'L\'API Web Share n\'est pas supportée sur ce navigateur.'
-    },
-    en: {
-        // === MAIN SCREENS ===
-        'app.title': 'FC26 CRANIUM',
-        'app.title.cranium': 'CRANIUM',
-        'app.subtitle': 'Pro Face Geometry Analyzer',
-        'screen.scan.title': 'Scanning',
-        'screen.preset.title': 'Choose Model',
-        'preset.head': 'HEAD',
-        'screen.results.title': 'Results',
-        'screen.premium.title': 'Premium',
-        
-        // === MAIN BUTTONS ===
-        'btn.camera': 'Live Camera',
-        'btn.upload': 'Upload Photo',
-        'btn.capture': 'Capture & Analyze',
-        'btn.analyze.upload': 'Analyze Photo',
-        'btn.retake': '↩ Retake',
-        'btn.confirm.analyze': '✓ Confirm & Analyze',
-        'btn.choose': 'Choose',
-        'btn.unlock.all': 'Unlock All',
-        'btn.get.premium': 'Get Premium',
-        'btn.unlock.now': 'Unlock Now',
-        'btn.share': 'Share',
-        
-        // === FACIAL ZONES ===
-        'zone.front': 'Forehead',
-        'zone.machoire': 'Jaw',
-        'zone.joues': 'Cheeks',
-        'zone.menton': 'Chin',
-        'zone.oreilles': 'Ears',
-        'zone.cou': 'Neck',
-        'zone.yeux': 'Eyes',
-        'zone.sourcils': 'Brows',
-        'zone.nez': 'Nose',
-        'zone.bouche': 'Mouth',
-        
-        // === ADVANCED ZONES ===
-        'adv.zone.head': 'Head',
-        'adv.zone.front': 'Forehead',
-        'adv.zone.brows': 'Brows',
-        'adv.zone.eyes': 'Eyes',
-        'adv.zone.nose': 'Nose',
-        'adv.zone.cheeks': 'Cheeks',
-        'adv.zone.mouth': 'Mouth',
-        'adv.zone.chin': 'Chin',
-        'adv.zone.jaw': 'Jaw',
-        
-        // === ADVANCED SUB-LABELS ===
-        'adv.crane.principal': 'Main Skull',
-        'adv.crane.couronne': 'Crown',
-        'adv.crane.arriere': 'Back of Head',
-        'adv.crane.tempes': 'Temples',
-        'adv.front.sup': 'Upper Part',
-        'adv.front.inf': 'Lower Part',
-        'adv.sourcils.principal': 'Brows',
-        'adv.sourcils.centre': 'Central Part',
-        'adv.sourcils.ext': 'Outer Part',
-        'adv.yeux.principal': 'Eyes',
-        'adv.yeux.orbites': 'Eye Sockets',
-        'adv.nez.principal': 'Main Nose',
-        'adv.nez.arete.cotes': 'Bridge Sides',
-        'adv.nez.arete.centre': 'Bridge Center',
-        'adv.nez.arete.sup': 'Upper Bridge',
-        'adv.joues.principal': 'Cheeks',
-        'adv.bouche.principal': 'Mouth',
-        'adv.bouche.ext': 'Upper Exterior',
-        'adv.menton.principal': 'Chin',
-        'adv.menton.sup': 'Upper Part',
-        'adv.machoire.principal': 'Jaw',
-        'adv.machoire.maxillaire': 'Maxilla',
-        'adv.machoire.mandibule': 'Mandible',
-        
-        // === KEY LABELS FOR SLIDERS ===
-        'slider.re': 'Reduce/Widen',
-        'slider.bh': 'Down/Up',
-        'slider.na': 'Neutral/Forward',
-        'slider.aa': 'Back/Forward',
-        'slider.ang': 'Rounded/Angular',
-        'slider.gd': 'Left/Right',
-        'slider.nr': 'Neutral/Rounded',
-        'slider.nh': 'Neutral/Up',
-        'slider.gp': 'Larger/Smaller',
-        
-        // === MORPHOLOGY CONFIRMATION ===
-        'morph.confirm.title': 'CONFIRMATION',
-        'morph.lips.question': '1. Your lips are:',
-        'morph.nose.question': '2. Your nose is:',
-        'morph.jaw.question': '3. Your jaw is:',
-        'morph.lips.fine': 'Thin',
-        'morph.lips.medium': 'Medium',
-        'morph.lips.full': 'Full',
-        'morph.nose.fine': 'Thin',
-        'morph.nose.medium': 'Medium',
-        'morph.nose.large': 'Large',
-        'morph.jaw.fine': 'Thin',
-        'morph.jaw.medium': 'Medium',
-        'morph.jaw.large': 'Large',
-        'morph.confirm.btn': 'CONFIRM',
-        
-        // === RESULTS & INSTRUCTIONS ===
-        'results.title': '🎯 Result for your face',
-        'step1.title': 'STEP 1 — Choose this head in FC26:',
-        'step2.title': 'STEP 2 — Head Tab',
-        'step2.desc': 'In FC26, Head tab — one head per zone',
-        'adv.title': 'Advanced Sculpting',
-        'adv.desc': 'Enable "Advanced Sculpting" in FC26 then apply these values',
-        
-        // === QUALITY CHECKS ===
-        'qa.noface': 'No face detected. Try again.',
-        'qa.blur': 'Photo too blurry. Take a clearer photo.',
-        'qa.light': 'Insufficient lighting. Find a brighter spot.',
-        'qa.angle': 'Keep your head straight facing the camera.',
-        
-        // === LOADING & MESSAGES ===
-        'loading.landmarks': 'Detecting 468 facial landmarks...',
-        'copied': 'Copied!',
-        'preset.id': 'Preset ID',
-        
-        // === BADGE & PREMIUM ===
-        'badge.free': 'Free Tier',
-        'divider.or': 'OR',
-        'preset.message': 'The AI found these 3 models. Which one looks closest to you?',
-        'premium.gate.text': 'Unlock 6 advanced zones (Head, Chin, Brows, Forehead, Mouth, Ears) and PDF Export.',
-        'premium.hero.sub': 'Get the competitive edge in FC26',
-        'premium.access': 'PRO ACCESS',
-        'premium.feat1': '✓ Unlock all 10 facial zones',
-        'premium.feat2': '✓ Pinpoint accuracy mapping',
-        'premium.feat3': '✓ Export slider sheet to PDF',
-        'premium.feat4': '✓ No ads',
-        'premium.price': '$4.99',
-        'premium.period': 'one-time',
-        
-        // === SKIN TONES ===
-        'skin.tone.very.light': 'Very Light',
-        'skin.tone.light': 'Light',
-        'skin.tone.light.tanned': 'Light-Tanned',
-        'skin.tone.medium': 'Medium',
-        'skin.tone.dark': 'Dark',
-        'skin.tone.very.dark': 'Very Dark',
-        'skin.confirm': 'Confirm your skin tone',
-        'skin.ai.suggests': 'The AI suggests:',
-        
-        // === ALERTS ===
-        'alert.camera.permission': 'Camera access denied. Please check your permissions.',
-        'alert.camera.not.supported': 'Your browser does not support video capture.',
-        'alert.no.face': 'No face detected. Please try another photo.',
-        'alert.share.not.supported': 'Web Share API is not supported on this browser.',
-        'alert.matching.failed': 'Matching service unavailable. Please try again.',
-        'btn.unlock.now': 'Unlock Now'
-    }
-};
+// --- 1. i18n EXTERNAL LOADING SYSTEM ---
+let translations = {};
 
-window.setLanguage = function(lang) {
-    if (!i18n[lang]) return;
-    currentLang = lang;
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        if (btn) btn.classList.toggle('active', btn.dataset.lang === lang);
-    });
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        if (el) {
-            const key = el.dataset.i18n;
-            if (i18n[lang][key]) el.textContent = i18n[lang][key];
+window.setLanguage = async function(lang) {
+    try {
+        // Tentative de chargement depuis plusieurs chemins possibles (app/ ou racine)
+        const paths = [`./${lang}.json`, `../${lang}.json`, `/${lang}.json` ];
+        let data = null;
+        
+        for (const path of paths) {
+            try {
+                const response = await fetch(path);
+                if (response.ok) {
+                    data = await response.json();
+                    console.log(`📡 Langue chargée depuis : ${path}`);
+                    break;
+                }
+            } catch (e) {}
         }
-    });
-    if (document.querySelector('#screen-preset-choice.active') && (state.pendingTop3 || state.pendingAnalysis)) {
-      const top3 = state.pendingTop3 || state.pendingAnalysis.scores.slice(0, 3)
-        .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
-        .filter(item => item.preset);
-      showPresetChoiceScreen(top3);
-    }
-    if (state.zoneMix && typeof renderZoneMix === 'function') renderZoneMix(state.zoneMix);
-    if (document.querySelector('.preset-header')) {
-        if (typeof renderResults === 'function') renderResults();
+        
+        if (!data) {
+            console.warn(`⚠️ Impossible de charger ${lang}.json. Fallback sur les clés.`);
+            translations = {}; 
+        } else {
+            translations = data;
+        }
+        
+        currentLang = lang;
+        
+        // Mise à jour des boutons de langue
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn) btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+        
+        // Traduction des éléments statiques [data-i18n]
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            if (el) {
+                const key = el.dataset.i18n;
+                if (translations[key]) el.textContent = translations[key];
+            }
+        });
+        
+        // Rafraîchissement des vues dynamiques si actives
+        if (document.querySelector('#screen-preset-choice.active') && (state.pendingTop3 || state.pendingAnalysis)) {
+          const top3 = state.pendingTop3 || state.pendingAnalysis.scores.slice(0, 3)
+            .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
+            .filter(item => item.preset);
+          showPresetChoiceScreen(top3);
+        }
+        if (state.zoneMix && typeof renderZoneMix === 'function') renderZoneMix(state.zoneMix);
+        if (document.querySelector('.preset-header')) {
+            if (typeof renderResults === 'function') renderResults();
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('❌ Erreur i18n :', error);
+        return false;
     }
 };
 
 window.t = function(key) {
-    return i18n[currentLang] && i18n[currentLang][key] ? i18n[currentLang][key] : key;
+    return translations[key] || key;
 };
 
 // Global handles for Survival
@@ -1042,6 +777,9 @@ function computeAdjustments(ratios, selectedPreset, zoneMix = null) {
   clampAdv('menton_sup',     'bh', ratios.menton_ratio,       2.3,  1.7,  zoneMix?.menton);
   clampAdv('mandibule',      're', ratios.machoire_bigoniale, 0.80, 0.70, zoneMix?.machoire);
   clampAdv('maxillaire',     're', ratios.machoire_bigoniale, 0.80, 0.70, zoneMix?.machoire);
+  
+  // CRANE - Arrondi/Angulaire
+  clampAdv('crane', 'ang', ratios.foreheadWidthRatio, 0.75, 0.30, zoneMix?.crane);
 
   return adjustments;
 }
@@ -1257,6 +995,17 @@ function buildZoneBasedSliders(ratios, zoneMix, allPresets, mainPreset) {
     if (Math.abs(dh) > 5) { adjustments.nez = adjustments.nez || {}; adjustments.nez.bas_haut = clamp(fnez.bas_haut + adj15(dh) * 0.85, 0, 100); }
     const dz = softClampSlider(ratios.noseTipZ, -0.09, 0.07) - fnez.arriere_avant;
     if (Math.abs(dz) > 5) { adjustments.nez = adjustments.nez || {}; adjustments.nez.arriere_avant = clamp(fnez.arriere_avant + adj15(dz) * 0.80, 0, 100); }
+  }
+
+  // CRANE
+  const fcrane = zonePresets.crane?.faconner?.crane;
+  if (fcrane) {
+    const dang = softClampSlider(ratios.widthHeightRatio, 0.85, 0.70) - (fcrane.arrondi_angulaire || 50);
+    if (Math.abs(dang) > 5) {
+      adjustments.avance = adjustments.avance || {};
+      adjustments.avance.crane = adjustments.avance.crane || {};
+      adjustments.avance.crane.ang = clamp((fcrane.arrondi_angulaire || 50) + adj15(dang) * 0.90, 0, 100);
+    }
   }
 
   // MÂCHOIRE
@@ -1839,6 +1588,12 @@ function onResults(results) {
         if (!qa.ok) {
             loadingIndicator.classList.add('hidden');
             showQAWarning(qa.reason);
+            
+            if (typeof newScanProgress !== 'undefined') newScanProgress.classList.add('hidden');
+            if (typeof laserLineNew !== 'undefined') laserLineNew.classList.add('hidden');
+            if (typeof btnConfirmAnalyzeNew !== 'undefined') btnConfirmAnalyzeNew.disabled = false;
+            if (typeof newScanActions !== 'undefined') newScanActions.classList.remove('hidden');
+            canvasCtx.restore();
             return;
         }
 
@@ -1855,18 +1610,9 @@ function onResults(results) {
           const ratios = extractMorphRatios(landmarks);
 
           try {
-            // Ancienne logique locale conservée au cas où un retour en secours serait nécessaire.
-            // const { bestPreset, ratios, scores } = selectBestPreset(landmarks, skinTone);
-            // const top3 = scores.slice(0, 3)
-            //     .map(s => ({ preset: PRESETS_DB.find(p => p.preset_id === s.preset_id), score: s.score }))
-            //     .filter(item => item.preset);
-            // state.pendingAnalysis = { landmarks, skinTone, skinMeta, scores };
-            // showPresetChoiceScreen(top3);
-
             const azureData = await fetchBestPresetFromAzure(ratios, skinTone);
             console.log('Azure response received:', azureData);
 
-            // Check for Azure errors first
             if (!azureData.success) {
                 alert('Erreur Azure: ' + (azureData.error || 'Réponse invalide'));
                 console.error('Azure error:', azureData.error);
@@ -1874,58 +1620,35 @@ function onResults(results) {
                 return;
             }
 
-            // Ensure we have top 3 candidates from Azure
             let top3Candidates = null;
             if (Array.isArray(azureData.top3)) {
                 top3Candidates = azureData.top3;
-                console.log('Using top3 from Azure:', top3Candidates.length, 'items');
             } else if (Array.isArray(azureData.players)) {
                 top3Candidates = azureData.players;
-                console.log('Using players from Azure:', top3Candidates.length, 'items');
             } else if (Array.isArray(azureData.presets)) {
                 top3Candidates = azureData.presets;
-                console.log('Using presets from Azure:', top3Candidates.length, 'items');
             }
 
-            // Validate that we have candidates
             if (!top3Candidates || top3Candidates.length === 0) {
                 alert(t('alert.matching.failed') + ' - Aucun résultat trouvé');
-                console.warn('No top3 array found in Azure response');
                 loadingIndicator.classList.add('hidden');
                 return;
             }
 
-            // Normalize and filter candidates
-            console.log('Processing', top3Candidates.length, 'candidates for choice screen');
             const normalizedTop3 = top3Candidates.slice(0, 3).map((entry) => {
                 const player = entry?.player ?? entry?.preset ?? entry;
                 const presetId = player?.preset_id ?? player?.presetId ?? player?.id ?? null;
                 const preset = PRESETS_DB.find((item) => item.preset_id === presetId) || player;
                 const score = entry?.score ?? player?.score ?? 0;
-                console.log(`Card: presetId=${presetId}, score=${score}, found in DB=${!!PRESETS_DB.find((item) => item.preset_id === presetId)}`);
                 return { preset, score };
-            }).filter((entry) => {
-                if (!entry.preset) {
-                    console.warn('Filtered out entry: missing preset');
-                    return false;
-                }
-                if (!entry.preset.preset_id) {
-                    console.warn('Filtered out entry: missing preset_id');
-                    return false;
-                }
-                return true;
-            });
+            }).filter((entry) => entry.preset && entry.preset.preset_id);
 
-            // Validate normalized data
             if (normalizedTop3.length === 0) {
                 alert(t('alert.matching.failed') + ' - Données invalides');
-                console.error('No valid presets after normalization');
                 loadingIndicator.classList.add('hidden');
                 return;
             }
 
-            // Display choice screen
-            console.log('✅ Displaying choice screen with', normalizedTop3.length, 'valid presets');
             state.pendingAnalysis = { landmarks, skinTone, skinMeta, scores: normalizedTop3.map((entry) => ({ preset_id: entry.preset.preset_id, score: entry.score })) };
             showPresetChoiceScreen(normalizedTop3);
           } catch (error) {
@@ -1935,9 +1658,17 @@ function onResults(results) {
         });
     } else {
         loadingIndicator.classList.add('hidden');
-        if (!inputVideo.classList.contains('hidden') === false) {
-            alert(t("alert.no.face"));
+        const msg = t('qa.noface') || 'Aucun visage détecté. Réessaie.';
+        if (typeof showQAWarning === 'function') {
+            showQAWarning(msg);
+        } else {
+            alert(msg);
         }
+        
+        if (typeof newScanProgress !== 'undefined') newScanProgress.classList.add('hidden');
+        if (typeof laserLineNew !== 'undefined') laserLineNew.classList.add('hidden');
+        if (typeof btnConfirmAnalyzeNew !== 'undefined') btnConfirmAnalyzeNew.disabled = false;
+        if (typeof newScanActions !== 'undefined') newScanActions.classList.remove('hidden');
     }
     canvasCtx.restore();
 }
@@ -2276,7 +2007,7 @@ function renderResults() {
     // Structure des zones avancées — base DNA par zone via zoneMix
     const advZones = [
       {
-        label: t('adv.zone.head'), icon: '👤', basePresetId: craneP?.preset_id,
+        label: t('adv.zone.head'), icon: '', basePresetId: craneP?.preset_id,
         subs: [
           { label: t('adv.crane.principal'), avanceKey: 'crane', noAdjust: true,
             data: craneP?.avance?.crane ? {
@@ -2316,14 +2047,14 @@ function renderResults() {
         ]
       },
       {
-        label: t('adv.zone.front'), icon: '🗣️', basePresetId: frontP?.preset_id,
+        label: t('adv.zone.front'), icon: '', basePresetId: frontP?.preset_id,
         subs: [
           { label: t('adv.front.sup'), avanceKey: 'front_sup', data: frontP?.avance?.front_sup },
           { label: t('adv.front.inf'), avanceKey: 'front_inf', data: frontP?.avance?.front_inf },
         ]
       },
       {
-        label: t('adv.zone.brows'), icon: '👁️', basePresetId: sourcilsP?.preset_id,
+        label: t('adv.zone.brows'), icon: '', basePresetId: sourcilsP?.preset_id,
         subs: [
           { label: t('adv.sourcils.principal'),           avanceKey: 'sourcils',     data: sourcilsP?.avance?.sourcils },
           { label: t('adv.sourcils.centre'),    avanceKey: 'sourcils_ctr', data: sourcilsP?.avance?.sourcils_ctr },
@@ -2331,14 +2062,14 @@ function renderResults() {
         ]
       },
       {
-        label: t('adv.zone.eyes'), icon: '👁️', basePresetId: yeuxP?.preset_id,
+        label: t('adv.zone.eyes'), icon: '', basePresetId: yeuxP?.preset_id,
         subs: [
           { label: t('adv.yeux.principal'),    avanceKey: 'yeux',    data: yeuxP?.avance?.yeux },
           { label: t('adv.yeux.orbites'), avanceKey: 'orbites', data: yeuxP?.avance?.orbites },
         ]
       },
       {
-        label: t('adv.zone.nose'), icon: '👃', basePresetId: nezP?.preset_id,
+        label: t('adv.zone.nose'), icon: '', basePresetId: nezP?.preset_id,
         subs: [
           { label: t('adv.nez.principal'),    avanceKey: 'nez_adv',        data: nezP?.avance?.nez_adv },
           { label: t('adv.nez.arete.cotes'),      avanceKey: 'arete_cotes',    data: nezP?.avance?.arete_cotes },
@@ -2347,27 +2078,27 @@ function renderResults() {
         ]
       },
       {
-        label: t('adv.zone.cheeks'), icon: '😊', basePresetId: jouesP?.preset_id,
+        label: t('adv.zone.cheeks'), icon: '', basePresetId: jouesP?.preset_id,
         subs: [
           { label: t('adv.joues.principal'), avanceKey: 'joues_adv', data: jouesP?.avance?.joues_adv },
         ]
       },
       {
-        label: t('adv.zone.mouth'), icon: '👄', basePresetId: boucheP?.preset_id,
+        label: t('adv.zone.mouth'), icon: '', basePresetId: boucheP?.preset_id,
         subs: [
           { label: t('adv.bouche.principal'),         avanceKey: 'bouche_adv', data: boucheP?.avance?.bouche_adv },
           { label: t('adv.bouche.ext'), avanceKey: 'bouche_ext', data: boucheP?.avance?.bouche_ext },
         ]
       },
       {
-        label: t('adv.zone.chin'), icon: '🫦', basePresetId: mentonP?.preset_id,
+        label: t('adv.zone.chin'), icon: '', basePresetId: mentonP?.preset_id,
         subs: [
           { label: t('adv.menton.principal'),            avanceKey: 'menton_adv', data: mentonP?.avance?.menton_adv },
           { label: t('adv.menton.sup'), avanceKey: 'menton_sup', data: mentonP?.avance?.menton_sup },
         ]
       },
       {
-        label: t('adv.zone.jaw'), icon: '💪', basePresetId: machoireP?.preset_id,
+        label: t('adv.zone.jaw'), icon: '', basePresetId: machoireP?.preset_id,
         subs: [
           { label: t('adv.machoire.principal'),   avanceKey: 'machoire_adv', data: machoireP?.avance?.machoire_adv },
           { label: t('adv.machoire.maxillaire'), avanceKey: 'maxillaire',   data: machoireP?.avance?.maxillaire },
@@ -2461,7 +2192,7 @@ function renderResults() {
 
       item.innerHTML = `
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <span>${zone.icon} ${zone.label}${zoneModBadge}${baseLabel}</span>
+          <span>${zone.label}${zoneModBadge}${baseLabel}</span>
           <span>▼</span>
         </div>
         <div class="accordion-content">
@@ -2500,4 +2231,851 @@ window.copyValue = function(value, btn) {
             btn.style.borderColor = '';
         }, 1500);
     });
+};
+// ==========================================
+// NEW MODAL UI FLOW
+// ==========================================
+let newScanModal, inputVideoNew, inputImageNew, btnConfirmAnalyzeNew, newScanProgress, progressPercentNew, progressBarFillNew, newScanActions, newResultContainer, laserLineNew, btnBackModal, btnCloseModal;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- NEW MODAL DOM ASSIGNMENTS ---
+    newScanModal = document.getElementById('new-scan-modal');
+    inputVideoNew = document.getElementById('input-video-new');
+    inputImageNew = document.getElementById('input-image-new');
+    btnConfirmAnalyzeNew = document.getElementById('btn-confirm-analyze-new');
+    newScanProgress = document.getElementById('new-scan-progress');
+    progressPercentNew = document.getElementById('progress-percent-new');
+    progressBarFillNew = document.getElementById('progress-bar-fill-new');
+    newScanActions = document.getElementById('new-scan-actions');
+    newResultContainer = document.getElementById('new-result-container');
+    laserLineNew = document.getElementById('laser-line-new');
+    btnBackModal = document.getElementById('btn-back-modal');
+    btnCloseModal = document.getElementById('btn-close-modal');
+
+    if (btnBackModal) btnBackModal.addEventListener('click', window.handleBackAction);
+    if (btnCloseModal) btnCloseModal.addEventListener('click', window.globalReset);
+});
+
+window.handleBackAction = function() {
+    // 1. Check if we are in the Advanced Accordion view
+    const advView = document.getElementById('advanced-shaping-view');
+    if (advView && !advView.classList.contains('hidden')) {
+        // Go back to Zone Mix view
+        advView.classList.add('hidden');
+        advView.style.display = 'none';
+        document.getElementById('zone-mix-view').classList.remove('hidden');
+        const headerTitle = document.querySelector('#new-scan-modal h2');
+        if (headerTitle) headerTitle.innerText = "FAÇONNAGE AVANCÉ";
+        return;
+    }
+    
+    // 2. Check if we are in the Zone Mix view
+    const zoneMixView = document.getElementById('zone-mix-view');
+    if (zoneMixView && !zoneMixView.classList.contains('hidden')) {
+        // Go back to Top 3 Matches
+        if (inputImageNew) {
+            if (typeof capturedBase64 !== 'undefined' && capturedBase64) {
+                inputImageNew.src = 'data:image/jpeg;base64,' + capturedBase64;
+            }
+            inputImageNew.classList.add('mix-blend-luminosity', 'opacity-70');
+        }
+        const scanLabel = document.querySelector('#new-scan-modal .font-label-caps.text-primary-container');
+        if (scanLabel) {
+            scanLabel.innerText = 'SCANNING';
+            scanLabel.style.color = '#00f0ff';
+        }
+        
+        var faceGuide = document.getElementById('face-guide-overlay');
+        if (faceGuide) faceGuide.classList.remove('hidden');
+        document.querySelectorAll('.scan-corners').forEach(c => c.classList.remove('hidden'));
+        
+        if (typeof state !== 'undefined' && state.pendingTop3) {
+            window.showPresetChoiceScreen(state.pendingTop3);
+        }
+        return;
+    }
+    
+    // Default: Close modal completely
+    window.globalReset();
+};
+
+window.globalReset = function() {
+    if (newScanModal) newScanModal.classList.add('hidden');
+    if (window.localStream) {
+        window.localStream.getTracks().forEach(track => track.stop());
+        window.localStream = null;
+    }
+    if (cropper) { cropper.destroy(); cropper = null; }
+    if(canvasCtx) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+    if (newResultContainer) newResultContainer.innerHTML = '';
+    if (newScanProgress) newScanProgress.classList.add('hidden');
+    var faceGuide = document.getElementById('face-guide-overlay');
+    if (faceGuide) faceGuide.classList.remove('hidden');
+    document.querySelectorAll('.scan-corners').forEach(c => c.classList.remove('hidden'));
+    if (inputImageNew) {
+        inputImageNew.classList.add('mix-blend-luminosity', 'opacity-70');
+    }
+    if (laserLineNew) laserLineNew.classList.add('hidden');
+    if (newProgressInterval) clearInterval(newProgressInterval);
+    if (progressPercentNew) progressPercentNew.innerText = '0%';
+    if (progressBarFillNew) progressBarFillNew.style.width = '0%';
+    if (btnConfirmAnalyzeNew) btnConfirmAnalyzeNew.disabled = false;
+    if (newScanActions) newScanActions.classList.remove('hidden');
+    
+    // Hide advanced container if it exists
+    const adv = document.getElementById('new-advanced-container');
+    if (adv) adv.classList.add('hidden');
+};
+
+// Override startLiveScan
+window.startLiveScan = async function() {
+    newScanModal.classList.remove('hidden');
+    newScanActions.classList.remove('hidden');
+    newScanProgress.classList.add('hidden');
+    laserLineNew.classList.add('hidden');
+    newResultContainer.innerHTML = '';
+    
+    inputVideoNew.classList.remove('hidden');
+    inputVideoNew.style.display = 'block';
+    inputImageNew.classList.add('hidden');
+
+    capturedBase64 = null;
+    capturedCanvas = null;
+    if (cropper) { cropper.destroy(); cropper = null; }
+    if(canvasCtx) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+        inputVideoNew.srcObject = stream;
+        window.localStream = stream;
+        
+        btnConfirmAnalyzeNew.innerHTML = '<span class="material-symbols-outlined text-[16px]">camera</span> CAPTURE';
+        btnConfirmAnalyzeNew.onclick = capturePhotoNew;
+    } catch (error) {
+        console.error("Camera error:", error);
+        alert(t('camera.error') || 'Erreur caméra');
+    }
+};
+
+function capturePhotoNew() {
+    if (!window.localStream) return;
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = inputVideoNew.videoWidth;
+    canvas.height = inputVideoNew.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(inputVideoNew, 0, 0, canvas.width, canvas.height);
+    
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    
+    window.localStream.getTracks().forEach(track => track.stop());
+    window.localStream = null;
+    inputVideoNew.classList.add('hidden');
+    
+    inputImageNew.onload = () => {
+        inputImageNew.onload = null;
+        initCropper(inputImageNew);
+    };
+    inputImageNew.src = dataUrl;
+    inputImageNew.classList.remove('hidden');
+    
+    btnConfirmAnalyzeNew.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> VALIDER ET ANALYSER';
+    btnConfirmAnalyzeNew.onclick = function() {
+        if (cropper) {
+            let imageData = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' }).toDataURL('image/jpeg', 0.95);
+            window.confirmAndAnalyzeNew(imageData);
+        }
+    };
+}
+
+// Override handleFileUpload
+window.handleFileUpload = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    capturedBase64 = null;
+    capturedCanvas = null;
+    if (cropper) { cropper.destroy(); cropper = null; }
+    if(canvasCtx) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+    
+    newScanModal.classList.remove('hidden');
+    newScanActions.classList.remove('hidden');
+    newScanProgress.classList.add('hidden');
+    laserLineNew.classList.add('hidden');
+    newResultContainer.innerHTML = '';
+    
+    inputVideoNew.classList.add('hidden');
+    inputVideoNew.style.display = 'none';
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const dataUrl = event.target.result;
+        inputImageNew.onload = () => {
+            inputImageNew.onload = null;
+            initCropper(inputImageNew);
+            btnConfirmAnalyzeNew.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> VALIDER ET ANALYSER';
+            btnConfirmAnalyzeNew.onclick = function() {
+                if (cropper) {
+                    let imageData = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' }).toDataURL('image/jpeg', 0.95);
+                    window.confirmAndAnalyzeNew(imageData);
+                }
+            };
+        };
+        inputImageNew.src = dataUrl;
+        inputImageNew.classList.remove('hidden');
+        inputImageNew.removeAttribute('hidden');
+    };
+    reader.readAsDataURL(file);
+};
+
+let newProgressInterval = null;
+
+window.confirmAndAnalyzeNew = async function(imageDataParam) {
+    console.log("confirmAndAnalyzeNew TRIGGÉRED !");
+    
+    let finalDataUrl = (typeof imageDataParam === 'string') ? imageDataParam : null;
+    if (!finalDataUrl && cropper) {
+        const croppedCanvas = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' });
+        finalDataUrl = croppedCanvas.toDataURL('image/jpeg', 0.95);
+    }
+
+    if (!finalDataUrl) {
+        console.error("Aucune image à analyser.");
+        return;
+    }
+
+    try {
+        btnConfirmAnalyzeNew.disabled = true;
+        newScanActions.classList.add('hidden');
+        
+        newScanProgress.classList.remove('hidden');
+        laserLineNew.classList.remove('hidden');
+        laserLineNew.classList.add('animate-pulse');
+        progressPercentNew.innerText = '0%';
+        progressBarFillNew.style.width = '0%';
+        
+        let progress = 0;
+        if (newProgressInterval) clearInterval(newProgressInterval);
+        newProgressInterval = setInterval(() => {
+            progress += Math.floor(Math.random() * 15) + 5;
+            if (progress > 90) progress = 90;
+            progressPercentNew.innerText = progress + '%';
+            progressBarFillNew.style.width = progress + '%';
+        }, 300);
+
+        capturedBase64 = finalDataUrl.split(',')[1];
+        
+        inputImageNew.onload = null;
+        inputImageNew.src = finalDataUrl;
+        inputImageNew.classList.remove('hidden');
+
+        console.log("Verification de la qualité de la photo...");
+        const quality = await checkPhotoQuality(capturedBase64);
+        
+        if (!quality.ok) {
+            console.warn("Quality Check Failed:", quality.reason);
+            clearInterval(newProgressInterval);
+            newScanActions.classList.remove('hidden');
+            newScanProgress.classList.add('hidden');
+            laserLineNew.classList.add('hidden');
+            btnConfirmAnalyzeNew.disabled = false;
+            
+            if (quality.reason === 'no_face') alert(t('qa.noface') || 'Aucun visage détecté. Réessaie.');
+            else if (quality.reason === 'too_blurry') alert(t('qa.blur') || 'Photo trop floue. Prends une photo plus nette.');
+            else if (quality.reason === 'bad_lighting') alert(t('qa.light') || 'Éclairage insuffisant. Trouve un endroit plus lumineux.');
+            else if (quality.reason === 'bad_angle') alert(t('qa.angle') || 'Tiens ta tête droite face à la caméra.');
+            else alert("Erreur de qualité d'image.");
+            return; 
+        }
+
+        console.log("Qualité OK. Lancement de l'analyse MediaPipe...");
+        
+        await new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = async () => {
+                try {
+                    if (cropper) { cropper.destroy(); cropper = null; }
+                    outputCanvas.width = img.naturalWidth;
+                    outputCanvas.height = img.naturalHeight;
+                    
+                    await faceMesh.send({ image: img });
+                    resolve();
+                } catch (err) {
+                    reject(err);
+                }
+            };
+            img.onerror = () => reject(new Error("Impossible de charger l'image pour MediaPipe."));
+            img.src = finalDataUrl;
+        });
+
+    } catch(e) {
+        console.error("Erreur critique dans confirmAndAnalyzeNew :", e);
+        alert(e.message || "Erreur lors de l'analyse de l'image.");
+        if (newProgressInterval) clearInterval(newProgressInterval);
+        newScanActions.classList.remove('hidden');
+        newScanProgress.classList.add('hidden');
+        laserLineNew.classList.add('hidden');
+        btnConfirmAnalyzeNew.disabled = false;
+    }
+}
+
+// Intercept onResults to finish the progress bar
+const originalOnResults = window.onResults || onResults;
+window.onResults = function(results) {
+    originalOnResults(results);
+};
+
+// Override showPresetChoiceScreen
+window.showPresetChoiceScreen = function(top3) {
+    console.log("New showPresetChoiceScreen called with", top3);
+    
+    if (newProgressInterval) clearInterval(newProgressInterval);
+    if (progressPercentNew) progressPercentNew.innerText = '100%';
+    if (progressBarFillNew) progressBarFillNew.style.width = '100%';
+    if (laserLineNew) {
+        laserLineNew.classList.remove('animate-pulse');
+        laserLineNew.classList.add('hidden');
+    }
+    if (btnConfirmAnalyzeNew) btnConfirmAnalyzeNew.disabled = false;
+
+    state.pendingTop3 = top3;
+    if (newResultContainer) newResultContainer.innerHTML = '';
+    
+    const styles = [
+        { border: 'border-tertiary-container', shadow: 'shadow-[0_0_15px_rgba(254,214,57,0.3)]', glow: 'bg-tertiary-container', text: 'text-tertiary-container', label: '★ TOP MATCH' },
+        { border: 'border-white/10 hover:border-primary-container/60', shadow: '', glow: 'bg-primary-container opacity-80', text: 'text-primary-container', label: '' },
+        { border: 'border-white/10 hover:border-primary-container/60', shadow: '', glow: 'bg-primary-container opacity-60', text: 'text-primary-container', label: '' }
+    ];
+
+    top3.forEach((entry, index) => {
+        const player = entry?.player ?? entry?.preset ?? entry;
+        const presetId = player?.preset_id ?? player?.presetId ?? player?.id ?? null;
+        const playerName = player?.name ?? player?.label ?? player?.preset_name ?? `Preset ${presetId ?? ''}`;
+        const scoreValue = Number(entry?.score ?? player?.score ?? 0);
+        const scorePercent = Number.isFinite(scoreValue) ? Math.max(0, Math.min(100, Math.round(scoreValue))) : 0;
+        const imageSrc = getPresetImageSrc(player);
+        
+        const style = styles[index] || styles[2];
+        
+        const labelHtml = index === 0 ? `<div class="absolute top-0 right-0 ${style.glow} text-[#0A0A0C] font-label-caps text-[9px] px-sm py-[2px] rounded-bl-lg font-bold shadow-[0_0_10px_rgba(254,214,57,0.5)] z-10">${style.label}</div>` : '';
+        
+        const cardHtml = `
+            <div class="relative bg-surface-container-lowest border ${style.border} ${style.shadow} transition-colors rounded-lg p-md flex gap-lg items-center overflow-hidden group">
+                ${labelHtml}
+                <div class="w-[70px] h-[90px] rounded border border-white/10 shrink-0 relative overflow-hidden bg-black">
+                    <img src="${imageSrc}" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22500%22 viewBox=%220 0 400 500%22%3E%3Crect width=%22400%22 height=%22500%22 fill=%22%23161a1f%22/%3E%3C/svg%3E';this.style.opacity='0.3'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+                <div class="flex flex-col flex-1">
+                    <div class="flex items-center justify-between mb-xs">
+                        <span class="font-title-sm text-[15px] text-on-surface font-bold uppercase">${playerName}</span>
+                        <span class="font-title-sm text-[15px] ${style.text} font-bold">${scorePercent}%</span>
+                    </div>
+                    <div class="w-full h-[2px] bg-white/10 rounded-full mb-md">
+                        <div class="h-full ${style.glow}" style="width: ${scorePercent}%"></div>
+                    </div>
+                    <button class="w-full py-xs border ${index === 0 ? 'border-tertiary-container text-tertiary-container hover:bg-tertiary-container/10' : 'border-white/10 text-on-surface-variant group-hover:border-primary-container group-hover:text-primary-container'} font-label-caps text-[11px] transition-colors rounded" onclick="window.selectPresetNew(event, '${presetId}')">
+                        CHOISIR
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        if(newResultContainer) newResultContainer.insertAdjacentHTML('beforeend', cardHtml);
+    });
+};
+
+window.selectPresetNew = function(event, presetId) {
+    if (event) event.preventDefault();
+    
+    if (!state.pendingAnalysis) return;
+    const { landmarks, skinTone, skinMeta, scores } = state.pendingAnalysis;
+    console.log("🔘 Bouton CHOISIR cliqué pour l'ID :", presetId);
+    // Conversion sécurisée pour contourner le problème String vs Number
+    const chosenPreset = PRESETS_DB.find(p => String(p.preset_id) === String(presetId));
+
+    if (!chosenPreset) {
+        console.error("❌ ERREUR : Preset introuvable dans PRESETS_DB pour l'ID :", presetId);
+        return;
+    }
+    console.log("✅ Preset trouvé :", chosenPreset.preset_id, "- Lancement du façonnage...");
+
+    state.results = analyzeWithPreset(landmarks, skinTone, chosenPreset, scores);
+    state.results.skinMeta = skinMeta;
+    
+    // Update Header Text
+    const headerTitle = document.querySelector('#new-scan-modal h2');
+    if (headerTitle) headerTitle.innerText = "FAÇONNAGE AVANCÉ";
+    
+    const headerTextElements = document.querySelectorAll('#new-scan-modal p');
+    headerTextElements.forEach(p => {
+        if (p.innerText.includes("L'IA a trouvé")) {
+            p.innerText = "Ajuste les curseurs pour correspondre parfaitement au preset.";
+        }
+    });
+    
+    window.renderAdvancedShaping(state.results);
+};
+
+window.renderAdvancedShaping = function(result) {
+    if (!result) return;
+    
+    // 1. Colonne de Gauche (Image du Preset)
+    if (inputImageNew) {
+        inputImageNew.src = `./assets/presets/${result.preset.id}.png`;
+        // Task 2: Restore full colors
+        inputImageNew.classList.remove('hidden', 'mix-blend-luminosity', 'opacity-70', 'grayscale');
+    }
+    
+    // Task 3: Masquer le Guide Visuel (Ovale & Angles)
+    var faceGuide = document.getElementById('face-guide-overlay');
+    if (faceGuide) faceGuide.classList.add('hidden');
+    document.querySelectorAll('.scan-corners').forEach(c => c.classList.add('hidden'));
+    
+    // Modifie le texte 'SCANNING' (ou SCAN ANALYSIS) en 'MODÈLE DE BASE'
+    const scanLabel = document.querySelector('#new-scan-modal .font-label-caps.text-primary-container');
+    if (scanLabel) {
+        scanLabel.innerText = 'MODÈLE DE BASE';
+        scanLabel.style.color = '#ffffff'; // Maybe neutral color ?
+    }
+    
+    // Masque la progression et le laser
+    if (newScanProgress) newScanProgress.classList.add('hidden');
+    if (laserLineNew) {
+        laserLineNew.classList.remove('animate-pulse');
+        laserLineNew.classList.add('hidden');
+    }
+
+    const container = document.getElementById('new-result-container');
+    if (!container) return;
+    
+    // 2. Colonne de Droite (Le nouveau Zone Mix)
+    container.innerHTML = '';
+    
+    const mainPresetObj = PRESETS_DB.find(p => p.preset_id === result.preset.id);
+    let zoneMix = null;
+    if (mainPresetObj) {
+      zoneMix = computeZoneMix(result.ratios, mainPresetObj, PRESETS_DB);
+    }
+    
+    // Génération dynamique du Zone Mix avec le nouveau design
+    const zonesList = [
+        { key: 'front', label: t('zone.front') || 'Front' },
+        { key: 'sourcils', label: t('zone.sourcils') || 'Sourcils' },
+        { key: 'yeux', label: t('zone.yeux') || 'Yeux' },
+        { key: 'nez', label: t('zone.nez') || 'Nez' },
+        { key: 'joues', label: t('zone.joues') || 'Joues' },
+        { key: 'bouche', label: t('zone.bouche') || 'Bouche' },
+        { key: 'menton', label: t('zone.menton') || 'Menton' },
+        { key: 'machoire', label: t('zone.machoire') || 'Mâchoire' }
+    ];
+
+    let mixHtml = `
+        <div id="zone-mix-view" class="flex flex-col gap-md">
+            <div style="margin-bottom: 24px;">
+                <h3 class="font-title-sm text-title-sm text-on-surface uppercase tracking-tight" style="color: #00f0ff; margin-bottom: 8px;">ÉTAPE 2 — ONGLET TÊTE (MIX DE PRESETS)</h3>
+                <p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">
+                    Dans EA FC 26, rends-toi dans l'onglet "Tête". Pour chaque zone du visage listée ci-dessous, sélectionne le numéro de modèle exact. C'est ce mix unique qui crée l'ADN de base de ton visage avant l'ajustement des curseurs.
+                </p>
+            </div>
+            
+            <div class="bg-surface-container-low/60 rounded-lg p-md border border-white/5 flex items-center justify-between">
+                <div class="flex items-center gap-sm">
+                    <span class="font-title-sm text-[14px] text-on-surface uppercase font-bold">Base (Crâne)</span>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <span class="font-title-sm text-[16px] text-tertiary-container font-bold">${result.preset.id}</span>
+                    <button class="bg-white/5 hover:bg-white/10 transition-colors p-xs rounded text-on-surface-variant hover:text-white" onclick="window.copyValue(${result.preset.id}, this)">
+                        <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                    </button>
+                </div>
+            </div>
+    `;
+
+    zonesList.forEach(zone => {
+        const presetVal = zoneMix && zoneMix[zone.key] ? zoneMix[zone.key] : result.preset.id;
+        mixHtml += `
+            <div class="bg-surface-container-low/60 rounded-lg p-md border border-white/5 flex items-center justify-between">
+                <div class="flex items-center gap-sm">
+                    <span class="font-title-sm text-[14px] text-on-surface uppercase font-bold">${zone.label}</span>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <span class="font-title-sm text-[16px] text-primary-container font-bold">${presetVal}</span>
+                    <button class="bg-white/5 hover:bg-white/10 transition-colors p-xs rounded text-on-surface-variant hover:text-white" onclick="window.copyValue(${presetVal}, this)">
+                        <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    // 3. Transition vers le Façonnage Avancé (Gros bouton)
+    mixHtml += `
+            <button id="btn-show-advanced" class="w-full mt-lg py-sm bg-primary-container text-[#0A0A0C] font-label-caps text-label-caps hover:scale-[1.02] shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-transform rounded flex items-center justify-center gap-xs font-bold">
+                <span class="material-symbols-outlined text-[18px]">tune</span>
+                FAÇONNAGE AVANCÉ
+            </button>
+        </div>
+        <div id="advanced-shaping-view" class="hidden flex-col gap-md">
+            <!-- Accordéon généré ici par JS -->
+        </div>
+    `;
+    
+    container.innerHTML = mixHtml;
+
+    // Attache l'événement au bouton pour basculer vers l'Accordéon
+    document.getElementById('btn-show-advanced').addEventListener('click', () => {
+        document.getElementById('zone-mix-view').classList.add('hidden');
+        const advView = document.getElementById('advanced-shaping-view');
+        advView.classList.remove('hidden');
+        advView.style.display = 'flex';
+        
+        // Change Header Title again
+        const headerTitle = document.querySelector('#new-scan-modal h2');
+        if (headerTitle) headerTitle.innerText = "AJUSTEMENTS FINS";
+        
+        generateAdvancedAccordion(result, zoneMix, mainPresetObj, advView);
+    });
+};
+
+function generateAdvancedAccordion(result, zoneMix, mainPresetObj, container) {
+    if (!result.preset || !result.preset.avance) return;
+    
+    // Override container classes to match the design (flex layout instead of just flex-col gap-md)
+    container.className = 'w-full flex flex-col h-full bg-surface-container-low/50 relative';
+    
+    const mainPid = result.preset.id;
+    const getZonePreset = mixKey => {
+      if (!zoneMix || mixKey == null) return mainPresetObj;
+      const pid = zoneMix[mixKey];
+      return (pid != null ? PRESETS_DB.find(p => p.preset_id === pid) : null) ?? mainPresetObj;
+    };
+
+    const craneP    = getZonePreset(null);
+    const frontP    = getZonePreset('front');
+    const sourcilsP = getZonePreset('sourcils');
+    const yeuxP     = getZonePreset('yeux');
+    const nezP      = getZonePreset('nez');
+    const jouesP    = getZonePreset('joues');
+    const boucheP   = getZonePreset('bouche');
+    const mentonP   = getZonePreset('menton');
+    const machoireP = getZonePreset('machoire');
+
+    const keyLabels = {
+      re: t('slider.re'), bh: t('slider.bh'), na: t('slider.na'),
+      aa: t('slider.aa'), ang: t('slider.ang'), gd: t('slider.gd'),
+      nr: t('slider.nr'), nh: t('slider.nh'), gp: t('slider.gp')
+    };
+
+    const advZones = [
+      { id: 'tab-crane', label: t('adv.zone.head') || 'Tête', basePresetId: craneP?.preset_id, subs: [ 
+          { label: t('adv.crane.principal') || 'Crâne principal', avanceKey: 'crane', data: craneP?.avance?.crane ? { re: craneP.avance.crane.re || craneP.avance.crane.reduire_elargir, bh: craneP.avance.crane.bh || craneP.avance.crane.bas_haut, aa: craneP.avance.crane.aa || craneP.avance.crane.arrondi_angulaire, na: craneP.avance.crane.na || craneP.avance.crane.neutre_avant, gd: craneP.avance.crane.gd || craneP.avance.crane.gauche_droite } : undefined }, 
+          { label: t('adv.crane.couronne') || 'Couronne', avanceKey: 'couronne', data: craneP?.avance?.couronne ? { re: craneP.avance.couronne.re || craneP.avance.couronne.reduire_elargir, bh: craneP.avance.couronne.bh || craneP.avance.couronne.bas_haut, aa: craneP.avance.couronne.aa || craneP.avance.couronne.neutre_arrondi, na: craneP.avance.couronne.na || craneP.avance.couronne.neutre_avant, gd: craneP.avance.couronne.gd || craneP.avance.couronne.gauche_droite } : undefined }, 
+          { label: t('adv.crane.arriere') || 'Arrière du crâne', avanceKey: 'arriere_crane', data: craneP?.avance?.arriere_crane ? { re: craneP.avance.arriere_crane.re || craneP.avance.arriere_crane.reduire_elargir, bh: craneP.avance.arriere_crane.bh || craneP.avance.arriere_crane.bas_haut, aa: craneP.avance.arriere_crane.aa || craneP.avance.arriere_crane.arrondi_angulaire, na: craneP.avance.arriere_crane.na || craneP.avance.arriere_crane.neutre_avant, gd: craneP.avance.arriere_crane.gd || craneP.avance.arriere_crane.gauche_droite } : undefined }, 
+          { label: t('adv.crane.tempes') || 'Tempes', avanceKey: 'tempes', data: craneP?.avance?.tempes ? { re: craneP.avance.tempes.re || craneP.avance.tempes.reduire_elargir, bh: craneP.avance.tempes.bh || craneP.avance.tempes.bas_haut, aa: craneP.avance.tempes.aa || craneP.avance.tempes.arrondi_angulaire, na: craneP.avance.tempes.na || craneP.avance.tempes.neutre_avant } : undefined } 
+      ] },
+      { id: 'tab-front', label: t('adv.zone.front') || 'Front', basePresetId: frontP?.preset_id, subs: [ 
+          { label: t('adv.front.sup') || 'Front supérieur', avanceKey: 'front_sup', data: frontP?.avance?.front_sup }, 
+          { label: t('adv.front.inf') || 'Front inférieur', avanceKey: 'front_inf', data: frontP?.avance?.front_inf }, 
+      ] },
+      { id: 'tab-sourcils', label: t('adv.zone.brows') || 'Sourcils', basePresetId: sourcilsP?.preset_id, subs: [ 
+          { label: t('adv.sourcils.principal') || 'Sourcils', avanceKey: 'sourcils', data: sourcilsP?.avance?.sourcils }, 
+          { label: t('adv.sourcils.centre') || 'Centre des sourcils', avanceKey: 'sourcils_ctr', data: sourcilsP?.avance?.sourcils_ctr }, 
+          { label: t('adv.sourcils.ext') || 'Extérieur des sourcils', avanceKey: 'sourcils_ext', data: sourcilsP?.avance?.sourcils_ext }, 
+      ] },
+      { id: 'tab-yeux', label: t('adv.zone.eyes') || 'Yeux', basePresetId: yeuxP?.preset_id, subs: [ 
+          { label: t('adv.yeux.principal') || 'Yeux', avanceKey: 'yeux', data: yeuxP?.avance?.yeux }, 
+          { label: t('adv.yeux.orbites') || 'Orbites', avanceKey: 'orbites', data: yeuxP?.avance?.orbites }, 
+      ] },
+      { id: 'tab-nez', label: t('adv.zone.nose') || 'Nez', basePresetId: nezP?.preset_id, subs: [ 
+          { label: t('adv.nez.principal') || 'Nez', avanceKey: 'nez_adv', data: nezP?.avance?.nez_adv }, 
+          { label: t('adv.nez.arete.cotes') || 'Arête (côtés)', avanceKey: 'arete_cotes', data: nezP?.avance?.arete_cotes }, 
+          { label: t('adv.nez.arete.centre') || 'Arête (centre)', avanceKey: 'arete_centrale', data: nezP?.avance?.arete_centrale }, 
+          { label: t('adv.nez.arete.sup') || 'Arête (supérieure)', avanceKey: 'arete_sup', data: nezP?.avance?.arete_sup }, 
+      ] },
+      { id: 'tab-joues', label: t('adv.zone.cheeks') || 'Joues', basePresetId: jouesP?.preset_id, subs: [ 
+          { label: t('adv.joues.principal') || 'Joues', avanceKey: 'joues_adv', data: jouesP?.avance?.joues_adv }, 
+      ] },
+      { id: 'tab-bouche', label: t('adv.zone.mouth') || 'Bouche', basePresetId: boucheP?.preset_id, subs: [ 
+          { label: t('adv.bouche.principal') || 'Bouche', avanceKey: 'bouche_adv', data: boucheP?.avance?.bouche_adv }, 
+          { label: t('adv.bouche.ext') || 'Extérieur', avanceKey: 'bouche_ext', data: boucheP?.avance?.bouche_ext }, 
+      ] },
+      { id: 'tab-menton', label: t('adv.zone.chin') || 'Menton', basePresetId: mentonP?.preset_id, subs: [ 
+          { label: t('adv.menton.principal') || 'Menton', avanceKey: 'menton_adv', data: mentonP?.avance?.menton_adv }, 
+          { label: t('adv.menton.sup') || 'Supérieur', avanceKey: 'menton_sup', data: mentonP?.avance?.menton_sup }, 
+      ] },
+      { id: 'tab-machoire', label: t('adv.zone.jaw') || 'Mâchoire', basePresetId: machoireP?.preset_id, subs: [ 
+          { label: t('adv.machoire.principal') || 'Mâchoire', avanceKey: 'machoire_adv', data: machoireP?.avance?.machoire_adv }, 
+          { label: t('adv.machoire.maxillaire') || 'Maxillaire', avanceKey: 'maxillaire', data: machoireP?.avance?.maxillaire }, 
+          { label: t('adv.machoire.mandibule') || 'Mandibule', avanceKey: 'mandibule', data: machoireP?.avance?.mandibule }, 
+      ] },
+    ];
+
+    // Build Tabs Navigation
+    let tabsHtml = `<div class="flex flex-nowrap gap-x-8 overflow-x-auto border-b border-white/10 hide-scrollbar bg-surface-container-highest/30 shrink-0 px-6 pt-2">`;
+    
+    // Build Content Grid
+    let contentHtml = `<div class="flex-1 overflow-y-auto p-md lg:p-lg flex flex-col gap-md custom-scrollbar relative">`;
+
+    advZones.forEach((zone, index) => {
+        const isActive = index === 0;
+        const tabActiveClasses = isActive 
+            ? 'border-primary-container text-primary-container bg-primary-container/5' 
+            : 'border-transparent text-on-surface-variant hover:text-primary-container';
+
+        tabsHtml += `
+            <button onclick="switchAdvTab('${zone.id}')" id="btn-${zone.id}" class="adv-tab-btn flex items-center gap-xs px-2 py-3 border-b-[2px] ${tabActiveClasses} font-label-caps text-[14px] whitespace-nowrap transition-colors">
+                ${zone.label}
+            </button>
+        `;
+
+        const baseLabel = zone.basePresetId && zone.basePresetId !== mainPid
+            ? `— base Preset ${zone.basePresetId}`
+            : `— base Preset ${mainPid}`;
+
+        let gridHtml = `
+            <div id="${zone.id}" class="adv-tab-content flex-col gap-md flex-1 ${isActive ? 'flex' : 'hidden'}">
+                <div class="flex items-center justify-between border-b border-primary-container/20 pb-sm mb-sm">
+                    <h2 class="font-title-sm text-[16px] text-primary-container tracking-widest uppercase font-bold drop-shadow-[0_0_5px_rgba(0,240,255,0.4)]">${zone.label} ${baseLabel}</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-md flex-1">
+        `;
+
+        zone.subs.forEach(sub => {
+            if (!sub.data) return;
+
+            let slidersHtml = '';
+            const sliderEntries = Object.entries(sub.data).map(([key, val]) => {
+                const safeVal = Number(val ?? (result.preset.avance?.[sub.avanceKey]?.[key] ?? 50));
+                const adjVal = sub.noAdjust ? undefined : result.adjustments?.avance?.[sub.avanceKey]?.[key];
+                const isModified = adjVal !== undefined && Math.abs(adjVal - safeVal) > 1;
+                const displayVal = isModified ? adjVal : safeVal;
+                const colorClass = isModified ? 'text-primary-container' : 'text-on-surface';
+                const labelName = keyLabels[key] || key;
+                const highlightClass = isModified ? 'p-2 -mx-2 rounded bg-primary-container/10 border border-primary-container/30 shadow-[0_0_10px_rgba(0,240,255,0.1)_inset]' : '';
+                
+                slidersHtml += `
+                    <div class="${highlightClass}">
+                        <div class="flex items-center justify-between font-label-caps text-[10px] ${isModified ? 'text-primary-container font-bold' : 'text-on-surface-variant'} mb-2">
+                            <span>${labelName}</span>
+                            <div class="${isModified ? 'bg-primary-container text-black px-2 py-0.5 rounded flex items-center shadow-[0_0_10px_rgba(0,240,255,0.4)]' : 'flex items-center gap-xs bg-surface-container-highest px-2 py-0.5 rounded border border-white/10'}">
+                                <span class="${isModified ? 'font-bold text-[12px]' : colorClass + ' font-bold text-[14px]'}">${displayVal}</span>
+                                ${isModified ? '<span class="text-[8px] ml-1 font-black opacity-80">EDITED</span>' : ''}
+                                <button class="${isModified ? 'text-black/60 hover:text-black ml-1' : 'text-on-surface-variant hover:text-primary-container'} transition-colors" title="Copy" onclick="window.copyValue(${displayVal}, this)">
+                                    <span class="material-symbols-outlined text-[12px]">content_copy</span>
+                                </button>
+                            </div>
+                        </div>
+                        <input type="range" min="0" max="100" value="${displayVal}" disabled class="opacity-80 cursor-not-allowed ${isModified ? 'accent-primary-container' : ''}">
+                    </div>
+                `;
+            });
+
+            if (slidersHtml) {
+                gridHtml += `
+                    <div class="bg-surface/80 border border-white/5 rounded-lg p-md shadow-sm h-max">
+                        <h3 class="font-label-caps text-[13px] text-on-surface mb-md opacity-90 border-l-2 border-primary-container pl-2 uppercase">${sub.label}</h3>
+                        <div class="space-y-md">
+                            ${slidersHtml}
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        gridHtml += `
+                </div>
+                <button class="mt-md w-full max-w-[300px] mx-auto py-2 border border-primary-container/30 text-primary-container font-label-caps text-[11px] rounded hover:bg-primary-container/10 transition-colors flex items-center justify-center gap-xs" onclick="alert('Copie globale non implémentée')">
+                    <span class="material-symbols-outlined text-[16px]">copy_all</span> COPY ALL ${zone.label.toUpperCase()} SETTINGS
+                </button>
+            </div>
+        `;
+        
+        contentHtml += gridHtml;
+    });
+
+    tabsHtml += `</div>`;
+    contentHtml += `</div>`;
+
+    // Export & ID Card Section
+    // Construct the zone mix summary string for the card
+    let zoneMixArr = [];
+    advZones.forEach(z => {
+        if (z.id !== 'tab-crane' && z.basePresetId && z.basePresetId !== mainPid) {
+            zoneMixArr.push(`<span class="text-white">${z.label.toUpperCase()}:</span> ${z.basePresetId}`);
+        }
+    });
+    let zoneMixStr = zoneMixArr.length > 0 ? zoneMixArr.join(' | ') : 'MODÈLE PUR (Aucun mix)';
+
+    let modSlidersArr = [];
+    advZones.forEach(z => {
+        z.subs.forEach(sub => {
+            if (!sub.data) return;
+            Object.entries(sub.data).forEach(([key, val]) => {
+                const safeVal = val ?? 50;
+                const adjVal = sub.noAdjust ? undefined : result.adjustments?.avance?.[sub.avanceKey]?.[key];
+                const isModified = adjVal !== undefined && Math.abs(adjVal - safeVal) > 1;
+                if (isModified) {
+                    const labelName = keyLabels[key] || key;
+                    modSlidersArr.push(`<span class="text-primary-container">${sub.label.substring(0,5).toUpperCase()}:</span> ${labelName} ${adjVal}`);
+                }
+            });
+        });
+    });
+    let modSlidersStr = modSlidersArr.length > 0 ? modSlidersArr.join('  ') : 'Aucun ajustement IA';
+
+    let idCardHtml = `
+        <div class="border-t border-primary-container/20 bg-surface-container/90 p-md shrink-0 z-10 shadow-[0_-10px_20px_rgba(0,0,0,0.5)]">
+            <div class="relative bg-[#08080A] border border-primary-container p-sm md:p-md rounded-lg mb-md overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMC41IiBmaWxsPSIjMDBmMGZmIiBmaWxsLW9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4=')] before:opacity-20 before:pointer-events-none" id="technical-id-card">
+                <div class="absolute top-0 right-0 bg-primary-container text-black font-label-caps text-[8px] px-2 py-0.5 rounded-bl-md font-bold z-20">CONFIDENTIAL // VERIFIED</div>
+                <div class="flex gap-md items-start relative z-10">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded border border-primary-container/50 overflow-hidden shrink-0 bg-black">
+                        <img alt="ID Card Avatar" class="w-full h-full object-cover grayscale contrast-125 mix-blend-lighten" src="./assets/presets/${result.preset.id}.png">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-display-lg text-[14px] md:text-[16px] text-white tracking-tight leading-none mb-1 shadow-primary-container drop-shadow-md truncate">FC26 RECIPE CARD</h4>
+                        <div class="text-[9px] md:text-[10px] font-label-caps text-primary-container tracking-widest mb-2 opacity-80 truncate">Généré par ScanMyFace.tech</div>
+                        
+                        <div class="font-mono text-[9px] md:text-[10px] text-on-surface-variant leading-tight space-y-1">
+                            <div><span class="text-white font-bold">BASE :</span> Tête ${mainPid}</div>
+                            <div class="break-words"><span class="text-white font-bold">ZONE MIX :</span> ${zoneMixStr}</div>
+                            <div class="break-words"><span class="text-white font-bold">CURSEURS :</span> ${modSlidersStr}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-sm items-center">
+                <button class="flex-1 w-full py-3 md:py-2 bg-primary-container/10 border border-primary-container text-primary-container font-label-caps text-[11px] hover:bg-primary-container hover:text-black transition-colors rounded flex items-center justify-center gap-xs shadow-[0_0_10px_rgba(0,240,255,0.2)]">
+                    <span class="material-symbols-outlined text-[16px]">content_copy</span> COPY RECIPE
+                </button>
+                <button class="flex-1 w-full py-3 md:py-2 bg-transparent border border-primary-container text-primary-container font-label-caps text-[11px] hover:bg-primary-container hover:text-black transition-colors rounded flex items-center justify-center gap-xs shadow-[0_0_10px_rgba(0,240,255,0.2)]" onclick="window.shareResults(${result.preset.id})">
+                    <span class="material-symbols-outlined text-[16px]">share</span> SHARE
+                </button>
+                <button class="flex-1 w-full py-3 md:py-2 bg-primary-container text-black font-label-caps text-[11px] hover:scale-[1.02] transition-transform rounded flex items-center justify-center gap-xs shadow-[0_0_15px_rgba(0,240,255,0.4)] font-bold" onclick="window.downloadIDCard()">
+                    <span class="material-symbols-outlined text-[16px]">download</span> DOWNLOAD ID CARD
+                </button>
+            </div>
+            
+            <!-- Social Share Fallback -->
+            <div class="mt-md flex justify-center items-center gap-md border-t border-white/5 pt-md">
+                <span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Partage Rapide :</span>
+                <a href="https://twitter.com/intent/tweet?text=Je%20viens%20de%20créer%20mon%20preset%20visage%20pour%20FC26%20avec%20ScanMyFace.tech%20!%20🎮&url=https://scanmyface.tech" target="_blank" class="text-on-surface-variant hover:text-primary-container transition-colors">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.reddit.com/submit?title=Mon%20Preset%20FC26%20via%20ScanMyFace.tech&url=https://scanmyface.tech" target="_blank" class="text-on-surface-variant hover:text-primary-container transition-colors">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 11.5c0-1.654-1.346-3-3-3-.674 0-1.29.226-1.785.602C17.155 7.64 14.656 7 11.93 7l1.79-4 4.96 1.1c.14 1.13 1.1 2 2.26 2 1.24 0 2.25-1.01 2.25-2.25S22.18 1.6 20.94 1.6c-1.01 0-1.85.67-2.14 1.58l-5.32-1.18c-.28-.06-.56.11-.64.38l-2.01 4.5C8.01 6.94 5.35 7.62 3.25 9.102 2.755 8.726 2.139 8.5 1.5 8.5c-1.654 0-3 1.346-3 3 0 1.32.86 2.44 2.05 2.84-.03.22-.05.44-.05.66 0 3.86 4.68 7 10.42 7 5.75 0 10.43-3.14 10.43-7 0-.22-.02-.44-.05-.66 1.19-.4 2.05-1.52 2.05-2.84zM2.38 12.83c-.45-.15-.75-.58-.75-1.06 0-.61.49-1.1 1.1-1.1.25 0 .48.09.67.24-1 1.02-1.02 1.02-.92.92zm18.3 11.45c-2.43 2.18-8.1 2.18-10.53 0-.15-.14-.17-.37-.03-.52.14-.15.37-.17.52-.03 2.1 1.88 7.35 1.88 9.46 0 .15-.14.38-.12.52.03.14.15.12.38-.02.52zm.45-12.51c.19-.15.42-.24.67-.24.61 0 1.1.49 1.1 1.1 0 .48-.3.91-.75 1.06.1-.1.08-.1-.92-.92z"/></svg>
+                </a>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = tabsHtml + contentHtml + idCardHtml;
+    console.log("Rendu Façonnage Avancé généré (Nouveau Design)");
+}
+
+// Helper JS logic to switch tabs
+window.switchAdvTab = function(tabId) {
+    // Reset all tabs
+    document.querySelectorAll('.adv-tab-btn').forEach(btn => {
+        btn.classList.remove('border-primary-container', 'text-primary-container', 'bg-primary-container/5');
+        btn.classList.add('border-transparent', 'text-on-surface-variant');
+    });
+    // Set active tab
+    const activeBtn = document.getElementById(`btn-${tabId}`);
+    if (activeBtn) {
+        activeBtn.classList.remove('border-transparent', 'text-on-surface-variant');
+        activeBtn.classList.add('border-primary-container', 'text-primary-container', 'bg-primary-container/5');
+    }
+    
+    // Hide all content
+    document.querySelectorAll('.adv-tab-content').forEach(content => {
+        content.classList.remove('flex');
+        content.classList.add('hidden');
+    });
+    // Show active content
+    const activeContent = document.getElementById(tabId);
+    if (activeContent) {
+        activeContent.classList.remove('hidden');
+        activeContent.classList.add('flex');
+    }
+};
+
+
+
+// Global function to download ID card using html2canvas
+window.downloadIDCard = async function() {
+    const card = document.getElementById('technical-id-card');
+    if (!card) return;
+    
+    try {
+        const canvas = await html2canvas(card, {
+            backgroundColor: '#08080A',
+            scale: 2, // High resolution
+            useCORS: true,
+            allowTaint: true
+        });
+        
+        const dataUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = 'ScanMyFace_ID_Card.png';
+        link.href = dataUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (err) {
+        console.error("Erreur lors de la capture de la carte ID:", err);
+        alert("Une erreur est survenue lors du téléchargement.");
+    }
+};
+
+// Global function to share results (Image generation)
+window.shareResults = async function(presetId) {
+    const card = document.getElementById('technical-id-card');
+    if (!card) return;
+    
+    // Feedback UI
+    const shareBtn = event.currentTarget;
+    const originalText = shareBtn.innerHTML;
+    shareBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span> GENERATING...';
+    
+    try {
+        const canvas = await html2canvas(card, {
+            backgroundColor: '#08080A',
+            scale: 2,
+            useCORS: true,
+            allowTaint: true
+        });
+        
+        canvas.toBlob(async (blob) => {
+            const file = new File([blob], 'ScanMyFace_Recipe.png', { type: 'image/png' });
+            const shareData = {
+                title: 'ScanMyFace - Mon Preset FC26',
+                text: `Je viens de créer mon preset visage pour FC26 avec ScanMyFace.tech ! 🎮 ID Preset : ${presetId}\n\nRejoins-nous sur https://scanmyface.tech`,
+                files: [file]
+            };
+            
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share(shareData);
+            } else {
+                // Fallback: Download instead if sharing files is not supported
+                const dataUrl = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = 'ScanMyFace_Recipe.png';
+                link.href = dataUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(dataUrl);
+                alert('Partage natif non supporté. Image téléchargée !');
+            }
+            shareBtn.innerHTML = originalText;
+        }, 'image/png');
+    } catch (err) {
+        console.error('Erreur lors du partage:', err);
+        shareBtn.innerHTML = originalText;
+        alert("Une erreur est survenue lors de la préparation de l'image.");
+    }
 };

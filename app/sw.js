@@ -28,6 +28,7 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
     // Network-first : essaie le réseau d'abord, cache en fallback
     fetch(event.request)
