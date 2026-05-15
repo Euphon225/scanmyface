@@ -7,6 +7,7 @@
 // ═══════════════════════════════════════════════════════════════════════
 const CONFIG = {
   AZURE_FUNCTION_ENDPOINT: 'https://scanmyface-engine-bmeahnduccgvcrcc.germanywestcentral-01.azurewebsites.net/api/matchFace',
+  AZURE_CHECKOUT_ENDPOINT: '/api/create-checkout-session',
   APPWRITE_ENDPOINT: 'https://69f56e82003365eb237a.fra.appwrite.run'
 };
 

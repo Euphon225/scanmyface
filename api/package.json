@@ -1,0 +1,12 @@
+{
+  "name": "scanmyface-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for ScanMyFace",
+  "main": "index.js",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.0"
+  }
+}
