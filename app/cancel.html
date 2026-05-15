@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement annulé - ScanMyFace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-card: #16181c;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aab2;
+            --neon-cyan: #00f0ff;
+            --neon-purple: #b026ff;
+            --border-color: #2a2e33;
+            --warning: #ff6b35;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cancel-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cancel icon */
+        .cancel-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: scaleIn 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .cancel-mark {
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--warning);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 107, 53, 0.05);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.2), inset 0 0 20px rgba(255, 107, 53, 0.08);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(255, 107, 53, 0.2), inset 0 0 20px rgba(255, 107, 53, 0.08);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 107, 53, 0.35), inset 0 0 30px rgba(255, 107, 53, 0.15);
+            }
+        }
+
+        .cancel-mark::after {
+            content: '✕';
+            font-size: 60px;
+            color: var(--warning);
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        /* Main title */
+        .cancel-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            animation: fadeIn 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Subtitle */
+        .cancel-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            animation: fadeIn 0.8s ease-out 0.3s both;
+        }
+
+        /* Cancellation message */
+        .cancel-message {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        /* Info box */
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out 0.5s both;
+        }
+
+        .info-item {
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .info-item + .info-item {
+            margin-top: 1rem;
+        }
+
+        .info-item strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Action buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            animation: fadeIn 0.8s ease-out 0.6s both;
+        }
+
+        @media (min-width: 480px) {
+            .button-group {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .btn-action {
+                flex: 1;
+                max-width: 250px;
+            }
+        }
+
+        .btn-action {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            font-family: var(--font-body);
+        }
+
+        .btn-retry {
+            background: linear-gradient(135deg, var(--warning), #ff8c4a);
+            color: var(--bg-dark);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-retry:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 107, 53, 0.5);
+        }
+
+        .btn-home {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-home:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-action:active {
+            transform: translateY(0);
+        }
+
+        /* Session ID display */
+        .session-id {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin-top: 2rem;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            animation: fadeIn 0.8s ease-out 0.7s both;
+        }
+
+        .session-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-body);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 600px) {
+            .cancel-container {
+                padding: 1.5rem;
+            }
+
+            .cancel-title {
+                font-size: 2rem;
+            }
+
+            .cancel-icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .cancel-mark::after {
+                font-size: 50px;
+            }
+
+            .cancel-message {
+                font-size: 0.95rem;
+            }
+
+            .button-group {
+                gap: 0.75rem;
+            }
+
+            .btn-action {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cancel-container">
+        <div class="cancel-icon">
+            <div class="cancel-mark"></div>
+        </div>
+
+        <h1 class="cancel-title">Paiement annulé</h1>
+        <p class="cancel-subtitle">La transaction n'a pas été complétée</p>
+
+        <p class="cancel-message">
+            Votre session de paiement a été annulée. Aucune charge n'a été appliquée à votre compte.
+        </p>
+
+        <div class="info-box">
+            <div class="info-item">
+                <strong>Que s'est-il passé ?</strong>
+                Vous avez quitté la page de paiement Stripe avant de confirmer votre transaction.
+            </div>
+            <div class="info-item">
+                <strong>Prochaines étapes</strong>
+                Vous pouvez réessayer le paiement ou continuer en tant qu'utilisateur gratuit pour explorer les fonctionnalités limitées.
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-action btn-retry" onclick="retryPayment()">
+                Réessayer le paiement
+            </button>
+            <button class="btn-action btn-home" onclick="goHome()">
+                Retourner à l'accueil
+            </button>
+        </div>
+
+        <div id="session-container"></div>
+    </div>
+
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+
+        // Display session ID if available
+        if (sessionId) {
+            const sessionContainer = document.getElementById('session-container');
+            sessionContainer.innerHTML = `
+                <div class="session-id">
+                    <span class="session-label">Session ID</span>
+                    ${sessionId}
+                </div>
+            `;
+            console.log('Cancelled Session ID:', sessionId);
+        }
+
+        // Retry payment function
+        function retryPayment() {
+            // Redirect to the Stripe payment link or checkout initiation
+            // You can customize this based on your payment flow
+            window.location.href = 'index.html#payment';
+        }
+
+        // Go home function
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
