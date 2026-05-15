@@ -23,15 +23,17 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
     font-family: var(--font-body);
-    overflow: hidden; /* Prevent body scroll during screen transitions */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #app-container {
     width: 100vw;
-    height: 100vh;
-    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* --- Header --- */
@@ -45,40 +47,82 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* --- Language Selector (now within header) --- */
-#lang-bar {
+/* --- Language Selector --- */
+.lang-switcher {
     display: flex;
     align-items: center;
-    gap: 5px;
-    background: rgba(10, 10, 12, 0.6);
+    flex-shrink: 0;
+}
+
+.lang-pill {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 126px;
+    padding: 4px;
+    gap: 4px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%),
+        rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(8px);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 4px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 10px 24px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
 }
 
 .lang-btn {
+    flex: 1 1 0;
+    position: relative;
+    z-index: 2;
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
     cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 12px;
-    transition: all 0.2s ease;
+    padding: 7px 15px;
+    border-radius: 999px;
+    line-height: 1;
+    transition: color 0.22s ease, transform 0.22s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .lang-btn.active {
     color: var(--bg-dark);
-    background: var(--neon-cyan);
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
 
-.lang-sep {
-    color: var(--border-color);
-    font-size: 0.8rem;
+.lang-btn:not(.active):hover {
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.lang-btn:focus-visible {
+    outline: 2px solid rgba(0, 240, 255, 0.45);
+    outline-offset: 2px;
+}
+
+.lang-indicator {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: linear-gradient(135deg, #00f0ff 0%, #8ffcff 100%);
+    border-radius: 999px;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.45);
+}
+
+/* Position for EN */
+.lang-btn[data-lang="en"].active ~ .lang-indicator {
+    left: calc(50% + 0px);
+    transform: none;
 }
 
 /* --- Screen Transitions --- */
@@ -98,8 +142,16 @@ body {
 }
 
 .screen.active {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
     transform: translateX(0);
     z-index: 2;
+}
+
+#screen-home {
+    padding-bottom: 5rem;
 }
 
 /* --- Typography & Utilities --- */
@@ -187,7 +239,9 @@ header h2 {
 #screen-home {
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 2rem 2rem 20rem;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .logo-container {
@@ -196,8 +250,12 @@ header h2 {
 }
 
 .logo-container h1 {
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 7vw, 3rem);
     margin-bottom: 0.5rem;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-family: var(--font-heading);
+    white-space: nowrap;
 }
 
 .logo-container p {
@@ -212,6 +270,93 @@ header h2 {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.mode-selection {
+    width: 100%;
+    max-width: 860px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.scan-mode-card {
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+        #101216;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
+}
+
+.scan-mode-card-pro {
+    border-color: rgba(0, 255, 255, 0.58);
+    box-shadow:
+        0 0 0 1px rgba(0, 255, 255, 0.08) inset,
+        0 0 28px rgba(0, 255, 255, 0.16),
+        0 22px 50px rgba(0, 0, 0, 0.28);
+}
+
+.mode-card-kicker {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--neon-cyan);
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.scan-mode-card h2 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.35rem, 3vw, 1.8rem);
+    line-height: 1;
+    letter-spacing: 0;
+}
+
+.scan-mode-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+.mode-card-button {
+    min-height: 52px;
+    font-size: 0.95rem;
+}
+
+.upload-link-row {
+    width: 100%;
+    max-width: 860px;
+    margin-top: 1.25rem;
+    text-align: center;
+}
+
+.upload-text-link {
+    border: 0;
+    background: transparent;
+    color: rgba(229, 225, 228, 0.72);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 240, 255, 0.34);
+    text-underline-offset: 5px;
+    cursor: pointer;
+}
+
+.upload-text-link:hover,
+.upload-text-link:focus-visible {
+    color: var(--neon-cyan);
 }
 
 .action-buttons .icon {
@@ -237,6 +382,132 @@ header h2 {
     padding: 0 10px;
 }
 
+.upload-mode-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.74);
+    backdrop-filter: blur(12px);
+}
+
+.upload-mode-panel {
+    position: relative;
+    width: min(100%, 430px);
+    padding: 1.25rem;
+    background: #101216;
+    border: 1px solid rgba(0, 240, 255, 0.28);
+    border-radius: 8px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
+}
+
+.upload-mode-panel h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    letter-spacing: 0;
+}
+
+.upload-mode-panel p {
+    margin-bottom: 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+.upload-mode-actions {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.upload-mode-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.upload-mode-close:hover {
+    color: var(--text-primary);
+    border-color: rgba(0, 240, 255, 0.4);
+}
+
+.manual-mesh-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 16;
+    pointer-events: auto;
+}
+
+.manual-mesh-line {
+    position: absolute;
+    height: 1px;
+    background: rgba(0, 255, 255, 0.5);
+    transform-origin: left center;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.manual-mesh-point {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #00ffff;
+    border-radius: 999px;
+    background: rgba(10, 10, 12, 0.82);
+    box-shadow: 0 0 14px rgba(0, 255, 255, 0.55);
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    touch-action: none;
+}
+
+.manual-mesh-point::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.manual-mesh-point:active {
+    cursor: grabbing;
+}
+
+.expert-mesh-canvas {
+    position: absolute;
+    z-index: 16;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.expert-mesh-magnifier {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 112px;
+    height: 112px;
+    z-index: 18;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    background: #050506;
+    box-shadow: 0 0 22px rgba(0, 255, 255, 0.42);
+    pointer-events: none;
+}
+
 /* --- Screen 2: Scan --- */
 .scanner-container {
     flex: 1;
@@ -249,9 +520,8 @@ header h2 {
 .media-container {
     flex: 1;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center;
     overflow: hidden;
 }
 
@@ -263,6 +533,20 @@ header h2 {
     height: 100%;
     object-fit: cover;
     z-index: 1;
+}
+
+#new-scan-modal #input-video-new,
+#new-scan-modal #input-image-new {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#new-scan-modal #input-video-new {
+    transform: scaleX(-1);
 }
 
 #input-video {
@@ -293,7 +577,7 @@ header h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     z-index: 2;
     pointer-events: none;
 }
@@ -303,12 +587,113 @@ header h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 250px;
-    height: 350px;
-    border: 2px dashed rgba(255, 255, 255, 0.3);
+    width: min(68%, 280px);
+    height: min(68%, 360px);
+    border: 2px dashed rgba(0, 240, 255, 0.58);
     border-radius: 50%;
+    box-shadow:
+        0 0 18px rgba(0, 240, 255, 0.18),
+        inset 0 0 24px rgba(0, 240, 255, 0.08);
     z-index: 3;
     pointer-events: none;
+}
+
+.scan-overlay::before,
+.scan-overlay::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58%;
+    border-top: 1px dashed rgba(255, 255, 255, 0.34);
+}
+
+.scan-overlay::before {
+    top: 34%;
+}
+
+.scan-overlay::after {
+    top: 58%;
+}
+
+.face-guide-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent; /* show video everywhere behind the oval */
+    position: absolute;
+    inset: 0; /* occupy full media frame */
+    pointer-events: none;
+}
+
+.face-guide-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.face-guide-oval {
+    fill: rgba(0, 240, 255, 0.025);
+    stroke: rgba(0, 240, 255, 0.88);
+    stroke-width: 0.8;
+    stroke-dasharray: 2.4 2.2;
+    vector-effect: non-scaling-stroke;
+    filter: url(#face-guide-glow);
+}
+
+.face-guide-line,
+.face-guide-cheek {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.62);
+    stroke-width: 0.65; /* slightly thicker for visibility when scaled */
+    stroke-linecap: round;
+    stroke-dasharray: 1.8 2.6;
+    vector-effect: non-scaling-stroke;
+}
+
+.face-guide-center {
+    stroke: rgba(0, 240, 255, 0.5);
+    stroke-dasharray: 1.2 3.2;
+}
+
+.face-guide-eye {
+    stroke: rgba(254, 214, 57, 0.92);
+    stroke-width: 0.9; /* emphasize eye marker lines */
+}
+
+.face-guide-nose,
+.face-guide-mouth {
+    stroke: rgba(255, 255, 255, 0.82);
+    stroke-width: 0.9; /* make nose line longer/clearer in scaled SVG */
+}
+
+.face-guide-cheek {
+    stroke: rgba(0, 240, 255, 0.42);
+}
+
+.face-guide-dot {
+    fill: rgba(254, 214, 57, 0.9);
+    filter: url(#face-guide-glow);
+}
+
+.face-guide-hint {
+    position: absolute;
+    bottom: clamp(18px, 5%, 34px);
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: calc(100% - 32px);
+    padding: 7px 11px;
+    color: rgba(229, 225, 228, 0.92);
+    background: rgba(10, 10, 12, 0.62);
+    border: 1px solid rgba(0, 240, 255, 0.26);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
 }
 
 .scan-actions {
@@ -690,4 +1075,235 @@ header h2 {
 }
 .cropper-face {
     background-color: transparent !important;
+}
+
+@media (max-width: 768px) {
+    #app-container {
+        width: 100vw;
+        min-height: 100dvh;
+        height: auto;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        overflow-x: hidden;
+        overflow-y: visible;
+    }
+
+    #screen-home {
+        padding: 2rem 1rem 10rem;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        z-index: 10;
+        height: 100dvh;
+    }
+
+    .logo-container h1 {
+        font-size: clamp(2rem, 12vw, 2.75rem);
+        white-space: normal;
+    }
+
+    .mode-selection {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        position: relative;
+        z-index: 20;
+    }
+
+    .scan-mode-card {
+        min-height: 220px;
+        width: 100%;
+    }
+
+    /* Requirement 2 & 5: Full-Bleed Design & Scroll Fix */
+    #new-scan-modal {
+        padding: 0 !important;
+        height: 100dvh !important;
+        margin: 0 !important;
+    }
+
+    #new-scan-modal > div {
+        width: 100vw !important;
+        height: 100dvh !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        max-width: none !important;
+        max-height: none !important;
+        overflow: hidden !important; /* Outer shell doesn't scroll */
+        position: relative;
+    }
+
+    /* Requirement 1: Fixed UI Shell */
+    /* Fix Header */
+    #new-scan-modal > div > div.border-b {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 9990 !important;
+        background: #0A0A0C !important;
+    }
+
+    /* Scrollable central content */
+    #new-scan-modal > div > .flex-1.overflow-hidden.grid {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important; /* Requirement 5 */
+        padding-top: 60px !important; /* Space for fixed header */
+        padding-bottom: 100px !important; /* Space for fixed footer */
+        height: 100dvh !important;
+        width: 100vw !important;
+    }
+
+    #new-scan-modal > div > .flex-1.overflow-hidden.grid > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    #new-scan-modal > div > .flex-1.overflow-hidden.grid > div:nth-child(1) {
+        padding: 12px 12px 10px !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        flex: 0 0 auto !important;
+    }
+
+    #new-scan-modal > div > .flex-1.overflow-hidden.grid > div:nth-child(2) {
+        padding: 12px 0 16px !important;
+        border-left: none !important;
+        width: 100% !important;
+        flex: 1 1 auto !important;
+        overflow: visible !important;
+    }
+
+    /* Keep the scan visual centered */
+    #new-scan-modal .media-frame {
+        width: min(100%, 360px) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    #new-scan-modal .scanner-container,
+    #new-scan-modal .media-container {
+        width: 100% !important;
+        max-width: none !important;
+        overflow-x: hidden !important;
+    }
+
+    #new-scan-modal .p-xl {
+        padding: 16px !important;
+    }
+
+    /* Requirement 3: Ergonomic Buttons (Bottom Bar) */
+    #new-scan-modal #new-scan-actions {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 16px 20px !important;
+        background: rgba(10, 10, 12, 0.6) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        z-index: 9990 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        gap: 12px !important;
+    }
+
+    #new-scan-modal #btn-confirm-analyze-new,
+    #new-scan-modal .review-buttons .btn,
+    #new-scan-modal #btn-auto-confirm,
+    #new-scan-modal #btn-auto-retake,
+    #new-scan-modal #btn-capture {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 480px !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
+        min-height: 56px;
+        font-size: 1rem;
+        padding: 14px 16px;
+        margin: 0 auto !important;
+    }
+
+    /* Requirement 4: Z-Index Layering for BACK button */
+    #btn-back-modal {
+        position: fixed !important;
+        top: 12px !important;
+        left: 12px !important;
+        z-index: 10000 !important;
+        background: rgba(0,0,0,0.6) !important;
+        border-radius: 8px !important;
+        padding: 6px 10px !important;
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+    }
+
+    /* Ensure help modal close is visible above images */
+    #help-mesh-modal {
+        z-index: 10001 !important;
+    }
+    #btn-close-help-modal {
+        position: absolute !important;
+        top: 12px !important;
+        right: 12px !important;
+        z-index: 10002 !important;
+    }
+
+    #btn-close-modal {
+        position: fixed !important;
+        top: 12px !important;
+        right: 12px !important;
+        z-index: 10000 !important;
+    }
+
+    #new-scan-modal #input-video-new,
+    #new-scan-modal #input-image-new,
+    #new-scan-modal .output-canvas,
+    #new-scan-modal .face-guide-overlay {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .face-guide-svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .face-guide-hint {
+        bottom: 14px;
+        font-size: 0.68rem;
+    }
+
+    #new-scan-modal .results-container,
+    #new-scan-modal .preset-choice-container {
+        width: 100% !important;
+        max-width: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    #new-scan-modal #new-result-container {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        overflow-x: hidden !important;
+    }
 }

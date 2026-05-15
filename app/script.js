@@ -7,8 +7,8 @@
 // ═══════════════════════════════════════════════════════════════════════
 const CONFIG = {
   AZURE_FUNCTION_ENDPOINT: 'https://scanmyface-engine-bmeahnduccgvcrcc.germanywestcentral-01.azurewebsites.net/api/matchFace',
-  AZURE_CHECKOUT_ENDPOINT: '/api/create-checkout-session',
-  APPWRITE_ENDPOINT: 'https://69f56e82003365eb237a.fra.appwrite.run'
+  APPWRITE_ENDPOINT: 'https://69f56e82003365eb237a.fra.appwrite.run',
+  STRIPE_PAYMENT_LINK: 'https://buy.stripe.com/test_9B600bbtE9ag44ocJAg7e00'
 };
 
 // --- 1. SURVIVAL & i18n BLOCK ---
@@ -21,16 +21,70 @@ const state = {
     results: null,
     zoneMix: null,
     pendingAnalysis: null,
-    isPremium: false
+    isPremium: localStorage.getItem('premium_unlocked') === 'true',
+    scanMode: 'auto',
+    autoLiveActive: false,
+    autoProcessing: false,
+    pendingUploadDataUrl: null,
+    expertImageDataUrl: null,
+    manualMeshPoints: {},
+    expertMeshPending: false,
+    expertMeshImage: null,
+    expertMeshAttributes: null,
+    initialMeshPoints: {},
+    movedExpertPoints: new Set(),
+    expertFullLandmarks: null
 };
 
 // --- 1. i18n EXTERNAL LOADING SYSTEM ---
 let translations = {};
 
+function unlockPremiumAccess() {
+    localStorage.setItem('premium_unlocked', 'true');
+    state.isPremium = true;
+    applyPremiumUnlockUI();
+}
+
+function applyPremiumUnlockUI() {
+    const unlocked = localStorage.getItem('premium_unlocked') === 'true';
+    state.isPremium = unlocked;
+    document.body?.classList.toggle('premium-unlocked', unlocked);
+
+    if (!unlocked) return;
+
+    document.querySelectorAll('.tier-indicator .badge-free').forEach(badge => {
+        badge.textContent = 'PRO TIER';
+        badge.style.background = 'var(--neon-purple)';
+    });
+    document.querySelectorAll('.btn-upgrade-sm, .premium-gate').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.accordion-item.locked, .premium-locked').forEach(el => el.classList.remove('locked', 'premium-locked'));
+
+    document.querySelectorAll('#results-accordion, #result-card, #new-result-container, #zone-mix-view, #advanced-shaping-view').forEach(el => {
+        el.classList.remove('blur', 'blur-sm', 'blur-md', 'blur-lg', 'opacity-50', 'pointer-events-none');
+        el.style.filter = '';
+        el.style.pointerEvents = '';
+        el.style.opacity = '';
+    });
+}
+
+function handleStripeSuccessRedirect() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('status') !== 'success') return;
+
+    localStorage.setItem('premium_unlocked', 'true');
+    state.isPremium = true;
+    const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+    window.history.replaceState({}, document.title, cleanUrl);
+}
+
 window.setLanguage = async function(lang) {
     try {
+        // Sauvegarde de la préférence
+        localStorage.setItem('preferredLang', lang);
+        
         // Tentative de chargement depuis plusieurs chemins possibles (app/ ou racine)
-        const paths = [`./${lang}.json`, `../${lang}.json`, `/${lang}.json` ];
+        // Prefer local project file first
+        const paths = [`./${lang}.json`, `./app/${lang}.json`, `../${lang}.json`, `/${lang}.json` ];
         let data = null;
         
         for (const path of paths) {
@@ -46,7 +100,21 @@ window.setLanguage = async function(lang) {
         
         if (!data) {
             console.warn(`⚠️ Impossible de charger ${lang}.json. Fallback sur les clés.`);
-            translations = {}; 
+            const defaultTranslations = {
+                'mode.auto.kicker': 'Standard',
+                'mode.auto.title': 'Scan Rapide',
+                'mode.auto.desc': 'Détection automatique par l\'IA. Idéal pour un aperçu instantané.',
+                'btn.auto.start': 'LANCER L\'IA',
+                'mode.expert.kicker': 'Premium',
+                'mode.expert.title': 'Précision Pro',
+                'mode.expert.desc': 'Placez manuellement vos repères.',
+                'btn.expert.start': 'DÉMARRER LE MAILLAGE',
+                'btn.upload.text': 'Ou charger une photo depuis l\'appareil',
+                'screen.scan.title': 'Scanning',
+                'loading.landmarks': 'Detecting 468 facial landmarks...',
+                'btn.mesh.validate': 'Valider Positions'
+            };
+            translations = defaultTranslations;
         } else {
             translations = data;
         }
@@ -55,15 +123,30 @@ window.setLanguage = async function(lang) {
         
         // Mise à jour des boutons de langue
         document.querySelectorAll('.lang-btn').forEach(btn => {
-            if (btn) btn.classList.toggle('active', btn.dataset.lang === lang);
+            if (btn) {
+                const btnLang = btn.dataset.lang;
+                btn.classList.toggle('active', btnLang === lang);
+            }
         });
+        
+        // Mise à jour de l'indicateur premium
+        const indicator = document.querySelector('.lang-indicator');
+        const activeBtn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+        if (indicator && activeBtn) {
+            indicator.style.width = activeBtn.offsetWidth + 'px';
+            indicator.style.left = activeBtn.offsetLeft + 'px';
+        }
         
         // Traduction des éléments statiques [data-i18n]
         document.querySelectorAll('[data-i18n]').forEach(el => {
             if (el) {
                 const key = el.dataset.i18n;
-                if (translations[key]) el.textContent = translations[key];
+                if (translations[key]) el.innerHTML = translations[key];
             }
+        });
+        document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+            const key = el.dataset.i18nAriaLabel;
+            if (translations[key]) el.setAttribute('aria-label', translations[key]);
         });
         
         // Rafraîchissement des vues dynamiques si actives
@@ -90,14 +173,21 @@ window.t = function(key) {
 };
 
 // Global handles for Survival
-let btnCamera, fileUpload, screens, navButtons, btnCapture, btnAnalyzeUpload, inputVideo, inputImage, outputCanvas, canvasCtx, loadingIndicator, resultsAccordion, btnShare, btnPurchase, reviewButtons, btnRetake, btnConfirmAnalyze;
+let btnCamera, btnExpertStart, btnUploadLink, fileUpload, uploadModeModal, btnUploadAuto, btnUploadExpert, btnUploadModeClose, screens, navButtons, btnCapture, btnAnalyzeUpload, inputVideo, inputImage, outputCanvas, canvasCtx, loadingIndicator, resultsAccordion, btnShare, btnPurchase, reviewButtons, btnRetake, btnConfirmAnalyze;
 
 window.addEventListener('DOMContentLoaded', () => {
+    handleStripeSuccessRedirect();
     // Basic elements
     screens = document.querySelectorAll('.screen');
     navButtons = document.querySelectorAll('[data-target]');
     fileUpload = document.getElementById('file-upload');
     btnCamera = document.getElementById('btn-camera');
+    btnExpertStart = document.getElementById('btn-expert-start');
+    btnUploadLink = document.getElementById('btn-upload-link');
+    uploadModeModal = document.getElementById('upload-mode-modal');
+    btnUploadAuto = document.getElementById('btn-upload-auto');
+    btnUploadExpert = document.getElementById('btn-upload-expert');
+    btnUploadModeClose = document.getElementById('btn-upload-mode-close');
     btnCapture = document.getElementById('btn-capture');
     btnAnalyzeUpload = document.getElementById('btn-analyze-upload');
     inputVideo = document.getElementById('input-video');
@@ -113,8 +203,25 @@ window.addEventListener('DOMContentLoaded', () => {
     btnConfirmAnalyze = document.getElementById('btn-confirm-analyze');
 
     // Survival Listeners
-    if (btnCamera) btnCamera.addEventListener('click', () => { if (typeof startLiveScan === 'function') startLiveScan(); });
-    if (fileUpload) fileUpload.addEventListener('change', (e) => { if (typeof handleFileUpload === 'function') handleFileUpload(e); });
+    if (btnCamera) btnCamera.addEventListener('click', () => {
+        console.log('Démarrage du maillage lancé');
+        // Use user-controlled live scan (no automatic continuous detection)
+        if (typeof startLiveScan === 'function') startLiveScan();
+        else if (typeof startAutoLiveScan === 'function') startAutoLiveScan();
+    });
+    if (btnExpertStart) btnExpertStart.addEventListener('click', () => {
+        console.log('Démarrage du maillage lancé');
+        if (typeof startExpertScan === 'function') startExpertScan();
+        else if (typeof startMesh === 'function') startMesh();
+    });
+    if (btnUploadLink) btnUploadLink.addEventListener('click', () => fileUpload?.click());
+    if (fileUpload) fileUpload.addEventListener('change', (e) => {
+        console.log('fileUpload change event');
+        if (typeof handleFileUpload === 'function') handleFileUpload(e);
+    });
+    if (btnUploadAuto) btnUploadAuto.addEventListener('click', () => { if (typeof chooseUploadedMode === 'function') chooseUploadedMode('auto'); });
+    if (btnUploadExpert) btnUploadExpert.addEventListener('click', () => { if (typeof chooseUploadedMode === 'function') chooseUploadedMode('expert'); });
+    if (btnUploadModeClose) btnUploadModeClose.addEventListener('click', () => { if (typeof closeUploadModeModal === 'function') closeUploadModeModal(); });
     if (btnCapture) btnCapture.addEventListener('click', () => { if (typeof capturePhoto === 'function') capturePhoto(); });
     if (btnRetake) btnRetake.addEventListener('click', () => { if (typeof retakePhoto === 'function') retakePhoto(); });
     if (btnConfirmAnalyze) btnConfirmAnalyze.addEventListener('click', () => { if (typeof confirmAndAnalyze === 'function') confirmAndAnalyze(); });
@@ -128,6 +235,21 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Intercept physical 'back' buttons when cropper is active: return to camera instead of home
+    document.querySelectorAll('.btn-back').forEach(backBtn => {
+        backBtn.addEventListener('click', (e) => {
+            try {
+                const active = document.querySelector('.screen.active');
+                if (active && active.id === 'screen-scan' && cropper) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Restore camera view instead of navigating home
+                    retakePhoto();
+                }
+            } catch (err) { /* ignore */ }
+        }, { capture: true });
+    });
+
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', e => {
             e.preventDefault();
@@ -135,7 +257,8 @@ window.addEventListener('DOMContentLoaded', () => {
             setLanguage(btn.dataset.lang);
         });
     });
-    setLanguage('fr');
+    setLanguage(localStorage.getItem('preferredLang') || 'fr');
+    applyPremiumUnlockUI();
 });
 
 
@@ -249,7 +372,7 @@ function extractMorphRatios(landmarks) {
   const menton_ratio = _philtrum > 0 ? Math.abs(_lm13y - _lm152y) / _philtrum : 0;
 
   // 4. Largeur bigoniale (séparation horizontale max dans le tiers inférieur du visage)
-  const FACE_OVAL_IDX = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109];
+    const FACE_OVAL_IDX = [10, 338, 297, 332, 284, 251, 389, 251, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 21, 162, 21, 54, 103, 67, 109];
   const _belowNose = FACE_OVAL_IDX.filter(i => landmarks[i] && landmarks[i].y > _lm2y);
   let machoire_bigoniale = 0;
   if (_belowNose.length >= 2 && faceWidth) {
@@ -474,22 +597,6 @@ function classifyFaceShape(ratios) {
 }
 
 // ─── 6. SCORE DE SIMILARITÉ ENTRE PHOTO ET PRESET ─────────
-// Cache des stats DB (min/max) pour normalisation 0-1 des métriques
-let _dbStatsCache = null;
-function getDbStats() {
-  if (_dbStatsCache) return _dbStatsCache;
-  const fields = ['nez','machoire','joues','bouche','yeux','sourcils',
-                  'eyebrowGap','lipFullness','noseFlare','philtrum',
-                  'cheekProminence','eyeHeightPos'];
-  const mn = {}, mx = {};
-  for (const key of fields) {
-    const vals = PRESETS_DB.map(p => p.ratios_cibles?.[key]).filter(v => v != null && isFinite(v));
-    mn[key] = Math.min(...vals);
-    mx[key] = Math.max(...vals);
-  }
-  _dbStatsCache = { mn, mx };
-  return _dbStatsCache;
-}
 
 function normalizeSkinToneLabel(skinTone) {
   const skinToneAliases = {
@@ -503,99 +610,119 @@ function normalizeSkinToneLabel(skinTone) {
   return skinToneAliases[skinTone] ?? skinTone;
 }
 
-// Algorithme : Matching Pondéré avec voisinage peau et règle asiatique
-function computePresetScore(ratios, skinTone, preset) {
-  const resolvedSkinTone = normalizeSkinToneLabel(skinTone);
+// ─── EUCLIDEAN DISTANCE CALCULATION FOR SCANNED_STATS ──────────────────────
+/**
+ * Calcule la distance euclidienne entre deux catégories de features
+ * @param {Object} userCat - Catégorie de l'utilisateur (ex: user.nez)
+ * @param {Object} presetCat - Catégorie du preset (ex: preset.scanned_stats.nez)
+ * @param {string} categoryName - Nom de la catégorie ('nez', 'machoire', 'menton', 'yeux', etc.)
+ * @returns {number} Distance pondérée
+ */
+function calculateCategoryDistance(userCat, presetCat, categoryName) {
+  if (!userCat || !presetCat) return 0;
 
-  // A. Voisinage peau — éliminatoire si hors voisinage
-  const neighborhoods = {
-    "Claire":        ["Claire", "Claire-bronzée"],
-    "Claire-bronzée":["Claire", "Claire-bronzée", "Métis"],
-    "Métis":         ["Claire-bronzée", "Métis", "Foncée"],
-    "Foncée":        ["Métis", "Foncée", "Très foncée"],
-    "Très foncée":   ["Foncée", "Très foncée"],
-  };
-  const allowed = neighborhoods[resolvedSkinTone] ?? [resolvedSkinTone];
-  if (!allowed.includes(preset.couleur_peau)) return 0;
+  let distance = 0;
+  const keys = Object.keys(userCat);
 
-  const rc = preset.ratios_cibles;
-  if (!rc || rc.nez === null) return 20;
-
-  // B. Erreurs pondérées — chaque métrique normalisée 0-1 sur le range DB
-  const { mn, mx } = getDbStats();
-  const norm = (val, key) => {
-    const range = mx[key] - mn[key];
-    const numericVal = Number(val);
-    if (!Number.isFinite(range) || range === 0 || !Number.isFinite(numericVal)) return 0;
-    return (numericVal - mn[key]) / range;
-  };
-  const normRC = (key) => {
-    const range = mx[key] - mn[key];
-    const numericVal = Number(rc[key]);
-    if (!Number.isFinite(range) || range === 0 || !Number.isFinite(numericVal)) return 0;
-    return (numericVal - mn[key]) / range;
-  };
-
-  // Poids Extrême ×10 — Ancreurs Fixes (impossibles à corriger par sliders)
-  const errLipFullness  = Math.abs(norm(ratios.lipFullness,     'lipFullness')      - normRC('lipFullness'))      * 10;
-  const errNoseFlare    = Math.abs(norm(ratios.noseFlare,       'noseFlare')        - normRC('noseFlare'))        * 10;
-  const errPhiltrum     = Math.abs(norm(ratios.philtrum,        'philtrum')         - normRC('philtrum'))         * 10;
-  const errCheekProm    = Math.abs(norm(ratios.cheekProminence, 'cheekProminence')  - normRC('cheekProminence'))  * 10;
-  const errEyebrowGap   = Math.abs(norm(ratios.eyebrowGap,      'eyebrowGap')       - normRC('eyebrowGap'))       * 10;
-  // Poids Faible ×1 — Ajustables (corrigibles via façonnage 0-100)
-  const errNez          = Math.abs(norm(ratios.noseToInterEye,      'nez')          - normRC('nez'))              * 1;
-  const errMachoire     = Math.abs(norm(ratios.jawToFaceRatio,      'machoire')     - normRC('machoire'))         * 1;
-  const errJoues        = Math.abs(norm(ratios.cheekToFaceRatio,    'joues')        - normRC('joues'))            * 1;
-  const errBouche       = Math.abs(norm(ratios.mouthToFace,         'bouche')       - normRC('bouche'))           * 1;
-  const errYeux         = Math.abs(norm(ratios.eyeOpenness,         'yeux')         - normRC('yeux'))             * 1;
-  const errSourcils     = Math.abs(norm(ratios.eyebrowHeightRatio,  'sourcils')     - normRC('sourcils'))         * 1;
-  const errEyeHeightPos = Math.abs(norm(ratios.eyeHeightPos,        'eyeHeightPos') - normRC('eyeHeightPos'))     * 1;
-
-  let totalError = errLipFullness + errNoseFlare + errPhiltrum + errCheekProm + errEyebrowGap +
-                   errNez + errMachoire + errJoues + errBouche + errYeux + errSourcils + errEyeHeightPos;
-
-  // C. Règle asiatique : mega-pénalité si preset asiatique mais yeux non bridés
-  if (preset.notes && /asiatique/i.test(preset.notes) && (ratios.eyeOpenness || 0) > 0.075) {
-    totalError += 50;
+  for (const key of keys) {
+    if (typeof userCat[key] === 'number' && typeof presetCat[key] === 'number') {
+      distance += Math.abs(userCat[key] - presetCat[key]);
+    }
   }
 
-  // D. Score final — normalisation par le poids max (57) pour garder l'échelle 0-100
-  // sum des poids = 10×5 + 1×7 = 57
-  return Math.max(0, 100 - (totalError / 57) * 100);
+  // Pondérations : nez 2.0x, machoire/menton/yeux 1.5x, autres 1.0x
+  const weight = categoryName === 'nez' ? 2.0 :
+                 (categoryName === 'machoire' || categoryName === 'menton' || categoryName === 'yeux') ? 1.5 :
+                 1.0;
+
+  return distance * weight;
+}
+
+/**
+ * Calcule la distance euclidienne globale entre deux objets scanned_stats complets
+ * @param {Object} userAttr - Attributs de l'utilisateur (retour de calculateMixAttributes)
+ * @param {Object} presetAttr - Attributs du preset (preset.scanned_stats)
+ * @returns {number} Distance globale sommée
+ */
+function computeGlobalDistance(userAttr, presetAttr) {
+  if (!userAttr || !presetAttr) return Infinity;
+
+  const categories = ['base', 'front', 'sourcils', 'yeux', 'nez', 'joues', 'bouche', 'menton', 'machoire'];
+  let totalDistance = 0;
+
+  for (const cat of categories) {
+    const userCat = userAttr[cat];
+    const presetCat = presetAttr[cat];
+    if (userCat && presetCat) {
+      totalDistance += calculateCategoryDistance(userCat, presetCat, cat);
+    }
+  }
+
+  return totalDistance;
 }
 
 // ─── 7. SÉLECTION DU MEILLEUR PRESET ──────────────────────
 function selectBestPreset(landmarks, skinTone) {
-  const ratios = Array.isArray(landmarks) ? extractMorphRatios(landmarks) : (landmarks || {});
+  // Extrait et prépare les attributs de l'utilisateur
+  let userAttr = null;
+  if (Array.isArray(landmarks) && landmarks.length > 0) {
+    // landmarks est un tableau de points MediaPipe
+    userAttr = calculateMixAttributes(landmarks);
+    userAttr = augmentAttributesWithCustomMetrics(landmarks, userAttr);
+  } else if (typeof landmarks === 'object' && landmarks !== null) {
+    // landmarks est déjà un objet d'attributs
+    userAttr = landmarks;
+  }
+
+  if (!userAttr) {
+    console.warn('⚠️ selectBestPreset: userAttr non disponible');
+    return { bestPreset: null, ratios: {}, scores: [] };
+  }
+
   const resolvedSkinTone = normalizeSkinToneLabel(skinTone);
   const neighborhoods = {
     "Claire":        ["Claire", "Claire-bronzée"],
-    "Claire-bronzée":["Claire", "Claire-bronzée", "Métis"],
-    "Métis":         ["Claire-bronzée", "Métis", "Foncée"],
-    "Foncée":        ["Métis", "Foncée", "Très foncée"],
+    "Claire-bronzée":["Claire", "Claire-bronzée"],
+    "Métis":         ["Claire", "Claire-bronzée", "Métis", "Foncée", "Très foncée"],
+    "Foncée":        ["Foncée", "Très foncée"],
     "Très foncée":   ["Foncée", "Très foncée"],
   };
   const allowedSkinTones = neighborhoods[resolvedSkinTone] ?? [resolvedSkinTone];
   const candidates = PRESETS_DB.filter(p => allowedSkinTones.includes(p.couleur_peau));
   const scoringPool = candidates.length > 0 ? candidates : PRESETS_DB;
-  let bestPreset = null;
-  let bestScore  = -1;
-  const scores   = [];
 
+  const distances = [];
+
+  // Calcule la distance pour chaque preset
   for (const preset of scoringPool) {
-    const score = computePresetScore(ratios, skinTone, preset);
-    scores.push({ preset_id: preset.preset_id, position: preset.position, score });
-    if (score > bestScore) {
-      bestScore  = score;
-      bestPreset = preset;
+    if (preset.scanned_stats) {
+      const distance = computeGlobalDistance(userAttr, preset.scanned_stats);
+      // Convertit la distance en pourcentage : score élevé = faible distance
+      // Normalise la distance sur une échelle [0, 100] où 100 = meilleure correspondance
+      const score = Math.max(0, 100 - distance * 100);
+      distances.push({
+        preset_id: preset.preset_id,
+        position: preset.position,
+        distance: distance,
+        score: score,
+        preset: preset
+      });
     }
   }
 
-  // Tri pour debug
-  scores.sort((a, b) => b.score - a.score);
-  console.log("🏆 Top 3 presets :", scores.slice(0, 3));
+  // Trie par score décroissant (meilleur score en premier = distance la plus basse)
+  distances.sort((a, b) => b.score - a.score);
 
-  return { bestPreset, ratios, scores };
+  const bestPreset = distances.length > 0 ? distances[0].preset : null;
+
+  // Affiche les 3 meilleurs pour debug
+  console.log("🏆 Top 3 presets :", distances.slice(0, 3).map(d => ({
+    preset_id: d.preset_id,
+    position: d.position,
+    score: d.score.toFixed(1)
+  })));
+
+  return { bestPreset, ratios: userAttr, scores: distances };
 }
 
 async function fetchBestPresetFromAzure(ratios, skinTone) {
@@ -798,14 +925,14 @@ function analyzeFace(landmarks, skinTone = "Foncée") {
   console.log(`🎨 Peau (ITA) : ${finalSkinTone}`);
 
   // 2. Sélection du meilleur preset
-  const { bestPreset, scores } = selectBestPreset(landmarks, finalSkinTone);
+  const { bestPreset, ratios: userAttr, scores } = selectBestPreset(landmarks, finalSkinTone);
 
   console.log(`✅ Preset sélectionné : ${bestPreset.preset_id} (position ${bestPreset.position})`);
   console.log(`📐 Morphologie : ${faceShape}, Peau finale : ${finalSkinTone}`);
   console.log(`🏆 Top 3 presets :`, scores.slice(0, 3));
 
-  // 3. Calcul des ajustements fins
-  const zoneMix = computeZoneMix(ratios, bestPreset, PRESETS_DB);
+  // 3. Calcul des ajustements fins avec l'algorithme Frankenstein (zone-by-zone optimization)
+  const zoneMix = computeZoneMix(userAttr, bestPreset, PRESETS_DB);
   const adjustments = computeAdjustments(ratios, bestPreset, zoneMix);
 
   // 4. Construction du résultat final
@@ -821,7 +948,7 @@ function analyzeFace(landmarks, skinTone = "Foncée") {
     skinTone: finalSkinTone,
     faceShape,
     score: scores[0]?.score ?? 0,
-    ratios,
+    ratios: userAttr,  // scanned_stats format pour compatibility avec Frankenstein
     detection: {
       skinTone: finalSkinTone,
       faceShape,
@@ -854,92 +981,51 @@ function analyzeFace(landmarks, skinTone = "Foncée") {
 }
 
 // ─── ZONE MIX — Recommandations par zone pour l'onglet Tête ────
-// Retourne pour chaque zone du Head tab le preset_id le plus adapté.
-// Le filtre peau identique à computePresetScore s'applique sur les candidats.
-function computeZoneMix(detectedMorpho, mainPreset, allPresets) {
-  const skinMap = { "Claire": 0, "Claire-bronzée": 1, "Métis": 2, "Foncée": 3, "Très foncée": 4 };
-  const mainSkinLevel = skinMap[mainPreset.couleur_peau] ?? 0;
-
-  // Candidats : filtre peau ±2 crans
-  const candidates = allPresets.filter(p =>
-    Math.abs((skinMap[p.couleur_peau] ?? 0) - mainSkinLevel) <= 2
-  );
-
-  console.log(`🔬 [ZoneMix] mainPreset #${mainPreset.preset_id} peau="${mainPreset.couleur_peau}" (lvl ${mainSkinLevel}) → ${candidates.length}/${allPresets.length} candidats (filtre peau ±2)`);
-
-  function bestForZoneMath(scoreFn, dbgName) {
-    let best = mainPreset;
-    let bestError = scoreFn(mainPreset);
-    if (dbgName) console.group(`🔬 [ZoneMix ${dbgName}] mainPreset #${mainPreset.preset_id} error=${bestError}`);
-    for (const p of candidates) {
-      if (p.preset_id === mainPreset.preset_id) continue;
-      const error = scoreFn(p);
-      if (dbgName) console.log(`  #${p.preset_id} [${p.couleur_peau}] → error=${error}${error < bestError ? ' ★ MEILLEUR' : ''}`);
-      if (error < bestError) { bestError = error; best = p; }
-    }
-    if (dbgName) { console.log(`  ✅ WINNER: Preset #${best.preset_id} [${best.couleur_peau}]`); console.groupEnd(); }
-    return best.preset_id;
+// ─── FRANKENSTEIN ALGORITHM: Zone-by-Zone Independent Optimization ──────────
+/**
+ * Implémente l'algorithme Frankenstein : pour chaque zone faciale, trouve le preset
+ * ayant la meilleure correspondance indépendamment, sans filtrage par couleur de peau.
+ * @param {Object} userAttr - Attributs de l'utilisateur (retour de calculateMixAttributes)
+ * @param {Object} mainPreset - Preset principal de référence
+ * @param {Array} allPresets - Liste complète des presets
+ * @returns {Object} zoneMix avec preset_id gagnant pour chaque zone
+ */
+function computeZoneMix(userAttr, mainPreset, allPresets) {
+  if (!userAttr || !mainPreset || !allPresets || allPresets.length === 0) {
+    console.warn('⚠️ computeZoneMix: données incomplètes');
+    return {};
   }
 
-  // Helper to safely get preset ratios
-  const getPRatio = (p, key) => p.ratios_cibles && p.ratios_cibles[key] !== undefined ? p.ratios_cibles[key] : 0;
-  const getURatio = (key) => detectedMorpho[key] || 0;
+  const zones = ['front', 'sourcils', 'yeux', 'nez', 'joues', 'bouche', 'menton', 'machoire'];
+  const zoneMix = {};
 
-  // NEZ
-  const nezPreset = bestForZoneMath(p => {
-    return (Math.abs(getURatio('noseFlare') - getPRatio(p, 'noseFlare')) * 20) + 
-           (Math.abs(getURatio('philtrum') - getPRatio(p, 'philtrum')) * 10) + 
-           (Math.abs(getURatio('noseToInterEye') - getPRatio(p, 'nez')) * 1);
-  }, 'NEZ');
+  console.group(`🧟 [Frankenstein Mix] Starting zone-by-zone optimization (${allPresets.length} presets)`);
 
-  // BOUCHE
-  const bouchePreset = bestForZoneMath(p => {
-    return (Math.abs(getURatio('lipFullness') - getPRatio(p, 'lipFullness')) * 20) + 
-           (Math.abs(getURatio('mouthToFace') - getPRatio(p, 'bouche')) * 1);
-  }, 'BOUCHE');
+  for (const zone of zones) {
+    let bestPresetId = mainPreset.preset_id;
+    let bestDistance = Infinity;
 
-  // YEUX/SOURCILS
-  const yeuxPreset = bestForZoneMath(p => {
-    return (Math.abs(getURatio('eyebrowGap') - getPRatio(p, 'eyebrowGap')) * 15) + 
-           (Math.abs(getURatio('eyeOpenness') - getPRatio(p, 'yeux')) * 10) + 
-           (Math.abs(getURatio('eyebrowHeightRatio') - getPRatio(p, 'sourcils')) * 1);
-  }, 'YEUX/SOURCILS');
+    // Cherche le meilleur preset pour cette zone spécifique
+    for (const preset of allPresets) {
+      if (!preset.scanned_stats || !preset.scanned_stats[zone]) continue;
 
-  // JOUES/MÂCHOIRE
-  const machoirePreset = bestForZoneMath(p => {
-    return (Math.abs(getURatio('cheekProminence') - getPRatio(p, 'cheekProminence')) * 15) + 
-           (Math.abs(getURatio('jawToFaceRatio') - getPRatio(p, 'machoire')) * 1) + 
-           (Math.abs(getURatio('cheekToFaceRatio') - getPRatio(p, 'joues')) * 1);
-  }, 'JOUES/MÂCHOIRE');
+      // Calcule la distance UNIQUEMENT pour cette zone
+      const userZone = userAttr[zone];
+      const presetZone = preset.scanned_stats[zone];
+      const zoneDistance = calculateCategoryDistance(userZone, presetZone, zone);
 
-  // FRONT
-  function bestForZoneLabel(labelKey, userLevel, orderMap) {
-    let best = mainPreset;
-    let bestScore = mainPreset[labelKey] != null ? 2 - Math.abs((orderMap[mainPreset[labelKey]] ?? 1) - userLevel) : 0;
-    for (const p of candidates) {
-      if (p.preset_id === mainPreset.preset_id) continue;
-      const s = p[labelKey] != null ? 2 - Math.abs((orderMap[p[labelKey]] ?? 1) - userLevel) : 0;
-      if (s > bestScore) { bestScore = s; best = p; }
+      if (zoneDistance < bestDistance) {
+        bestDistance = zoneDistance;
+        bestPresetId = preset.preset_id;
+      }
     }
-    return best.preset_id;
-  }
-  const fwRatio = detectedMorpho.foreheadWidthRatio ?? 0;
-  const userFrontLevel = fwRatio > 0.88 ? 2 : fwRatio > 0.78 ? 1 : 0;
-  const frontOrder = { "Étroit": 0, "Moyen": 1, "Large": 2 };
-  const frontPreset = bestForZoneLabel('front_label', userFrontLevel, frontOrder);
 
-  return {
-    front:    frontPreset,
-    machoire: machoirePreset,
-    joues:    machoirePreset,
-    nez:      nezPreset,
-    bouche:   bouchePreset,
-    menton:   mainPreset.preset_id,
-    oreilles: mainPreset.preset_id,
-    cou:      mainPreset.preset_id,
-    yeux:     yeuxPreset,
-    sourcils: yeuxPreset,
-  };
+    zoneMix[zone] = bestPresetId;
+    console.log(`  ${zone.padEnd(10)} → preset #${bestPresetId} (distance: ${bestDistance.toFixed(3)})`);
+  }
+
+  console.groupEnd();
+  return zoneMix;
 }
 
 // ─── ZONE-BASED SLIDERS — Base DNA correcte par zone ──────────
@@ -1247,6 +1333,18 @@ function initCropper(img) {
             );
         }
     });
+    // When cropper is ready, show confirm button and wire it to confirmAndAnalyze
+    const confirmBtn = document.getElementById('btn-confirm-analyze');
+    if (confirmBtn) {
+        confirmBtn.classList.remove('hidden');
+        confirmBtn.style.display = 'inline-block';
+        confirmBtn.innerText = translations['btn.confirm.analyze'] || 'Valider et Lancer le Scan';
+        confirmBtn.onclick = async () => {
+            console.log('Démarrage du maillage lancé');
+            if (typeof confirmAndAnalyze === 'function') await confirmAndAnalyze();
+            else if (typeof startMesh === 'function') startMesh();
+        };
+    }
 }
 
 // DOM Elements and State moved to top for survival.
@@ -1324,16 +1422,7 @@ async function shareResults() {
 }
 
 function purchasePremium() {
-    // Simulate Stripe purchase
-    alert('Simulating Stripe Checkout...');
-    setTimeout(() => {
-        state.isPremium = true;
-        document.querySelector('.tier-indicator .badge-free').textContent = 'PRO TIER';
-        document.querySelector('.tier-indicator .badge-free').style.background = 'var(--neon-purple)';
-        document.querySelector('.btn-upgrade-sm').classList.add('hidden');
-        document.querySelector('.premium-gate').classList.add('hidden');
-        navigateTo('screen-results'); // Re-render results
-    }, 1000);
+    window.location.href = CONFIG.STRIPE_PAYMENT_LINK;
 }
 
 // --- MediaPipe Face Mesh Initialization ---
@@ -1372,6 +1461,9 @@ function handleFileUpload(e) {
         inputImage.onload = () => {
             inputImage.onload = null;
             initCropper(inputImage);
+            // Debug: démarrage du maillage
+            console.log('Démarrage du maillage lancé');
+            if (typeof startMesh === 'function') startMesh();
             inputVideo.classList.add('hidden');
             btnCapture.classList.add('hidden');
             btnAnalyzeUpload.classList.add('hidden');
@@ -1405,19 +1497,24 @@ function startLiveScan() {
     navigateTo('screen-scan');
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } } })
-        .then(function(stream) {
-            window.localStream = stream;
-            inputVideo.srcObject = stream;
-            inputVideo.muted = true;
-            inputVideo.play().catch(e => console.error("Erreur play:", e));
-        })
-        .catch(function(error) {
-            console.error("Erreur caméra:", error);
-            alert(t("alert.camera.permission"));
-        });
+        (async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } } });
+                window.localStream = stream;
+                inputVideo.srcObject = stream;
+                inputVideo.muted = true;
+                try { await inputVideo.play(); } catch (e) { console.error("Erreur play:", e); }
+            } catch (error) {
+                console.error("Erreur caméra:", error);
+                if (error && (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError')) {
+                    alert('Caméra bloquée, veuillez utiliser l\'importation de photo');
+                } else {
+                    alert('Impossible d\'accéder à la caméra. Vous pouvez charger une photo depuis l\'appareil.');
+                }
+            }
+        })();
     } else {
-        alert(t("alert.camera.not.supported"));
+        alert('Votre navigateur ne supporte pas la capture vidéo. Vous pouvez charger une photo depuis l\'appareil.');
     }
 }
 
@@ -1474,6 +1571,9 @@ function capturePhoto() {
     inputImage.onload = () => {
         initCropper(inputImage);
         inputImage.onload = null;
+        // Debug: démarrage du maillage
+        console.log('Démarrage du maillage lancé');
+        if (typeof startMesh === 'function') startMesh();
     };
     inputImage.src = dataUrl;
     inputImage.classList.remove('hidden');
@@ -1508,14 +1608,20 @@ function retakePhoto() {
 
 async function confirmAndAnalyze() {
     console.log('Button Clicked: btnConfirmAnalyze');
-    if (!cropper) return;
+    // Prefer using the original image source to avoid forced resizing/cropping artifacts.
+    let imageDataUrl = null;
+    if (inputImage && inputImage.src) {
+        imageDataUrl = inputImage.src;
+    } else if (cropper) {
+        const croppedCanvas = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' });
+        imageDataUrl = croppedCanvas.toDataURL('image/jpeg', 0.95);
+    }
 
-    const croppedCanvas = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' });
-    const imageDataUrl = croppedCanvas.toDataURL('image/jpeg', 0.95);
-    capturedBase64 = imageDataUrl.split(',')[1];
+    if (!imageDataUrl) return;
 
-    cropper.destroy();
-    cropper = null;
+    capturedBase64 = imageDataUrl.includes(',') ? imageDataUrl.split(',')[1] : imageDataUrl;
+
+    if (cropper) { cropper.destroy(); cropper = null; }
     inputImage.classList.add('hidden');
 
     if (window.localStream) {
@@ -1575,6 +1681,11 @@ async function runImageAnalysis(imageSource, options = {}) {
 
 // --- Results Callback ---
 function onResults(results) {
+    if (state.expertMeshPending) {
+        handleExpertMeshResults(results);
+        return;
+    }
+
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
 
@@ -1584,6 +1695,15 @@ function onResults(results) {
 
     if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
         const landmarks = results.multiFaceLandmarks[0];
+
+        if (state.scanMode === 'auto') {
+            state.autoProcessing = true;
+            state.autoLiveActive = false;
+            if (window.localStream) {
+                window.localStream.getTracks().forEach(track => track.stop());
+                window.localStream = null;
+            }
+        }
 
         const qa = checkCaptureQuality(landmarks, outputCanvas);
         if (!qa.ok) {
@@ -1659,6 +1779,10 @@ function onResults(results) {
         });
     } else {
         loadingIndicator.classList.add('hidden');
+        if (state.scanMode === 'auto' && state.autoLiveActive) {
+            canvasCtx.restore();
+            return;
+        }
         const msg = t('qa.noface') || 'Aucun visage détecté. Réessaie.';
         if (typeof showQAWarning === 'function') {
             showQAWarning(msg);
@@ -1678,13 +1802,13 @@ function onResults(results) {
 function getPresetImageSrc(player) {
     const presetId = player?.preset_id ?? player?.presetId ?? player?.id ?? null;
     if (presetId != null && presetId !== '') {
-        return `./assets/presets/${presetId}.png`;
+        return `assets/presets/${presetId}.png`;
     }
 
     const fallbackName = (player?.name ?? player?.label ?? player?.preset_name ?? '').toString().trim();
     if (fallbackName) {
         const safeName = fallbackName.replace(/[^a-z0-9_-]+/gi, '_');
-        return `./assets/presets/${safeName}.png`;
+        return `assets/presets/${safeName}.png`;
     }
 
     return 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22500%22 viewBox=%220 0 400 500%22%3E%3Crect width=%22400%22 height=%22500%22 fill=%22%23161a1f%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23a0aab2%22 font-family=%22Arial%2Csans-serif%22 font-size=%2220%22%3EImage indisponible%3C/text%3E%3C/svg%3E';
@@ -1743,7 +1867,11 @@ function analyzeWithPreset(landmarks, skinTone, chosenPreset, allScores) {
     const faceShape = classifyFaceShape(ratios);
     const chosenScore = allScores.find(s => s.preset_id === chosenPreset.preset_id)?.score ?? 0;
 
-    const zoneMix = computeZoneMix(ratios, chosenPreset, PRESETS_DB);
+    // Prépare userAttr pour le Frankenstein mix
+    let userAttr = calculateMixAttributes(landmarks);
+    userAttr = augmentAttributesWithCustomMetrics(landmarks, userAttr);
+
+    const zoneMix = computeZoneMix(userAttr, chosenPreset, PRESETS_DB);
     const adjustments = computeAdjustments(ratios, chosenPreset, zoneMix);
 
     const result = {
@@ -1758,7 +1886,7 @@ function analyzeWithPreset(landmarks, skinTone, chosenPreset, allScores) {
         skinTone,
         faceShape,
         score: chosenScore,
-        ratios,
+        ratios: userAttr,  // scanned_stats format pour compatibility avec Frankenstein
         detection: {
             skinTone,
             faceShape,
@@ -1956,7 +2084,7 @@ function renderResults() {
                 <p style="margin:5px 0;">${t('step1.title')}</p>
                 <h3 style="margin:5px 0; font-size:1.5rem;">➡️ ${result.preset.label}</h3>
                 <p style="margin:0; font-size:0.9rem; opacity:0.8;">Preset ID : ${result.preset.id}</p>
-                <img src="./assets/presets/${result.preset.id}.png" class="preset-preview-img" alt="Visage recommandé" onerror="this.style.display='none'">
+                <img src="app/assets/presets/${result.preset.id}.png" class="preset-preview-img" alt="Visage recommandé" onerror="this.style.display='none'">
             </div>
         </div>
     `;
@@ -1972,7 +2100,7 @@ function renderResults() {
     }
 
   // ── FAÇONNAGE AVANCÉ ─────────────────────────────────────
-  if (result.preset && result.preset.avance) {
+    if (result.preset && result.preset.avance) {
     const mainPid = result.preset.id;
 
     // Resolve per-zone preset for avance data using zoneMix
@@ -2205,6 +2333,7 @@ function renderResults() {
 
     resultsContainer.appendChild(advAccordion);
   }
+  applyPremiumUnlockUI();
 }
 
 // Global functions for inline HTML handlers
@@ -2236,13 +2365,15 @@ window.copyValue = function(value, btn) {
 // ==========================================
 // NEW MODAL UI FLOW
 // ==========================================
-let newScanModal, inputVideoNew, inputImageNew, btnConfirmAnalyzeNew, newScanProgress, progressPercentNew, progressBarFillNew, newScanActions, newResultContainer, laserLineNew, btnBackModal, btnCloseModal;
+let newScanModal, inputVideoNew, inputImageNew, expertMeshCanvas, expertMeshMagnifier, btnConfirmAnalyzeNew, newScanProgress, progressPercentNew, progressBarFillNew, newScanActions, newResultContainer, laserLineNew, btnBackModal, btnCloseModal, btnMeshHelp, helpMeshModal, btnCloseHelpModal;
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- NEW MODAL DOM ASSIGNMENTS ---
     newScanModal = document.getElementById('new-scan-modal');
     inputVideoNew = document.getElementById('input-video-new');
     inputImageNew = document.getElementById('input-image-new');
+    expertMeshCanvas = document.getElementById('expert-mesh-canvas');
+    expertMeshMagnifier = document.getElementById('expert-mesh-magnifier');
     btnConfirmAnalyzeNew = document.getElementById('btn-confirm-analyze-new');
     newScanProgress = document.getElementById('new-scan-progress');
     progressPercentNew = document.getElementById('progress-percent-new');
@@ -2252,12 +2383,38 @@ document.addEventListener('DOMContentLoaded', () => {
     laserLineNew = document.getElementById('laser-line-new');
     btnBackModal = document.getElementById('btn-back-modal');
     btnCloseModal = document.getElementById('btn-close-modal');
+    btnMeshHelp = document.getElementById('btn-mesh-help');
+    helpMeshModal = document.getElementById('help-mesh-modal');
+    btnCloseHelpModal = document.getElementById('btn-close-help-modal');
 
     if (btnBackModal) btnBackModal.addEventListener('click', window.handleBackAction);
     if (btnCloseModal) btnCloseModal.addEventListener('click', window.globalReset);
+    if (btnMeshHelp) btnMeshHelp.addEventListener('click', openHelpMeshModal);
+    if (btnCloseHelpModal) btnCloseHelpModal.addEventListener('click', closeHelpMeshModal);
+    if (helpMeshModal) helpMeshModal.addEventListener('click', (e) => {
+        if (e.target === helpMeshModal) closeHelpMeshModal();
+    });
 });
 
 window.handleBackAction = function() {
+    // Safety: if camera is currently active while backing out, stop it immediately
+    if (window.localStream && inputVideoNew && !inputVideoNew.classList.contains('hidden')) {
+        stopActiveCameraStream();
+    }
+
+    // 0. If the expert mesh has already been validated, go back to editing instead of exiting.
+    const hasValidatedExpertMesh =
+        state.scanMode === 'expert' &&
+        state.manualMeshPoints &&
+        Object.keys(state.manualMeshPoints).length > 0 &&
+        newResultContainer &&
+        newResultContainer.querySelector('#expert-recipe-card');
+
+    if (hasValidatedExpertMesh) {
+        restoreExpertMeshEditorView();
+        return;
+    }
+
     // 1. Check if we are in the Advanced Accordion view
     const advView = document.getElementById('advanced-shaping-view');
     if (advView && !advView.classList.contains('hidden')) {
@@ -2287,8 +2444,8 @@ window.handleBackAction = function() {
         }
         
         var faceGuide = document.getElementById('face-guide-overlay');
-        if (faceGuide) faceGuide.classList.remove('hidden');
-        document.querySelectorAll('.scan-corners').forEach(c => c.classList.remove('hidden'));
+        if (faceGuide) { faceGuide.classList.remove('hidden'); faceGuide.style.display = ''; }
+        document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
         
         if (typeof state !== 'undefined' && state.pendingTop3) {
             window.showPresetChoiceScreen(state.pendingTop3);
@@ -2296,12 +2453,64 @@ window.handleBackAction = function() {
         return;
     }
     
+    // 3. Check if a photo is displayed but not yet analyzed (auto upload mode)
+    if (inputImageNew && !inputImageNew.classList.contains('hidden') && inputImageNew.src && state.scanMode === 'auto' && !newResultContainer?.innerHTML?.includes('zone-mix-view')) {
+        // Photo loaded but not analyzed yet - go back to upload mode choice
+        closeUploadModeModal();
+        openUploadModeModal();
+        state.pendingUploadDataUrl = inputImageNew.src;
+        return;
+    }
+    
+    // 4. Check if upload mode modal is open
+    if (uploadModeModal && !uploadModeModal.classList.contains('hidden')) {
+        // Close upload modal and return to home screen
+        resetCaptureUI();
+        stopActiveCameraStream();
+        closeUploadModeModal();
+        navigateTo('screen-home');
+        window.globalReset();
+        return;
+    }
+    
     // Default: Close modal completely
+    resetCaptureUI();
+    stopActiveCameraStream();
     window.globalReset();
 };
 
+function restoreExpertMeshEditorView() {
+    if (newResultContainer) newResultContainer.innerHTML = '';
+    if (newScanActions) newScanActions.classList.remove('hidden');
+    if (newScanProgress) newScanProgress.classList.add('hidden');
+    if (laserLineNew) laserLineNew.classList.add('hidden');
+    if (btnConfirmAnalyzeNew) {
+        btnConfirmAnalyzeNew.disabled = false;
+        btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">check</span> ${t('btn.mesh.validate')}`;
+        btnConfirmAnalyzeNew.onclick = validateManualMeshAndAnalyze;
+    }
+
+    if (expertMeshCanvas) {
+        expertMeshCanvas.style.pointerEvents = '';
+        expertMeshCanvas.classList.remove('hidden');
+        syncExpertMeshCanvasAndRedraw();
+    }
+
+    if (expertMeshMagnifier) expertMeshMagnifier.classList.add('hidden');
+    state.draggingExpertPoint = null;
+    state.expertMeshAttributes = null;
+    setModalScanChrome('screen.scan.title');
+}
+
 window.globalReset = function() {
     if (newScanModal) newScanModal.classList.add('hidden');
+    closeUploadModeModal();
+    clearManualMesh();
+    state.autoLiveActive = false;
+    state.autoProcessing = false;
+    state.scanMode = 'auto';
+    state.pendingUploadDataUrl = null;
+    state.expertImageDataUrl = null;
     if (window.localStream) {
         window.localStream.getTracks().forEach(track => track.stop());
         window.localStream = null;
@@ -2311,8 +2520,14 @@ window.globalReset = function() {
     if (newResultContainer) newResultContainer.innerHTML = '';
     if (newScanProgress) newScanProgress.classList.add('hidden');
     var faceGuide = document.getElementById('face-guide-overlay');
-    if (faceGuide) faceGuide.classList.remove('hidden');
-    document.querySelectorAll('.scan-corners').forEach(c => c.classList.remove('hidden'));
+    if (faceGuide) { faceGuide.classList.remove('hidden'); faceGuide.style.display = ''; }
+    document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+
+    // Restore hint text for standard mode
+    const hintEl = document.querySelector('.face-guide-hint');
+    if (hintEl) {
+        hintEl.innerText = 'Place ton visage dans l\'ovale';
+    }
     if (inputImageNew) {
         inputImageNew.classList.add('mix-blend-luminosity', 'opacity-70');
     }
@@ -2328,8 +2543,302 @@ window.globalReset = function() {
     if (adv) adv.classList.add('hidden');
 };
 
-// Override startLiveScan
-window.startLiveScan = async function() {
+function setModalScanChrome(labelKey = 'screen.scan.title') {
+    const scanLabel = document.querySelector('#new-scan-modal .font-label-caps.text-primary-container');
+    if (scanLabel) {
+        scanLabel.innerText = t(labelKey);
+        scanLabel.style.color = '#00f0ff';
+    }
+}
+
+function stopActiveCameraStream() {
+    if (window.localStream) {
+        window.localStream.getTracks().forEach(track => track.stop());
+        window.localStream = null;
+    }
+}
+
+function resetCaptureUI() {
+    // Capture CTA (CAPTURER / VALIDER ET ANALYSER)
+    if (btnConfirmAnalyzeNew) {
+        btnConfirmAnalyzeNew.classList.add('hidden');
+        btnConfirmAnalyzeNew.style.display = 'none';
+        btnConfirmAnalyzeNew.disabled = false;
+        btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">camera</span> ${t('btn.capture.still') || 'PRENDRE LA PHOTO'}`;
+    }
+
+    // Camera controls container + progress UI
+    if (newScanActions) newScanActions.classList.add('hidden');
+    if (newScanProgress) newScanProgress.classList.add('hidden');
+    if (laserLineNew) laserLineNew.classList.add('hidden');
+
+    // CONFIRMER / REPRENDRE buttons in auto review flow
+    const autoReviewContainer = document.getElementById('auto-review-buttons');
+    if (autoReviewContainer) autoReviewContainer.style.display = 'none';
+    const btnAutoConfirm = document.getElementById('btn-auto-confirm');
+    const btnAutoRetake = document.getElementById('btn-auto-retake');
+    if (btnAutoConfirm) {
+        btnAutoConfirm.classList.add('hidden');
+        btnAutoConfirm.style.display = 'none';
+    }
+    if (btnAutoRetake) {
+        btnAutoRetake.classList.add('hidden');
+        btnAutoRetake.style.display = 'none';
+    }
+
+    // Legacy camera review buttons (if present)
+    const btnRetakeLegacy = document.getElementById('btn-retake');
+    const btnConfirmLegacy = document.getElementById('btn-confirm-analyze');
+    const btnCaptureLegacy = document.getElementById('btn-capture');
+    if (btnRetakeLegacy) btnRetakeLegacy.classList.add('hidden');
+    if (btnConfirmLegacy) btnConfirmLegacy.classList.add('hidden');
+    if (btnCaptureLegacy) btnCaptureLegacy.classList.add('hidden');
+
+    // Instruction text
+    document.querySelectorAll('.face-guide-hint').forEach(h => {
+        h.classList.add('hidden');
+        h.style.display = 'none';
+    });
+}
+
+function prepareNewScanModal() {
+    newScanModal.classList.remove('hidden');
+    newScanActions.classList.remove('hidden');
+    newScanProgress.classList.add('hidden');
+    laserLineNew.classList.add('hidden');
+    newResultContainer.innerHTML = '';
+    clearManualMesh();
+    if (newProgressInterval) clearInterval(newProgressInterval);
+    if (progressPercentNew) progressPercentNew.innerText = '0%';
+    if (progressBarFillNew) progressBarFillNew.style.width = '0%';
+    if (btnConfirmAnalyzeNew) btnConfirmAnalyzeNew.disabled = false;
+    setModalScanChrome();
+}
+
+async function startCameraStream() {
+    if (!navigator.mediaDevices?.getUserMedia) {
+        alert(t("alert.camera.not.supported"));
+        return null;
+    }
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+    inputVideoNew.srcObject = stream;
+    window.localStream = stream;
+    await inputVideoNew.play().catch(() => {});
+    return stream;
+}
+
+async function autoLiveDetectionLoop() {
+    // Passive loop: just keep video stream active, no MediaPipe analysis yet
+    // Analysis will be triggered manually when user clicks PRENDRE LA PHOTO
+    if (!state.autoLiveActive || !inputVideoNew || inputVideoNew.readyState < 2) {
+        return;
+    }
+    // Video continues to play; analysis deferred to manual capture + confirmAndAnalyzeNew
+    if (state.autoLiveActive) {
+        requestAnimationFrame(autoLiveDetectionLoop);
+    }
+}
+
+window.startAutoLiveScan = async function() {
+    resetCaptureUI();
+    prepareNewScanModal();
+    state.scanMode = 'auto';
+    state.autoLiveActive = true;
+    state.autoProcessing = false;
+    capturedBase64 = null;
+    capturedCanvas = null;
+    if (cropper) { cropper.destroy(); cropper = null; }
+    if(canvasCtx) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+
+    inputImageNew.classList.add('hidden');
+    inputVideoNew.classList.remove('hidden');
+    inputVideoNew.style.display = 'block';
+    
+    // Passive capture: hide progress/laser initially, show capture button instead
+    newScanActions.classList.remove('hidden');
+    newScanProgress.classList.add('hidden');
+    laserLineNew.classList.add('hidden');
+    
+    // Configure capture button for auto mode
+    btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">camera</span> ${t('btn.capture.still') || 'PRENDRE LA PHOTO'}`;
+    btnConfirmAnalyzeNew.onclick = capturePhotoAuto;
+    btnConfirmAnalyzeNew.disabled = false;
+    btnConfirmAnalyzeNew.classList.remove('hidden');
+    btnConfirmAnalyzeNew.style.display = '';
+
+    // Show overlay for standard mode (face guide + corners)
+    var faceGuide = document.getElementById('face-guide-overlay');
+    if (faceGuide) { faceGuide.classList.remove('hidden'); faceGuide.style.display = ''; }
+    document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.remove('hidden'); h.style.display = ''; });
+
+    try {
+        await startCameraStream();
+        requestAnimationFrame(autoLiveDetectionLoop);
+    } catch (error) {
+        console.error("Camera error:", error);
+        state.autoLiveActive = false;
+        alert(t('alert.camera.permission'));
+    }
+};
+
+// Auto mode: capture still frame (no mesh points), review, then analyze
+function capturePhotoAuto() {
+    if (!window.localStream) return;
+    
+    // Simulate CSS object-fit: cover so the captured pixels match the visible frame
+    const videoRect = inputVideoNew.getBoundingClientRect();
+    const containerRatio = videoRect.width / videoRect.height;
+    const videoRatio = inputVideoNew.videoWidth / inputVideoNew.videoHeight;
+
+    let cropWidth = inputVideoNew.videoWidth;
+    let cropHeight = inputVideoNew.videoHeight;
+    let startX = 0;
+    let startY = 0;
+
+    if (videoRatio > containerRatio) {
+        // Video is wider than the frame: crop left/right
+        cropWidth = inputVideoNew.videoHeight * containerRatio;
+        startX = (inputVideoNew.videoWidth - cropWidth) / 2;
+    } else {
+        // Video is taller than the frame: crop top/bottom
+        cropHeight = inputVideoNew.videoWidth / containerRatio;
+        startY = (inputVideoNew.videoHeight - cropHeight) / 2;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = cropWidth;
+    canvas.height = cropHeight;
+    const ctx = canvas.getContext('2d');
+    // Mirror flip for front camera, while drawing only the visible portion
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(inputVideoNew, startX, startY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+    
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    
+    // Stop video stream
+    window.localStream.getTracks().forEach(track => track.stop());
+    window.localStream = null;
+    inputVideoNew.classList.add('hidden');
+    
+    // Display frozen frame for review
+    inputImageNew.onload = () => {
+        inputImageNew.onload = null;
+        showAutoReviewButtons(dataUrl);
+    };
+    inputImageNew.src = dataUrl;
+    inputImageNew.classList.remove('hidden');
+    inputImageNew.style.objectFit = 'cover';
+    inputImageNew.style.display = 'block';
+    // Remove any visual filters - display true colors
+    inputImageNew.classList.remove('mix-blend-luminosity', 'opacity-70', 'grayscale');
+    
+    state.autoLiveActive = false;
+}
+
+function showAutoReviewButtons(dataUrl) {
+    // Hide capture button and progress
+    btnConfirmAnalyzeNew.classList.add('hidden');
+    btnConfirmAnalyzeNew.style.display = 'none';
+    newScanActions.classList.add('hidden');
+    
+    // Hide face guide overlay and hint, but keep scan corners visible for framing
+    var faceGuide = document.getElementById('face-guide-overlay');
+    if (faceGuide) { faceGuide.classList.add('hidden'); faceGuide.style.display = 'none'; }
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
+    document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+    
+    // Create or update review button container if needed
+    let reviewContainer = document.getElementById('auto-review-buttons');
+    if (!reviewContainer) {
+        reviewContainer = document.createElement('div');
+        reviewContainer.id = 'auto-review-buttons';
+        reviewContainer.style.cssText = 'display:flex; gap:12px; justify-content:center; margin-top:16px;';
+        
+        const confirmBtn = document.createElement('button');
+        confirmBtn.id = 'btn-auto-confirm';
+        confirmBtn.style.cssText = 'flex:1; padding:14px 20px; background:#00f0ff; color:#0a0a0c; border:none; border-radius:8px; font-weight:700; font-size:0.95rem; text-transform:uppercase; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:background 0.2s;';
+        confirmBtn.innerHTML = `<span class="material-symbols-outlined">check</span> CONFIRMER`;
+        confirmBtn.onclick = () => window.confirmAndAnalyzeNew(dataUrl);
+        
+        const retakeBtn = document.createElement('button');
+        retakeBtn.id = 'btn-auto-retake';
+        retakeBtn.style.cssText = 'flex:1; padding:14px 20px; background:transparent; color:#00f0ff; border:1px solid #00f0ff; border-radius:8px; font-weight:700; font-size:0.95rem; text-transform:uppercase; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s;';
+        retakeBtn.innerHTML = `<span class="material-symbols-outlined">refresh</span> REPRENDRE`;
+        retakeBtn.onclick = retakeAutoPhoto;
+        
+        reviewContainer.appendChild(confirmBtn);
+        reviewContainer.appendChild(retakeBtn);
+        
+        // Append after the modal content or before the actions area
+        const modalContent = document.querySelector('#new-scan-modal .flex.flex-col');
+        if (modalContent) {
+            modalContent.appendChild(reviewContainer);
+        }
+    } else {
+        // Update onclick handlers with new dataUrl
+        const confirmBtn = document.getElementById('btn-auto-confirm');
+        if (confirmBtn) confirmBtn.onclick = () => window.confirmAndAnalyzeNew(dataUrl);
+        reviewContainer.style.display = 'flex';
+    }
+}
+
+function retakeAutoPhoto() {
+    // Clear review buttons
+    const reviewContainer = document.getElementById('auto-review-buttons');
+    if (reviewContainer) reviewContainer.style.display = 'none';
+    
+    // Hide frozen image
+    inputImageNew.classList.add('hidden');
+    inputImageNew.src = '';
+    
+    // Clear progress
+    if (newScanProgress) newScanProgress.classList.add('hidden');
+    if (laserLineNew) laserLineNew.classList.add('hidden');
+    if (progressPercentNew) progressPercentNew.innerText = '0%';
+    if (progressBarFillNew) progressBarFillNew.style.width = '0%';
+    
+    // Restart video and capture button
+    state.autoLiveActive = true;
+    state.autoProcessing = false;
+    inputVideoNew.classList.remove('hidden');
+    inputVideoNew.style.display = 'block';
+    
+    // Show capture button again
+    btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">camera</span> ${t('btn.capture.still') || 'PRENDRE LA PHOTO'}`;
+    btnConfirmAnalyzeNew.onclick = capturePhotoAuto;
+    btnConfirmAnalyzeNew.disabled = false;
+    btnConfirmAnalyzeNew.classList.remove('hidden');
+    btnConfirmAnalyzeNew.style.display = '';
+    newScanActions.classList.remove('hidden');
+    
+    // Show face guide again
+    var faceGuide = document.getElementById('face-guide-overlay');
+    if (faceGuide) { faceGuide.classList.remove('hidden'); faceGuide.style.display = ''; }
+    document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.remove('hidden'); h.style.display = ''; });
+    
+    // Restart camera
+    (async () => {
+        try {
+            await startCameraStream();
+            requestAnimationFrame(autoLiveDetectionLoop);
+        } catch (error) {
+            console.error("Camera error on retake:", error);
+            state.autoLiveActive = false;
+            alert(t('alert.camera.permission'));
+        }
+    })();
+}
+
+// Expert flow: capture a still frame, place 12 points, then validate analysis.
+window.startExpertScan = async function() {
+    resetCaptureUI();
+    prepareNewScanModal();
+    state.scanMode = 'expert';
+    state.autoLiveActive = false;
+    state.autoProcessing = false;
     newScanModal.classList.remove('hidden');
     newScanActions.classList.remove('hidden');
     newScanProgress.classList.add('hidden');
@@ -2345,29 +2854,65 @@ window.startLiveScan = async function() {
     if (cropper) { cropper.destroy(); cropper = null; }
     if(canvasCtx) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
 
+    // Show face guide and hint at expert camera start; keep corners visible
+    var faceGuide = document.getElementById('face-guide-overlay');
+    if (faceGuide) { faceGuide.classList.remove('hidden'); faceGuide.style.display = ''; }
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.remove('hidden'); h.style.display = ''; });
+    document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+
+    // Update instruction hint for expert mode
+    const hintEl = document.querySelector('.face-guide-hint');
+    if (hintEl) {
+        hintEl.innerText = t('mode.expert.capture.hint');
+    }
+
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
-        inputVideoNew.srcObject = stream;
-        window.localStream = stream;
-        
-        btnConfirmAnalyzeNew.innerHTML = '<span class="material-symbols-outlined text-[16px]">camera</span> CAPTURE';
+        await startCameraStream();
+        if (btnConfirmAnalyzeNew) {
+            btnConfirmAnalyzeNew.classList.remove('hidden');
+            btnConfirmAnalyzeNew.style.display = '';
+            btnConfirmAnalyzeNew.disabled = false;
+        }
+        btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">camera</span> ${t('btn.capture.still')}`;
         btnConfirmAnalyzeNew.onclick = capturePhotoNew;
     } catch (error) {
         console.error("Camera error:", error);
-        alert(t('camera.error') || 'Erreur caméra');
+        alert(t('alert.camera.permission'));
     }
 };
+
+window.startLiveScan = window.startAutoLiveScan;
 
 function capturePhotoNew() {
     if (!window.localStream) return;
     
+    // Simulate CSS object-fit: cover so the captured pixels match the visible frame
+    const videoRect = inputVideoNew.getBoundingClientRect();
+    const containerRatio = videoRect.width / videoRect.height;
+    const videoRatio = inputVideoNew.videoWidth / inputVideoNew.videoHeight;
+
+    let cropWidth = inputVideoNew.videoWidth;
+    let cropHeight = inputVideoNew.videoHeight;
+    let startX = 0;
+    let startY = 0;
+
+    if (videoRatio > containerRatio) {
+        // Video is wider than the frame: crop left/right
+        cropWidth = inputVideoNew.videoHeight * containerRatio;
+        startX = (inputVideoNew.videoWidth - cropWidth) / 2;
+    } else {
+        // Video is taller than the frame: crop top/bottom
+        cropHeight = inputVideoNew.videoWidth / containerRatio;
+        startY = (inputVideoNew.videoHeight - cropHeight) / 2;
+    }
+
     const canvas = document.createElement('canvas');
-    canvas.width = inputVideoNew.videoWidth;
-    canvas.height = inputVideoNew.videoHeight;
+    canvas.width = cropWidth;
+    canvas.height = cropHeight;
     const ctx = canvas.getContext('2d');
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
-    ctx.drawImage(inputVideoNew, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(inputVideoNew, startX, startY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
     
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
     
@@ -2377,18 +2922,14 @@ function capturePhotoNew() {
     
     inputImageNew.onload = () => {
         inputImageNew.onload = null;
-        initCropper(inputImageNew);
+        startExpertMeshInitialization(dataUrl);
     };
     inputImageNew.src = dataUrl;
     inputImageNew.classList.remove('hidden');
     
-    btnConfirmAnalyzeNew.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> VALIDER ET ANALYSER';
-    btnConfirmAnalyzeNew.onclick = function() {
-        if (cropper) {
-            let imageData = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' }).toDataURL('image/jpeg', 0.95);
-            window.confirmAndAnalyzeNew(imageData);
-        }
-    };
+    state.expertImageDataUrl = dataUrl;
+    btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">check</span> ${t('btn.mesh.validate')}`;
+    btnConfirmAnalyzeNew.onclick = validateManualMeshAndAnalyze;
 }
 
 // Override handleFileUpload
@@ -2400,46 +2941,1246 @@ window.handleFileUpload = function(e) {
     capturedCanvas = null;
     if (cropper) { cropper.destroy(); cropper = null; }
     if(canvasCtx) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
-    
-    newScanModal.classList.remove('hidden');
-    newScanActions.classList.remove('hidden');
-    newScanProgress.classList.add('hidden');
-    laserLineNew.classList.add('hidden');
-    newResultContainer.innerHTML = '';
-    
-    inputVideoNew.classList.add('hidden');
-    inputVideoNew.style.display = 'none';
-    
+
     const reader = new FileReader();
     reader.onload = (event) => {
-        const dataUrl = event.target.result;
-        inputImageNew.onload = () => {
-            inputImageNew.onload = null;
-            initCropper(inputImageNew);
-            btnConfirmAnalyzeNew.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span> VALIDER ET ANALYSER';
-            btnConfirmAnalyzeNew.onclick = function() {
-                if (cropper) {
-                    let imageData = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' }).toDataURL('image/jpeg', 0.95);
-                    window.confirmAndAnalyzeNew(imageData);
-                }
-            };
-        };
-        inputImageNew.src = dataUrl;
-        inputImageNew.classList.remove('hidden');
-        inputImageNew.removeAttribute('hidden');
+        state.pendingUploadDataUrl = event.target.result;
+        openUploadModeModal();
     };
     reader.readAsDataURL(file);
+    fileUpload.value = '';
 };
+
+function openUploadModeModal() {
+    if (uploadModeModal) uploadModeModal.classList.remove('hidden');
+}
+
+function closeUploadModeModal() {
+    if (uploadModeModal) uploadModeModal.classList.add('hidden');
+}
+
+window.chooseUploadedMode = function(mode) {
+    if (!state.pendingUploadDataUrl) return;
+    closeUploadModeModal();
+    prepareUploadedImage(mode, state.pendingUploadDataUrl);
+};
+
+function prepareUploadedImage(mode, dataUrl) {
+    resetCaptureUI();
+    prepareNewScanModal();
+    state.scanMode = mode === 'expert' ? 'expert' : 'auto';
+    state.autoLiveActive = false;
+    state.autoProcessing = false;
+    state.expertImageDataUrl = dataUrl;
+    stopActiveCameraStream();
+    inputVideoNew.classList.add('hidden');
+    inputVideoNew.style.display = 'none';
+
+    // Upload flow must not show camera-specific review controls
+    const autoReviewContainer = document.getElementById('auto-review-buttons');
+    if (autoReviewContainer) autoReviewContainer.style.display = 'none';
+    const btnAutoConfirm = document.getElementById('btn-auto-confirm');
+    const btnAutoRetake = document.getElementById('btn-auto-retake');
+    if (btnAutoConfirm) { btnAutoConfirm.classList.add('hidden'); btnAutoConfirm.style.display = 'none'; }
+    if (btnAutoRetake) { btnAutoRetake.classList.add('hidden'); btnAutoRetake.style.display = 'none'; }
+    
+    inputImageNew.onload = () => {
+        inputImageNew.onload = null;
+        // Hide central face guide overlay and instruction hint when an uploaded image is shown
+        var _fg = document.getElementById('face-guide-overlay');
+        if (_fg) { _fg.classList.add('hidden'); _fg.style.display = 'none'; }
+        document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
+        // Ensure scan corners remain visible
+        document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+        if (state.scanMode === 'expert') {
+            startExpertMeshInitialization(dataUrl);
+            btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">check</span> ${t('btn.mesh.validate')}`;
+            btnConfirmAnalyzeNew.onclick = validateManualMeshAndAnalyze;
+        } else {
+            // Mode automatique : ne pas instancier Cropper, conserver l'image telle quelle
+            if (cropper) { cropper.destroy(); cropper = null; }
+            inputImageNew.style.objectFit = 'cover';
+            inputImageNew.style.display = 'block';
+            // Remove any CSS filters/blends - display image in real colors
+            inputImageNew.classList.remove('mix-blend-luminosity', 'opacity-70', 'grayscale');
+            btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">bolt</span> ${t('upload.mode.auto')}`;
+            btnConfirmAnalyzeNew.disabled = false;
+            btnConfirmAnalyzeNew.classList.remove('hidden');
+            btnConfirmAnalyzeNew.style.display = '';
+            btnConfirmAnalyzeNew.onclick = function() {
+                // Envoi direct de l'image source à l'analyse sans recadrage ni redimensionnement
+                window.confirmAndAnalyzeNew(dataUrl);
+            };
+        }
+    };
+    inputImageNew.src = dataUrl;
+    inputImageNew.classList.remove('hidden');
+    inputImageNew.removeAttribute('hidden');
+}
+
+function clearManualMesh() {
+    const overlay = document.getElementById('manual-mesh-overlay');
+    if (overlay) overlay.remove();
+    state.manualMeshPoints = {};
+    state.initialMeshPoints = {};
+    state.movedExpertPoints = new Set();
+    state.expertMeshPending = false;
+    state.expertMeshImage = null;
+    state.expertFullLandmarks = null;
+    closeHelpMeshModal();
+    updateHelpButtonVisibility();
+    if (expertMeshCanvas) {
+        const ctx = expertMeshCanvas.getContext('2d');
+        ctx?.clearRect(0, 0, expertMeshCanvas.width, expertMeshCanvas.height);
+        expertMeshCanvas.style.pointerEvents = '';
+        expertMeshCanvas.classList.add('hidden');
+    }
+    if (expertMeshMagnifier) {
+        const ctx = expertMeshMagnifier.getContext('2d');
+        ctx?.clearRect(0, 0, expertMeshMagnifier.width, expertMeshMagnifier.height);
+        expertMeshMagnifier.classList.add('hidden');
+    }
+}
+
+// Zones anatomiques avec indices MediaPipe + règles de connexion
+// Masque anatomique — ovale 10 pts, yeux 4 pts + pupille réticule, narines indépendantes
+const EXPERT_ANATOMY = [
+    {
+        key: 'face_oval',
+        // Ovale fermé : temple G → joue G → mâchoire G → menton → mâchoire D → joue D → temple D → ligne cheveux
+        indices: [21, 234, 172, 149, 152, 378, 397, 454, 251, 10],
+        closed: true,
+    },
+    {
+        key: 'left_brow',
+        // Sourcil G — boucle fermée (bord inf ext→int + bord sup int→ext)
+        indices: [46, 53, 52, 65, 55, 107, 66, 105, 63, 70],
+        closed: true,
+    },
+    {
+        key: 'right_brow',
+        // Sourcil D — boucle fermée
+        indices: [276, 283, 282, 295, 285, 336, 296, 334, 293, 300],
+        closed: true,
+    },
+    {
+        key: 'left_eye',
+        // Oeil G — amande 4 pts : coin ext → paupière sup → coin int → paupière inf
+        indices: [33, 159, 133, 145],
+        closed: true,
+    },
+    {
+        key: 'left_pupil',
+        // Pupille G — point isolé (iris MediaPipe refineLandmarks)
+        indices: [468],
+        isolated: true,
+    },
+    {
+        key: 'right_eye',
+        // Oeil D — amande 4 pts
+        indices: [263, 386, 362, 374],
+        closed: true,
+    },
+    {
+        key: 'right_pupil',
+        // Pupille D — point isolé
+        indices: [473],
+        isolated: true,
+    },
+    {
+        key: 'nose_structure',
+        // Mapping MediaPipe demandé pour le nez
+        // [6=sommet, 236=auvent G, 294=aile G, 238=narine interne G, 75=narine externe G, 237=narine sommet G, 457=narine sommet D, 458=narine interne D, 305=narine externe D, 64=aile D, 456=auvent D]
+        indices: [6, 456, 294, 305, 309, 457, 458, 238, 237, 75, 64, 236, 79],
+        isNoseComponent: true,
+        closed: false,
+    },
+    {
+        key: 'mouth',
+        // Contour complet : coin G → lèvre sup → coin D → lèvre inf
+        indices: [61, 40, 37, 0, 267, 270, 291, 321, 314, 17, 84, 91],
+        closed: true,
+    },
+];
+
+// Table de correspondance nom sémantique → index MediaPipe (pour calculateMixAttributes)
+const SEMANTIC_INDEX = {
+    skull_top:       10,
+    temple_left:     21,
+    temple_right:    251,
+    jaw_angle_left:  172,
+    jaw_angle_right: 397,
+    chin_tip:        152,
+    brow_left_peak:  105,
+    brow_right_peak: 334,
+    eye_left_outer:  33,
+    eye_left_inner:  133,
+    eye_right_inner: 362,
+    eye_right_outer: 263,
+    eyelid_left:     159,
+    eyelid_right:    386,
+    nose_bridge:     6,
+    nose_tip:        4,
+    nose_base:       2,
+    nose_left:       129,
+    nose_right:      358,
+    cheek_left:      234,
+    cheek_right:     454,
+    mouth_top:       0,
+    mouth_bottom:    17,
+    mouth_left:      61,
+    mouth_right:     291,
+};
+
+const CALIBRATION_POINT_NAMES = {
+    // Face / contour
+    '10':  'front_haut',
+    '21':  'front_gauche',
+    '251': 'front_droite',
+    '172': 'mâchoire_gauche',
+    '397': 'mâchoire_droite',
+    '152': 'menton',
+    '234': 'pommete_gauche',
+    '454': 'pomette_droite',
+    '254': 'pomette_droite',
+
+    // Brows
+    '105': 'sourcil_gauche_sommet',
+    '334': 'sourcil_droit_sommet',
+
+    // Eyes
+    '33':  'oeil_gauche_exterieur',
+    '159': 'oeil_gauche_haut',
+    '133': 'oeil_gauche_interieur',
+    '145': 'oeil_gauche_bas',
+    '263': 'oeil_droit_exterieur',
+    '386': 'oeil_droit_haut',
+    '362': 'oeil_droit_interieur',
+    '374': 'oeil_droit_bas',
+
+    // Nose
+    '6':   'nez_sommet_haut',
+    '236': 'nez_auvent_gauche',
+    '456': 'nez_auvent_droit',
+    '294': 'nez_aile_gauche',
+    '64':  'nez_aile_droite',
+    '238': 'narine_interne_gauche',
+    '458': 'narine_interne_droite',
+    '75':  'narine_externe_gauche',
+    '305': 'narine_externe_droite',
+    '237': 'narine_sommet_gauche',
+    '457': 'narine_sommet_droit',
+    '79':  'narine_sommet_gauche_2',
+    '309': 'narine_sommet_droite_2',
+
+    // Mouth
+    '103': 'pommette_interne_gauche / inner_zygomatic_left',
+    '332': 'pommette_externe_droite / outer_zygomatic_right',
+    '112': 'joue_sup_externe_gauche / upper_outer_cheek_left',
+    '435': 'joue_sup_externe_droite / upper_outer_cheek_right',
+    '61':  'bouche_gauche',
+    '40':  'bouche_haut_gauche',
+    '37':  'bouche_haut',
+    '0':   'bouche_centre_haut',
+    '267': 'bouche_centre_droit',
+    '270': 'bouche_haut_droit',
+    '291': 'bouche_droite',
+    '321': 'bouche_bas_droit',
+    '314': 'bouche_bas_centre_droit',
+    '17':  'bouche_bas',
+    '84':  'bouche_bas_gauche',
+    '91':  'bouche_bas_centre_gauche',
+};
+
+function getCalibrationPointName(key) {
+    return CALIBRATION_POINT_NAMES[String(key)] || `point_${key}`;
+}
+
+
+function startExpertMeshInitialization(dataUrl) {
+    if (cropper) { cropper.destroy(); cropper = null; }
+    state.scanMode = 'expert';
+    state.expertImageDataUrl = dataUrl;
+    state.expertMeshPending = true;
+    state.manualMeshPoints = {};
+    inputImageNew.classList.remove('mix-blend-luminosity', 'opacity-70');
+    inputImageNew.style.objectFit = 'cover';
+    inputImageNew.style.display = 'block';
+    // Hide central face guide overlay and instruction hint, but keep scan corners visible
+    var _fg = document.getElementById('face-guide-overlay');
+    if (_fg) { _fg.classList.add('hidden'); _fg.style.display = 'none'; }
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
+    document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+    if (newScanProgress) newScanProgress.classList.remove('hidden');
+    if (progressPercentNew) progressPercentNew.innerText = '0%';
+    if (progressBarFillNew) progressBarFillNew.style.width = '20%';
+    btnConfirmAnalyzeNew.disabled = true;
+
+    const img = new Image();
+    img.onload = async () => {
+        state.expertMeshImage = img;
+        positionExpertMeshCanvas();
+        try {
+            await faceMesh.send({ image: img });
+        } catch (error) {
+            state.expertMeshPending = false;
+            btnConfirmAnalyzeNew.disabled = false;
+            console.error('Expert mesh init failed:', error);
+            alert(t('alert.no.face'));
+        }
+    };
+    img.onerror = () => {
+        state.expertMeshPending = false;
+        btnConfirmAnalyzeNew.disabled = false;
+        alert(t('alert.matching.failed'));
+    };
+    img.src = dataUrl;
+}
+
+function handleExpertMeshResults(results) {
+    state.expertMeshPending = false;
+    if (newScanProgress) newScanProgress.classList.add('hidden');
+    // Guarantee the oval stays hidden during editing, keep corners visible
+    var _fg = document.getElementById('face-guide-overlay');
+    if (_fg) { _fg.classList.add('hidden'); _fg.style.display = 'none'; }
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
+    document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+    if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
+        btnConfirmAnalyzeNew.disabled = false;
+        alert(t('alert.no.face'));
+        return;
+    }
+
+    const landmarks = results.multiFaceLandmarks[0];
+    state.expertFullLandmarks = landmarks;
+    state.manualMeshPoints = extractExpertControlPoints(landmarks);
+    state.initialMeshPoints = JSON.parse(JSON.stringify(state.manualMeshPoints));
+    state.movedExpertPoints = new Set();
+    btnConfirmAnalyzeNew.disabled = false;
+    btnConfirmAnalyzeNew.classList.remove('hidden');
+    btnConfirmAnalyzeNew.style.display = '';
+    if (typeof newScanActions !== 'undefined' && newScanActions) {
+        newScanActions.classList.remove('hidden');
+        newScanActions.style.display = 'flex';
+    }
+    btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">check</span> ${t('btn.mesh.validate')}`;
+    btnConfirmAnalyzeNew.onclick = validateManualMeshAndAnalyze;
+    updateHelpButtonVisibility();
+    drawExpertMesh();
+    bindExpertMeshCanvas();
+}
+
+function getExpertCoverMetrics() {
+    if (!expertMeshCanvas || !inputImageNew || !state.expertMeshImage) return null;
+
+    const frameRect = inputImageNew.parentElement.getBoundingClientRect();
+    const imageWidth = state.expertMeshImage.naturalWidth || 1;
+    const imageHeight = state.expertMeshImage.naturalHeight || 1;
+    const scale = Math.max(frameRect.width / imageWidth, frameRect.height / imageHeight);
+    const drawWidth = imageWidth * scale;
+    const drawHeight = imageHeight * scale;
+    const offsetX = (frameRect.width - drawWidth) / 2;
+    const offsetY = (frameRect.height - drawHeight) / 2;
+
+    return {
+        frameWidth: frameRect.width,
+        frameHeight: frameRect.height,
+        imageWidth,
+        imageHeight,
+        scale,
+        drawWidth,
+        drawHeight,
+        offsetX,
+        offsetY,
+    };
+}
+
+function extractExpertControlPoints(landmarks) {
+    const points = {};
+    const seen = new Set();
+    EXPERT_ANATOMY.forEach(zone => {
+        zone.indices.forEach(idx => {
+            if (seen.has(idx)) return;
+            seen.add(idx);
+            const lm = landmarks[idx];
+            if (lm) points[String(idx)] = { x: lm.x, y: lm.y };
+        });
+    });
+    return points;
+}
+
+function positionExpertMeshCanvas() {
+    if (!expertMeshCanvas || !inputImageNew || !state.expertMeshImage) return;
+    const metrics = getExpertCoverMetrics();
+    if (!metrics) return;
+    const dpr = window.devicePixelRatio || 1;
+
+    expertMeshCanvas.style.left = '0px';
+    expertMeshCanvas.style.top = '0px';
+    expertMeshCanvas.style.width = `${metrics.frameWidth}px`;
+    expertMeshCanvas.style.height = `${metrics.frameHeight}px`;
+    expertMeshCanvas.width = Math.round(metrics.frameWidth * dpr);
+    expertMeshCanvas.height = Math.round(metrics.frameHeight * dpr);
+    expertMeshCanvas.dataset.cssWidth = String(metrics.frameWidth);
+    expertMeshCanvas.dataset.cssHeight = String(metrics.frameHeight);
+    expertMeshCanvas.style.pointerEvents = '';
+    expertMeshCanvas.classList.remove('hidden');
+}
+
+function bindExpertMeshCanvas() {
+    if (!expertMeshCanvas || expertMeshCanvas.dataset.bound === 'true') return;
+    expertMeshCanvas.dataset.bound = 'true';
+    expertMeshCanvas.addEventListener('pointerdown', onExpertMeshPointerDown);
+    expertMeshCanvas.addEventListener('touchstart', onExpertMeshTouchStart, { passive: false });
+    expertMeshCanvas.addEventListener('touchmove', onExpertMeshTouchMove, { passive: false });
+    expertMeshCanvas.addEventListener('touchend', stopExpertPointDrag);
+    expertMeshCanvas.addEventListener('touchcancel', stopExpertPointDrag);
+    window.addEventListener('resize', () => {
+        if (state.scanMode === 'expert' && state.manualMeshPoints && Object.keys(state.manualMeshPoints).length) {
+            positionExpertMeshCanvas();
+            drawExpertMesh();
+        }
+    });
+}
+
+function getExpertCanvasPoint(event) {
+    const rect = expertMeshCanvas.getBoundingClientRect();
+    const clientX = event.clientX ?? event.touches?.[0]?.clientX ?? 0;
+    const clientY = event.clientY ?? event.touches?.[0]?.clientY ?? 0;
+    const metrics = getExpertCoverMetrics();
+    if (!metrics) {
+        return {
+            x: Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)),
+            y: Math.max(0, Math.min(1, (clientY - rect.top) / rect.height))
+        };
+    }
+
+    return {
+        x: Math.max(0, Math.min(1, (clientX - rect.left - metrics.offsetX) / metrics.drawWidth)),
+        y: Math.max(0, Math.min(1, (clientY - rect.top - metrics.offsetY) / metrics.drawHeight))
+    };
+}
+
+function findNearestExpertPoint(pos) {
+    const rect = expertMeshCanvas.getBoundingClientRect();
+    const metrics = getExpertCoverMetrics();
+    let nearest = null;
+    let best = Infinity;
+    Object.entries(state.manualMeshPoints || {}).forEach(([key, point]) => {
+        const pointX = metrics ? metrics.offsetX + point.x * metrics.drawWidth : point.x * rect.width;
+        const pointY = metrics ? metrics.offsetY + point.y * metrics.drawHeight : point.y * rect.height;
+        const posX = metrics ? metrics.offsetX + pos.x * metrics.drawWidth : pos.x * rect.width;
+        const posY = metrics ? metrics.offsetY + pos.y * metrics.drawHeight : pos.y * rect.height;
+        const dx = pointX - posX;
+        const dy = pointY - posY;
+        const distance = Math.hypot(dx, dy);
+        if (distance < best) {
+            best = distance;
+            nearest = key;
+        }
+    });
+    return best <= 34 ? nearest : null;
+}
+
+function onExpertMeshPointerDown(event) {
+    if (!state.manualMeshPoints || !Object.keys(state.manualMeshPoints).length) return;
+    event.preventDefault();
+    const key = findNearestExpertPoint(getExpertCanvasPoint(event));
+    if (!key) return;
+    expertMeshCanvas.setPointerCapture(event.pointerId);
+    state.draggingExpertPoint = key;
+    expertMeshMagnifier?.classList.remove('hidden');
+    updateExpertPointFromEvent(event);
+
+    expertMeshCanvas.addEventListener('pointermove', updateExpertPointFromEvent);
+    expertMeshCanvas.addEventListener('pointerup', stopExpertPointDrag);
+    expertMeshCanvas.addEventListener('pointercancel', stopExpertPointDrag);
+}
+
+function onExpertMeshTouchStart(event) {
+    if (!state.manualMeshPoints || !Object.keys(state.manualMeshPoints).length || !event.touches?.length) return;
+    event.preventDefault();
+    const key = findNearestExpertPoint(getExpertCanvasPoint(event));
+    if (!key) return;
+    state.draggingExpertPoint = key;
+    expertMeshMagnifier?.classList.remove('hidden');
+    updateExpertPointFromEvent(event);
+}
+
+function onExpertMeshTouchMove(event) {
+    if (!state.draggingExpertPoint || !event.touches?.length) return;
+    event.preventDefault();
+    updateExpertPointFromEvent(event);
+}
+
+function updateExpertPointFromEvent(event) {
+    if (!state.draggingExpertPoint) return;
+    state.manualMeshPoints[state.draggingExpertPoint] = getExpertCanvasPoint(event);
+    state.movedExpertPoints.add(state.draggingExpertPoint);
+    drawExpertMesh();
+    drawExpertMagnifier(state.manualMeshPoints[state.draggingExpertPoint], state.draggingExpertPoint);
+}
+
+function stopExpertPointDrag() {
+    state.draggingExpertPoint = null;
+    expertMeshMagnifier?.classList.add('hidden');
+    expertMeshCanvas.removeEventListener('pointermove', updateExpertPointFromEvent);
+    expertMeshCanvas.removeEventListener('pointerup', stopExpertPointDrag);
+    expertMeshCanvas.removeEventListener('pointercancel', stopExpertPointDrag);
+}
+
+// Catmull-Rom spline → courbes de Bézier (les points deviennent des nœuds)
+function drawSmoothCurve(ctx, points, closed, w, h) {
+    const n = points.length;
+    if (n < 2) return;
+    const T = 1 / 6; // tension Catmull-Rom standard
+
+    const get = (i) => closed
+        ? points[((i % n) + n) % n]
+        : points[Math.max(0, Math.min(n - 1, i))];
+
+    ctx.beginPath();
+    ctx.moveTo(points[0].x * w, points[0].y * h);
+
+    const segs = closed ? n : n - 1;
+    for (let i = 0; i < segs; i++) {
+        const p0 = get(i - 1), p1 = get(i), p2 = get(i + 1), p3 = get(i + 2);
+        ctx.bezierCurveTo(
+            (p1.x + (p2.x - p0.x) * T) * w,
+            (p1.y + (p2.y - p0.y) * T) * h,
+            (p2.x - (p3.x - p1.x) * T) * w,
+            (p2.y - (p3.y - p1.y) * T) * h,
+            p2.x * w,
+            p2.y * h
+        );
+    }
+    if (closed) ctx.closePath();
+}
+
+function drawTwoPointLoop(ctx, points, w, h) {
+    if (points.length !== 2) return;
+    const [a, b] = points;
+    const x0 = a.x * w, y0 = a.y * h;
+    const x1 = b.x * w, y1 = b.y * h;
+    const dx = x1 - x0, dy = y1 - y0;
+    const len = Math.hypot(dx, dy);
+    if (!len) return;
+
+    const nx = -dy / len;
+    const ny = dx / len;
+    const bulge = Math.max(3, Math.min(14, len * 0.35));
+
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.bezierCurveTo(
+        x0 + dx * 0.35 + nx * bulge,
+        y0 + dy * 0.35 + ny * bulge,
+        x0 + dx * 0.65 + nx * bulge,
+        y0 + dy * 0.65 + ny * bulge,
+        x1,
+        y1
+    );
+    ctx.bezierCurveTo(
+        x0 + dx * 0.65 - nx * bulge,
+        y0 + dy * 0.65 - ny * bulge,
+        x0 + dx * 0.35 - nx * bulge,
+        y0 + dy * 0.35 - ny * bulge,
+        x0,
+        y0
+    );
+    ctx.closePath();
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Dessin architectural du nez : arête + deux narines (haute densité) + base
+// ─────────────────────────────────────────────────────────────────────────
+function drawNoseStructure(ctx, pts, w, h) {
+    const pointKeys = ['6', '456', '294', '305', '309', '457', '458', '238', '237', '79', '75', '64', '236', '6'];
+    const points = pointKeys.map(key => pts[key]).filter(p => p);
+
+    if (points.length < 3) return;
+
+    ctx.beginPath();
+    ctx.moveTo(points[0].x * w, points[0].y * h);
+
+    for (let i = 0; i < points.length - 1; i++) {
+        const p0 = points[Math.max(0, i - 1)];
+        const p1 = points[i];
+        const p2 = points[i + 1];
+        const p3 = points[Math.min(points.length - 1, i + 2)];
+
+        const cp1x = p1.x + (p2.x - p0.x) / 6;
+        const cp1y = p1.y + (p2.y - p0.y) / 6;
+        const cp2x = p2.x - (p3.x - p1.x) / 6;
+        const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+        ctx.bezierCurveTo(cp1x * w, cp1y * h, cp2x * w, cp2y * h, p2.x * w, p2.y * h);
+    }
+
+    ctx.stroke();
+}
+
+
+function drawExpertMesh() {
+    if (!expertMeshCanvas || !state.manualMeshPoints) return;
+    positionExpertMeshCanvas();
+    const ctx = expertMeshCanvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const metrics = getExpertCoverMetrics();
+    const w = metrics ? metrics.drawWidth : parseFloat(expertMeshCanvas.dataset.cssWidth  || expertMeshCanvas.clientWidth);
+    const h = metrics ? metrics.drawHeight : parseFloat(expertMeshCanvas.dataset.cssHeight || expertMeshCanvas.clientHeight);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    if (metrics) {
+        ctx.translate(metrics.offsetX, metrics.offsetY);
+    }
+
+    const pts = state.manualMeshPoints;
+
+    // ── Couche 1 : masque anatomique (courbes organiques) ─────────────────
+    ctx.lineWidth   = 2;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.lineJoin    = 'round';
+    ctx.lineCap     = 'round';
+    ctx.shadowBlur  = 0;
+
+    EXPERT_ANATOMY.forEach(zone => {
+        if (zone.isolated) return;
+
+        // ⭐ Gestion spéciale pour l'architecture nasale
+        if (zone.isNoseComponent) {
+            // Les composants du nez sont dessinés ensemble dans drawNoseStructure
+            // On saute le dessin individuel ici
+            return;
+        }
+
+        const pos = zone.indices.map(idx => pts[String(idx)]);
+        if (pos.some(p => !p)) return;
+
+        if (zone.loop) {
+            drawTwoPointLoop(ctx, pos, w, h);
+            ctx.stroke();
+        } else if (zone.connections) {
+            // Lignes droites pour connexions spéciales
+            zone.connections.forEach(([a, b]) => {
+                ctx.beginPath();
+                ctx.moveTo(pos[a].x * w, pos[a].y * h);
+                ctx.lineTo(pos[b].x * w, pos[b].y * h);
+                ctx.stroke();
+            });
+        } else {
+            // Courbe Catmull-Rom lissée
+            drawSmoothCurve(ctx, pos, zone.closed || false, w, h);
+            ctx.stroke();
+        }
+    });
+
+    // ⭐ Dessin de l'architecture nasale complète (après les autres zones)
+    drawNoseStructure(ctx, pts, w, h);
+
+    // ── Couche 1.5 : réticule de visée des pupilles (4 lignes fines) ────────
+    const PUPIL_RETICULE = [
+        { pupil: '468', eye: ['33', '159', '133', '145'] },
+        { pupil: '473', eye: ['263', '386', '362', '374'] },
+    ];
+    ctx.lineWidth   = 0.8;
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.5)';
+    ctx.shadowBlur  = 0;
+    PUPIL_RETICULE.forEach(({ pupil, eye }) => {
+        const c = pts[pupil];
+        if (!c) return;
+        ctx.beginPath();
+        eye.forEach(k => {
+            const p = pts[k];
+            if (!p) return;
+            ctx.moveTo(c.x * w, c.y * h);
+            ctx.lineTo(p.x * w, p.y * h);
+        });
+        ctx.stroke();
+    });
+
+    // ── Couche 2 : points de contrôle cyan (interactifs) ──────────────────
+    Object.entries(pts).forEach(([key, point]) => {
+        if (!point) return;
+        const x = point.x * w;
+        const y = point.y * h;
+        const isDragging = state.draggingExpertPoint === key;
+        const isNosePoint = ['6', '456', '294', '305', '457', '458', '238', '237', '75', '64', '236'].includes(key);
+        const radius = isDragging ? 3 : 1.8;
+
+        ctx.shadowColor = '#00ffff';
+        ctx.shadowBlur  = isDragging ? 16 : 5;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#00ffff';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.lineWidth   = 1.5;
+        ctx.strokeStyle = '#ffffff';
+        ctx.stroke();
+
+        // Les numéros de points de calibration sont masqués (uniquement les points restent visibles)
+    });
+}
+
+function drawExpertMagnifier(point, key) {
+    if (!expertMeshMagnifier || !expertMeshCanvas || !state.expertMeshImage || !point) return;
+    const size = 112;
+    const zoom = 2.4;
+    const ctx = expertMeshMagnifier.getContext('2d');
+    expertMeshMagnifier.width = size * (window.devicePixelRatio || 1);
+    expertMeshMagnifier.height = size * (window.devicePixelRatio || 1);
+    ctx.setTransform(window.devicePixelRatio || 1, 0, 0, window.devicePixelRatio || 1, 0, 0);
+    ctx.clearRect(0, 0, size, size);
+    const srcX = point.x * state.expertMeshImage.naturalWidth;
+    const srcY = point.y * state.expertMeshImage.naturalHeight;
+    const srcSize = size / zoom;
+    ctx.drawImage(
+        state.expertMeshImage,
+        Math.max(0, srcX - srcSize / 2),
+        Math.max(0, srcY - srcSize / 2),
+        srcSize,
+        srcSize,
+        0,
+        0,
+        size,
+        size
+    );
+
+    if (key) {
+        const label = String(key);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+        ctx.fillRect(0, 0, size, 20);
+        ctx.fillStyle = '#00ffff';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, size / 2, 10);
+    }
+
+    ctx.strokeStyle = '#00ffff';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(size / 2, 12);
+    ctx.lineTo(size / 2, size - 12);
+    ctx.moveTo(12, size / 2);
+    ctx.lineTo(size - 12, size / 2);
+    ctx.stroke();
+}
+
+function openHelpMeshModal() {
+    if (helpMeshModal) {
+        helpMeshModal.classList.remove('hidden');
+        helpMeshModal.style.display = 'flex';
+        helpMeshModal.style.pointerEvents = 'auto';
+        helpMeshModal.style.zIndex = '6000';
+        
+        // Initialize guide mesh canvas
+        const canvas = document.getElementById('guide-mesh-canvas');
+        const img = document.getElementById('guide-reference-img');
+        // Ensure image has a sane path
+        if (img && (!img.src || img.src.indexOf('REPERE.PNG') === -1)) {
+            img.src = 'app/REPERE.PNG';
+        }
+        if (canvas && img) {
+            // Wait for image to load before drawing
+            if (img.complete) {
+                drawGuideMeshOnCanvas(canvas, img);
+            } else {
+                img.addEventListener('load', () => {
+                    drawGuideMeshOnCanvas(canvas, img);
+                }, { once: true });
+            }
+            
+            // Resize handler for responsive canvas
+            const resizeHandler = () => {
+                drawGuideMeshOnCanvas(canvas, img);
+            };
+            window.addEventListener('resize', resizeHandler);
+            
+            // Store handler for cleanup
+            canvas._resizeHandler = resizeHandler;
+        }
+    }
+}
+
+function closeHelpMeshModal() {
+    if (helpMeshModal) {
+        helpMeshModal.classList.add('hidden');
+        helpMeshModal.style.display = 'none';
+        helpMeshModal.style.pointerEvents = 'none';
+        helpMeshModal.style.zIndex = '-1';
+        
+        // Cleanup resize handler
+        const canvas = document.getElementById('guide-mesh-canvas');
+        if (canvas && canvas._resizeHandler) {
+            window.removeEventListener('resize', canvas._resizeHandler);
+            delete canvas._resizeHandler;
+        }
+    }
+}
+
+function updateHelpButtonVisibility() {
+    if (!btnMeshHelp) return;
+    if (state.scanMode === 'expert' && state.manualMeshPoints && Object.keys(state.manualMeshPoints).length) {
+        btnMeshHelp.classList.remove('hidden');
+        btnMeshHelp.style.display = 'block';
+    } else {
+        btnMeshHelp.classList.add('hidden');
+        btnMeshHelp.style.display = 'none';
+    }
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// GUIDE DE PLACEMENT DYNAMIQUE — Canvas + repere.jpg + Courbes Bézier
+// ════════════════════════════════════════════════════════════════════════
+
+// Coordonnées fixes du guide (normalisées 0-1, relatives à l'image repere.jpg)
+// À régler manuellement pour correspondre exactement aux positions sur repere.jpg
+const guidePointsPositions = {
+    '10': { x: 0.50, y: 0.065 },  // head_top (sommet)
+    '21': { x: 0.265, y: 0.255 }, // temple_left
+    '251': { x: 0.735, y: 0.255 },// temple_right
+    '70': { x: 0.50, y: 0.312 },  // brow_center
+    '105': { x: 0.395, y: 0.330 },// brow_left
+    '334': { x: 0.605, y: 0.330 },// brow_right
+    '33': { x: 0.288, y: 0.368 }, // eye_left_outer
+    '159': { x: 0.430, y: 0.358 },// eye_left_inner
+    '386': { x: 0.570, y: 0.358 },// eye_right_inner
+    '263': { x: 0.712, y: 0.368 },// eye_right_outer
+    '6': { x: 0.50, y: 0.368 },   // nose_bridge
+    '234': { x: 0.220, y: 0.432 },// cheek_left
+    '454': { x: 0.780, y: 0.432 },// cheek_right
+    '456': { x: 0.560, y: 0.405 },// nose_right_canopy
+    '294': { x: 0.440, y: 0.405 },// nose_left_canopy
+    '64': { x: 0.540, y: 0.430 }, // nose_right_wing
+    '131': { x: 0.460, y: 0.430 },// nose_left_wing
+    '238': { x: 0.475, y: 0.450 },// nose_left_inner
+    '458': { x: 0.525, y: 0.450 },// nose_right_inner
+    '75': { x: 0.450, y: 0.465 }, // nose_left_outer
+    '305': { x: 0.550, y: 0.465 },// nose_right_outer
+    '237': { x: 0.470, y: 0.478 },// nose_left_top
+    '457': { x: 0.530, y: 0.478 },// nose_right_top
+    '61': { x: 0.357, y: 0.648 }, // mouth_left
+    '40': { x: 0.407, y: 0.632 }, // mouth_top_left
+    '37': { x: 0.50, y: 0.625 },  // mouth_top
+    '0': { x: 0.50, y: 0.643 },   // mouth_top_center
+    '267': { x: 0.593, y: 0.632 },// mouth_top_right
+    '270': { x: 0.643, y: 0.632 },// mouth_top_right2
+    '291': { x: 0.643, y: 0.648 },// mouth_right
+    '321': { x: 0.593, y: 0.666 },// mouth_bottom_right
+    '314': { x: 0.50, y: 0.675 }, // mouth_bottom_center_right
+    '17': { x: 0.50, y: 0.672 },  // mouth_bottom
+    '84': { x: 0.407, y: 0.666 }, // mouth_bottom_left
+    '91': { x: 0.50, y: 0.675 },  // mouth_bottom_center_left
+    '172': { x: 0.290, y: 0.722 },// jaw_left
+    '397': { x: 0.710, y: 0.722 },// jaw_right
+    '152': { x: 0.50, y: 0.805 }, // chin_tip
+    '468': { x: 0.455, y: 0.380 },// pupil_left
+    '473': { x: 0.545, y: 0.380 },// pupil_right
+};
+
+function drawGuideMeshOnCanvas(canvas, guideImage) {
+    if (!canvas || !guideImage) return;
+    
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight;
+    
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    
+}
+
+function relDist(points, a, b) {
+    if (!points[a] || !points[b]) return 0;
+    return Math.hypot(points[a].x - points[b].x, points[a].y - points[b].y);
+}
+
+function midPoint(points, a, b) {
+    if (!points[a] || !points[b]) return { x: 0, y: 0 };
+    return { x: (points[a].x + points[b].x) / 2, y: (points[a].y + points[b].y) / 2 };
+}
+
+function calculateMixAttributes(rawPoints) {
+    // Convertit les points indexés (clé = index MP) en noms sémantiques
+    const points = {};
+    Object.entries(SEMANTIC_INDEX).forEach(([name, idx]) => {
+        const p = rawPoints[String(idx)];
+        if (p) points[name] = p;
+    });
+    // brow_center dérivé si absent
+    if (!points.brow_center) {
+        points.brow_center = midPoint(points, 'brow_left_peak', 'brow_right_peak');
+    }
+
+    const faceHeight  = relDist(points, 'skull_top', 'chin_tip') || 1;
+    const faceWidth   = relDist(points, 'temple_left', 'temple_right') || 1;
+    const jawWidth    = relDist(points, 'jaw_angle_left', 'jaw_angle_right');
+    const browWidth   = relDist(points, 'brow_left_peak', 'brow_right_peak');
+    const eyeSpan     = relDist(points, 'eye_left_outer', 'eye_right_outer');
+    const noseWidth   = relDist(points, 'nose_left', 'nose_right');
+    const mouthWidth  = relDist(points, 'mouth_left', 'mouth_right');
+    const mouthHeight = relDist(points, 'mouth_top', 'mouth_bottom');
+    const chinToMouth = relDist(points, 'mouth_bottom', 'chin_tip');
+    const cheekWidth  = relDist(points, 'cheek_left', 'cheek_right');
+    const browCenter  = points.brow_center || midPoint(points, 'brow_left_peak', 'brow_right_peak');
+    const eyelidMid   = midPoint(points, 'eyelid_left', 'eyelid_right');
+    const eyeCenter   = (eyelidMid.x || eyelidMid.y) ? eyelidMid : midPoint(points, 'eye_left_inner', 'eye_right_inner');
+
+    return {
+        base: {
+            width: faceWidth / faceHeight,
+            height: faceHeight,
+            volume: cheekWidth / faceWidth
+        },
+        front: {
+            height: relDist(points, 'skull_top', 'brow_center') / faceHeight,
+            width: browWidth / faceWidth
+        },
+        sourcils: {
+            width: browWidth / faceWidth,
+            height: Math.abs(browCenter.y - eyeCenter.y) / faceHeight,
+            angle: ((points.brow_right_peak?.y || 0) - (points.brow_left_peak?.y || 0)) / faceHeight
+        },
+        yeux: {
+            width: eyeSpan / faceWidth,
+            spacing: relDist(points, 'eye_left_inner', 'eye_right_inner') / faceWidth,
+            height: Math.abs(eyeCenter.y - browCenter.y) / faceHeight
+        },
+        nez: {
+            width: noseWidth / faceWidth,
+            height: relDist(points, 'nose_bridge', 'nose_tip') / faceHeight,
+            projection: relDist(points, 'nose_base', 'mouth_top') / faceHeight
+        },
+        joues: {
+            width: cheekWidth / faceWidth,
+            height: Math.abs(((points.cheek_left?.y || 0) + (points.cheek_right?.y || 0)) / 2 - (points.nose_tip?.y || 0)) / faceHeight,
+            volume: cheekWidth / jawWidth
+        },
+        bouche: {
+            width: mouthWidth / faceWidth,
+            height: mouthHeight / faceHeight,
+            // placeholder - will be replaced below with normalized area ratio
+            volume: mouthHeight / (mouthWidth || 1)
+        },
+        menton: {
+            height: chinToMouth / faceHeight,
+            width: relDist(points, 'jaw_angle_left', 'jaw_angle_right') / faceWidth
+        },
+        machoire: {
+            width: jawWidth / faceWidth,
+            height: Math.abs(((points.jaw_angle_left?.y || 0) + (points.jaw_angle_right?.y || 0)) / 2 - (points.chin_tip?.y || 0)) / faceHeight,
+            angle: (() => {
+                const chin = points.chin_tip;
+                const jawL = points.jaw_angle_left;
+                const jawR = points.jaw_angle_right;
+                if (!chin || !jawL || !jawR) return 0;
+                // Angle gauche : atan2(diffY, diffX) entre mâchoire_gauche et menton
+                // diffY positif = mâchoire au-dessus du menton (remonte vers oreille)
+                const diffY_g = chin.y - jawL.y; // positif quand mâchoire est au-dessus
+                const diffX_g = chin.x - jawL.x; // horizontal gauche→centre
+                const angle_g = Math.abs(Math.atan2(diffY_g, diffX_g));
+                // Angle droit (symétrique)
+                const diffY_d = chin.y - jawR.y;
+                const diffX_d = jawR.x - chin.x;
+                const angle_d = Math.abs(Math.atan2(diffY_d, diffX_d));
+                // Moyenne, normalisée sur 0-1 (90° = 1)
+                return ((angle_g + angle_d) / 2) / (Math.PI / 2);
+            })()
+        }
+    };
+}
+window.calculateMixAttributes = calculateMixAttributes;
+
+// Post-process augmentation: compute mouth area ratio and nostrils size ratio
+function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
+    if (!attributes || !rawPoints) return attributes;
+
+    // helper to get point by raw index
+    const byIndex = idx => rawPoints[String(idx)];
+    const distIdx = (a, b) => {
+        const A = byIndex(a); const B = byIndex(b);
+        if (!A || !B) return 0;
+        return Math.hypot(A.x - B.x, A.y - B.y);
+    };
+
+    // Mouth area (compute raw distances from MediaPipe indices)
+    // mouth_left:61, mouth_right:291, mouth_top:0, mouth_bottom:17
+    const mouthWidthRaw = distIdx(61, 291) || 0;
+    const mouthHeightRaw = distIdx(0, 17) || 0;
+    const mouthAreaRaw = (mouthWidthRaw * mouthHeightRaw) * 0.7;
+
+    // Face total area for normalization: distance(pommete_gauche, pomette_droite) * distance(front_haut, menton)
+    // pommete_gauche = index 234, pomette_droite = 454, front_haut = index 10, menton = index 152
+    const faceWidthRaw = distIdx(234, 454) || 1;
+    const faceHeightRaw = distIdx(10, 152) || 1;
+    const faceAreaTotal = faceWidthRaw * faceHeightRaw || 1;
+
+    const bouche_volume_ratio = mouthAreaRaw / faceAreaTotal;
+
+    // Narines size: sums of segments
+    // Left: narine_interne_gauche(238) -> narine_sommet_gauche(237) -> narine_externe_gauche(75)
+    const leftSum = distIdx(238, 237) + distIdx(237, 75);
+    // Right: narine_interne_droite(458) -> narine_sommet_droit(457) -> narine_externe_droite(305)
+    const rightSum = distIdx(458, 457) + distIdx(457, 305);
+    const narinesBrut = (leftSum + rightSum) / 2;
+    const narines_taille_ratio = narinesBrut / (faceWidthRaw || 1);
+
+    // Attach into attributes for UI: replace bouche.volume and add nez.volume
+    if (!attributes.bouche) attributes.bouche = {};
+    attributes.bouche.volume = bouche_volume_ratio;
+
+    if (!attributes.nez) attributes.nez = {};
+    attributes.nez.volume = narines_taille_ratio;
+
+    // ── Nez : métriques width / height / projection / volume ────────────
+
+    // 1. Largeur : dist(narine_externe_gauche[75], narine_externe_droite[305])
+    //              / dist(pommete_gauche[234], pomette_droite[454])
+    const face_larg      = distIdx(234, 454) || 1;
+    attributes.nez.width = distIdx(75, 305) / face_larg;
+
+    // 2. Hauteur : baseY = moy(narine_interne_gauche[238].y, narine_interne_droite[458].y)
+    //              hauteur_brute = baseY − nez_sommet_haut[6].y
+    //              / dist(front_haut[10], menton[152])
+    const pt_nar_int_g = byIndex(238);  // narine_interne_gauche
+    const pt_nar_int_d = byIndex(458);  // narine_interne_droite
+    const pt_sommet    = byIndex(6);    // nez_sommet_haut
+    const face_haut    = distIdx(10, 152) || 1;
+    let nez_haut_brut  = 0;
+    if (pt_nar_int_g && pt_nar_int_d && pt_sommet) {
+        const baseY   = (pt_nar_int_g.y + pt_nar_int_d.y) / 2;
+        nez_haut_brut = Math.abs(baseY - pt_sommet.y);
+    }
+    attributes.nez.height = nez_haut_brut / face_haut;
+
+    // 3. Projection : voûte de narine (points 79 / 237 côté gauche, 309 / 457 côté droit)
+    //    Côté gauche : point le plus haut (y min) entre narine_sommet_gauche[237] et narine_sommet_gauche_2[79]
+    //    vault_g = narine_interne_gauche[238].y − min(237.y, 79.y)
+    //    Côté droit  : point le plus haut entre narine_sommet_droit[457] et narine_sommet_droite_2[309]
+    //    vault_d = narine_interne_droite[458].y − min(457.y, 309.y)
+    //    projection  = moy(vault_g, vault_d) / hauteur_brute_nez
+    const pt_som_g  = byIndex(237); // narine_sommet_gauche
+    const pt_som_g2 = byIndex(79);  // narine_sommet_gauche_2
+    const pt_som_d  = byIndex(457); // narine_sommet_droit
+    const pt_som_d2 = byIndex(309); // narine_sommet_droite_2
+    let nez_projection = 0;
+    if (pt_nar_int_g && pt_nar_int_d && (pt_som_g || pt_som_g2) && (pt_som_d || pt_som_d2)) {
+        const topG   = Math.min(pt_som_g  ? pt_som_g.y  : Infinity, pt_som_g2 ? pt_som_g2.y : Infinity);
+        const topD   = Math.min(pt_som_d  ? pt_som_d.y  : Infinity, pt_som_d2 ? pt_som_d2.y : Infinity);
+        const vault_g = pt_nar_int_g.y - topG;
+        const vault_d = pt_nar_int_d.y - topD;
+        const avg_vault = (vault_g + vault_d) / 2;
+        nez_projection = avg_vault / (nez_haut_brut || 1);
+    }
+    attributes.nez.projection = nez_projection;
+
+    // 4. Volume : aire estimée = (largeur_ailes * hauteur_brute) / 2
+    //             largeur_ailes = dist(nez_aile_gauche[294], nez_aile_droite[64])
+    //             / aire_visage(face_larg * face_haut)
+    const largeur_ailes    = distIdx(294, 64); // nez_aile_gauche → nez_aile_droite
+    const aire_nez         = (largeur_ailes * nez_haut_brut) / 2;
+    const aire_visage      = face_larg * faceHeightRaw || 1;
+    attributes.nez.volume  = aire_nez / aire_visage;
+
+    // 5. Périmètre moyen des narines
+    //    Gauche : dist(238,237) + dist(237,79) + dist(79,75) + dist(75,238)
+    //             narine_interne_gauche → narine_sommet_gauche → narine_sommet_gauche_2 → narine_externe_gauche → narine_interne_gauche
+    const perim_g = distIdx(238, 237)  // narine_interne_gauche → narine_sommet_gauche
+                  + distIdx(237, 79)   // narine_sommet_gauche  → narine_sommet_gauche_2
+                  + distIdx(79,  75)   // narine_sommet_gauche_2 → narine_externe_gauche
+                  + distIdx(75,  238); // narine_externe_gauche  → narine_interne_gauche (base)
+
+    //    Droite : dist(458,457) + dist(457,309) + dist(309,305) + dist(305,458)
+    //             narine_interne_droite → narine_sommet_droit → narine_sommet_droite_2 → narine_externe_droite → narine_interne_droite
+    const perim_d = distIdx(458, 457)  // narine_interne_droite → narine_sommet_droit
+                  + distIdx(457, 309)  // narine_sommet_droit    → narine_sommet_droite_2
+                  + distIdx(309, 305)  // narine_sommet_droite_2 → narine_externe_droite
+                  + distIdx(305, 458); // narine_externe_droite  → narine_interne_droite (base)
+
+    const perim_moyen = (perim_g + perim_d) / 2;
+    attributes.nez.narine = perim_moyen / (face_larg || 1);
+
+    return attributes;
+}
+
+function validateManualMeshAndAnalyze() {
+    if (!state.manualMeshPoints || !Object.keys(state.manualMeshPoints).length) return;
+    state.expertMeshAttributes = calculateMixAttributes(state.manualMeshPoints);
+    // Add custom metrics (mouth area ratio and nostrils size ratio) based on calibration indices
+    state.expertMeshAttributes = augmentAttributesWithCustomMetrics(state.manualMeshPoints, state.expertMeshAttributes);
+    state.draggingExpertPoint = null;
+    if (expertMeshCanvas) expertMeshCanvas.style.pointerEvents = 'none';
+    if (expertMeshMagnifier) expertMeshMagnifier.classList.add('hidden');
+    // Ensure the main confirm button remains visible after validation
+    if (newScanActions) newScanActions.classList.remove('hidden');
+    if (btnConfirmAnalyzeNew) {
+        btnConfirmAnalyzeNew.classList.remove('hidden');
+        btnConfirmAnalyzeNew.style.display = '';
+        btnConfirmAnalyzeNew.style.zIndex = '9999';
+    }
+
+    // ─── PRODUCTION MODE: Connect to new matching engine (Top 3 selection) ────────
+    detectSkinToneFromCanvas(state.expertMeshImage, state.expertFullLandmarks, (skinTone, skinMeta) => {
+        console.log(`🎨 Mode Expert - Skin tone detected: ${skinTone}`);
+
+        // 1. Lancement du nouveau moteur de matching
+        const { scores } = selectBestPreset(state.expertFullLandmarks, skinTone);
+
+        // 2. Préparation des 3 meilleurs candidats
+        const top3 = scores.slice(0, 3).map(s => {
+            const preset = PRESETS_DB.find(p => p.preset_id === s.preset_id);
+            return { preset, score: s.score };
+        }).filter(item => item.preset);
+
+        console.log(`🏆 Top 3 expert presets:`, top3.map(t => ({
+            id: t.preset.preset_id,
+            position: t.preset.position,
+            score: t.score.toFixed(1)
+        })));
+
+        // 3. Sauvegarde de l'état pour la suite
+        state.pendingAnalysis = {
+            landmarks: state.expertFullLandmarks,
+            skinTone,
+            skinMeta,
+            scores: scores.slice(0, 3)
+        };
+
+        // 4. Affichage de l'écran de sélection des 3 têtes
+        if (typeof showPresetChoiceScreen === 'function') {
+            showPresetChoiceScreen(top3);
+        } else {
+            console.warn('⚠️ showPresetChoiceScreen not found');
+        }
+    });
+
+    syncExpertMeshCanvasAndRedraw();
+}
+
+function syncExpertMeshCanvasAndRedraw() {
+    if (!expertMeshCanvas || !state.manualMeshPoints || !Object.keys(state.manualMeshPoints).length) return;
+    requestAnimationFrame(() => {
+        positionExpertMeshCanvas();
+        drawExpertMesh();
+    });
+}
+
+function formatAttributeValue(value) {
+    if (!Number.isFinite(value)) return '0.000';
+    return value.toFixed(3);
+}
+
+function getMetricLabel(name) {
+    const key = `metric.${name}`;
+    const label = t(key);
+    return label === key ? name : label;
+}
+
+function generateJSONData(attributes) {
+    const keys = ['base', 'front', 'sourcils', 'yeux', 'nez', 'joues', 'bouche', 'menton', 'machoire'];
+    const result = {};
+    keys.forEach(key => {
+        const section = attributes[key];
+        if (!section) return;
+        result[key] = {};
+        Object.entries(section).forEach(([name, value]) => {
+            result[key][name] = Number.isFinite(value) ? parseFloat(value.toFixed(3)) : 0;
+        });
+    });
+    return result;
+}
+
+function renderExpertRecipeCard(attributes) {
+    if (!newResultContainer || !attributes) return;
+    const headerTitle = document.querySelector('#new-scan-modal h2');
+    if (headerTitle) headerTitle.innerText = t('expert.recipe.title');
+
+    const rows = [
+        { key: 'base', label: t('preset.head') || 'Base' },
+        { key: 'front', label: t('zone.front') },
+        { key: 'sourcils', label: t('zone.sourcils') },
+        { key: 'yeux', label: t('zone.yeux') },
+        { key: 'nez', label: t('zone.nez') },
+        { key: 'joues', label: t('zone.joues') },
+        { key: 'bouche', label: t('zone.bouche') },
+        { key: 'menton', label: t('zone.menton') },
+        { key: 'machoire', label: t('zone.machoire') }
+    ];
+
+    const cards = rows.map(row => {
+        const values = attributes[row.key] || {};
+        const chips = Object.entries(values).map(([name, value]) => `
+            <span class="inline-flex items-center justify-between gap-2 px-2 py-1 rounded border border-white/10 bg-white/5 text-[11px] text-on-surface-variant">
+                <span class="uppercase">${getMetricLabel(name)}</span>
+                <strong class="text-primary-container">${formatAttributeValue(value)}</strong>
+            </span>
+        `).join('');
+
+        return `
+            <div class="bg-surface-container-lowest border border-white/10 rounded-lg p-md">
+                <div class="font-title-sm text-[13px] text-on-surface uppercase mb-sm">${row.label}</div>
+                <div class="flex flex-wrap gap-xs">${chips}</div>
+            </div>
+        `;
+    }).join('');
+
+    newResultContainer.innerHTML = `
+        <div id="expert-recipe-card" class="flex flex-col gap-md">
+            <div class="border border-primary-container/40 bg-primary-container/5 rounded-lg p-md">
+                <h3 class="font-title-sm text-title-sm text-primary-container uppercase mb-xs">${t('expert.recipe.title')}</h3>
+                <p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">${t('expert.recipe.desc')}</p>
+            </div>
+            ${cards}
+            <div style="display:flex;gap:8px;margin-top:4px;">
+                <button id="btn-copy-json" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.35);border-radius:8px;color:#00f0ff;font-size:12px;font-weight:600;cursor:pointer;transition:background 0.2s;">
+                    📋 Copier JSON
+                </button>
+                <button id="btn-download-json" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.35);border-radius:8px;color:#00f0ff;font-size:12px;font-weight:600;cursor:pointer;transition:background 0.2s;">
+                    💾 Télécharger JSON
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('btn-copy-json')?.addEventListener('click', function () {
+        const json = JSON.stringify(generateJSONData(attributes), null, 2);
+        navigator.clipboard.writeText(json).then(() => {
+            this.textContent = '✅ Copié !';
+            setTimeout(() => { this.innerHTML = '📋 Copier JSON'; }, 2000);
+        }).catch(() => {
+            this.textContent = '❌ Erreur';
+            setTimeout(() => { this.innerHTML = '📋 Copier JSON'; }, 2000);
+        });
+    });
+
+    document.getElementById('btn-download-json')?.addEventListener('click', function () {
+        const json = JSON.stringify(generateJSONData(attributes), null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href     = url;
+        a.download = 'preset_scan.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+}
 
 let newProgressInterval = null;
 
 window.confirmAndAnalyzeNew = async function(imageDataParam) {
     console.log("confirmAndAnalyzeNew TRIGGÉRED !");
-    
+
     let finalDataUrl = (typeof imageDataParam === 'string') ? imageDataParam : null;
-    if (!finalDataUrl && cropper) {
-        const croppedCanvas = cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' });
-        finalDataUrl = croppedCanvas.toDataURL('image/jpeg', 0.95);
+    if (!finalDataUrl) {
+        // Use the original image source (no cropping/resizing) to avoid black bars/zoom artifacts
+        finalDataUrl = inputImageNew?.src || (capturedBase64 ? 'data:image/jpeg;base64,' + capturedBase64 : null);
     }
 
     if (!finalDataUrl) {
@@ -2449,58 +4190,66 @@ window.confirmAndAnalyzeNew = async function(imageDataParam) {
 
     try {
         btnConfirmAnalyzeNew.disabled = true;
-        newScanActions.classList.add('hidden');
-        
-        newScanProgress.classList.remove('hidden');
-        laserLineNew.classList.remove('hidden');
-        laserLineNew.classList.add('animate-pulse');
-        progressPercentNew.innerText = '0%';
-        progressBarFillNew.style.width = '0%';
-        
+        if (newScanActions) newScanActions.classList.add('hidden');
+
+        if (newScanProgress) newScanProgress.classList.remove('hidden');
+        if (laserLineNew) {
+            laserLineNew.classList.remove('hidden');
+            laserLineNew.classList.add('animate-pulse');
+        }
+        if (progressPercentNew) progressPercentNew.innerText = '0%';
+        if (progressBarFillNew) progressBarFillNew.style.width = '0%';
+
         let progress = 0;
         if (newProgressInterval) clearInterval(newProgressInterval);
         newProgressInterval = setInterval(() => {
             progress += Math.floor(Math.random() * 15) + 5;
             if (progress > 90) progress = 90;
-            progressPercentNew.innerText = progress + '%';
-            progressBarFillNew.style.width = progress + '%';
+            if (progressPercentNew) progressPercentNew.innerText = progress + '%';
+            if (progressBarFillNew) progressBarFillNew.style.width = progress + '%';
         }, 300);
 
         capturedBase64 = finalDataUrl.split(',')[1];
-        
+
+        // 🔴 FIX : On détruit le cropper AVANT de modifier l'image
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+        }
+
         inputImageNew.onload = null;
         inputImageNew.src = finalDataUrl;
         inputImageNew.classList.remove('hidden');
+        // Do NOT add any inline width/maxWidth/height styles - let CSS handle display
 
         console.log("Verification de la qualité de la photo...");
         const quality = await checkPhotoQuality(capturedBase64);
-        
+
         if (!quality.ok) {
             console.warn("Quality Check Failed:", quality.reason);
             clearInterval(newProgressInterval);
-            newScanActions.classList.remove('hidden');
-            newScanProgress.classList.add('hidden');
-            laserLineNew.classList.add('hidden');
+            if (newScanActions) newScanActions.classList.remove('hidden');
+            if (newScanProgress) newScanProgress.classList.add('hidden');
+            if (laserLineNew) laserLineNew.classList.add('hidden');
             btnConfirmAnalyzeNew.disabled = false;
-            
+
             if (quality.reason === 'no_face') alert(t('qa.noface') || 'Aucun visage détecté. Réessaie.');
             else if (quality.reason === 'too_blurry') alert(t('qa.blur') || 'Photo trop floue. Prends une photo plus nette.');
             else if (quality.reason === 'bad_lighting') alert(t('qa.light') || 'Éclairage insuffisant. Trouve un endroit plus lumineux.');
             else if (quality.reason === 'bad_angle') alert(t('qa.angle') || 'Tiens ta tête droite face à la caméra.');
             else alert("Erreur de qualité d'image.");
-            return; 
+            return;
         }
 
         console.log("Qualité OK. Lancement de l'analyse MediaPipe...");
-        
+
         await new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = async () => {
                 try {
-                    if (cropper) { cropper.destroy(); cropper = null; }
                     outputCanvas.width = img.naturalWidth;
                     outputCanvas.height = img.naturalHeight;
-                    
+
                     await faceMesh.send({ image: img });
                     resolve();
                 } catch (err) {
@@ -2515,11 +4264,12 @@ window.confirmAndAnalyzeNew = async function(imageDataParam) {
         console.error("Erreur critique dans confirmAndAnalyzeNew :", e);
         alert(e.message || "Erreur lors de l'analyse de l'image.");
         if (newProgressInterval) clearInterval(newProgressInterval);
-        newScanActions.classList.remove('hidden');
-        newScanProgress.classList.add('hidden');
-        laserLineNew.classList.add('hidden');
+        if (newScanActions) newScanActions.classList.remove('hidden');
+        if (newScanProgress) newScanProgress.classList.add('hidden');
+        if (laserLineNew) laserLineNew.classList.add('hidden');
         btnConfirmAnalyzeNew.disabled = false;
     }
+    applyPremiumUnlockUI();
 }
 
 // Intercept onResults to finish the progress bar
@@ -2625,15 +4375,18 @@ window.renderAdvancedShaping = function(result) {
     
     // 1. Colonne de Gauche (Image du Preset)
     if (inputImageNew) {
-        inputImageNew.src = `./assets/presets/${result.preset.id}.png`;
-        // Task 2: Restore full colors
+        inputImageNew.src = `app/assets/presets/${result.preset.id}.png`;
         inputImageNew.classList.remove('hidden', 'mix-blend-luminosity', 'opacity-70', 'grayscale');
+
+        
     }
     
-    // Task 3: Masquer le Guide Visuel (Ovale & Angles)
+    // Task 3: Masquer le Guide Visuel (Ovale) but keep scan corners visible for framing
     var faceGuide = document.getElementById('face-guide-overlay');
-    if (faceGuide) faceGuide.classList.add('hidden');
-    document.querySelectorAll('.scan-corners').forEach(c => c.classList.add('hidden'));
+    if (faceGuide) { faceGuide.classList.add('hidden'); faceGuide.style.display = 'none'; }
+    // Hide any textual hints but preserve the corners
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.add('hidden'); h.style.display = 'none'; });
+    document.querySelectorAll('.scan-corners').forEach(c => c.classList.remove('hidden'));
     
     // Modifie le texte 'SCANNING' (ou SCAN ANALYSIS) en 'MODÈLE DE BASE'
     const scanLabel = document.querySelector('#new-scan-modal .font-label-caps.text-primary-container');
@@ -2725,6 +4478,7 @@ window.renderAdvancedShaping = function(result) {
     `;
     
     container.innerHTML = mixHtml;
+    applyPremiumUnlockUI();
 
     // Attache l'événement au bouton pour basculer vers l'Accordéon
     document.getElementById('btn-show-advanced').addEventListener('click', () => {
@@ -2929,11 +4683,11 @@ function generateAdvancedAccordion(result, zoneMix, mainPresetObj, container) {
 
     let idCardHtml = `
         <div class="border-t border-primary-container/20 bg-surface-container/90 p-md shrink-0 z-10 shadow-[0_-10px_20px_rgba(0,0,0,0.5)]">
-            <div class="relative bg-[#08080A] border border-primary-container p-sm md:p-md rounded-lg mb-md overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMC41IiBmaWxsPSIjMDBmMGZmIiBmaWxsLW9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4=')] before:opacity-20 before:pointer-events-none" id="technical-id-card">
+            <div class="relative bg-[#08080A] border border-primary-container p-sm md:p-md rounded-lg mb-md overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMC41IiBmaWxsPSIjMDBmMGZmIiBmaWxsLW9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4=')] before:opacity-20 before:pointer-events-none" id="result-card">
                 <div class="absolute top-0 right-0 bg-primary-container text-black font-label-caps text-[8px] px-2 py-0.5 rounded-bl-md font-bold z-20">CONFIDENTIAL // VERIFIED</div>
                 <div class="flex gap-md items-start relative z-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 rounded border border-primary-container/50 overflow-hidden shrink-0 bg-black">
-                        <img alt="ID Card Avatar" class="w-full h-full object-cover grayscale contrast-125 mix-blend-lighten" src="./assets/presets/${result.preset.id}.png">
+                        <img alt="ID Card Avatar" class="w-full h-full object-cover grayscale contrast-125 mix-blend-lighten" src="app/assets/presets/${result.preset.id}.png">
                     </div>
                     <div class="flex-1 min-w-0">
                         <h4 class="font-display-lg text-[14px] md:text-[16px] text-white tracking-tight leading-none mb-1 shadow-primary-container drop-shadow-md truncate">FC26 RECIPE CARD</h4>
@@ -2952,10 +4706,10 @@ function generateAdvancedAccordion(result, zoneMix, mainPresetObj, container) {
                 <button class="flex-1 w-full py-3 md:py-2 bg-primary-container/10 border border-primary-container text-primary-container font-label-caps text-[11px] hover:bg-primary-container hover:text-black transition-colors rounded flex items-center justify-center gap-xs shadow-[0_0_10px_rgba(0,240,255,0.2)]">
                     <span class="material-symbols-outlined text-[16px]">content_copy</span> COPY RECIPE
                 </button>
-                <button class="flex-1 w-full py-3 md:py-2 bg-transparent border border-primary-container text-primary-container font-label-caps text-[11px] hover:bg-primary-container hover:text-black transition-colors rounded flex items-center justify-center gap-xs shadow-[0_0_10px_rgba(0,240,255,0.2)]" onclick="window.shareResults(${result.preset.id})">
+                <button class="flex-1 w-full py-3 md:py-2 bg-transparent border border-primary-container text-primary-container font-label-caps text-[11px] hover:bg-primary-container hover:text-black transition-colors rounded flex items-center justify-center gap-xs shadow-[0_0_10px_rgba(0,240,255,0.2)]" onclick="window.shareResults(${result.preset.id}, this)">
                     <span class="material-symbols-outlined text-[16px]">share</span> SHARE
                 </button>
-                <button class="flex-1 w-full py-3 md:py-2 bg-primary-container text-black font-label-caps text-[11px] hover:scale-[1.02] transition-transform rounded flex items-center justify-center gap-xs shadow-[0_0_15px_rgba(0,240,255,0.4)] font-bold" onclick="window.downloadIDCard()">
+                <button class="flex-1 w-full py-3 md:py-2 bg-primary-container text-black font-label-caps text-[11px] hover:scale-[1.02] transition-transform rounded flex items-center justify-center gap-xs shadow-[0_0_15px_rgba(0,240,255,0.4)] font-bold" onclick="window.downloadResult()">
                     <span class="material-symbols-outlined text-[16px]">download</span> DOWNLOAD ID CARD
                 </button>
             </div>
@@ -2974,6 +4728,7 @@ function generateAdvancedAccordion(result, zoneMix, mainPresetObj, container) {
     `;
 
     container.innerHTML = tabsHtml + contentHtml + idCardHtml;
+    applyPremiumUnlockUI();
     console.log("Rendu Façonnage Avancé généré (Nouveau Design)");
 }
 
@@ -3006,12 +4761,18 @@ window.switchAdvTab = function(tabId) {
 
 
 
-// Global function to download ID card using html2canvas
-window.downloadIDCard = async function() {
-    const card = document.getElementById('technical-id-card');
+// Global function to download the result card using html2canvas
+window.downloadResult = async function() {
+  const card = document.getElementById('result-card');
     if (!card) return;
+    if (typeof html2canvas !== 'function') {
+        console.error("html2canvas n'est pas chargé.");
+        alert("Le module de téléchargement n'est pas encore disponible. Réessaie dans quelques secondes.");
+        return;
+    }
     
     try {
+    await new Promise(resolve => setTimeout(resolve, 500));
         const canvas = await html2canvas(card, {
             backgroundColor: '#08080A',
             scale: 2, // High resolution
@@ -3021,26 +4782,34 @@ window.downloadIDCard = async function() {
         
         const dataUrl = canvas.toDataURL('image/png');
         const link = document.createElement('a');
-        link.download = 'ScanMyFace_ID_Card.png';
+    link.download = 'ScanMyFace-Result.png';
         link.href = dataUrl;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     } catch (err) {
-        console.error("Erreur lors de la capture de la carte ID:", err);
+    console.error("Erreur lors de la capture de la carte de résultats:", err);
         alert("Une erreur est survenue lors du téléchargement.");
     }
 };
 
+window.downloadIDCard = window.downloadResult;
+
 // Global function to share results (Image generation)
-window.shareResults = async function(presetId) {
-    const card = document.getElementById('technical-id-card');
+window.shareResults = async function(presetId, shareBtn) {
+  const card = document.getElementById('result-card');
     if (!card) return;
+    if (typeof html2canvas !== 'function') {
+        console.error("html2canvas n'est pas chargé.");
+        alert("Le module de partage n'est pas encore disponible. Réessaie dans quelques secondes.");
+        return;
+    }
     
     // Feedback UI
-    const shareBtn = event.currentTarget;
-    const originalText = shareBtn.innerHTML;
-    shareBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span> GENERATING...';
+    const originalText = shareBtn ? shareBtn.innerHTML : '';
+    if (shareBtn) {
+        shareBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span> GENERATING...';
+    }
     
     try {
         const canvas = await html2canvas(card, {
@@ -3072,11 +4841,11 @@ window.shareResults = async function(presetId) {
                 URL.revokeObjectURL(dataUrl);
                 alert('Partage natif non supporté. Image téléchargée !');
             }
-            shareBtn.innerHTML = originalText;
+            if (shareBtn) shareBtn.innerHTML = originalText;
         }, 'image/png');
     } catch (err) {
         console.error('Erreur lors du partage:', err);
-        shareBtn.innerHTML = originalText;
+        if (shareBtn) shareBtn.innerHTML = originalText;
         alert("Une erreur est survenue lors de la préparation de l'image.");
     }
 };
