@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 
 const STRIPE_PRICES = {
   'pass24h': 'price_1TX8fI0F5tPT2CvowRDs8Esr',

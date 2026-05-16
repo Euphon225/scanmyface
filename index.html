@@ -1652,7 +1652,7 @@ footer { padding: 48px 24px 32px; }
     }
 
     // POST to your backend API which creates the Stripe Checkout session
-    fetch('/api/create-checkout', {
+    fetch('https://scanmyface-site-hdbheranbyd8htc5.germanywestcentral-01.azurewebsites.net/api/create-checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ priceId })
