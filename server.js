@@ -350,7 +350,32 @@ app.post('/api/matchFace', async (req, res) => {
   }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Initialize MongoDB and start server
+async function startServer() {
+  try {
+    const client = await getMongoClient();
+    const dbName = process.env.MONGODB_DB || 'scanmyface';
+    const collName = process.env.MONGODB_COLLECTION || 'presets';
+
+    // Verify connection and collection exist
+    const db = client.db(dbName);
+    const collections = await db.listCollections().toArray();
+    const collectionExists = collections.some(c => c.name === collName);
+
+    if (!collectionExists) {
+      console.warn(`Collection '${collName}' not found in database '${dbName}'. Creating it...`);
+    } else {
+      const count = await db.collection(collName).countDocuments();
+      console.log(`✓ MongoDB connected: Found ${count} presets in '${collName}'`);
+    }
+
+    app.listen(PORT, () => {
+      console.log(`✓ Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('✗ Failed to start server:', error?.message || error);
+    process.exit(1);
+  }
+}
+
+startServer();
