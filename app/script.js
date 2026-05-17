@@ -2084,7 +2084,7 @@ function renderResults() {
                 <p style="margin:5px 0;">${t('step1.title')}</p>
                 <h3 style="margin:5px 0; font-size:1.5rem;">➡️ ${result.preset.label}</h3>
                 <p style="margin:0; font-size:0.9rem; opacity:0.8;">Preset ID : ${result.preset.id}</p>
-                <img src="app/assets/presets/${result.preset.id}.png" class="preset-preview-img" alt="Visage recommandé" onerror="this.style.display='none'">
+                <img src="assets/presets/${result.preset.id}.png" class="preset-preview-img" alt="Visage recommandé" onerror="this.style.display='none'">
             </div>
         </div>
     `;
@@ -2506,39 +2506,86 @@ window.globalReset = function() {
     if (newScanModal) newScanModal.classList.add('hidden');
     closeUploadModeModal();
     clearManualMesh();
+    
+    // --- RESET DES ÉTATS ---
     state.autoLiveActive = false;
     state.autoProcessing = false;
     state.scanMode = 'auto';
     state.pendingUploadDataUrl = null;
     state.expertImageDataUrl = null;
+    state.pendingAnalysis = null; // Important pour vider la mémoire
+    capturedBase64 = null; // Important pour le flux d'analyse
+    
+    // --- RESET DE LA CAMÉRA ---
     if (window.localStream) {
         window.localStream.getTracks().forEach(track => track.stop());
         window.localStream = null;
     }
+    
+    // --- RESET DES INTERFACES VISUELLES ---
     if (cropper) { cropper.destroy(); cropper = null; }
-    if(canvasCtx) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+    if (canvasCtx && outputCanvas) canvasCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
     if (newResultContainer) newResultContainer.innerHTML = '';
     if (newScanProgress) newScanProgress.classList.add('hidden');
+    if (laserLineNew) laserLineNew.classList.add('hidden');
+    
+    // --- RESET DES BOUTONS DE L'AUTO-REVIEW ---
+    const autoReviewContainer = document.getElementById('auto-review-buttons');
+    if (autoReviewContainer) autoReviewContainer.style.display = 'none';
+    const btnAutoConfirm = document.getElementById('btn-auto-confirm');
+    const btnAutoRetake = document.getElementById('btn-auto-retake');
+    if (btnAutoConfirm) { btnAutoConfirm.classList.add('hidden'); btnAutoConfirm.style.display = 'none'; }
+    if (btnAutoRetake) { btnAutoRetake.classList.add('hidden'); btnAutoRetake.style.display = 'none'; }
+
+    // --- RESET DU GUIDE VISAGE ---
     var faceGuide = document.getElementById('face-guide-overlay');
     if (faceGuide) { faceGuide.classList.remove('hidden'); faceGuide.style.display = ''; }
     document.querySelectorAll('.scan-corners').forEach(c => { c.classList.remove('hidden'); c.style.display = ''; });
+    document.querySelectorAll('.face-guide-hint').forEach(h => { h.classList.remove('hidden'); h.style.display = ''; });
 
-    // Restore hint text for standard mode
     const hintEl = document.querySelector('.face-guide-hint');
-    if (hintEl) {
-        hintEl.innerText = 'Place ton visage dans l\'ovale';
-    }
+    if (hintEl) hintEl.innerText = 'Place ton visage dans l\'ovale';
+
+    // --- RESET DE L'IMAGE AFFICHÉE ---
     if (inputImageNew) {
+        inputImageNew.classList.add('hidden'); // On la cache
+        inputImageNew.src = ''; // On la vide
         inputImageNew.classList.add('mix-blend-luminosity', 'opacity-70');
+        inputImageNew.style.display = 'none';
     }
-    if (laserLineNew) laserLineNew.classList.add('hidden');
+    
+    if (inputVideoNew) {
+        inputVideoNew.classList.add('hidden');
+        inputVideoNew.style.display = 'none';
+    }
+
+    // --- RESET DE LA PROGRESSION ---
     if (newProgressInterval) clearInterval(newProgressInterval);
     if (progressPercentNew) progressPercentNew.innerText = '0%';
     if (progressBarFillNew) progressBarFillNew.style.width = '0%';
-    if (btnConfirmAnalyzeNew) btnConfirmAnalyzeNew.disabled = false;
-    if (newScanActions) newScanActions.classList.remove('hidden');
     
-    // Hide advanced container if it exists
+    // --- RESET DU BOUTON PRINCIPAL ---
+    if (btnConfirmAnalyzeNew) {
+        btnConfirmAnalyzeNew.disabled = false;
+        btnConfirmAnalyzeNew.classList.remove('hidden');
+        btnConfirmAnalyzeNew.style.display = '';
+        btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">camera</span> PRENDRE LA PHOTO`;
+    }
+    if (newScanActions)     // --- RESET DU BOUTON PRINCIPAL ET DE LA BARRE D'ACTION ---
+    if (newScanActions) {
+        // CORRECTION : On s'assure que la boîte principale des boutons reste toujours visible
+        newScanActions.classList.remove('hidden'); 
+        newScanActions.style.display = '';
+    }
+    
+    if (btnConfirmAnalyzeNew) {
+        // On remet le bouton bleu "PRENDRE LA PHOTO" à son état d'origine
+        btnConfirmAnalyzeNew.disabled = false;
+        btnConfirmAnalyzeNew.classList.remove('hidden');
+        btnConfirmAnalyzeNew.style.display = '';
+        btnConfirmAnalyzeNew.innerHTML = `<span class="material-symbols-outlined text-[16px]">camera</span> PRENDRE LA PHOTO`;
+    }
+    
     const adv = document.getElementById('new-advanced-container');
     if (adv) adv.classList.add('hidden');
 };
@@ -2776,10 +2823,21 @@ function showAutoReviewButtons(dataUrl) {
         if (modalContent) {
             modalContent.appendChild(reviewContainer);
         }
-    } else {
-        // Update onclick handlers with new dataUrl
+        } else {
+        // Update onclick handlers with new dataUrl et force l'affichage
         const confirmBtn = document.getElementById('btn-auto-confirm');
-        if (confirmBtn) confirmBtn.onclick = () => window.confirmAndAnalyzeNew(dataUrl);
+        if (confirmBtn) {
+            confirmBtn.onclick = () => window.confirmAndAnalyzeNew(dataUrl);
+            confirmBtn.classList.remove('hidden');
+            confirmBtn.style.display = 'flex';
+        }
+        
+        const retakeBtn = document.getElementById('btn-auto-retake');
+        if (retakeBtn) {
+            retakeBtn.classList.remove('hidden');
+            retakeBtn.style.display = 'flex';
+        }
+        
         reviewContainer.style.display = 'flex';
     }
 }
@@ -3682,7 +3740,7 @@ function openHelpMeshModal() {
         const img = document.getElementById('guide-reference-img');
         // Ensure image has a sane path
         if (img && (!img.src || img.src.indexOf('REPERE.PNG') === -1)) {
-            img.src = 'app/REPERE.PNG';
+            img.src = 'REPERE.PNG';
         }
         if (canvas && img) {
             // Wait for image to load before drawing
@@ -4016,14 +4074,32 @@ function validateManualMeshAndAnalyze() {
     // Add custom metrics (mouth area ratio and nostrils size ratio) based on calibration indices
     state.expertMeshAttributes = augmentAttributesWithCustomMetrics(state.manualMeshPoints, state.expertMeshAttributes);
     state.draggingExpertPoint = null;
-    if (expertMeshCanvas) expertMeshCanvas.style.pointerEvents = 'none';
+        if (expertMeshCanvas) expertMeshCanvas.style.pointerEvents = 'none';
     if (expertMeshMagnifier) expertMeshMagnifier.classList.add('hidden');
-    // Ensure the main confirm button remains visible after validation
-    if (newScanActions) newScanActions.classList.remove('hidden');
+    
+    // --- ON CACHE TOTALEMENT LE BOUTON ET LA BARRE ---
+    if (newScanActions) {
+        newScanActions.classList.add('hidden');
+        newScanActions.style.display = 'none';
+    }
     if (btnConfirmAnalyzeNew) {
-        btnConfirmAnalyzeNew.classList.remove('hidden');
-        btnConfirmAnalyzeNew.style.display = '';
-        btnConfirmAnalyzeNew.style.zIndex = '9999';
+        btnConfirmAnalyzeNew.classList.add('hidden');
+        btnConfirmAnalyzeNew.style.display = 'none';
+    }
+
+    // --- ON LANCE L'ANIMATION DE CHARGEMENT ---
+    if (newScanProgress) newScanProgress.classList.remove('hidden');
+    if (laserLineNew) {
+        laserLineNew.classList.remove('hidden');
+        laserLineNew.classList.add('animate-pulse');
+    }
+    if (progressPercentNew) progressPercentNew.innerText = '0%';
+    if (progressBarFillNew) progressBarFillNew.style.width = '0%';
+
+    // On cache le bouton "?" d'aide du mode expert
+    if (btnMeshHelp) {
+        btnMeshHelp.classList.add('hidden');
+        btnMeshHelp.style.display = 'none';
     }
 
     // ─── PRODUCTION MODE: Connect to new matching engine (Top 3 selection) ────────
@@ -4336,6 +4412,12 @@ window.showPresetChoiceScreen = function(top3) {
         
         if(newResultContainer) newResultContainer.insertAdjacentHTML('beforeend', cardHtml);
     });
+        // Auto-scroll sur mobile pour que l'utilisateur voie les résultats
+    setTimeout(() => {
+        if (window.innerWidth <= 768 && newResultContainer) {
+            newResultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 150);
 };
 
 window.selectPresetNew = function(event, presetId) {
@@ -4375,8 +4457,18 @@ window.renderAdvancedShaping = function(result) {
     
     // 1. Colonne de Gauche (Image du Preset)
     if (inputImageNew) {
-        inputImageNew.src = `app/assets/presets/${result.preset.id}.png`;
+        inputImageNew.src = getPresetImageSrc(result.preset);
         inputImageNew.classList.remove('hidden', 'mix-blend-luminosity', 'opacity-70', 'grayscale');
+        inputImageNew.style.display = 'block'; 
+        inputImageNew.style.opacity = '1';
+            // CORRECTION : Masquer le canvas du maillage expert
+    const expertCanvas = document.getElementById('expert-mesh-canvas');
+    if (expertCanvas) {
+        expertCanvas.classList.add('hidden');
+    }
+    
+    // Task 3: Masquer le Guide Visuel (Ovale) but keep scan corners visible for framing
+    var faceGuide = document.getElementById('face-guide-overlay');
 
         
     }
@@ -4687,7 +4779,7 @@ function generateAdvancedAccordion(result, zoneMix, mainPresetObj, container) {
                 <div class="absolute top-0 right-0 bg-primary-container text-black font-label-caps text-[8px] px-2 py-0.5 rounded-bl-md font-bold z-20">CONFIDENTIAL // VERIFIED</div>
                 <div class="flex gap-md items-start relative z-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 rounded border border-primary-container/50 overflow-hidden shrink-0 bg-black">
-                        <img alt="ID Card Avatar" class="w-full h-full object-cover grayscale contrast-125 mix-blend-lighten" src="app/assets/presets/${result.preset.id}.png">
+                        <img alt="ID Card Avatar" class="w-full h-full object-cover grayscale contrast-125 mix-blend-lighten" src="assets/presets/${result.preset.id}.png">
                     </div>
                     <div class="flex-1 min-w-0">
                         <h4 class="font-display-lg text-[14px] md:text-[16px] text-white tracking-tight leading-none mb-1 shadow-primary-container drop-shadow-md truncate">FC26 RECIPE CARD</h4>

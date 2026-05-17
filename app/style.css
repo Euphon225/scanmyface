@@ -1178,6 +1178,8 @@ header h2 {
         width: 100% !important;
         flex: 1 1 auto !important;
         overflow: visible !important;
+        height: auto !important; /* FIX AJOUTÉ : Empêche la colonne de se limiter à 100% */
+}
     }
 
     /* Keep the scan visual centered */
@@ -1295,15 +1297,20 @@ header h2 {
     }
 
     #new-scan-modal #new-result-container {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        width: 100% !important;
-        max-width: none !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        overflow-x: hidden !important;
-    }
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    overflow-y: visible !important;
+    flex: none !important; 
+    /* LE NOUVEAU FIX : Pousse le contenu au-dessus de la barre fixe */
+    padding-bottom: 180px !important; 
+}
 }
