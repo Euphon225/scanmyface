@@ -401,6 +401,7 @@ async function initMP() {
       baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task',delegate:'GPU'},
       outputFaceBlendshapes:false,runningMode:'IMAGE',numFaces:1
     });
+    document.dispatchEvent(new Event('mp-landmarker-ready'));
     console.log('✅ MediaPipe prêt');
   }catch(e){console.error('MP init:',e);if(window.Sentry)Sentry.captureException(e);}
 }
@@ -614,13 +615,18 @@ async function runAnalysis(dataUrl){
   if(chipMode)chipMode.textContent=t('analyzing');
   if(btnCapture)btnCapture.hidden=true;
 
-  // Vérifier que MediaPipe est prêt
+  // Attendre MediaPipe si pas encore prêt (race condition fix)
   console.log('[runAnalysis] S.faceLandmarker:', !!S.faceLandmarker);
+  if(!S.faceLandmarker){
+    console.log('[runAnalysis] waiting for mp-landmarker-ready…');
+    await new Promise(resolve=>document.addEventListener('mp-landmarker-ready',resolve,{once:true}));
+    console.log('[runAnalysis] mp-landmarker-ready received');
+  }
   if(!S.faceLandmarker){
     if(laser)laser.hidden=true;
     if(btnLaunch){btnLaunch.disabled=false;btnLaunch.style.opacity='1';btnLaunch.textContent=t('btn_launch');}
     toast(t('mediapipe_wait'));
-    console.log('[runAnalysis] EXIT: faceLandmarker not ready');
+    console.log('[runAnalysis] EXIT: faceLandmarker still null after wait');
     return;
   }
 
@@ -631,16 +637,19 @@ async function runAnalysis(dataUrl){
   S.imgNaturalH=img.naturalHeight||img.height;
   console.log('[runAnalysis] image loaded:', img.naturalWidth, 'x', img.naturalHeight);
 
-  // Quality gate Azure (fallback permissif si hors ligne)
+  // Quality gate Azure — no_face non-bloquant (MediaPipe reste le juge final)
   const q=await checkQuality(dataUrl);
   console.log('[runAnalysis] checkQuality result:', JSON.stringify(q));
   if(!q.ok){
-    if(laser)laser.hidden=true;
-    if(btnLaunch){btnLaunch.disabled=false;btnLaunch.style.opacity='1';btnLaunch.textContent=t('btn_launch');}
     const r=q.reason;
-    toast(r==='no_face'?t('no_face'):r==='too_blurry'?t('too_blurry'):r==='bad_angle'?t('bad_angle'):r==='bad_light'?t('bad_light'):t('no_face'));
-    console.log('[runAnalysis] EXIT: checkQuality failed, reason:', r);
-    return;
+    if(r==='too_blurry'||r==='bad_angle'||r==='bad_light'){
+      if(laser)laser.hidden=true;
+      if(btnLaunch){btnLaunch.disabled=false;btnLaunch.style.opacity='1';btnLaunch.textContent=t('btn_launch');}
+      toast(r==='too_blurry'?t('too_blurry'):r==='bad_angle'?t('bad_angle'):t('bad_light'));
+      console.log('[runAnalysis] EXIT: checkQuality hard-fail, reason:', r);
+      return;
+    }
+    console.warn('[runAnalysis] Azure no_face — continuing with MediaPipe anyway');
   }
 
   const t0=performance.now();
