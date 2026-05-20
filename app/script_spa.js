@@ -623,7 +623,7 @@ async function runAnalysis(dataUrl){
   S.imgNaturalH=img.naturalHeight||img.height;
 
   // Quality gate Azure (fallback permissif si hors ligne)
-  const q=await checkQuality(dataUrl.split(',')[1]);
+  const q=await checkQuality(dataUrl);
   if(!q.ok){
     if(laser)laser.hidden=true;
     if(btnLaunch){btnLaunch.disabled=false;btnLaunch.style.opacity='1';btnLaunch.textContent=t('btn_launch');}
