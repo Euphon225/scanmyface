@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fc26-cranium-v55';
+const CACHE_NAME = 'fc26-cranium-v56';
 const ASSETS = [
   './',
   './app_index_v2.html',

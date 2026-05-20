@@ -433,10 +433,27 @@ function detectITA(img,lm){
   return Math.atan((avgL-50)/Math.max(0.001,avgB))*(180/Math.PI);
 }
 
+// ─── IMAGE RESIZE BEFORE AZURE (avoid 413 Payload Too Large) ─────────
+async function shrinkForAzure(dataUrl, maxSide=512, quality=0.75) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.round(img.width * scale);
+      cv.height = Math.round(img.height * scale);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      resolve(cv.toDataURL('image/jpeg', quality));
+    };
+    img.src = dataUrl;
+  });
+}
+
 // ─── AZURE QUALITY GATE ───────────────────────────────────────────────
 async function checkQuality(b64){
   try{
-    const r=await fetch(`${SMF.AZURE}/api/matchFace`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:b64,qualityCheckOnly:true})});
+    const small=await shrinkForAzure(b64);
+    const r=await fetch(`${SMF.AZURE}/api/matchFace`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:small,qualityCheckOnly:true})});
     if(!r.ok)return{ok:true};return await r.json();
   }catch(e){return{ok:true};}
 }
