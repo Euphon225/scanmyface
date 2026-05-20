@@ -405,6 +405,7 @@ async function initMP() {
   }catch(e){console.error('MP init:',e);if(window.Sentry)Sentry.captureException(e);}
 }
 async function runMP(img) {
+  console.log('[runMP] reçu dataUrl:', typeof img, img?.src?.substring(0, 80));
   if(!S.faceLandmarker)return null;
   try{const r=S.faceLandmarker.detect(img);return r.faceLandmarks?.[0]??null;}
   catch(e){if(window.Sentry)Sentry.captureException(e);return null;}
@@ -499,6 +500,7 @@ function captureWebcam(){
   document.getElementById('btn-retry-crop').hidden=false;
   const btnL=document.getElementById('btn-launch');
   if(btnL){btnL.style.display='flex';btnL.disabled=true;btnL.style.opacity='0.5';}
+  console.log('[camera] dataUrl:', typeof dataUrl, dataUrl?.substring(0, 80));
   runAnalysis(dataUrl);
 }
 
@@ -554,6 +556,7 @@ function confirmViewportCrop(){
   const btnL=document.getElementById('btn-launch');
   if(btnL){btnL.style.display='flex';btnL.disabled=true;btnL.style.opacity='0.5';}
   showPhoto(url);
+  console.log('[confirmCrop] dataUrl:', typeof url, url?.substring(0, 80));
   runAnalysis(url);
 }
 function retryCropViewport(){
