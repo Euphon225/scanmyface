@@ -405,7 +405,8 @@ async function initMP() {
   }catch(e){console.error('MP init:',e);if(window.Sentry)Sentry.captureException(e);}
 }
 async function runMP(img) {
-  console.log('[runMP] reçu dataUrl:', typeof img, img?.src?.substring(0, 80));
+  console.log('[runMP] START');
+  console.log('[runMP] reçu img.src:', typeof img, img?.src?.substring(0, 80));
   if(!S.faceLandmarker)return null;
   try{const r=S.faceLandmarker.detect(img);return r.faceLandmarks?.[0]??null;}
   catch(e){if(window.Sentry)Sentry.captureException(e);return null;}
@@ -557,6 +558,7 @@ function confirmViewportCrop(){
   if(btnL){btnL.style.display='flex';btnL.disabled=true;btnL.style.opacity='0.5';}
   showPhoto(url);
   console.log('[confirmCrop] dataUrl:', typeof url, url?.substring(0, 80));
+  console.log('[confirmCrop] showPhoto done, calling runAnalysis');
   runAnalysis(url);
 }
 function retryCropViewport(){
@@ -598,6 +600,7 @@ function showPhoto(url){
 
 // ─── ANALYSIS PIPELINE ────────────────────────────────────────────────
 async function runAnalysis(dataUrl){
+  console.log('[runAnalysis] START dataUrl:', typeof dataUrl, dataUrl?.substring(0,50));
   const laser=document.getElementById('scanlaser');
   const meshEl=document.getElementById('mesh');
   const metricsEl=document.getElementById('metrics');
@@ -612,10 +615,12 @@ async function runAnalysis(dataUrl){
   if(btnCapture)btnCapture.hidden=true;
 
   // Vérifier que MediaPipe est prêt
+  console.log('[runAnalysis] S.faceLandmarker:', !!S.faceLandmarker);
   if(!S.faceLandmarker){
     if(laser)laser.hidden=true;
     if(btnLaunch){btnLaunch.disabled=false;btnLaunch.style.opacity='1';btnLaunch.textContent=t('btn_launch');}
     toast(t('mediapipe_wait'));
+    console.log('[runAnalysis] EXIT: faceLandmarker not ready');
     return;
   }
 
@@ -624,14 +629,17 @@ async function runAnalysis(dataUrl){
   await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src=dataUrl;});
   S.imgNaturalW=img.naturalWidth||img.width;
   S.imgNaturalH=img.naturalHeight||img.height;
+  console.log('[runAnalysis] image loaded:', img.naturalWidth, 'x', img.naturalHeight);
 
   // Quality gate Azure (fallback permissif si hors ligne)
   const q=await checkQuality(dataUrl);
+  console.log('[runAnalysis] checkQuality result:', JSON.stringify(q));
   if(!q.ok){
     if(laser)laser.hidden=true;
     if(btnLaunch){btnLaunch.disabled=false;btnLaunch.style.opacity='1';btnLaunch.textContent=t('btn_launch');}
     const r=q.reason;
     toast(r==='no_face'?t('no_face'):r==='too_blurry'?t('too_blurry'):r==='bad_angle'?t('bad_angle'):r==='bad_light'?t('bad_light'):t('no_face'));
+    console.log('[runAnalysis] EXIT: checkQuality failed, reason:', r);
     return;
   }
 
