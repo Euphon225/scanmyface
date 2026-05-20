@@ -14,6 +14,7 @@
   "btn.expert.start": "START MESHING",
   "btn.upload.text": "Or upload a photo from your device",
   "btn.capture.still": "CAPTURE",
+  "mode.expert.capture.hint": "Frame your face and take a sharp photo to start meshing.",
   "btn.mesh.validate": "VALIDATE MESH",
   "mode.auto.kicker": "Standard",
   "mode.auto.title": "Quick Scan",

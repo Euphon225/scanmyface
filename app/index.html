@@ -1,365 +1,1012 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FC26 Cranium Analyzer</title>
-    <link rel="icon" type="image/png" href="assets/favicon.png?v=3">
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@400;700;900&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/favicon.png">
+  <title>ScanMyFace · FC26 SPA</title>
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!--
+    [HOOK] Existing dependencies stay as-is in production:
+    - MediaPipe FaceMesh
+    - Cropper.js
+    - PRESETS_DB_v3.js
+    - script.js  (Face API, ITA, matching, computeZoneMix, computeAdjustments — NOT modified)
+  -->
 
-    <!-- MediaPipe Face Mesh Dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
-    <!-- 100% privacy-first analytics -->
-<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  <!-- Sentry -->
+  <script src="https://browser.sentry-cdn.com/7.112.2/bundle.min.js" crossorigin="anonymous"></script>
+  <script>
+    Sentry.init({
+      dsn: "https://ddf19fe120e9c4fbe597112db630f8e1@o4511200540360704.ingest.de.sentry.io/4511323906441296",
+      sendDefaultPii: false
+    });
+  </script>
+  <!-- SimpleAnalytics -->
+  <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  <!-- MediaPipe Tasks Vision — expose globalement -->
+  <script type="module">
+    import { FaceLandmarker, FilesetResolver }
+      from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.12/vision_bundle.mjs';
+    window._FaceLandmarker = FaceLandmarker;
+    window._FilesetResolver = FilesetResolver;
+    document.dispatchEvent(new Event('mp-ready'));
+  </script>
+  <!-- Cropper.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
-
-    <!-- Tailwind & Material Symbols for New Modal UI -->
-    <script>
-        // Suppress Tailwind CDN production warning
-        const originalWarn = console.warn;
-        console.warn = (...args) => {
-            if (typeof args[0] === 'string' && args[0].includes('Tailwind CSS is being used via CDN')) return;
-            originalWarn.apply(console, args);
-        };
-    </script>
-    <script src="https://cdn.tailwindcss.com/3.4.1?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                "on-surface": "#e5e1e4", "primary-container": "#00f0ff", "surface-container-lowest": "#0e0e10",
-                "on-surface-variant": "#b9cacb", "tertiary-container": "#fed639", "surface-container-low": "#1c1b1d"
-              },
-              "fontFamily": { "title-sm": ["Lexend"], "label-caps": ["Inter"], "display-lg": ["Lexend"], "headline-md": ["Lexend"], "body-md": ["Inter"] }
-            }
-          }
-        }
-    </script>
+  <style>
+    /* ── Desktop : cadre téléphone centré ── */
+    @media (min-width: 600px) {
+      html {
+        height: 100%;
+        background: #020308;
+        overflow: hidden;
+      }
+      body {
+        height: 100vh;
+        background: #020308;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .app {
+        width: 390px !important;
+        height: 844px !important;
+        border-radius: 40px !important;
+        overflow: hidden;
+        box-shadow: 0 0 0 1px rgba(0,240,255,0.08), 0 0 100px rgba(0,0,0,0.9);
+        position: relative;
+      }
+    }
+    /* ── Mobile : plein écran ── */
+    @media (max-width: 599px) {
+      .app { width: 100% !important; height: 100dvh !important; }
+    }
+    /* ── Viewport image ── */
+    #spa-photo {
+      object-fit: cover !important;
+    }
+    /* ── Mesh canvas ── */
+    #mesh { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+    #mesh canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    /* ── Slider section labels ── */
+    .slider-section-lbl {
+      font-size: 9px; letter-spacing: 0.16em; font-weight: 700;
+      padding: 6px 0 4px; margin-top: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .slider-section-lbl:first-child { margin-top: 0; }
+    .slider-section-lbl::after {
+      content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.15;
+    }
+    /* ── Preset 9 reference card ── */
+    .preset9-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; margin: 0 0 4px;
+      background: rgba(0,240,255,0.05);
+      border: 1px solid rgba(0,240,255,0.18);
+      border-radius: 10px; font-size: 11px;
+    }
+    .preset9-card img {
+      width: 48px; height: 60px; object-fit: cover;
+      border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;
+    }
+    .preset9-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 3px; }
+    .preset9-steps li { color: #9ea4c4; font-size: 10px; line-height: 1.4; }
+    .preset9-steps li b { color: #00f0ff; }
+  </style>
 </head>
-
 <body>
-    <header class="main-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <a href="../index.html" class="logo" style="text-decoration: none; display: flex; align-items: center; border: none; background: transparent;">
-                <img src="assets/favicon.png" alt="Logo" style="height: 32px; filter: drop-shadow(0 0 5px rgba(0,240,255,0.5));">
-            </a>
-            <nav style="display: flex; gap: 10px;">
-                <a href="../index.html" style="text-decoration: none; color: #fff; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" data-i18n="nav.landing">🏠 Landing Page</a>
-                <a href="design/engine/code.html" style="text-decoration: none; color: #fff; background: rgba(0,240,255,0.1); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(0,240,255,0.3); transition: all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.1)'" data-i18n="nav.game.selector">🎮 Sélecteur de jeux</a>
-            </nav>
+
+<!-- Top progress hairline reflecting current step -->
+<div class="step-progress" aria-hidden="true"><i></i></div>
+
+<main class="app" id="app" data-step="1" data-mode="rapide" data-game="fc26" data-screen-label="ScanMyFace SPA">
+
+  <!-- ================================================================
+       STEP 1 — ACCUEIL & IMPORT
+       ================================================================ -->
+  <section class="step s1 is-active" data-step="1" data-screen-label="01 Import">
+
+    <header class="topbar">
+      <div class="topbar__brand">
+        <div class="topbar__logo"><img src="./assets/favicon.png" alt="ScanMyFace" style="width:28px;height:28px;border-radius:6px;"></div>
+        <div class="topbar__wordmark"><span class="topbar__name">ScanMyFace</span><span class="topbar__tag">.tech</span></div>
+      </div>
+      <div></div>
+      <div class="topbar__right">
+        <div class="topbar__step-num"><b>01</b>&nbsp;/&nbsp;04</div>
+        <div class="topbar__lang">
+          <button class="topbar__lang__btn" type="button" data-lang="fr" data-active="true">FR</button>
+          <span class="topbar__lang__sep">|</span>
+          <button class="topbar__lang__btn" type="button" data-lang="en">EN</button>
         </div>
-        <div id="lang-bar" class="lang-switcher">
-            <div class="lang-pill">
-                <button class="lang-btn active" data-lang="fr">FR</button>
-                <button class="lang-btn" data-lang="en">EN</button>
-                <div class="lang-indicator"></div>
-            </div>
-        </div>
+      </div>
     </header>
-    <div id="app-container">
 
-        <!-- Screen 1: Home -->
-        <section id="screen-home" class="screen active">
-            <div class="logo-container">
-                <h1>FC26 <span class="neon-text" data-i18n="app.title.cranium">CRANIUM</span></h1>
-                <p data-i18n="app.subtitle">Pro Face Geometry Analyzer</p>
-            </div>
-            <div class="mode-selection" aria-label="Modes de scan" data-i18n-aria-label="mode.selection.label">
-                <article class="scan-mode-card">
-                    <div class="mode-card-content">
-                        <span class="mode-card-kicker" data-i18n="mode.auto.kicker">Standard</span>
-                        <h2 data-i18n="mode.auto.title">Scan Rapide</h2>
-                        <p data-i18n="mode.auto.desc">Détection automatique par l'IA. Idéal pour un aperçu instantané.</p>
-                    </div>
-                    <button id="btn-camera" class="btn btn-primary mode-card-button" data-i18n="btn.auto.start">LANCER L'IA</button>
-                </article>
+    <div class="toolbar">
+      <!-- [HOOK] Game picker — bind clicks to swap presets DB / icon set -->
+      <div class="gamepicker" role="radiogroup" aria-label="Sélecteur de jeu">
+        <button class="gamepicker__btn" type="button" role="radio" aria-checked="true"  aria-pressed="true"  data-game="fc26">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13"></path>
+          </svg>
+          FC 26
+        </button>
+        <button class="gamepicker__btn" type="button" role="radio" aria-checked="false" aria-pressed="false" data-game="ufc">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 14a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2H4z"></path>
+            <path d="M8 10V6h8v4"></path>
+            <path d="M12 16v3"></path>
+          </svg>
+          UFC
+        </button>
+        <button class="gamepicker__btn" type="button" role="radio" aria-checked="false" aria-pressed="false" data-game="sims">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3l1.5 4M18 3l-1.5 4M5 7h14l-1 4H6z"></path>
+            <path d="M7 11l1 9h8l1-9"></path>
+          </svg>
+          Sims
+        </button>
+      </div>
 
-                <article class="scan-mode-card scan-mode-card-pro">
-                    <div class="mode-card-content">
-                        <span class="mode-card-kicker" data-i18n="mode.expert.kicker">Premium</span>
-                        <h2 data-i18n="mode.expert.title">Précision Pro</h2>
-                        <p data-i18n="mode.expert.desc">Placez manuellement vos 12 repères. Précision chirurgicale garantie.</p>
-                    </div>
-                    <button id="btn-expert-start" class="btn btn-primary mode-card-button" data-i18n="btn.expert.start">DÉMARRER LE MAILLAGE</button>
-                </article>
-            </div>
-            <div class="upload-link-row">
-                <button id="btn-upload-link" type="button" class="upload-text-link" data-i18n="btn.upload.text">Ou charger une photo depuis l'appareil</button>
-                <input type="file" id="file-upload" accept="image/*" hidden>
-            </div>
-        </section>
-
-        <!-- Screen 2: Scan -->
-        <section id="screen-scan" class="screen">
-            <header>
-                <button class="btn-icon btn-back" data-target="screen-home">←</button>
-                <h2 data-i18n="screen.scan.title">Scanning</h2>
-            </header>
-            <div class="scanner-container">
-                <div class="media-container">
-                    <video id="input-video" class="input-media" autoplay playsinline muted hidden></video>
-                    <img id="input-image" class="input-media" hidden loading="lazy">
-                    <img id="captured-photo-review" class="input-media hidden" loading="lazy">
-                    <canvas id="output-canvas" class="output-canvas"></canvas>
-                    <div class="scan-overlay"></div>
-                </div>
-                <div id="loading-indicator" class="loading hidden">
-                    <div class="spinner"></div>
-                    <p data-i18n="loading.landmarks">Detecting 468 facial landmarks...</p>
-                </div>
-            </div>
-            <div class="scan-actions">
-                <button id="btn-capture" class="btn btn-primary hidden" data-i18n="btn.capture">Capture &amp; Analyze</button>
-                <button id="btn-analyze-upload" class="btn btn-primary hidden" data-i18n="btn.analyze.upload">Analyze Photo</button>
-                <div class="review-buttons hidden">
-                    <button id="btn-retake" class="btn btn-secondary" data-i18n="btn.retake">↩ Reprendre</button>
-                    <button id="btn-confirm-analyze" class="btn btn-primary" data-i18n="btn.confirm.analyze">✓ Confirmer &amp; Analyser</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Screen 3: Preset Choice -->
-        <section id="screen-preset-choice" class="screen">
-            <header>
-                <button class="btn-icon btn-back" data-target="screen-home">←</button>
-                <h2 data-i18n="screen.preset.title">Choix du Modèle</h2>
-            </header>
-            <div class="preset-choice-container">
-                <p class="preset-choice-message" data-i18n="preset.message">L'IA a trouvé ces 3 modèles. Lequel te semble le plus proche ?</p>
-                <div class="preset-grid" id="preset-grid">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Screen 4: Results -->
-        <section id="screen-results" class="screen">
-            <header>
-                <button class="btn-icon btn-back" data-target="screen-preset-choice">←</button>
-                <h2 data-i18n="screen.results.title">Résultats</h2>
-                <button id="btn-share" class="btn-icon">📤</button>
-            </header>
-
-            <div class="results-container">
-                <div class="tier-indicator">
-                    <span class="badge badge-free" data-i18n="badge.free">Free Tier</span>
-                    <button class="btn-upgrade-sm" data-target="screen-premium" data-i18n="btn.unlock.all">Unlock All</button>
-                </div>
-
-                <div id="results-accordion" class="accordion">
-                    <!-- Zones injected via JS -->
-                </div>
-            </div>
-
-            <div class="premium-gate">
-                <div class="gate-content">
-                    <p data-i18n="premium.gate.text">Unlock 6 advanced zones (Crâne, Menton, Sourcils, Front, Bouche, Oreilles) and PDF Export.</p>
-                    <button id="btn-go-premium" class="btn btn-premium" data-target="screen-premium" data-i18n="btn.get.premium">Get Premium</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Screen 5: Premium -->
-        <section id="screen-premium" class="screen">
-            <header>
-                <button class="btn-icon btn-back" data-target="screen-results">←</button>
-                <h2 data-i18n="screen.premium.title">Premium</h2>
-            </header>
-            <div class="premium-content">
-                <div class="premium-hero">
-                    <h1 class="neon-text" data-i18n="premium.access">PRO ACCESS</h1>
-                    <p data-i18n="premium.hero.sub">Get the competitive edge in FC26</p>
-                </div>
-                <ul class="premium-features">
-                    <li data-i18n="premium.feat1">✓ Unlock all 10 facial zones</li>
-                    <li data-i18n="premium.feat2">✓ Pinpoint accuracy mapping</li>
-                    <li data-i18n="premium.feat3">✓ Export slider sheet to PDF</li>
-                    <li data-i18n="premium.feat4">✓ No ads</li>
-                </ul>
-                <div class="pricing">
-                    <span class="price">$4.99</span> <span class="period" data-i18n="premium.period">one-time</span>
-                </div>
-                <button id="btn-purchase" class="btn btn-premium-action" data-i18n="btn.unlock.now">Unlock Now</button>
-            </div>
-        </section>
-
+      <!-- [HOOK] Mode toggle — sets state.scanMode ('auto' | 'expert') -->
+      <div class="modetoggle" data-mode="rapide" role="radiogroup" aria-label="Mode de scan">
+        <div class="modetoggle__slider" aria-hidden="true"></div>
+        <button class="modetoggle__btn" type="button" role="radio" aria-checked="true" aria-pressed="true" data-mode="rapide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L4 14h7l-1 8 9-12h-7z"></path>
+          </svg>
+          Scan rapide
+        </button>
+        <button class="modetoggle__btn" type="button" role="radio" aria-checked="false" aria-pressed="false" data-mode="pro">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"></path>
+          </svg>
+          Précision pro
+        </button>
+      </div>
     </div>
 
-    <div id="upload-mode-modal" class="upload-mode-modal hidden" role="dialog" aria-modal="true" aria-labelledby="upload-mode-title">
-        <div class="upload-mode-panel">
-            <button id="btn-upload-mode-close" type="button" class="upload-mode-close" aria-label="Fermer" data-i18n-aria-label="btn.close">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-            <h2 id="upload-mode-title" data-i18n="upload.mode.title">Choisir le traitement</h2>
-            <p data-i18n="upload.mode.desc">Comment veux-tu analyser cette photo ?</p>
-            <div class="upload-mode-actions">
-                <button id="btn-upload-auto" type="button" class="btn btn-primary" data-i18n="upload.mode.auto">Analyser automatiquement</button>
-                <button id="btn-upload-expert" type="button" class="btn btn-secondary" data-i18n="upload.mode.expert">Placer les points manuellement</button>
-            </div>
+    <div class="s1__main">
+      <div class="s1__hero">
+        <div class="s1__kicker">Face Mesh · 468 points</div>
+        <h1 class="s1__title">Scan ton visage, <em>importe la recette</em>.</h1>
+        <p class="s1__sub">Une photo · un mix de presets · les sliders exacts, prêts à coller dans ton jeu.</p>
+      </div>
+
+      <div class="s1__viz" aria-hidden="true">
+        <svg class="reticle" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <circle class="ring" cx="100" cy="100" r="78"></circle>
+          <circle class="ring ring--dashed" cx="100" cy="100" r="64"></circle>
+          <circle class="ring" cx="100" cy="100" r="48"></circle>
+          <path class="crosshair" d="M100 22 V46 M100 154 V178 M22 100 H46 M154 100 H178"></path>
+          <path class="crosshair" d="M88 100 H112 M100 88 V112"></path>
+          <text class="label" x="100" y="14"  text-anchor="middle">N · 468</text>
+          <text class="label" x="100" y="194" text-anchor="middle">FC26 · OVALE</text>
+          <text class="label" x="8"   y="103">X</text>
+          <text class="label" x="186" y="103" text-anchor="end">Y</text>
+        </svg>
+        <div class="s1__viz-corners"><i></i><i></i><i></i><i></i></div>
+        <div class="s1__viz-readout">
+          <span>READY · <b>0.41s avg</b></span>
+          <span><b>303</b> sliders · 9 zones</span>
         </div>
+      </div>
+
+      <div class="s1__actions">
+        <!-- [HOOK] btn-camera → startLiveScan() / startExpertScan() -->
+        <button class="btn btn--primary" id="btn-camera" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19V8a2 2 0 0 0-2-2h-3.2l-1.4-2H7.6L6.2 6H3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+          Caméra
+        </button>
+        <!-- [HOOK] btn-gallery → fileUpload.click() -->
+        <button class="btn btn--ghost" id="btn-gallery" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <circle cx="8.5" cy="9" r="1.5"></circle>
+            <path d="M21 15l-5-5L5 21"></path>
+          </svg>
+          Galerie
+        </button>
+      </div>
+      <input type="file" id="file-upload" accept="image/*" hidden>
+
+      <div class="s1__fineprint">PNG · JPG · ≤ 8&nbsp;MB · traitement 100% local</div>
     </div>
+  </section>
 
-    <!-- NOUVEAU MODAL SCAN (Injecté) -->
-    <div id="new-scan-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-0 md:p-xl hidden">
-        <div class="w-full h-full md:w-[95vw] md:h-[95vh] bg-[#0A0A0C] border-none md:border border-primary-container/30 rounded-none md:rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-            <!-- Close Button -->
-            <button id="btn-close-modal" aria-label="Close" class="absolute top-md right-md text-on-surface-variant hover:text-primary-container transition-colors z-20" style="top: 16px; right: 16px;">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-            <!-- Modal Header -->
-            <div class="px-xl py-md border-b border-white/10 flex items-center justify-center shrink-0" style="padding: 16px;">
-                <span class="font-title-sm text-title-sm text-on-surface tracking-tighter uppercase" style="color: white;">Cranium Analyzer</span>
-            </div>
-            <!-- Modal Body Grid -->
-            <div class="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-2" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 0.95fr); width: 100%; height: 100%; min-height: 0; align-items: stretch; overflow: hidden;">
-                <!-- Left Column: Scan Interface -->
-                <div class="p-xl border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col items-center justify-start bg-surface/30 min-h-0 overflow-hidden" style="flex: 1; padding: 24px; border-right: 1px solid rgba(255,255,255,0.1); min-width: 0; min-height: 0; overflow: hidden; justify-content: flex-start;">
-                    <div class="w-full max-w-[480px] flex justify-between items-center mb-md px-sm mx-auto" style="width: 100%; max-width: 480px; display: flex; justify-content: space-between; margin-bottom: 16px; margin-left: auto; margin-right: auto; flex: 0 0 auto;">
-                        <button id="btn-back-modal" class="text-on-surface-variant hover:text-primary-container transition-colors flex items-center" style="color: #b9cacb; display: flex; align-items: center;">
-                            <span class="material-symbols-outlined mr-xs">arrow_back</span>
-                            <span class="font-label-caps text-label-caps">BACK</span>
-                        </button>
-                        <span class="font-label-caps text-label-caps text-primary-container tracking-widest" style="color: #00f0ff;">SCANNING</span>
-                    </div>
-                    
-                    <!-- Camera Frame -->
-                    <div class="relative w-full max-w-[400px] aspect-[3/4] mx-auto overflow-hidden media-frame" style="position: relative; width: 100%; max-width: 400px; aspect-ratio: 3 / 4; margin-left: auto; margin-right: auto; overflow: hidden;">
-                        <video id="input-video-new" class="absolute inset-0 w-full h-full object-cover hidden scale-x-[-1]" autoplay playsinline muted style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
-                        <img id="input-image-new" class="absolute inset-0 w-full h-full object-cover opacity-70 mix-blend-luminosity hidden" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
-                        <canvas id="expert-mesh-canvas" class="expert-mesh-canvas hidden"></canvas>
-                        <canvas id="expert-mesh-magnifier" class="expert-mesh-magnifier hidden"></canvas>
-
-                        <!-- Help Button (only visible in Expert mode) -->
-                        <button id="btn-mesh-help" class="absolute top-md right-md text-primary-container hover:text-white transition-colors z-20 hidden bg-black/50 rounded-full p-2" style="top: 16px; right: 16px; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 50%; cursor: pointer; border: none; display: none;">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">help</span>
-                        </button>
-                        
-                        <!-- Face Guide Overlay -->
-                        <div id="face-guide-overlay" class="face-guide-overlay absolute inset-0 pointer-events-none z-10" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; z-index: 10;">
-                            <svg class="face-guide-svg absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
-                                <defs>
-                                    <filter id="face-guide-glow" x="-20%" y="-20%" width="140%" height="140%">
-                                        <feGaussianBlur stdDeviation="0.7" result="blur"></feGaussianBlur>
-                                        <feMerge>
-                                            <feMergeNode in="blur"></feMergeNode>
-                                            <feMergeNode in="SourceGraphic"></feMergeNode>
-                                        </feMerge>
-                                    </filter>
-                                </defs>
-                                <ellipse class="face-guide-oval" cx="50" cy="48" rx="32" ry="42"></ellipse>
-                                <path class="face-guide-line face-guide-center" d="M50 7 L50 89"></path>
-                                <path class="face-guide-line face-guide-eye" d="M22 35 C38 30 62 30 78 35"></path>
-                                <path class="face-guide-line face-guide-nose" d="M45 47 C48 61 52 61 55 47"></path>
-                                <path class="face-guide-line face-guide-mouth" d="M33 67 C45 72 55 72 67 67"></path>
-                                <path class="face-guide-cheek face-guide-cheek-left" d="M28 47 C24 55 25 63 31 70"></path>
-                                <path class="face-guide-cheek face-guide-cheek-right" d="M72 47 C76 55 75 63 69 70"></path>
-                                <circle class="face-guide-dot" cx="50" cy="40" r="1.2"></circle>
-                                <circle class="face-guide-dot" cx="50" cy="53" r="1.2"></circle>
-                                <circle class="face-guide-dot" cx="50" cy="65" r="1.2"></circle>
-                            </svg>
-                            <div class="face-guide-hint">Place ton visage dans l'ovale</div>
-                        </div>
-                        
-                        <!-- Target Corners -->
-                        <div class="scan-corners absolute top-md left-md w-lg h-lg border-t-2 border-l-2 border-primary-container" style="position: absolute; top: 16px; left: 16px; width: 24px; height: 24px; border-top: 2px solid #00f0ff; border-left: 2px solid #00f0ff;"></div>
-                        <div class="scan-corners absolute top-md right-md w-lg h-lg border-t-2 border-r-2 border-primary-container" style="position: absolute; top: 16px; right: 16px; width: 24px; height: 24px; border-top: 2px solid #00f0ff; border-right: 2px solid #00f0ff;"></div>
-                        <div class="scan-corners absolute bottom-md left-md w-lg h-lg border-b-2 border-l-2 border-primary-container" style="position: absolute; bottom: 16px; left: 16px; width: 24px; height: 24px; border-bottom: 2px solid #00f0ff; border-left: 2px solid #00f0ff;"></div>
-                        <div class="scan-corners absolute bottom-md right-md w-lg h-lg border-b-2 border-r-2 border-primary-container" style="position: absolute; bottom: 16px; right: 16px; width: 24px; height: 24px; border-bottom: 2px solid #00f0ff; border-right: 2px solid #00f0ff;"></div>
-                        
-                        <!-- Cyan Laser Line (Animated in JS if needed) -->
-                        <div id="laser-line-new" class="absolute top-1/2 left-0 w-full h-[1px] bg-primary-container shadow-[0_0_12px_2px_#00F0FF] opacity-80 hidden" style="position: absolute; top: 50%; width: 100%; height: 1px; background: #00f0ff; box-shadow: 0 0 12px 2px #00f0ff;"></div>
-                    </div>
-
-                    <!-- Analysis Progress -->
-                    <div id="new-scan-progress" class="w-full max-w-[480px] mt-lg hidden" style="width: 100%; max-width: 480px; margin-top: 24px;">
-                        <div class="flex justify-between items-end mb-sm" style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span class="font-label-caps text-[10px] text-primary-container animate-pulse" style="color: #00f0ff; font-size: 10px;">Analyzing facial features...</span>
-                            <span class="font-label-caps text-label-caps text-on-surface" style="color: white;" id="progress-percent-new">0%</span>
-                        </div>
-                        <div class="w-full h-unit bg-white/10 rounded-full overflow-hidden" style="width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px;">
-                            <div id="progress-bar-fill-new" class="h-full bg-primary-container w-[0%] shadow-[0_0_8px_#00F0FF]" style="height: 100%; background: #00f0ff; width: 0%; transition: width 0.3s;"></div>
-                        </div>
-                    </div>
-
-                    <!-- Scan Actions (Crop Validation) -->
-                    <div id="new-scan-actions" class="w-full max-w-[480px] mt-xl flex gap-md" style="width: 100%; max-width: 480px; margin-top: 32px; display: flex; gap: 16px;">
-                        <button id="btn-confirm-analyze-new" class="w-full py-sm bg-primary-container text-[#0A0A0C] font-label-caps text-label-caps hover:scale-[1.02] shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-transform rounded flex items-center justify-center gap-xs font-bold" style="width: 100%; padding: 12px; background: #00f0ff; color: #0a0a0c; border-radius: 4px; border: none; font-weight: bold; cursor: pointer;">
-                            <span class="material-symbols-outlined text-[16px]">check</span>
-                            VALIDER ET ANALYSER
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Right Column: Results View -->
-                <div class="p-xl flex flex-col h-full min-h-0 overflow-hidden" style="position: relative; flex: 1; padding: 24px; display: flex; flex-direction: column; min-height: 0; overflow: hidden;">
-                    <div class="flex items-center gap-sm mb-lg shrink-0" style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
-                        <span class="material-symbols-outlined text-primary-container" style="color: #00f0ff;">hub</span>
-                        <h2 class="font-title-sm text-title-sm text-on-surface uppercase tracking-tight" style="color: white;">RÉSULTATS - TOP MATCHES</h2>
-                    </div>
-                    <p class="font-body-md text-[14px] text-on-surface-variant mb-lg shrink-0" style="color: #b9cacb; margin-bottom: 24px;">
-                        L'IA a trouvé ces 3 modèles. Lequel te semble le plus proche ?
-                    </p>
-                    
-                    <!-- Dynamic Results injected here -->
-                    <div class="flex flex-col gap-md flex-1 overflow-y-auto pr-sm min-h-0" id="new-result-container" style="position: absolute; top: 112px; left: 24px; right: 24px; bottom: 24px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; min-height: 0;">
-                        <!-- Cards will be built in script.js -->
-                    </div>
-                    
-                </div>
-            </div>
+  <!-- ================================================================
+       STEP 2 — VALIDATION & PERSONNALISATION
+       ================================================================ -->
+  <section class="step s2" data-step="2" data-screen-label="02 Validate">
+    <header class="topbar">
+      <div class="topbar__brand">
+        <div class="topbar__logo"><img src="./assets/favicon.png" alt="ScanMyFace" style="width:28px;height:28px;border-radius:6px;"></div>
+        <div class="topbar__wordmark"><span class="topbar__name">ScanMyFace</span><span class="topbar__tag">.tech</span></div>
+      </div>
+      <div></div>
+      <div class="topbar__right">
+        <div class="topbar__step-num"><b>02</b>&nbsp;/&nbsp;04</div>
+        <div class="topbar__lang">
+          <button class="topbar__lang__btn" type="button" data-lang="fr" data-active="true">FR</button>
+          <span class="topbar__lang__sep">|</span>
+          <button class="topbar__lang__btn" type="button" data-lang="en">EN</button>
         </div>
+        <button class="topbar__reset" type="button" aria-label="Nouveau scan">✕</button>
+      </div>
+    </header>
+
+    <div class="s2__head">
+      <button class="s2__back" type="button" data-goto="1" aria-label="Revenir à l'import">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 6l-6 6 6 6"></path>
+        </svg>
+        Retour
+      </button>
+      <span class="s2__mode-badge" data-mode="rapide" id="mode-badge" style="display:none;">
+        <span data-mode-label>Mode rapide · auto</span>
+      </span>
     </div>
 
-    <!-- Help Modal for Point Placement -->
-    <div id="help-mesh-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 hidden" style="display: none;">
-        <div class="w-full max-w-[600px] bg-[#0A0A0C] border border-primary-container/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col" style="max-height: 90vh;">
-            <!-- Header -->
-            <div class="px-xl py-md border-b border-white/10 flex items-center justify-between" style="padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                <span class="font-title-sm text-title-sm text-on-surface uppercase" style="color: white; flex: 1;" data-i18n="help.mesh.title">Point Placement Guide</span>
-                <button id="btn-close-help-modal" class="text-on-surface-variant hover:text-primary-container transition-colors" style="background: none; border: none; cursor: pointer; color: #b9cacb;">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
+    <div class="s2__main">
+      <div class="viewport" id="viewport">
+        <div class="viewport__media"></div>
+        <div class="viewport__face-ph">visage · placeholder</div>
 
-            <!-- Body -->
-            <div class="flex-1 overflow-y-auto px-xl py-lg" style="padding: 24px; overflow-y: auto;">
-                <!-- Face Diagram — illustration REPERE.PNG -->
-                <div style="background: #0a0a0c; border-radius: 16px; padding: 0; margin-bottom: 20px; border: 1px solid rgba(0,240,255,0.14); position: relative; overflow: hidden;">
-                    <!-- Reference Image Container -->
-                    <div id="guide-mesh-wrapper" style="position: relative; display: inline-block; width: 100%;">
-                        <img id="guide-reference-img" src="REPERE.PNG" alt="Reference" style="display: block; max-width: 100%; width: 100%; height: auto; user-select: none;">
-                        <canvas id="guide-mesh-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: default;"></canvas> 
-                    </div>
-                </div>
-                <!-- Tips -->
-                <div style="background: rgba(0,240,255,0.04); border-left: 3px solid rgba(0,240,255,0.5); padding: 14px 16px; border-radius: 0 8px 8px 0; margin-top: 4px;">
-                    <h3 style="color: #00f0ff; font-size: 12px; font-weight: 700; margin: 0 0 10px 0; letter-spacing: 0.08em; text-transform: uppercase;" data-i18n="help.mesh.tips.title">Conseils</h3>
-                    <ul style="color: #b9cacb; font-size: 12px; margin: 0; padding-left: 18px; line-height: 1.8;">
-                        <li data-i18n="help.mesh.tip1">Glisse chaque point pour le placer précisément sur ta morphologie</li>
-                        <li data-i18n="help.mesh.tip2">Utilise la loupe (zoom) pour les ajustements fins</li>
-                        <li data-i18n="help.mesh.tip4">Vérifie la symétrie gauche/droite sur les éléments pairs</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="viewport__hud"><i></i><i></i><i></i><i></i></div>
+        <div class="viewport__chips">
+          <span class="chip chip--ok">Face détectée</span>
+          <span class="chip chip--accent" id="chip-mode">RAPIDE · 0.41s</span>
         </div>
+
+        <div class="scanlaser" id="scanlaser">
+          <div class="scanlaser__glow"></div>
+          <div class="scanlaser__line"></div>
+          <div class="scanlaser__caption">Analyse en cours…</div>
+        </div>
+
+        <div class="mesh" id="mesh" hidden>
+          <svg viewBox="0 0 200 240" preserveAspectRatio="xMidYMid meet">
+            <path class="line line--strong" d="M100 35 C 55 35, 38 95, 48 145 C 56 195, 75 215, 100 215 C 125 215, 144 195, 152 145 C 162 95, 145 35, 100 35 Z"></path>
+            <path class="line" d="M60 90 Q 75 78, 92 88"></path>
+            <path class="line" d="M108 88 Q 125 78, 140 90"></path>
+            <path class="line" d="M62 105 Q 76 95, 90 105 Q 76 113, 62 105 Z"></path>
+            <path class="line" d="M110 105 Q 124 95, 138 105 Q 124 113, 110 105 Z"></path>
+            <path class="line" d="M100 110 L 100 148 M 86 152 Q 100 162, 114 152"></path>
+            <path class="line line--strong" d="M74 178 Q 100 192, 126 178 Q 100 184, 74 178 Z"></path>
+            <path class="line" d="M52 140 Q 70 160, 90 178"></path>
+            <path class="line" d="M148 140 Q 130 160, 110 178"></path>
+            <path class="line" d="M70 200 Q 100 210, 130 200"></path>
+            <g>
+              <circle class="dot dot--anchor" cx="100" cy="35" r="2"></circle>
+              <circle class="dot" cx="60" cy="90" r="1.7"></circle>
+              <circle class="dot" cx="92" cy="88" r="1.7"></circle>
+              <circle class="dot" cx="108" cy="88" r="1.7"></circle>
+              <circle class="dot" cx="140" cy="90" r="1.7"></circle>
+              <circle class="dot" cx="76" cy="105" r="1.7"></circle>
+              <circle class="dot" cx="124" cy="105" r="1.7"></circle>
+              <circle class="dot dot--anchor" cx="100" cy="148" r="2"></circle>
+              <circle class="dot" cx="86" cy="152" r="1.7"></circle>
+              <circle class="dot" cx="114" cy="152" r="1.7"></circle>
+              <circle class="dot" cx="74" cy="178" r="1.7"></circle>
+              <circle class="dot dot--anchor" cx="100" cy="184" r="2"></circle>
+              <circle class="dot" cx="126" cy="178" r="1.7"></circle>
+              <circle class="dot dot--anchor" cx="100" cy="215" r="2"></circle>
+              <circle class="dot" cx="52" cy="140" r="1.7"></circle>
+              <circle class="dot" cx="148" cy="140" r="1.7"></circle>
+              <circle class="dot" cx="48" cy="115" r="1.7"></circle>
+              <circle class="dot" cx="152" cy="115" r="1.7"></circle>
+            </g>
+          </svg>
+        </div>
+
+        <div class="viewport__metrics" id="metrics" hidden>
+          <div class="viewport__metric"><b>Confidence</b><span>97%</span></div>
+          <div class="viewport__metric"><b>Yaw</b><span>2°</span></div>
+          <div class="viewport__metric"><b>Lux</b><span>OK</span></div>
+        </div>
+      </div>
+
+      <div class="skintone">
+        <div class="skintone__head">
+          <h2 class="skintone__title">Teinte de peau</h2>
+          <span class="skintone__suggest">L'IA suggère <b>Bronzée</b></span>
+        </div>
+        <!-- [HOOK] each .swatch[data-tone] → selectSwatch / confirmSkinChoice -->
+        <div class="skintone__row" role="radiogroup" aria-label="Teinte de peau">
+          <button class="swatch" role="radio" aria-checked="false" aria-pressed="false" type="button" data-tone="skin.tone.very.light"><span class="swatch__dot" style="background:#f3d9c1;"></span><span class="swatch__label">Très<br>claire</span></button>
+          <button class="swatch" role="radio" aria-checked="false" aria-pressed="false" type="button" data-tone="skin.tone.light"><span class="swatch__dot" style="background:#e8b48b;"></span><span class="swatch__label">Claire</span></button>
+          <button class="swatch" role="radio" aria-checked="true"  aria-pressed="true"  type="button" data-tone="skin.tone.light.tanned"><span class="swatch__dot" style="background:#c8855a;"></span><span class="swatch__label">Bronzée</span></button>
+          <button class="swatch" role="radio" aria-checked="false" aria-pressed="false" type="button" data-tone="skin.tone.medium"><span class="swatch__dot" style="background:#8a4f2c;"></span><span class="swatch__label">Métis</span></button>
+          <button class="swatch" role="radio" aria-checked="false" aria-pressed="false" type="button" data-tone="skin.tone.dark"><span class="swatch__dot" style="background:#4d2613;"></span><span class="swatch__label">Foncée</span></button>
+        </div>
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="PRESETS_DB_v3.js"></script>
-    <script src="script.js"></script>
+    <div class="s2__cta">
+      <!-- [HOOK] launch → analyzeFace() → renderResults() → goToStep(3) -->
+      <button class="btn btn--ghost btn--big" type="button" id="btn-capture" hidden>
+        📸 Capturer
+      </button>
+      <button class="btn btn--ghost btn--big" type="button" id="btn-retry-crop" hidden>
+        ↩ Reprendre
+      </button>
+      <button class="btn btn--primary btn--big" type="button" id="btn-confirm-crop" hidden>
+        ✓ Confirmer
+      </button>
+      <button class="btn btn--primary btn--big" type="button" id="btn-launch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12h13"></path>
+          <path d="M13 6l6 6-6 6"></path>
+        </svg>
+        Lancer l'analyse
+      </button>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       STEP 3 — RÉSULTATS & MIX DE PRESETS
+       ================================================================ -->
+  <section class="step s3" data-step="3" data-screen-label="03 Mix">
+    <header class="topbar">
+      <div class="topbar__brand">
+        <div class="topbar__logo"><img src="./assets/favicon.png" alt="ScanMyFace" style="width:28px;height:28px;border-radius:6px;"></div>
+        <div class="topbar__wordmark"><span class="topbar__name">ScanMyFace</span><span class="topbar__tag">.tech</span></div>
+      </div>
+      <div></div>
+      <div class="topbar__right">
+        <div class="topbar__step-num"><b>03</b>&nbsp;/&nbsp;04</div>
+        <div class="topbar__lang">
+          <button class="topbar__lang__btn" type="button" data-lang="fr" data-active="true">FR</button>
+          <span class="topbar__lang__sep">|</span>
+          <button class="topbar__lang__btn" type="button" data-lang="en">EN</button>
+        </div>
+        <button class="topbar__reset" type="button" aria-label="Nouveau scan">✕</button>
+      </div>
+    </header>
+
+    <div class="s3__head">
+      <div class="s3__head-title">
+        <small>Étape 3 / 4 · Résultats &amp; Mix</small>
+        <b>Recette de presets</b>
+      </div>
+      <button class="s2__back" type="button" data-goto="2" aria-label="Retour validation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+        Retour
+      </button>
+    </div>
+
+    <div class="s3__main" id="s3-main">
+
+      <!-- [HOOK] Hero — render from state.results.preset (top-1) -->
+      <article class="hero-compact" aria-label="Meilleure correspondance">
+        <div class="hero-compact__thumb">
+          <div class="hero-compact__thumb-corners"><i></i><i></i><i></i><i></i></div>
+          <div class="hero-compact__thumb-ph">#023</div>
+        </div>
+        <div class="hero-compact__body">
+          <div class="hero-compact__kicker">Best match · 98%</div>
+          <div class="hero-compact__name" id="hero-name">Preset #023 · ovale</div>
+          <div class="hero-compact__meta">
+            <span><b>Peau</b>&nbsp;bronzée</span>
+            <span><b>Score</b>&nbsp;0.98</span>
+          </div>
+          <div class="hero-compact__row">
+            <div class="hero-compact__score">Distance globale · <b>0.124</b></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Top 3 alternatives — thin pills -->
+      <!-- Preset 9 reference — instructions FC26 -->
+      <div class="preset9-card" id="preset9-card" style="margin-bottom:12px;">
+        <img src="./assets/presets/9.png" alt="Preset 9" onerror="this.style.display='none'">
+        <div>
+          <div style="color:#00f0ff;font-size:9.5px;font-weight:700;letter-spacing:0.1em;margin-bottom:5px;">TÊTE DE RÉFÉRENCE · PRESET 9</div>
+          <ul class="preset9-steps">
+            <li><b>①</b> Dans ton jeu → Tête → Choix de la tête</li>
+            <li><b>②</b> Sélectionne cette tête de référence</li>
+            <li><b>③</b> Applique les valeurs zone par zone (étape suivante)</li>
+          </ul>
+        </div>
+      </div>
+      <section class="alts-thin" aria-labelledby="alts-thin-title">
+        <div class="alts-thin__head">
+          <h3 class="alts-thin__title" id="alts-thin-title">Top 3 alternatives</h3>
+        </div>
+        <!-- [HOOK] Render from state.pendingTop3 / scores.slice(0,3) -->
+        <div class="alts-thin__row" id="alts-thin-row">
+          <button class="alt-thin" type="button">
+            <span class="alt-thin__dot"></span>
+            <span class="alt-thin__id">#175 <em>· 94%</em></span>
+          </button>
+          <button class="alt-thin" type="button">
+            <span class="alt-thin__dot"></span>
+            <span class="alt-thin__id">#042 <em>· 91%</em></span>
+          </button>
+          <button class="alt-thin" type="button">
+            <span class="alt-thin__dot"></span>
+            <span class="alt-thin__id">#019 <em>· 87%</em></span>
+          </button>
+          <button class="alt-thin" type="button">
+            <span class="alt-thin__dot"></span>
+            <span class="alt-thin__id">#004 <em>· 84%</em></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- MIX de presets — list -->
+      <section class="mix" aria-labelledby="mix-title">
+        <div class="mix__head">
+          <h3 class="mix__title" id="mix-title">Mix de presets · <b>9 zones</b></h3>
+          <span class="mix__count">Frankenstein · auto</span>
+        </div>
+
+        <!-- [HOOK] Each row's preset id comes from computeZoneMix() in script.js.
+             data-source="main" = best preset overall · data-source="alt" = different preset wins on this zone -->
+        <div class="mix__list" id="mix-list">
+
+          <div class="mix__row" data-source="main" data-zone="crane">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a7 7 0 1 1 14 0v3a2 2 0 0 1-2 2h-1v3H8v-3H7a2 2 0 0 1-2-2z"></path><circle cx="9.5" cy="11" r="1"></circle><circle cx="14.5" cy="11" r="1"></circle></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Crâne</div>
+              <span class="mix__row-source">Main · best match</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;023</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="main" data-zone="front">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9c4-5 12-5 16 0"></path><path d="M4 13h16"></path></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Front</div>
+              <span class="mix__row-source">Main · best match</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;023</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="alt" data-zone="sourcils">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 Q 9 6 13 10"></path><path d="M11 10 Q 17 6 21 10"></path></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Sourcils</div>
+              <span class="mix__row-source">Alt · zone-best</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;175</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="alt" data-zone="yeux">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 C 5 6, 19 6, 22 12 C 19 18, 5 18, 2 12 Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Yeux</div>
+              <span class="mix__row-source">Alt · zone-best</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;042</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="alt" data-zone="nez">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 L 10 12 Q 10 16, 12 16 Q 14 16, 14 12 Z"></path><path d="M9 17 Q 12 19, 15 17"></path></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Nez</div>
+              <span class="mix__row-source">Alt · zone-best</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;175</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="main" data-zone="joues">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="3"></circle><circle cx="16" cy="12" r="3"></circle></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Joues</div>
+              <span class="mix__row-source">Main · best match</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;023</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="alt" data-zone="bouche">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 Q 12 16, 19 12 Q 12 18, 5 12 Z"></path></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Bouche</div>
+              <span class="mix__row-source">Alt · zone-best</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;089</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="alt" data-zone="machoire">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8 L 5 16 L 12 20 L 19 16 L 21 8"></path></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Mâchoire</div>
+              <span class="mix__row-source">Alt · zone-best</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;042</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+          <div class="mix__row" data-source="main" data-zone="menton">
+            <div class="mix__row-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10 C 4 18, 20 18, 20 10"></path><path d="M9 16 Q 12 19, 15 16"></path></svg>
+            </div>
+            <div>
+              <div class="mix__row-name">Menton</div>
+              <span class="mix__row-source">Main · best match</span>
+            </div>
+            <div class="mix__row-id">ID&nbsp;023</div>
+            <div class="mix__row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <div class="s3__cta">
+      <!-- [HOOK] → goToStep(4) ; existing state.final_sliders is already built -->
+      <button class="btn btn--primary" type="button" id="btn-to-shaping">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 7h16M4 12h10M4 17h16"></path>
+          <circle cx="18" cy="12" r="2.5"></circle>
+        </svg>
+        <span id="lbl-to-shaping">Passer au façonnage avancé</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       STEP 4 — FAÇONNAGE AVANCÉ / ADVANCED SHAPING
+       ================================================================ -->
+  <section class="step s4" data-step="4" data-screen-label="04 Shaping">
+    <header class="topbar">
+      <div class="topbar__brand">
+        <div class="topbar__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="6"></circle>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+            <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </div>
+        <div class="topbar__wordmark">
+          <b>SCANMYFACE</b>
+          <span id="s4-wordmark-sub">Façonnage · sliders</span>
+        </div>
+      </div>
+      <div></div>
+      <div class="topbar__right">
+        <div class="topbar__step-num"><b>04</b>&nbsp;/&nbsp;04</div>
+        <div class="topbar__lang">
+          <button class="topbar__lang__btn" type="button" data-lang="fr" data-active="true">FR</button>
+          <span class="topbar__lang__sep">|</span>
+          <button class="topbar__lang__btn" type="button" data-lang="en">EN</button>
+        </div>
+        <button class="topbar__reset" type="button" aria-label="Nouveau scan">✕</button>
+      </div>
+    </header>
+
+    <div class="s4__head">
+      <div class="s4__head-title">
+        <small>Étape 4 / 4 · Façonnage</small>
+        <b>Façonnage Avancé · entre ces valeurs dans FC26</b>
+      </div>
+      <button class="s2__back" type="button" data-goto="3" aria-label="Retour aux résultats">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+        Résultats
+      </button>
+    </div>
+
+    <!-- Horizontal tabs — face zones (FC26 order) -->
+    <!-- [HOOK] Tab → setActiveZone(zone) ; renders state.final_sliders[zone] -->
+    <nav class="tabs" id="zone-tabs" role="tablist" aria-label="Zones du visage">
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="crane">Crâne</button>
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="front">Front</button>
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="sourcils">Sourcils</button>
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="yeux">Yeux</button>
+      <button class="tab" role="tab" aria-pressed="true"  type="button" data-zone="nez">Nez</button>
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="joues">Joues</button>
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="bouche">Bouche</button>
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="machoire">Mâchoire</button>
+      <button class="tab" role="tab" aria-pressed="false" type="button" data-zone="menton">Menton</button>
+    </nav>
+
+    <div class="s4__main" id="s4-main">
+      <!-- Active zone header (dynamic) -->
+      <header class="zone-meta">
+        <div class="zone-meta__name">
+          <span id="zone-label">Nez</span>
+        </div>
+        <span class="zone-meta__source" id="zone-source">Preset ID 175</span>
+      </header>
+
+      <!-- Slider rows for active zone — sample shown is "Nez" -->
+      <!-- [HOOK] inject from state.final_sliders[activeZone] ; data-adjusted="true" when IA modified base value -->
+      <div class="sliders" id="sliders">
+
+        <div class="slider-row" data-adjusted="false" style="--pct: 34%;">
+          <div class="slider-row__label">Réduire <span>/</span> Élargir</div>
+          <div class="slider-row__value">34</div>
+          <div class="slider-track">
+            <div class="slider-track__rail"><div class="slider-track__fill" style="width: 34%;"></div></div>
+            <div class="slider-track__thumb" style="left: 34%;"></div>
+          </div>
+        </div>
+
+        <div class="slider-row" data-adjusted="true" style="--pct: 70%;">
+          <div class="slider-row__label">Bas <span>/</span> Haut</div>
+          <div class="slider-row__value">70</div>
+          <div class="slider-track">
+            <div class="slider-track__rail"><div class="slider-track__fill" style="width: 70%;"></div></div>
+            <div class="slider-track__thumb" style="left: 70%;"></div>
+          </div>
+        </div>
+
+        <div class="slider-row" data-adjusted="false" style="--pct: 44%;">
+          <div class="slider-row__label">Arrière <span>/</span> Avant</div>
+          <div class="slider-row__value">44</div>
+          <div class="slider-track">
+            <div class="slider-track__rail"><div class="slider-track__fill" style="width: 44%;"></div></div>
+            <div class="slider-track__thumb" style="left: 44%;"></div>
+          </div>
+        </div>
+
+        <div class="slider-row" data-adjusted="true" style="--pct: 92%;">
+          <div class="slider-row__label">Arrondi <span>/</span> Angulaire</div>
+          <div class="slider-row__value">92</div>
+          <div class="slider-track">
+            <div class="slider-track__rail"><div class="slider-track__fill" style="width: 92%;"></div></div>
+            <div class="slider-track__thumb" style="left: 92%;"></div>
+          </div>
+        </div>
+
+        <div class="slider-row" data-adjusted="false" style="--pct: 52%;">
+          <div class="slider-row__label">Gauche <span>/</span> Droite</div>
+          <div class="slider-row__value">52</div>
+          <div class="slider-track">
+            <div class="slider-track__rail"><div class="slider-track__fill" style="width: 52%;"></div></div>
+            <div class="slider-track__thumb" style="left: 52%;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+        <div class="s4__cta">
+      <button class="btn btn--ghost" type="button" id="btn-new-scan" style="width:100%;margin-bottom:8px;">↩ Nouveau scan</button>
+      <div style="display:flex;gap:8px;width:100%;">
+        <button class="btn btn--ghost" type="button" id="btn-share-png" style="flex:1;">📤 PNG</button>
+        <button class="btn btn--primary" type="button" id="btn-copy-recipe" style="flex:2;">📋 Copier la recette</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ONBOARDING — overlay premier lancement
+       ================================================================ -->
+  <div id="onboarding" role="dialog" aria-modal="true" aria-label="Introduction">
+    <button id="ob-skip" type="button">Passer</button>
+
+    <div class="ob-track">
+      <div class="ob-slide">
+        <div class="ob-icon">📸</div>
+        <h2 class="ob-title">Une photo</h2>
+        <p class="ob-text">30 secondes · les sliders exacts FC26 générés automatiquement</p>
+      </div>
+      <div class="ob-slide">
+        <div class="ob-icon">💡</div>
+        <h2 class="ob-title">La bonne photo</h2>
+        <p class="ob-text">Visage de face, lumière naturelle, fond neutre</p>
+      </div>
+      <div class="ob-slide">
+        <div class="ob-icon">🎨</div>
+        <h2 class="ob-title">Valide ta carnation</h2>
+        <p class="ob-text">L'IA suggère une carnation FC26 — confirme ou ajuste selon ta peau</p>
+      </div>
+    </div>
+
+    <div class="ob-footer">
+      <div class="ob-dots">
+        <span class="ob-dot is-active"></span>
+        <span class="ob-dot"></span>
+        <span class="ob-dot"></span>
+      </div>
+      <button id="ob-next" class="btn btn--primary" type="button">Suivant</button>
+    </div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Recette copiée</div>
+
+<!--
+  ================================================================
+  UI-only step controller — wiring for the existing FC26 script.js
+  All [HOOK] comments mark where production logic re-attaches.
+  ================================================================
+-->
+<script>
+(function () {
+  const app = document.getElementById('app');
+  const toast = document.getElementById('toast');
+  let toastTimer;
+
+  /* ---------- Sample data for the active zone (UI only; replace
+     with state.final_sliders[zone] from script.js) ------------- */
+  const ZONE_DATA = {
+    crane:    { label: 'Crâne',    sourceId: '023',
+                sliders: [
+                  ['Réduire / Élargir',    50, false],
+                  ['Bas / Haut',           48, false],
+                  ['Arrondi / Angulaire',  62, true]
+                ]},
+    front:    { label: 'Front',    sourceId: '023',
+                sliders: [
+                  ['Réduire / Élargir',    47, false],
+                  ['Bas / Haut',           55, false]
+                ]},
+    sourcils: { label: 'Sourcils', sourceId: '175',
+                sliders: [
+                  ['Réduire / Élargir',    38, true],
+                  ['Bas / Haut',           64, true]
+                ]},
+    yeux:     { label: 'Yeux',     sourceId: '023',
+                sliders: [
+                  ['Plus grande / Petite', 58, false],
+                  ['Bas / Haut',           52, false]
+                ]},
+    nez:      { label: 'Nez',      sourceId: '175',
+                sliders: [
+                  ['Réduire / Élargir',    34, false],
+                  ['Bas / Haut',           70, true],
+                  ['Arrière / Avant',      44, false],
+                  ['Arrondi / Angulaire',  92, true],
+                  ['Gauche / Droite',      52, false]
+                ]},
+    joues:    { label: 'Joues',    sourceId: '023',
+                sliders: [
+                  ['Réduire / Élargir',    49, false],
+                  ['Bas / Haut',           58, false],
+                  ['Arrière / Avant',      46, false]
+                ]},
+    bouche:   { label: 'Bouche',   sourceId: '023',
+                sliders: [
+                  ['Réduire / Élargir',    51, false],
+                  ['Bas / Haut',           63, true],
+                  ['Arrondi / Angulaire',  44, false]
+                ]},
+    menton:   { label: 'Menton',   sourceId: '042',
+                sliders: [
+                  ['Réduire / Élargir',    37, true],
+                  ['Bas / Haut',           58, false]
+                ]},
+    machoire: { label: 'Mâchoire', sourceId: '042',
+                sliders: [
+                  ['Réduire / Élargir',    44, true],
+                  ['Bas / Haut',           71, true]
+                ]}
+  };
+
+  function escapeHTML(s) { return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function renderZone(zoneKey) {
+    const data = ZONE_DATA[zoneKey];
+    if (!data) return;
+    const labelEl = document.getElementById('zone-label');
+    const sourceEl = document.getElementById('zone-source');
+    const slidersEl = document.getElementById('sliders');
+    if (labelEl) labelEl.textContent = data.label;
+    if (sourceEl) sourceEl.textContent = 'Preset ID ' + data.sourceId;
+    if (slidersEl) {
+      slidersEl.innerHTML = data.sliders.map(([lbl, val, adj]) => {
+        const parts = String(lbl).split(' / ');
+        const ml = `${escapeHTML(parts[0])} <span>/</span> ${escapeHTML(parts[1] || '')}`;
+        return `
+          <div class="slider-row" data-adjusted="${adj}">
+            <div class="slider-row__label">${ml}</div>
+            <div class="slider-row__value">${val}</div>
+            <div class="slider-track">
+              <div class="slider-track__rail"><div class="slider-track__fill" style="width: ${val}%;"></div></div>
+              <div class="slider-track__thumb" style="left: ${val}%;"></div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+    // Tab pressed state
+    document.querySelectorAll('.tab').forEach((t) => {
+      const on = t.dataset.zone === zoneKey;
+      t.setAttribute('aria-pressed', on);
+    });
+    // Scroll active tab into view
+    const activeTab = document.querySelector('.tab[aria-pressed="true"]');
+    if (activeTab && activeTab.scrollIntoView) {
+      activeTab.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'nearest'});
+    }
+    // Reset slider scroll
+    const main = document.getElementById('s4-main');
+    if (main) main.scrollTop = 0;
+  }
+  window.setActiveZone = renderZone;
+
+  /* ---------- goToStep (4-step) ---------- */
+  window.goToStep = function (n) {
+    n = Math.max(1, Math.min(4, Number(n) || 1));
+    const steps = app.querySelectorAll('.step');
+    steps.forEach((s) => {
+      const isActive = Number(s.dataset.step) === n;
+      s.classList.toggle('is-active', isActive);
+      if (isActive) {
+        s.removeAttribute('data-anim');
+        void s.offsetWidth;
+        s.setAttribute('data-anim', 'in');
+        setTimeout(() => s.removeAttribute('data-anim'), 460);
+      }
+    });
+    app.dataset.step = String(n);
+    const s3main = document.getElementById('s3-main');
+    if (s3main) s3main.scrollTop = 0;
+    const s4main = document.getElementById('s4-main');
+    if (s4main) s4main.scrollTop = 0;
+  };
+
+  /* ---------- setMode / setGame ---------- */
+  function setMode(mode) {
+    const m = (mode === 'pro') ? 'pro' : 'rapide';
+    app.dataset.mode = m;
+    const tg = document.querySelector('.modetoggle');
+    if (tg) {
+      tg.dataset.mode = m;
+      tg.querySelectorAll('.modetoggle__btn').forEach((b) => {
+        const on = b.dataset.mode === m;
+        b.setAttribute('aria-pressed', on);
+        b.setAttribute('aria-checked', on);
+      });
+    }
+    const laser = document.getElementById('scanlaser');
+    const mesh = document.getElementById('mesh');
+    const metrics = document.getElementById('metrics');
+    const chipMode = document.getElementById('chip-mode');
+    const modeBadge = document.getElementById('mode-badge');
+    const modeLabel = modeBadge && modeBadge.querySelector('[data-mode-label]');
+    if (m === 'pro') {
+      laser && (laser.hidden = true);
+      mesh && (mesh.hidden = false);
+      metrics && (metrics.hidden = false);
+      if (chipMode) chipMode.textContent = 'PRO · 468 pts';
+      if (modeBadge) modeBadge.dataset.mode = 'pro';
+      if (modeLabel) modeLabel.textContent = 'Mode pro · face mesh';
+    } else {
+      laser && (laser.hidden = false);
+      mesh && (mesh.hidden = true);
+      metrics && (metrics.hidden = true);
+      if (chipMode) chipMode.textContent = 'RAPIDE · 0.41s';
+      if (modeBadge) modeBadge.dataset.mode = 'rapide';
+      if (modeLabel) modeLabel.textContent = 'Mode rapide · auto';
+    }
+    // [HOOK] state.scanMode = (m === 'pro') ? 'expert' : 'auto';
+  }
+  window.setScanMode = setMode;
+
+  function setGame(game) {
+    app.dataset.game = game;
+    document.querySelectorAll('.gamepicker__btn').forEach((b) => {
+      const on = b.dataset.game === game;
+      b.setAttribute('aria-pressed', on);
+      b.setAttribute('aria-checked', on);
+    });
+    // [HOOK] swap PRESETS_DB / labels here
+  }
+  window.setGame = setGame;
+
+  /* ---------- Toast ---------- */
+  function showToast(msg) {
+    if (msg) toast.textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1800);
+  }
+  window.showCraniumToast = showToast;
+
+  /* ---------- Bindings ---------- */
+  document.querySelectorAll('.modetoggle__btn').forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  document.querySelectorAll('.gamepicker__btn').forEach((b) => b.addEventListener('click', () => setGame(b.dataset.game)));
+
+  const btnCamera = document.getElementById('btn-camera');
+  const btnGallery = document.getElementById('btn-gallery');
+  const fileInput = document.getElementById('file-upload');
+  btnCamera && btnCamera.addEventListener('click', () => {
+    if (typeof window.onCameraClick === 'function') { window.onCameraClick(); return; }
+    goToStep(2);
+  });
+  btnGallery && btnGallery.addEventListener('click', () => fileInput && fileInput.click());
+  fileInput && fileInput.addEventListener('change', (e) => {
+    if (typeof window.onFileChange === 'function') { window.onFileChange(e); return; }
+    goToStep(2);
+  });
+
+  const btnLaunch = document.getElementById('btn-launch');
+  btnLaunch && btnLaunch.addEventListener('click', () => {
+    if (typeof window.onLaunchClick === 'function') { window.onLaunchClick(); return; }
+    goToStep(3);
+  });
+
+  const btnToShaping = document.getElementById('btn-to-shaping');
+  btnToShaping && btnToShaping.addEventListener('click', () => goToStep(4));
+
+  document.querySelectorAll('[data-goto]').forEach((el) => {
+    el.addEventListener('click', () => goToStep(Number(el.dataset.goto)));
+  });
+
+  // Zone tabs
+  document.querySelectorAll('.tab[data-zone]').forEach((t) => {
+    t.addEventListener('click', () => renderZone(t.dataset.zone));
+  });
+
+  // Mix rows → open shaping on that zone
+  document.querySelectorAll('.mix__row[data-zone]').forEach((r) => {
+    r.addEventListener('click', () => {
+      renderZone(r.dataset.zone);
+      goToStep(4);
+    });
+  });
+
+  const btnCopyRecipe = document.getElementById('btn-copy-recipe');
+  btnCopyRecipe && btnCopyRecipe.addEventListener('click', () => {
+    if (typeof window.onCopyRecipe === 'function') { window.onCopyRecipe(); return; }
+    showToast('Recette complète copiée');
+  });
+
+  // Swatch radio
+  const swatches = document.querySelectorAll('.swatch');
+  swatches.forEach((s) => {
+    s.addEventListener('click', () => {
+      swatches.forEach((x) => {
+        x.setAttribute('aria-pressed', 'false');
+        x.setAttribute('aria-checked', 'false');
+      });
+      s.setAttribute('aria-pressed', 'true');
+      s.setAttribute('aria-checked', 'true');
+      if (typeof window.onSwatchSelect === 'function') window.onSwatchSelect(s.dataset.tone);
+      // [HOOK] selectSwatch(s.dataset.tone);
+    });
+  });
+
+  // Init
+  setMode('rapide');
+  renderZone('nez');
+})();
+</script>
+
+<!-- Cropper overlay -->
+
+<script src="./scanToSliders_v6.js"></script>
+<script src="./script_spa.js"></script>
+<script>if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', {scope: './'});</script>
 </body>
-
 </html>
