@@ -667,6 +667,7 @@ img { display: block; max-width: 100%; }
 .viewport {
   position: relative;
   flex: 1 1 auto;
+  height: 55dvh;
   min-height: 0;
   border-radius: var(--r-xl);
   overflow: hidden;

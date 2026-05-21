@@ -518,9 +518,9 @@ function openCropperInViewport(url, source='upload'){
   let m=vp.querySelector('.viewport__media');
   if(!m){m=document.createElement('div');m.className='viewport__media';vp.prepend(m);}
   if(S.cropper){S.cropper.destroy();S.cropper=null;}
-  m.style.cssText='position:absolute;inset:0;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center;';
+  m.removeAttribute('style');
   const img=document.createElement('img');
-  img.id='spa-crop-img';img.style.cssText='display:block;max-width:100%;max-height:100%;';img.alt='';
+  img.id='spa-crop-img';img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1;';img.alt='';
   m.innerHTML='';m.appendChild(img);
   // Boutons : Confirmer + Reprendre visibles, Lancer masqué
   document.getElementById('btn-confirm-crop').hidden=false;
@@ -841,6 +841,108 @@ function renderStep3(){
   });
 }
 
+// ─── SOUS-ONGLETS FC26 (noms exacts — FAÇONNAGE AVANCÉ COMPLET.md) ───
+// Ordered longest-prefix-first within each family to ensure correct matching.
+const SUBGROUP_LABELS = {
+  S: [
+    ['crane_couronne_',         'CRANE:courone'],
+    ['crane_arriere_',          'Arrière du crane'],
+    ['crane_',                  'Crane'],
+    ['tempes_',                 'Tempes'],
+    ['front_sup_',              'front : partie supérieur'],
+    ['front_inf_',              'front : partie inférieure'],
+    ['sourcils_ext_sup_',       'Sourcils : partie supérieure extérieure'],
+    ['sourcils_central_',       'Sourcils : partie centrale'],
+    ['sourcils_',               'Sourcils'],
+    ['yeux_',                   'Yeux'],
+    ['orbites_',                'Orbites'],
+    ['arete_nez_centrale_',     'Arete du nez : partie centrale'],
+    ['arete_nez_cotes_',        'Arete du nez : cotés'],
+    ['arete_nez_sup_',          'Arete du nez : partie supérieure'],
+    ['nez_',                    'Nez'],
+    ['joues_',                  'Joues'],
+    ['ext_bouche_sup_',         'Extérieur de la bouche: partie sup.'],
+    ['bouche_',                 'Bouche'],
+    ['menton_sup_',             'Menton: partie supérieure'],
+    ['menton_',                 'Menton'],
+    ['maxillaire_',             'Maxillaire'],
+    ['mandibule_',              'Mandibule'],
+    ['machoire_',               'Machoire'],
+  ],
+  C: [
+    ['tempes_',                       'Tempes'],
+    ['espace_sourcils_',              'Espace entre les sourcils'],
+    ['sourcils_central_',             'Sourcils : partie centrale'],
+    ['pli_paupieres_central_',        'Pli des paupières : partie centrale'],
+    ['pli_paupieres_ext_',            'Pli des paupières : partie extèrieure'],
+    ['pli_paupieres_int_',            'Pli des paupières : partie intérieure'],
+    ['paupiere_inf_centrale_',        'Paupières inférieure: partie centrale'],
+    ['paupiere_inf_ext_',             'Paupières inférieure: partie extérieure'],
+    ['paupiere_inf_int_',             'Paupières inférieure: partie intérieure'],
+    ['paupiere_sup_centrale_',        'Paupières supérieure: partie centrale'],
+    ['paupiere_sup_ext_',             'Paupières supérieure: partie ext.'],
+    ['paupiere_sup_int_',             'Paupières supérieure: partie int.'],
+    ['coin_oeil_ext_',                "Extérieur du coin de l'oeil"],
+    ['coin_oeil_int_',                "Intérieur du coin de l'oeil"],
+    ['narine_sup_ext_',               'Narine : partie supérieure extérieure'],
+    ['narine_sup_centrale_',          'Narine : partie supérieure centrale'],
+    ['narine_sup_',                   'Narine : partie supérieure'],
+    ['narine_inf_',                   'Narine : partie inférieure'],
+    ['ext_narine_centrale_',          'Extérieur de la narine : partie centrale'],
+    ['ext_narine_ext_',               'Extérieur de la narine : partie ext.'],
+    ['pointe_nez_sous_jacente_',      'Pointe du nez : partie sous-jacente'],
+    ['pointe_nez_sup_',               'Pointe du nez : partie supérieure'],
+    ['pointe_nez_inf_',               'Pointe du nez : partie inférieure'],
+    ['joues_yeux_int_sup_',           'Yeux:partie interne supérieure'],
+    ['joues_ext_sup_',                'Joues:partie externe supérieure'],
+    ['joues_ext_inf_',                'Joues:partie externe inférieure'],
+    ['joues_int_sup_',                'Joues:partie interne supérieure'],
+    ['joues_int_inf_',                'Joues:partie interne inférieure'],
+    ['joues_',                        'Joues'],
+    ['commissures_levres_',           'Commissures des lèvres'],
+    ['espacement_levres_centre_',     'Espacement entre les lèvres: centre'],
+    ['espacement_levres_cotes_',      'Espacement entre les lèvres: côtés'],
+    ['levre_sup_centre_sup_',         'Lèvres supérieure : centre supérieur'],
+    ['levre_sup_cotes_sup_',          'Lèvres supérieure : côtés supérieurs'],
+    ['levre_sup_coins_sup_',          'Lèvres supérieure : coins supérieurs'],
+    ['levre_sup_centre_inf_',         'Lèvres supérieure : centre inférieur'],
+    ['levre_sup_cotes_inf_',          'Lèvres supérieure : côtés inférieurs'],
+    ['epaisseur_levre_sup_',          'Épaisseur de la lèvres supérieure'],
+    ['philtrum_',                     'Philtrum'],
+    ['epaisseur_levre_inf_',          'Épaisseur de la lèvres inférieure'],
+    ['levre_inf_centre_sup_',         'Lèvres inférieure : partie sup.centrale'],
+    ['levre_inf_cotes_sup_',          'Lèvres inférieure : côtés supérieurs'],
+    ['levre_inf_centre_inf_',         'Lèvres inférieure : partie inf.centrale'],
+    ['levre_inf_cotes_inf_',          'Lèvres inférieure : côtés inférieurs'],
+    ['levre_inf_coins_inf_',          'Lèvres inférieure : coins inférieurs'],
+    ['plis_coin_bouche_',             'Plis du coin de la bouche'],
+    ['fossette_mentonniere_',         'Fossette mentonnière'],
+    ['menton_cotes_',                 'Menton:côtés'],
+    ['machoire_',                     'Mâchoire'],
+  ],
+  G: [
+    ['haut_cou_',         'haut du cou'],
+    ['front_centre_',     'Front : centre'],
+    ['front_cotes_',      'Front : côtés'],
+    ['paupiere_sup_',     'Paupière supérieure'],
+    ['paupiere_inf_',     'Paupière inférieure'],
+    ['cernes_inf_',       'Cernes : Partie inférieure'],
+    ['nez_',              'Nez'],
+    ['joues_sup_',        'Joues : Partie supérieure'],
+    ['joues_inf_',        'Joues : Partie inférieure'],
+    ['bajoue_',           'Bajoue'],
+    ['joues_int_sup_',    'Joues : Partie intérieure supérieure'],
+    ['joues_int_inf_',    'Joues : Partie intérieure infrieure'],
+    ['tempes_',           'Tempes'],
+    ['cotes_bouche_',     'Côtés de la bouche'],
+    ['levres_sup_',       'Lèvres supérieure'],
+    ['levres_inf_',       'Lèvres supérieure'],
+    ['menton_',           'Menton'],
+    ['sous_menton_',      'Sous le menton'],
+    ['machoire_',         'Mâchoire'],
+  ],
+};
+
 // ─── STEP 4 : ZONES + SLIDERS (Squelette → Chair → Graisse) ──────────
 function buildZoneTabs(){
   const el=document.getElementById('zone-tabs');if(!el)return;
@@ -882,24 +984,36 @@ function renderZoneSliders(zk){
 
   function renderGroup(entries, familyKey, color, fam) {
     if(!entries.length) return '';
-    return `<div class="slider-section-lbl" style="color:${color};">${familyKey}</div>` +
-      entries.map(([key,aiVal])=>{
-        const{v,src}=getVal(key,aiVal,fam);
-        const isAI=src==='ai', isP9=src==='p9', isNeutral=src==='neutral';
-        const lb=sliderLabel(key), parts=lb.split(' / ');
-        const ml=parts.length>1?`${esc(parts[0])} <span>/</span> ${esc(parts[1])}`:esc(lb);
-        const badge=isAI?`<span title="${t('ai_badge')}" style="margin-left:4px;font-size:9px;background:rgba(0,240,255,0.15);color:#00f0ff;padding:1px 4px;border-radius:3px;">🎯</span>`
-          :isP9?`<span title="Preset 9" style="margin-left:4px;font-size:9px;background:rgba(255,255,255,0.06);color:#6b7099;padding:1px 4px;border-radius:3px;">P9</span>`:'';
-        const op=isNeutral?'opacity:0.35;':'';
-        return `<div class="slider-row" data-adjusted="${isAI}" style="${op}">
-          <div class="slider-row__label">${ml}${badge}</div>
-          <div class="slider-row__value">${v}</div>
-          <div class="slider-track">
-            <div class="slider-track__rail"><div class="slider-track__fill" style="width:${v}%;"></div></div>
-            <div class="slider-track__thumb" style="left:${v}%;"></div>
-          </div>
-        </div>`;
-      }).join('');
+    const labels = SUBGROUP_LABELS[fam] || [];
+    let lastSubgroup = null;
+    let html = `<div class="slider-section-lbl" style="color:${color};">${familyKey}</div>`;
+    entries.forEach(([key,aiVal])=>{
+      // Find sub-group label (longest matching prefix wins — array is ordered accordingly)
+      let subgroup = null;
+      for (const [pfx, lbl] of labels) {
+        if (key.startsWith(pfx)) { subgroup = lbl; break; }
+      }
+      if (subgroup && subgroup !== lastSubgroup) {
+        html += `<div class="slider-subgroup-lbl">${esc(subgroup)}</div>`;
+        lastSubgroup = subgroup;
+      }
+      const{v,src}=getVal(key,aiVal,fam);
+      const isAI=src==='ai', isP9=src==='p9', isNeutral=src==='neutral';
+      const lb=sliderLabel(key), parts=lb.split(' / ');
+      const ml=parts.length>1?`${esc(parts[0])} <span>/</span> ${esc(parts[1])}`:esc(lb);
+      const badge=isAI?`<span title="${t('ai_badge')}" style="margin-left:4px;font-size:9px;background:rgba(0,240,255,0.15);color:#00f0ff;padding:1px 4px;border-radius:3px;">🎯</span>`
+        :isP9?`<span title="Preset 9" style="margin-left:4px;font-size:9px;background:rgba(255,255,255,0.06);color:#6b7099;padding:1px 4px;border-radius:3px;">P9</span>`:'';
+      const op=isNeutral?'opacity:0.35;':'';
+      html += `<div class="slider-row" data-adjusted="${isAI}" style="${op}">
+        <div class="slider-row__label">${ml}${badge}</div>
+        <div class="slider-row__value">${v}</div>
+        <div class="slider-track">
+          <div class="slider-track__rail"><div class="slider-track__fill" style="width:${v}%;"></div></div>
+          <div class="slider-track__thumb" style="left:${v}%;"></div>
+        </div>
+      </div>`;
+    });
+    return html;
   }
 
   sl.innerHTML =
