@@ -361,7 +361,7 @@ const skinToneLabel = (ita,l=_lang) => {
 
 // ─── ZONES ────────────────────────────────────────────────────────────
 const ZONES = {
-  crane:   {fr:'Crâne',   en:'Head',     icon:'⬡', px:['crane_','tempes_','couronne_']},
+  crane:   {fr:'Tête',    en:'Head',     icon:'⬡', px:['crane_','tempes_','couronne_']},
   front:   {fr:'Front',   en:'Forehead', icon:'▭', px:['front_']},
   sourcils:{fr:'Sourcils',en:'Brows',    icon:'〰', px:['sourcils_','espace_sourcils']},
   yeux:    {fr:'Yeux',    en:'Eyes',     icon:'◉', px:['yeux_','orbites_','pli_paupieres','paupiere_','coin_oeil','cernes']},
@@ -390,6 +390,138 @@ function sliderLabel(key) {
     if (key.endsWith('_'+s)||key===s) return lb[_lang]||lb.fr;
   }
   return key.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+}
+
+const SLIDER_SUBTAB = [
+  // SQUELETTE — Tête
+  ['crane_',                        'Crane'],
+  ['crane_couronne_',               'CRANE:courone'],
+  ['crane_arriere_',                'Arrière du crane'],
+  ['tempes_',                       'Tempes'],
+  // SQUELETTE — Front
+  ['front_sup_',                    'front : partie supérieur'],
+  ['front_inf_',                    'front : partie inférieure'],
+  // SQUELETTE — Sourcils
+  ['sourcils_',                     'Sourcils'],
+  ['sourcils_central_',             'Sourcils : partie centrale'],
+  ['sourcils_ext_sup_',             'Sourcils : partie supérieure extérieure'],
+  // SQUELETTE — Yeux
+  ['yeux_',                         'Yeux'],
+  ['orbites_',                      'Orbites'],
+  // SQUELETTE — Nez
+  ['nez_',                          'Nez'],
+  ['arete_nez_cotes_',              'Arete du nez : cotés'],
+  ['arete_nez_centrale_',           'Arete du nez : partie centrale'],
+  ['arete_nez_sup_',                'Arete du nez : partie supérieure'],
+  // SQUELETTE — Joues
+  ['joues_',                        'Joues'],
+  // SQUELETTE — Bouche
+  ['bouche_',                       'Bouche'],
+  ['ext_bouche_sup_',               'Extérieur de la bouche: partie sup.'],
+  // SQUELETTE — Menton
+  ['menton_',                       'Menton'],
+  ['menton_sup_',                   'Menton: partie supérieure'],
+  // SQUELETTE — Mâchoire
+  ['machoire_',                     'Machoire'],
+  ['maxillaire_',                   'Maxillaire'],
+  ['mandibule_',                    'Mandibule'],
+  // CHAIR — Tête
+  ['tempes_',                       'Tempes'],
+  // CHAIR — Sourcils
+  ['sourcils_central_',             'Sourcils : partie centrale'],
+  ['espace_sourcils_',              'Espace entre les sourcils'],
+  // CHAIR — Yeux
+  ['pli_paupieres_central_',        'Pli des paupières : partie centrale'],
+  ['pli_paupieres_ext_',            'Pli des paupières : partie extèrieure'],
+  ['pli_paupieres_int_',            'Pli des paupières : partie intérieure'],
+  ['paupiere_inf_centrale_',        'Paupières inférieure: partie centrale'],
+  ['paupiere_inf_ext_',             'Paupières inférieure: partie extérieure'],
+  ['paupiere_inf_int_',             'Paupières inférieure: partie intérieure'],
+  ['paupiere_sup_centrale_',        'Paupières supérieure: partie centrale'],
+  ['paupiere_sup_ext_',             'Paupières supérieure: partie ext.'],
+  ['paupiere_sup_int_',             'Paupières supérieure: partie int.'],
+  ['coin_oeil_ext_',                'Extérieur du coin de l\'oeil'],
+  ['coin_oeil_int_',                'Intérieur du coin de l\'oeil'],
+  // CHAIR — Nez
+  ['narine_sup_',                   'Narine : partie supérieure'],
+  ['narine_sup_ext_',               'Narine : partie supérieure extérieure'],
+  ['narine_sup_centrale_',          'Narine : partie supérieure centrale'],
+  ['narine_inf_',                   'Narine : partie inférieure'],
+  ['ext_narine_ext_',               'Extérieur de la narine : partie ext.'],
+  ['ext_narine_centrale_',          'Extérieur de la narine : partie centrale'],
+  ['pointe_nez_sup_',               'Pointe du nez : partie supérieure'],
+  ['pointe_nez_sous_jacente_',      'Pointe du nez : partie sous-jacente'],
+  ['pointe_nez_inf_',               'Pointe du nez : partie inférieure'],
+  // CHAIR — Joues
+  ['joues_',                        'Joues'],
+  ['joues_ext_sup_',                'Joues:partie externe supérieure'],
+  ['joues_yeux_int_sup_',           'Yeux:partie interne supérieure'],
+  ['joues_int_sup_',                'Joues:partie interne supérieure'],
+  ['joues_ext_inf_',                'Joues:partie externe inférieure'],
+  ['joues_int_inf_',                'Joues:partie interne inférieure'],
+  // CHAIR — Bouche
+  ['commissures_levres_',           'Commissures des lèvres'],
+  ['espacement_levres_centre_',     'Espacement entre les lèvres: centre'],
+  ['espacement_levres_cotes_',      'Espacement entre les lèvres: côtés'],
+  ['levre_sup_centre_sup_',         'Lèvres supérieure : centre supérieur'],
+  ['levre_sup_cotes_sup_',          'Lèvres supérieure : côtés supérieurs'],
+  ['levre_sup_coins_sup_',          'Lèvres supérieure : coins supérieurs'],
+  ['levre_sup_centre_inf_',         'Lèvres supérieure : centre inférieur'],
+  ['levre_sup_cotes_inf_',          'Lèvres supérieure : côtés inférieurs'],
+  ['epaisseur_levre_sup_',          'Épaisseur de la lèvres supérieure'],
+  ['philtrum_',                     'Philtrum'],
+  ['epaisseur_levre_inf_',          'Épaisseur de la lèvres inférieure'],
+  ['levre_inf_centre_sup_',         'Lèvres inférieure : partie sup.centrale'],
+  ['levre_inf_cotes_sup_',          'Lèvres inférieure : côtés supérieurs'],
+  ['levre_inf_centre_inf_',         'Lèvres inférieure : partie inf.centrale'],
+  ['levre_inf_cotes_inf_',          'Lèvres inférieure : côtés inférieurs'],
+  ['levre_inf_coins_inf_',          'Lèvres inférieure : coins inférieurs'],
+  ['plis_coin_bouche_',             'Plis du coin de la bouche'],
+  // CHAIR — Menton
+  ['fossette_mentonniere_',         'Fossette mentonnière'],
+  ['menton_cotes_',                 'Menton:côtés'],
+  // CHAIR — Mâchoire
+  ['machoire_',                     'Mâchoire'],
+  // GRAISSE — Tête
+  ['haut_cou_',                     'haut du cou'],
+  // GRAISSE — Front
+  ['front_centre_',                 'Front : centre'],
+  ['front_cotes_',                  'Front : côtés'],
+  // GRAISSE — Yeux
+  ['paupiere_sup_',                 'Paupière supérieure'],
+  ['paupiere_inf_',                 'Paupière inférieure'],
+  ['cernes_inf_',                   'Cernes : Partie inférieure'],
+  // GRAISSE — Nez
+  ['nez_',                          'Nez'],
+  // GRAISSE — Joues
+  ['joues_sup_',                    'Joues : Partie supérieure'],
+  ['joues_inf_',                    'Joues : Partie inférieure'],
+  ['bajoue_',                       'Bajoue'],
+  ['joues_int_sup_',                'Joues : Partie intérieure supérieure'],
+  ['joues_int_inf_',                'Joues : Partie intérieure infrieure'],
+  ['tempes_',                       'Tempes'],
+  // GRAISSE — Bouche
+  ['cotes_bouche_',                 'Côtés de la bouche'],
+  ['levres_sup_',                   'Lèvres supérieure'],
+  ['levres_inf_',                   'Lèvres inférieure'],
+  // GRAISSE — Menton
+  ['menton_',                       'Menton'],
+  ['sous_menton_',                  'Sous le menton'],
+  // GRAISSE — Mâchoire
+  ['machoire_',                     'Mâchoire'],
+];
+
+function getSubTab(key) {
+  // MAP d'exceptions — clés qui ne suivent pas leur préfixe naturel
+  const EXCEPTIONS = {
+    'crane_arriere_avant': 'Crane',
+    'crane_arrondi_angulaire': 'Crane',
+    'crane_deplacement_gd': 'Crane',
+  };
+  if (key in EXCEPTIONS) return EXCEPTIONS[key];
+  const sorted = [...SLIDER_SUBTAB].sort((a, b) => b[0].length - a[0].length);
+  const match = sorted.find(([prefix]) => key.startsWith(prefix));
+  return match ? match[1] : null;
 }
 
 // ─── MEDIAPIPE ───────────────────────────────────────────────────────
@@ -843,105 +975,6 @@ function renderStep3(){
 
 // ─── SOUS-ONGLETS FC26 (noms exacts — FAÇONNAGE AVANCÉ COMPLET.md) ───
 // Ordered longest-prefix-first within each family to ensure correct matching.
-const SUBGROUP_LABELS = {
-  S: [
-    ['crane_couronne_',         'CRANE:courone'],
-    ['crane_arriere_',          'Arrière du crane'],
-    ['crane_',                  'Crane'],
-    ['tempes_',                 'Tempes'],
-    ['front_sup_',              'front : partie supérieur'],
-    ['front_inf_',              'front : partie inférieure'],
-    ['sourcils_ext_sup_',       'Sourcils : partie supérieure extérieure'],
-    ['sourcils_central_',       'Sourcils : partie centrale'],
-    ['sourcils_',               'Sourcils'],
-    ['yeux_',                   'Yeux'],
-    ['orbites_',                'Orbites'],
-    ['arete_nez_centrale_',     'Arete du nez : partie centrale'],
-    ['arete_nez_cotes_',        'Arete du nez : cotés'],
-    ['arete_nez_sup_',          'Arete du nez : partie supérieure'],
-    ['nez_',                    'Nez'],
-    ['joues_',                  'Joues'],
-    ['ext_bouche_sup_',         'Extérieur de la bouche: partie sup.'],
-    ['bouche_',                 'Bouche'],
-    ['menton_sup_',             'Menton: partie supérieure'],
-    ['menton_',                 'Menton'],
-    ['maxillaire_',             'Maxillaire'],
-    ['mandibule_',              'Mandibule'],
-    ['machoire_',               'Machoire'],
-  ],
-  C: [
-    ['tempes_',                       'Tempes'],
-    ['espace_sourcils_',              'Espace entre les sourcils'],
-    ['sourcils_central_',             'Sourcils : partie centrale'],
-    ['pli_paupieres_central_',        'Pli des paupières : partie centrale'],
-    ['pli_paupieres_ext_',            'Pli des paupières : partie extèrieure'],
-    ['pli_paupieres_int_',            'Pli des paupières : partie intérieure'],
-    ['paupiere_inf_centrale_',        'Paupières inférieure: partie centrale'],
-    ['paupiere_inf_ext_',             'Paupières inférieure: partie extérieure'],
-    ['paupiere_inf_int_',             'Paupières inférieure: partie intérieure'],
-    ['paupiere_sup_centrale_',        'Paupières supérieure: partie centrale'],
-    ['paupiere_sup_ext_',             'Paupières supérieure: partie ext.'],
-    ['paupiere_sup_int_',             'Paupières supérieure: partie int.'],
-    ['coin_oeil_ext_',                "Extérieur du coin de l'oeil"],
-    ['coin_oeil_int_',                "Intérieur du coin de l'oeil"],
-    ['narine_sup_ext_',               'Narine : partie supérieure extérieure'],
-    ['narine_sup_centrale_',          'Narine : partie supérieure centrale'],
-    ['narine_sup_',                   'Narine : partie supérieure'],
-    ['narine_inf_',                   'Narine : partie inférieure'],
-    ['ext_narine_centrale_',          'Extérieur de la narine : partie centrale'],
-    ['ext_narine_ext_',               'Extérieur de la narine : partie ext.'],
-    ['pointe_nez_sous_jacente_',      'Pointe du nez : partie sous-jacente'],
-    ['pointe_nez_sup_',               'Pointe du nez : partie supérieure'],
-    ['pointe_nez_inf_',               'Pointe du nez : partie inférieure'],
-    ['joues_yeux_int_sup_',           'Yeux:partie interne supérieure'],
-    ['joues_ext_sup_',                'Joues:partie externe supérieure'],
-    ['joues_ext_inf_',                'Joues:partie externe inférieure'],
-    ['joues_int_sup_',                'Joues:partie interne supérieure'],
-    ['joues_int_inf_',                'Joues:partie interne inférieure'],
-    ['joues_',                        'Joues'],
-    ['commissures_levres_',           'Commissures des lèvres'],
-    ['espacement_levres_centre_',     'Espacement entre les lèvres: centre'],
-    ['espacement_levres_cotes_',      'Espacement entre les lèvres: côtés'],
-    ['levre_sup_centre_sup_',         'Lèvres supérieure : centre supérieur'],
-    ['levre_sup_cotes_sup_',          'Lèvres supérieure : côtés supérieurs'],
-    ['levre_sup_coins_sup_',          'Lèvres supérieure : coins supérieurs'],
-    ['levre_sup_centre_inf_',         'Lèvres supérieure : centre inférieur'],
-    ['levre_sup_cotes_inf_',          'Lèvres supérieure : côtés inférieurs'],
-    ['epaisseur_levre_sup_',          'Épaisseur de la lèvres supérieure'],
-    ['philtrum_',                     'Philtrum'],
-    ['epaisseur_levre_inf_',          'Épaisseur de la lèvres inférieure'],
-    ['levre_inf_centre_sup_',         'Lèvres inférieure : partie sup.centrale'],
-    ['levre_inf_cotes_sup_',          'Lèvres inférieure : côtés supérieurs'],
-    ['levre_inf_centre_inf_',         'Lèvres inférieure : partie inf.centrale'],
-    ['levre_inf_cotes_inf_',          'Lèvres inférieure : côtés inférieurs'],
-    ['levre_inf_coins_inf_',          'Lèvres inférieure : coins inférieurs'],
-    ['plis_coin_bouche_',             'Plis du coin de la bouche'],
-    ['fossette_mentonniere_',         'Fossette mentonnière'],
-    ['menton_cotes_',                 'Menton:côtés'],
-    ['machoire_',                     'Mâchoire'],
-  ],
-  G: [
-    ['haut_cou_',         'haut du cou'],
-    ['front_centre_',     'Front : centre'],
-    ['front_cotes_',      'Front : côtés'],
-    ['paupiere_sup_',     'Paupière supérieure'],
-    ['paupiere_inf_',     'Paupière inférieure'],
-    ['cernes_inf_',       'Cernes : Partie inférieure'],
-    ['nez_',              'Nez'],
-    ['joues_sup_',        'Joues : Partie supérieure'],
-    ['joues_inf_',        'Joues : Partie inférieure'],
-    ['bajoue_',           'Bajoue'],
-    ['joues_int_sup_',    'Joues : Partie intérieure supérieure'],
-    ['joues_int_inf_',    'Joues : Partie intérieure infrieure'],
-    ['tempes_',           'Tempes'],
-    ['cotes_bouche_',     'Côtés de la bouche'],
-    ['levres_sup_',       'Lèvres supérieure'],
-    ['levres_inf_',       'Lèvres supérieure'],
-    ['menton_',           'Menton'],
-    ['sous_menton_',      'Sous le menton'],
-    ['machoire_',         'Mâchoire'],
-  ],
-};
 
 // ─── STEP 4 : ZONES + SLIDERS (Squelette → Chair → Graisse) ──────────
 function buildZoneTabs(){
@@ -984,15 +1017,10 @@ function renderZoneSliders(zk){
 
   function renderGroup(entries, familyKey, color, fam) {
     if(!entries.length) return '';
-    const labels = SUBGROUP_LABELS[fam] || [];
     let lastSubgroup = null;
     let html = `<div class="slider-section-lbl" style="color:${color};">${familyKey}</div>`;
     entries.forEach(([key,aiVal])=>{
-      // Find sub-group label (longest matching prefix wins — array is ordered accordingly)
-      let subgroup = null;
-      for (const [pfx, lbl] of labels) {
-        if (key.startsWith(pfx)) { subgroup = lbl; break; }
-      }
+      const subgroup = getSubTab(key);
       if (subgroup && subgroup !== lastSubgroup) {
         html += `<div class="slider-subgroup-lbl">${esc(subgroup)}</div>`;
         lastSubgroup = subgroup;
@@ -1165,6 +1193,18 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   // Zone tabs
   buildZoneTabs();
+
+  // Wrapper goToStep : force le rendu réel de l'étape 4 à chaque navigation
+  (function(){
+    const _orig = window.goToStep;
+    window.goToStep = function(n){
+      _orig && _orig(n);
+      if(Number(n) === 4){
+        buildZoneTabs();
+        renderZoneSliders(S.activeZone || 'crane');
+      }
+    };
+  })();
 
   // Lang switcher
   document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>window.setLanguage(b.dataset.lang)));
