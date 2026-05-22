@@ -53,6 +53,11 @@ const _norm = (ratio, min, max) => {
   return Math.round(((clamped - min) / (max - min)) * 100);
 };
 
+// Borne dure 0-100 + arrondi entier — utilisé pour les sliders calculés
+// par déviation autour d'une ancre P9 (qui peuvent dépasser les bornes
+// avec des morphologies extrêmes)
+const softClampSlider = (v) => Math.round(Math.min(100, Math.max(0, v)));
+
 const PRESET_NEUTRE = 50;
 
 // ─────────────────────────────────────────────
@@ -109,10 +114,55 @@ function scanToSliders(landmarks, tddfaResult = null) {
   auto(S, 'crane_reduire_elargir',
     _norm(_dist(L[21], L[251]) / D_W, 0.45, 1.20));
 
-  // Hauteur crânio-mentonnière (toujours = 1.0 par définition → ratio fixe)
-  // On mesure plutôt la hauteur du front par rapport à la face
-  auto(S, 'crane_bas_haut',
-    _norm(_dist(L[10], L[9]) / D_H, 0.02, 0.45));
+  // Élancement du visage : signal partagé D_H / D_W
+  // Un faceRatio élevé → visage long ; bas → visage rond.
+  // Propagé aux 3 sliders de hauteur crânienne en gardant les ancres P9.
+  const faceRatio = D_H / D_W;
+  // R_P9 = ratio D_H/D_W mesuré sur le Preset 9 (image 9.png) via re-scan console.
+  // P9 a un visage large/court → la majorité des visages réels auront faceRatio > R_P9.
+  const R_P9 = 1.070; // mesuré sur 9.png (était 1.30 estimé)
+  const K    = 45;    // sensibilité (était 100, saturait à 100 sur visages longs type Musk)
+  const delta = (faceRatio - R_P9) * K;
+  const crane_bas_haut_val          = softClampSlider(69 + delta);
+  const crane_arriere_bas_haut_val  = softClampSlider(75 + delta);
+  // couronne PLUS sensible (×1.4) : visage long → crâne s'étire vers le sommet,
+  // donc couronne haute. Inversion du facteur 0.5 initial qui plafonnait à 34.
+  const crane_couronne_bas_haut_val = softClampSlider(14 + 1.4 * delta);
+  auto(S, 'crane_bas_haut',          crane_bas_haut_val);
+  auto(S, 'crane_arriere_bas_haut',  crane_arriere_bas_haut_val);
+  auto(S, 'crane_couronne_bas_haut', crane_couronne_bas_haut_val);
+  console.log('[scanToSliders] faceRatio=', faceRatio.toFixed(3),
+    '| crane_bas_haut=', crane_bas_haut_val,
+    '| crane_arriere_bas_haut=', crane_arriere_bas_haut_val,
+    '| crane_couronne_bas_haut=', crane_couronne_bas_haut_val);
+
+  // ── PLÉNITUDE / VOLUME (proxy 2D, en remplacement de volume_sliders 3DDFA vide) ──
+  // Signal d'effilement : un visage plein garde une mâchoire large sous les pommettes,
+  // un visage maigre s'effile. Pentes par slider calibrées sur 3 visages
+  // (Cumberbatch 0.822 / P9 0.879 / Elon 0.953).
+  const cheekW = _dist(L[116], L[345]); // largeur pommettes
+  const jawW   = _dist(L[172], L[397]); // largeur mâchoire
+  const taper  = jawW / cheekW;          // élevé = plein, bas = maigre
+
+  const TAPER_P9 = 0.879; // mesuré sur 9.png via re-scan console
+  const dT = taper - TAPER_P9;
+
+  // Sliders prédits par le taper (pente individuelle, ancre = valeur P9)
+  auto(C, 'machoire_moins_plus', softClampSlider(39 + 730 * dT)); // jaw chair (dominant)
+  auto(C, 'joues_moins_plus',    softClampSlider(29 + 670 * dT));
+  auto(G, 'bajoue_moins_plus',   softClampSlider(50 + 720 * dT));
+
+  // NON prédits par le taper (bascule verticale, non-monotones) → on les laisse en P9
+  preset(G, 'machoire_moins_plus'); // ne suit pas le taper de façon fiable → P9
+  preset(G, 'joues_sup_moins_plus');
+  preset(G, 'joues_inf_moins_plus');
+  preset(G, 'menton_moins_plus');      // impact nul confirmé
+  preset(G, 'sous_menton_moins_plus'); // impact nul confirmé
+
+  console.log('[volume] taper=', taper.toFixed(3),
+    '| machoireC=', results.chair.machoire_moins_plus,
+    '| jouesC=', results.chair.joues_moins_plus,
+    '| bajoue=', results.graisse.bajoue_moins_plus);
 
   // Axe Z → preset (non fiable sans matrice canonique)
   presetZ(S, 'crane_arriere_avant');
@@ -121,14 +171,12 @@ function scanToSliders(landmarks, tddfaResult = null) {
 
   // Couronne → preset (extrapolation non fiable)
   preset(S, 'crane_couronne_reduire_elargir');
-  preset(S, 'crane_couronne_bas_haut');
   presetZ(S, 'crane_couronne_arriere_avant');
   preset(S, 'crane_couronne_neutre_arrondi');
   preset(S, 'crane_couronne_deplacement_gd');
 
   // Arrière du crâne → preset (aucun landmark MediaPipe derrière la tête)
   preset(S, 'crane_arriere_reduire_elargir');
-  preset(S, 'crane_arriere_bas_haut');
   presetZ(S, 'crane_arriere_arriere_avant');
   preset(S, 'crane_arriere_arrondi_angulaire');
   preset(S, 'crane_arriere_deplacement_gd');
@@ -578,7 +626,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
     100 - _norm((L[116].y + L[345].y) / 2, 0.38, 0.68));
 
   // Zdev → preset pour V1
-  preset(C, 'joues_moins_plus');
+  // joues_moins_plus : set par le bloc PLÉNITUDE / VOLUME (haut de fonction)
   preset(C, 'joues_ext_sup_moins_plus');
   preset(C, 'joues_yeux_int_sup_bas_haut');  // doc: "[Yeux:partie interne supérieure]" sous Joues
   preset(C, 'joues_yeux_int_sup_moins_plus');
@@ -739,7 +787,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
   preset(C, 'menton_cotes_neutre_moins');
 
   // ── MÂCHOIRE Chair ──
-  preset(C, 'machoire_moins_plus');
+  // machoire_moins_plus : set par le bloc PLÉNITUDE / VOLUME (haut de fonction)
 
   // ── TEMPES Chair ──
 
@@ -783,20 +831,16 @@ function scanToSliders(landmarks, tddfaResult = null) {
   preset(G, 'nez_moins_plus');
 
   // Joues graisse — position Y calculable
+  // joues_sup_moins_plus / joues_inf_moins_plus / bajoue_moins_plus :
+  // set par le bloc PLÉNITUDE / VOLUME (haut de fonction)
   auto(G, 'joues_sup_bas_haut',
     _norm((L[116].y + L[345].y) / 2, 0.35, 0.68));
-
-  preset(G, 'joues_sup_moins_plus');
 
   auto(G, 'joues_inf_bas_haut',
     _norm((L[136].y + L[365].y) / 2, 0.42, 0.95));
 
-  preset(G, 'joues_inf_moins_plus');
-
   auto(G, 'bajoue_bas_haut',
     _norm((L[172].y + L[397].y) / 2, 0.48, 0.97));
-
-  preset(G, 'bajoue_moins_plus');
 
   auto(G, 'joues_int_sup_bas_haut',
     _norm((L[50].y + L[280].y) / 2, 0.30, 0.80));
@@ -830,21 +874,17 @@ function scanToSliders(landmarks, tddfaResult = null) {
   preset(G, 'levres_inf_moins_plus');
 
   // Menton graisse
+  // menton_moins_plus / sous_menton_moins_plus / machoire_moins_plus :
+  // set par le bloc PLÉNITUDE / VOLUME (haut de fonction)
   auto(G, 'menton_bas_haut',
     _norm(L[152].y, 0.60, 0.95));
-
-  preset(G, 'menton_moins_plus');
 
   auto(G, 'sous_menton_bas_haut',
     _norm(L[200].y, 0.52, 1.02));
 
-  preset(G, 'sous_menton_moins_plus');
-
   // Mâchoire graisse
   auto(G, 'machoire_bas_haut',
     _norm((L[132].y + L[361].y) / 2, 0.38, 0.92));
-
-  preset(G, 'machoire_moins_plus');
 
   // ── Finalisation méta ──
   meta.totalSliders  = meta.autoCount + meta.presetCount;
