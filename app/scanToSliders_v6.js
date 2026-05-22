@@ -293,9 +293,10 @@ function scanToSliders(landmarks, tddfaResult = null) {
   }
 
   // ── NEZ ──
-  // Largeur narines
+  // Largeur narines — bornes resserrées 0.24-0.36 (étendue mesurée 0.273→0.320 sur 6 visages,
+  // ancien 0.14-0.42 compressait tout autour de 50)
   auto(S, 'nez_reduire_elargir',
-    _norm(_dist(L[129], L[358]) / D_W, 0.14, 0.42));
+    _norm(_dist(L[129], L[358]) / D_W, 0.24, 0.36));
 
   // Longueur nez (nasion → pointe)
   auto(S, 'nez_bas_haut',
@@ -357,8 +358,9 @@ function scanToSliders(landmarks, tddfaResult = null) {
   presetA(S, 'joues_arrondi_angulaire');
 
   // ── BOUCHE ──
+  // Bornes resserrées 0.28-0.46 (plage humaine réelle observée sur 5 visages)
   auto(S, 'bouche_reduire_elargir',
-    _norm(_dist(L[61], L[291]) / D_W, 0.22, 0.55));
+    _norm(_dist(L[61], L[291]) / D_W, 0.28, 0.46));
 
   // CORRIGÉ : ajout plage étendue
   auto(S, 'bouche_bas_haut',
@@ -592,8 +594,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
   preset(C, 'ext_narine_centrale_arrondi_angulaire');
 
   // Pointe du nez
-  auto(C, 'pointe_nez_sup_reduire_elargir',
-    _norm(_dist(L[4], L[19]) / D_W, 0.04, 0.24));
+  preset(C, 'pointe_nez_sup_reduire_elargir'); // signal plat en 2D (profondeur) → P9
 
   // CORRIGÉ : plage étendue pour pointe_nez_bas_haut
   auto(C, 'pointe_nez_sup_bas_haut',
@@ -611,8 +612,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
   preset(C, 'pointe_nez_sous_jacente_arrondi_angulaire');
   preset(C, 'pointe_nez_sous_jacente_deplacement_gd');
 
-  auto(C, 'pointe_nez_inf_reduire_elargir',
-    _norm(_dist(L[94], L[274]) / D_W, 0.06, 0.30));
+  preset(C, 'pointe_nez_inf_reduire_elargir'); // signal plat en 2D (profondeur) → P9
 
   auto(C, 'pointe_nez_inf_bas_haut',
     _norm((L[94].y + L[274].y) / 2, 0.38, 0.90));
@@ -620,6 +620,18 @@ function scanToSliders(landmarks, tddfaResult = null) {
   preset(C, 'pointe_nez_inf_arriere_avant');
   preset(C, 'pointe_nez_inf_arrondi_angulaire');
   preset(C, 'pointe_nez_inf_deplacement_gd');
+
+  // Diagnostic largeurs nez (sliders calculés + ratios bruts avant _norm)
+  // → comparer les ratios aux bornes des _norm() pour repérer la compression bas d'échelle
+  console.log('[nez] nez_larg=', results.squelette.nez_reduire_elargir,
+    '| pointe_sup=', results.chair.pointe_nez_sup_reduire_elargir,
+    '| pointe_inf=', results.chair.pointe_nez_inf_reduire_elargir,
+    '| arete_cotes=', results.squelette.arete_nez_cotes_reduire_elargir,
+    '| narine_sup=', results.chair.narine_sup_reduire_elargir,
+    '| narine_inf=', results.chair.narine_inf_reduire_elargir);
+  console.log('[nez ratios] pointeSup=', (_dist(L[4], L[19]) / D_W).toFixed(3),
+    '| pointeInf=', (_dist(L[94], L[274]) / D_W).toFixed(3),
+    '| narines=', (_dist(L[129], L[358]) / D_W).toFixed(3));
 
   // ── JOUES Chair ──
   auto(C, 'joues_bas_haut',
@@ -701,12 +713,12 @@ function scanToSliders(landmarks, tddfaResult = null) {
   presetZ(C, 'levre_sup_cotes_inf_arriere_avant');
   preset(C, 'levre_sup_cotes_inf_arrondi_angulaire');
 
-  // Épaisseur lèvre supérieure
+  // Épaisseur lèvre supérieure — bornes resserrées 0.042-0.072 (plage humaine réelle)
   auto(C, 'epaisseur_levre_sup_reduire_elargir',
-    _norm(_dist(L[0], L[13]) / D_H, 0.012, 0.075));
+    _norm(_dist(L[0], L[13]) / D_H, 0.042, 0.072));
 
   auto(C, 'epaisseur_levre_sup_bas_haut',
-    100 - _norm((L[0].y + L[13].y) / 2, 0.48, 0.80));
+    100 - _norm((L[0].y + L[13].y) / 2, 0.529, 0.753)); // bornes calées : Kim→75, Zlatan→0
 
   presetZ(C, 'epaisseur_levre_sup_arriere_avant');
   preset(C, 'epaisseur_levre_sup_arrondi_angulaire');
@@ -724,12 +736,21 @@ function scanToSliders(landmarks, tddfaResult = null) {
   auto(C, 'philtrum_deplacement_gd',
     _norm(L[164].x - 0.5, -0.06, 0.06));
 
-  // Épaisseur lèvre inférieure
+  // Épaisseur lèvre inférieure — bornes resserrées 0.038-0.092 (plage humaine réelle)
   auto(C, 'epaisseur_levre_inf_reduire_elargir',
-    _norm(_dist(L[14], L[17]) / D_H, 0.010, 0.10));
+    _norm(_dist(L[14], L[17]) / D_H, 0.038, 0.092));
 
   auto(C, 'epaisseur_levre_inf_bas_haut',
-    100 - _norm((L[14].y + L[17].y) / 2, 0.52, 0.85));
+    _norm((L[14].y + L[17].y) / 2, 0.570, 0.793)); // bornes calées : Kim→23, Zlatan→93
+
+  // Diagnostic largeur bouche + épaisseur lèvres (sliders + ratios bruts avant _norm)
+  // → comparer aux bornes des _norm() pour repérer compression bas/haut d'échelle
+  console.log('[bouche] largeur=', results.squelette.bouche_reduire_elargir,
+    '| epaisseur_sup=', results.chair.epaisseur_levre_sup_reduire_elargir,
+    '| epaisseur_inf=', results.chair.epaisseur_levre_inf_reduire_elargir);
+  console.log('[bouche ratios] largeur=', (_dist(L[61], L[291]) / D_W).toFixed(3),
+    '| ep_sup=', (_dist(L[0], L[13]) / D_H).toFixed(3),
+    '| ep_inf=', (_dist(L[14], L[17]) / D_H).toFixed(3));
 
   presetZ(C, 'epaisseur_levre_inf_arriere_avant');
   preset(C, 'epaisseur_levre_inf_arrondi_angulaire');
