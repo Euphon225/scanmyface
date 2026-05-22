@@ -704,7 +704,7 @@ function retryCropViewport(){
   document.getElementById('btn-retry-crop').hidden=true;
   if(src==='camera'){
     // Effacer l'état d'analyse, masquer les overlays MediaPipe, relancer la caméra
-    S.landmarks=null;S.sliders=null;
+    S.landmarks=null;S.sliders=null;S.tddfa=null;
     document.getElementById('mesh')?.setAttribute('hidden','');
     document.getElementById('metrics')?.setAttribute('hidden','');
     document.getElementById('btn-launch').style.display='none';
@@ -771,7 +771,11 @@ async function runAnalysis(dataUrl){
   }
 
   const t0=performance.now();
-  const lm=await runMP(img);
+  // MediaPipe + 3DDFA en parallèle sur la même image cropée (= #spa-photo)
+  const tddfaPromise = (typeof run3DDFA === 'function')
+    ? run3DDFA(img).catch(e => { console.warn('[3DDFA] échec, fallback preset:', e); return null; })
+    : Promise.resolve(null);
+  const [lm, tddfa] = await Promise.all([runMP(img), tddfaPromise]);
   const elapsed=((performance.now()-t0)/1000).toFixed(2);
   if(laser)laser.hidden=true;
   if(!lm){
@@ -781,6 +785,7 @@ async function runAnalysis(dataUrl){
     return;
   }
   S.landmarks=lm;
+  S.tddfa=tddfa;
   if(chipMode)chipMode.textContent=`SCAN · ${elapsed}s`;
 
   drawMesh(lm);
@@ -867,7 +872,10 @@ window.onLaunchClick=async function(){
   const btn=document.getElementById('btn-launch');
   if(btn){btn.disabled=true;btn.textContent=t('analyzing');}
   try{
-    S.sliders=scanToSliders(S.landmarks);
+    const tddfaSliders = (S.tddfa && typeof computeFC26from3DDFA === 'function')
+      ? computeFC26from3DDFA(S.tddfa, S.landmarks)
+      : null;
+    S.sliders=scanToSliders(S.landmarks, tddfaSliders);
     renderStep3();
     if(window.goToStep)window.goToStep(3);
   }catch(e){
@@ -1107,7 +1115,7 @@ window.onNewScan=function(){
   stopWebcam();
 
   // State
-  S.landmarks=null;S.sliders=null;S.skinTone='Neutre';S.carnation=5;S.imgNaturalW=1;S.imgNaturalH=1;S.cropSource=null;
+  S.landmarks=null;S.sliders=null;S.tddfa=null;S.skinTone='Neutre';S.carnation=5;S.imgNaturalW=1;S.imgNaturalH=1;S.cropSource=null;
 
   // Viewport
   const vp=document.getElementById('viewport');

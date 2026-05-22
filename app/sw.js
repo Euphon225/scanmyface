@@ -1,11 +1,16 @@
-const CACHE_NAME = 'fc26-cranium-v62';
+const CACHE_NAME = 'fc26-cranium-v66';
 const ASSETS = [
   './',
   './app_index_v2.html',
   './style.css',
   './script_spa.js',
   './scanToSliders_v6.js',
-  './manifest.json'
+  './manifest.json',
+  './bfm_indices.js',
+  './run3DDFA.js',
+  './run3DDFA_mesh.js',
+  './3ddfa_mb1.onnx',
+  './3ddfa_params.json'
 ];
 
 self.addEventListener('install', event => {

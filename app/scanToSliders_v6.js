@@ -59,7 +59,7 @@ const PRESET_NEUTRE = 50;
 // FONCTION PRINCIPALE
 // ─────────────────────────────────────────────
 
-function scanToSliders(landmarks) {
+function scanToSliders(landmarks, tddfaResult = null) {
   const L = landmarks;
 
   // ── Références de normalisation ──
@@ -88,6 +88,18 @@ function scanToSliders(landmarks) {
   const auto   = (obj, k, v) => { obj[k] = v; meta.autoCount++;   };
   const preset = (obj, k, v = PRESET_NEUTRE) => { obj[k] = v; meta.presetCount++; };
 
+  // 3DDFA overrides : si tddfaResult fournit la clé, on prend sa valeur (comptée comme auto), sinon preset(50)
+  const _tZ = tddfaResult?.z_sliders || {};
+  const _tA = tddfaResult?.angle_sliders || {};
+  const presetZ = (obj, k) => {
+    if (Number.isFinite(_tZ[k])) { obj[k] = _tZ[k]; meta.autoCount++; }
+    else { obj[k] = PRESET_NEUTRE; meta.presetCount++; }
+  };
+  const presetA = (obj, k) => {
+    if (Number.isFinite(_tA[k])) { obj[k] = _tA[k]; meta.autoCount++; }
+    else { obj[k] = PRESET_NEUTRE; meta.presetCount++; }
+  };
+
   // ════════════════════════════════════════════
   // FAMILLE SQUELETTE
   // ════════════════════════════════════════════
@@ -95,7 +107,7 @@ function scanToSliders(landmarks) {
   // ── TÊTE / CRÂNE ──
   // Largeur crânienne (pts temporaux latéraux)
   auto(S, 'crane_reduire_elargir',
-    _norm(_dist(L[21], L[251]) / D_W, 0.50, 1.05));
+    _norm(_dist(L[21], L[251]) / D_W, 0.45, 1.20));
 
   // Hauteur crânio-mentonnière (toujours = 1.0 par définition → ratio fixe)
   // On mesure plutôt la hauteur du front par rapport à la face
@@ -103,21 +115,21 @@ function scanToSliders(landmarks) {
     _norm(_dist(L[10], L[9]) / D_H, 0.02, 0.45));
 
   // Axe Z → preset (non fiable sans matrice canonique)
-  preset(S, 'crane_arriere_avant');
-  preset(S, 'crane_arrondi_angulaire');
+  presetZ(S, 'crane_arriere_avant');
+  presetA(S, 'crane_arrondi_angulaire');
   preset(S, 'crane_deplacement_gd');
 
   // Couronne → preset (extrapolation non fiable)
   preset(S, 'crane_couronne_reduire_elargir');
   preset(S, 'crane_couronne_bas_haut');
-  preset(S, 'crane_couronne_arriere_avant');
+  presetZ(S, 'crane_couronne_arriere_avant');
   preset(S, 'crane_couronne_neutre_arrondi');
   preset(S, 'crane_couronne_deplacement_gd');
 
   // Arrière du crâne → preset (aucun landmark MediaPipe derrière la tête)
   preset(S, 'crane_arriere_reduire_elargir');
   preset(S, 'crane_arriere_bas_haut');
-  preset(S, 'crane_arriere_arriere_avant');
+  presetZ(S, 'crane_arriere_arriere_avant');
   preset(S, 'crane_arriere_arrondi_angulaire');
   preset(S, 'crane_arriere_deplacement_gd');
 
@@ -125,19 +137,19 @@ function scanToSliders(landmarks) {
   // CORRIGÉ : utiliser largeur frontale-temporale (103,332) et non (234,454)
   // car (234,454) = D_W → ratio toujours = 1.0 → toujours saturé à 100
   auto(S, 'tempes_reduire_elargir',
-    _norm(_dist(L[103], L[332]) / D_W, 0.50, 0.78));
+    _norm(_dist(L[103], L[332]) / D_W, 0.45, 0.95));
 
   auto(S, 'tempes_bas_haut',
-    _norm((L[234].y + L[454].y) / 2, 0.18, 0.62));
+    100 - _norm((L[234].y + L[454].y) / 2, 0.18, 0.62));
 
   // Axe Z → preset
-  preset(S, 'tempes_arriere_avant');
+  presetZ(S, 'tempes_arriere_avant');
   preset(S, 'tempes_arrondi_angulaire');
 
   // ── FRONT ──
   // Largeur front supérieur
   auto(S, 'front_sup_reduire_elargir',
-    _norm(_dist(L[103], L[332]) / D_W, 0.50, 0.78));
+    _norm(_dist(L[54], L[284]) / D_W, 0.45, 0.90));
 
   // Hauteur front supérieur (Y(10) - Y(103))
   // CORRIGÉ : doc FC26 dit "Neutre/Haut" pour front sup (pas "Bas/Haut")
@@ -145,8 +157,8 @@ function scanToSliders(landmarks) {
     _norm(L[103].y - L[10].y, 0.001, 0.32));
 
   // Axe Z → preset
-  preset(S, 'front_sup_arriere_avant');
-  preset(S, 'front_sup_arrondi_angulaire');
+  presetZ(S, 'front_sup_arriere_avant');
+  presetA(S, 'front_sup_arrondi_angulaire');
   preset(S, 'front_sup_deplacement_gd');
 
   // Largeur front inférieur
@@ -159,7 +171,7 @@ function scanToSliders(landmarks) {
   auto(S, 'front_inf_bas_haut',
     _norm(L[9].y - L[107].y, -0.05, 0.18));
 
-  preset(S, 'front_inf_arriere_avant');
+  presetZ(S, 'front_inf_arriere_avant');
   preset(S, 'front_inf_arrondi_angulaire');
 
   // ── SOURCILS ──
@@ -173,7 +185,7 @@ function scanToSliders(landmarks) {
   auto(S, 'sourcils_bas_haut',
     _norm(_dist(_mid(L[46], L[276]), L[8]) / D_H, 0.02, 0.65));
 
-  preset(S, 'sourcils_arriere_avant');
+  presetZ(S, 'sourcils_arriere_avant');
   preset(S, 'sourcils_arrondi_angulaire');
 
   // Sourcils centraux
@@ -183,7 +195,7 @@ function scanToSliders(landmarks) {
   auto(S, 'sourcils_central_bas_haut',
     _norm(_dist(_mid(L[107], L[336]), L[8]) / D_H, 0.001, 0.60));
 
-  preset(S, 'sourcils_central_arriere_avant');
+  presetZ(S, 'sourcils_central_arriere_avant');
   preset(S, 'sourcils_central_arrondi_angulaire');
   auto(S, 'sourcils_central_deplacement_gd',
     _norm(_mid(L[107], L[336]).x - 0.5, -0.08, 0.08));
@@ -196,7 +208,7 @@ function scanToSliders(landmarks) {
   auto(S, 'sourcils_ext_sup_bas_haut',
     _norm(_dist(_mid(L[70], L[300]), L[8]) / D_H, 0.02, 0.65));
 
-  preset(S, 'sourcils_ext_sup_arriere_avant');
+  presetZ(S, 'sourcils_ext_sup_arriere_avant');
   preset(S, 'sourcils_ext_sup_arrondi_angulaire');
 
   // ── YEUX / ORBITES ──
@@ -210,18 +222,18 @@ function scanToSliders(landmarks) {
   auto(S, 'yeux_bas_haut',
     _norm(_dist(_mid(L[33], L[263]), L[8]) / D_H, 0.03, 0.75));
 
-  preset(S, 'yeux_arriere_avant');
+  presetZ(S, 'yeux_arriere_avant');
   preset(S, 'yeux_arrondi_angulaire');
 
   // Taille des orbites
   // CORRIGÉ : max étendu 0.62→0.82
   auto(S, 'orbites_reduire_elargir',
-    _norm(_dist(L[226], L[446]) / D_W, 0.30, 0.82));
+    _norm(_dist(L[226], L[446]) / D_W, 0.28, 0.95));
 
   auto(S, 'orbites_bas_haut',
     _norm(_dist(_mid(L[226], L[446]), L[8]) / D_H, 0.02, 0.72));
 
-  preset(S, 'orbites_arriere_avant');
+  presetZ(S, 'orbites_arriere_avant');
 
   // Taille iris (si disponible)
   if (L[468] && L[473]) {
@@ -241,7 +253,7 @@ function scanToSliders(landmarks) {
   auto(S, 'nez_bas_haut',
     _norm(_dist(L[8], L[4]) / D_H, 0.15, 0.38));
 
-  preset(S, 'nez_arriere_avant');
+  presetZ(S, 'nez_arriere_avant');
   preset(S, 'nez_arrondi_angulaire');
 
   // Déplacement latéral pointe du nez
@@ -266,7 +278,7 @@ function scanToSliders(landmarks) {
   auto(S, 'arete_nez_centrale_bas_haut',
     _norm(L[195].y, 0.28, 0.76));
 
-  preset(S, 'arete_nez_centrale_arriere_avant');
+  presetZ(S, 'arete_nez_centrale_arriere_avant');
   preset(S, 'arete_nez_centrale_arrondi_angulaire');
   auto(S, 'arete_nez_centrale_deplacement_gd',
     _norm(L[195].x - 0.5, -0.05, 0.05));
@@ -279,7 +291,7 @@ function scanToSliders(landmarks) {
   auto(S, 'arete_nez_sup_bas_haut',
     _norm(_dist(L[8], L[193]) / D_H, 0.01, 0.22));
 
-  preset(S, 'arete_nez_sup_arriere_avant');
+  presetZ(S, 'arete_nez_sup_arriere_avant');
   preset(S, 'arete_nez_sup_arrondi_angulaire');
   auto(S, 'arete_nez_sup_deplacement_gd',
     _norm(L[8].x - 0.5, -0.05, 0.05));
@@ -291,10 +303,10 @@ function scanToSliders(landmarks) {
 
   // CORRIGÉ : ajustement pour que ce slider soit valide
   auto(S, 'joues_bas_haut',
-    _norm((L[116].y + L[345].y) / 2, 0.38, 0.68));
+    100 - _norm((L[116].y + L[345].y) / 2, 0.38, 0.68));
 
-  preset(S, 'joues_arriere_avant');
-  preset(S, 'joues_arrondi_angulaire');
+  presetZ(S, 'joues_arriere_avant');
+  presetA(S, 'joues_arrondi_angulaire');
 
   // ── BOUCHE ──
   auto(S, 'bouche_reduire_elargir',
@@ -304,7 +316,7 @@ function scanToSliders(landmarks) {
   auto(S, 'bouche_bas_haut',
     _norm(_dist(_mid(L[61], L[291]), L[4]) / D_H, 0.22, 0.55));
 
-  preset(S, 'bouche_arriere_avant');
+  presetZ(S, 'bouche_arriere_avant');
   preset(S, 'bouche_arrondi_angulaire');
   auto(S, 'bouche_deplacement_gd',
     _norm(_mid(L[61], L[291]).x - 0.5, -0.06, 0.06));
@@ -326,8 +338,8 @@ function scanToSliders(landmarks) {
   auto(S, 'menton_bas_haut',
     _norm(_dist(L[152], L[17]) / D_H, 0.10, 0.35));
 
-  preset(S, 'menton_arriere_avant');
-  preset(S, 'menton_arrondi_angulaire');
+  presetZ(S, 'menton_arriere_avant');
+  presetA(S, 'menton_arrondi_angulaire');
   auto(S, 'menton_deplacement_gd',
     _norm(L[152].x - 0.5, -0.06, 0.06));
 
@@ -337,7 +349,7 @@ function scanToSliders(landmarks) {
   auto(S, 'menton_sup_bas_haut',
     _norm(_dist(L[17], L[200]) / D_H, 0.03, 0.20));
 
-  preset(S, 'menton_sup_arriere_avant');
+  presetZ(S, 'menton_sup_arriere_avant');
   preset(S, 'menton_sup_arrondi_angulaire');
   auto(S, 'menton_sup_deplacement_gd',
     _norm(L[200].x - 0.5, -0.06, 0.06));
@@ -351,8 +363,8 @@ function scanToSliders(landmarks) {
   auto(S, 'machoire_bas_haut',
     _norm(L[152].y - L[234].y, 0.18, 0.52));
 
-  preset(S, 'machoire_arriere_avant');
-  preset(S, 'machoire_arrondi_angulaire');
+  presetZ(S, 'machoire_arriere_avant');
+  presetA(S, 'machoire_arrondi_angulaire');
 
   auto(S, 'maxillaire_reduire_elargir',
     _norm(_dist(L[101], L[330]) / D_W, 0.30, 0.72));
@@ -371,8 +383,8 @@ function scanToSliders(landmarks) {
   auto(S, 'mandibule_bas_haut',
     _norm(_dist(L[132], L[152]) / D_H, 0.12, 0.90));
 
-  preset(S, 'mandibule_arriere_avant');
-  preset(S, 'mandibule_arrondi_angulaire');
+  presetZ(S, 'mandibule_arriere_avant');
+  presetA(S, 'mandibule_arrondi_angulaire');
 
   // ════════════════════════════════════════════
   // FAMILLE CHAIR — Sliders fiables XY uniquement
@@ -394,78 +406,86 @@ function scanToSliders(landmarks) {
   preset(C, 'espace_sourcils_moins_plus');
 
   // ── PAUPIÈRES Chair ──
-  // Hauteur plis paupières (fiable en 2D)
-  auto(C, 'pli_paupieres_central_bas_haut',
-    _norm((L[159].y + L[145].y) / 2, 0.28, 0.58));
-
   // Ouverture paupière centrale → mappé sur reduire_elargir (axe FC26)
   auto(C, 'pli_paupieres_central_reduire_elargir',
     _norm(_dist(L[159], L[145]) / D_H, 0.015, 0.085));
 
+  // Hauteur plis paupières (fiable en 2D)
+  auto(C, 'pli_paupieres_central_bas_haut',
+    _norm((L[159].y + L[145].y) / 2, 0.28, 0.58));
+
   preset(C, 'pli_paupieres_central_arriere_avant');
   preset(C, 'pli_paupieres_central_plus_petite');
+
+  preset(C, 'pli_paupieres_ext_reduire_elargir');
 
   auto(C, 'pli_paupieres_ext_bas_haut',
     _norm((L[33].y + L[130].y) / 2, 0.28, 0.58));
 
-  preset(C, 'pli_paupieres_ext_reduire_elargir');
   preset(C, 'pli_paupieres_ext_arriere_avant');
   preset(C, 'pli_paupieres_ext_plus_petite');
+
+  preset(C, 'pli_paupieres_int_reduire_elargir');
 
   auto(C, 'pli_paupieres_int_bas_haut',
     _norm((L[133].y + L[173].y) / 2, 0.28, 0.58));
 
-  preset(C, 'pli_paupieres_int_reduire_elargir');
   preset(C, 'pli_paupieres_int_arriere_avant');
   preset(C, 'pli_paupieres_int_plus_petite');
 
   // Paupières inférieures
-  auto(C, 'paupiere_inf_centrale_bas_haut',
-    _norm(L[145].y, 0.32, 0.62));
-
   preset(C, 'paupiere_inf_centrale_reduire_elargir');
+
+  auto(C, 'paupiere_inf_centrale_bas_haut',
+    100 - _norm(L[145].y, 0.32, 0.62));
+
   preset(C, 'paupiere_inf_centrale_plus_petite');
 
-  auto(C, 'paupiere_inf_ext_bas_haut',
-    _norm((L[144].y + L[163].y) / 2, 0.32, 0.62));
-
   preset(C, 'paupiere_inf_ext_reduire_elargir');
+
+  auto(C, 'paupiere_inf_ext_bas_haut',
+    100 - _norm((L[144].y + L[163].y) / 2, 0.32, 0.62));
+
   preset(C, 'paupiere_inf_ext_plus_petite');
 
-  auto(C, 'paupiere_inf_int_bas_haut',
-    _norm((L[153].y + L[154].y) / 2, 0.32, 0.62));
-
   preset(C, 'paupiere_inf_int_reduire_elargir');
+
+  auto(C, 'paupiere_inf_int_bas_haut',
+    100 - _norm((L[153].y + L[154].y) / 2, 0.32, 0.62));
+
   preset(C, 'paupiere_inf_int_plus_petite');
 
   // Paupières supérieures
-  auto(C, 'paupiere_sup_centrale_bas_haut',
-    _norm((L[159].y + L[160].y) / 2, 0.25, 0.55));
-
   // Ouverture paupière supérieure centrale → mappé sur reduire_elargir
   auto(C, 'paupiere_sup_centrale_reduire_elargir',
     _norm(_dist(L[159], L[145]) / D_H, 0.015, 0.085));
 
+  auto(C, 'paupiere_sup_centrale_bas_haut',
+    100 - _norm((L[159].y + L[160].y) / 2, 0.25, 0.55));
+
   preset(C, 'paupiere_sup_centrale_neutre_avant');
   preset(C, 'paupiere_sup_centrale_plus_petite');
 
-  auto(C, 'paupiere_sup_ext_bas_haut',
-    _norm((L[160].y + L[161].y) / 2, 0.25, 0.55));
-
   preset(C, 'paupiere_sup_ext_reduire_elargir');
+
+  auto(C, 'paupiere_sup_ext_bas_haut',
+    100 - _norm((L[160].y + L[161].y) / 2, 0.25, 0.55));
+
   preset(C, 'paupiere_sup_ext_plus_petite');
 
-  auto(C, 'paupiere_sup_int_bas_haut',
-    _norm((L[157].y + L[158].y) / 2, 0.25, 0.55));
-
   preset(C, 'paupiere_sup_int_reduire_elargir');
+
+  auto(C, 'paupiere_sup_int_bas_haut',
+    100 - _norm((L[157].y + L[158].y) / 2, 0.25, 0.55));
+
   preset(C, 'paupiere_sup_int_plus_petite');
 
   // Coins de l'oeil
-  auto(C, 'coin_oeil_ext_bas_haut',
-    _norm((L[33].y + L[263].y) / 2, 0.28, 0.58));
-
   preset(C, 'coin_oeil_ext_reduire_elargir');
+
+  auto(C, 'coin_oeil_ext_bas_haut',
+    100 - _norm((L[33].y + L[263].y) / 2, 0.28, 0.58));
+
   preset(C, 'coin_oeil_ext_plus_petite');
 
   // CORRIGÉ : max étendu pour coin_oeil_int
@@ -473,7 +493,7 @@ function scanToSliders(landmarks) {
     _norm(_dist(L[133], L[362]) / D_W, 0.06, 0.35));
 
   auto(C, 'coin_oeil_int_bas_haut',
-    _norm((L[133].y + L[362].y) / 2, 0.28, 0.58));
+    100 - _norm((L[133].y + L[362].y) / 2, 0.28, 0.58));
 
   preset(C, 'coin_oeil_int_plus_petite');
 
@@ -524,12 +544,12 @@ function scanToSliders(landmarks) {
   preset(C, 'ext_narine_centrale_arrondi_angulaire');
 
   // Pointe du nez
+  auto(C, 'pointe_nez_sup_reduire_elargir',
+    _norm(_dist(L[4], L[19]) / D_W, 0.04, 0.24));
+
   // CORRIGÉ : plage étendue pour pointe_nez_bas_haut
   auto(C, 'pointe_nez_sup_bas_haut',
     _norm(L[4].y, 0.35, 0.88));
-
-  auto(C, 'pointe_nez_sup_reduire_elargir',
-    _norm(_dist(L[4], L[19]) / D_W, 0.04, 0.24));
 
   preset(C, 'pointe_nez_sup_arriere_avant');
   preset(C, 'pointe_nez_sup_arrondi_angulaire');
@@ -543,11 +563,11 @@ function scanToSliders(landmarks) {
   preset(C, 'pointe_nez_sous_jacente_arrondi_angulaire');
   preset(C, 'pointe_nez_sous_jacente_deplacement_gd');
 
-  auto(C, 'pointe_nez_inf_bas_haut',
-    _norm((L[94].y + L[274].y) / 2, 0.38, 0.90));
-
   auto(C, 'pointe_nez_inf_reduire_elargir',
     _norm(_dist(L[94], L[274]) / D_W, 0.06, 0.30));
+
+  auto(C, 'pointe_nez_inf_bas_haut',
+    _norm((L[94].y + L[274].y) / 2, 0.38, 0.90));
 
   preset(C, 'pointe_nez_inf_arriere_avant');
   preset(C, 'pointe_nez_inf_arrondi_angulaire');
@@ -555,7 +575,7 @@ function scanToSliders(landmarks) {
 
   // ── JOUES Chair ──
   auto(C, 'joues_bas_haut',
-    _norm((L[116].y + L[345].y) / 2, 0.38, 0.68));
+    100 - _norm((L[116].y + L[345].y) / 2, 0.38, 0.68));
 
   // Zdev → preset pour V1
   preset(C, 'joues_moins_plus');
@@ -578,6 +598,7 @@ function scanToSliders(landmarks) {
 
   // Espacement lèvres — avec garde-fou bouche ouverte
   // CORRIGÉ : plage resserrée + renommage axes complets (doc FC26: reduire_elargir, bas_haut, arriere_avant, arrondi_angulaire)
+  preset(C, 'espacement_levres_centre_reduire_elargir');
   if (!mouthOpen) {
     auto(C, 'espacement_levres_centre_bas_haut',
       _norm(_dist(L[13], L[14]) / D_H, 0.0, 0.035));
@@ -587,7 +608,6 @@ function scanToSliders(landmarks) {
     preset(C, 'espacement_levres_centre_bas_haut');
     preset(C, 'espacement_levres_cotes_reduire_elargir');
   }
-  preset(C, 'espacement_levres_centre_reduire_elargir');
   preset(C, 'espacement_levres_centre_arriere_avant');
   preset(C, 'espacement_levres_centre_arrondi_angulaire');
   preset(C, 'espacement_levres_cotes_bas_haut');
@@ -595,41 +615,41 @@ function scanToSliders(landmarks) {
   preset(C, 'espacement_levres_cotes_arrondi_angulaire');
 
   // Lèvre supérieure : centre sup
+  preset(C, 'levre_sup_centre_sup_reduire_elargir');
   // CORRIGÉ : plage étendue pour les positions Y
   auto(C, 'levre_sup_centre_sup_bas_haut',
-    _norm(L[0].y, 0.42, 0.85));
-  preset(C, 'levre_sup_centre_sup_reduire_elargir');
+    100 - _norm(L[0].y, 0.42, 0.85));
   preset(C, 'levre_sup_centre_sup_arriere_avant');
   preset(C, 'levre_sup_centre_sup_arrondi_angulaire');
   preset(C, 'levre_sup_centre_sup_deplacement_gd');
 
   // Lèvre supérieure : côtés sup
-  auto(C, 'levre_sup_cotes_sup_bas_haut',
-    _norm((L[37].y + L[267].y) / 2, 0.42, 0.86));
   preset(C, 'levre_sup_cotes_sup_reduire_elargir');
+  auto(C, 'levre_sup_cotes_sup_bas_haut',
+    100 - _norm((L[37].y + L[267].y) / 2, 0.42, 0.86));
   preset(C, 'levre_sup_cotes_sup_arriere_avant');
   preset(C, 'levre_sup_cotes_sup_arrondi_angulaire');
 
   // Lèvre supérieure : coins sup
-  auto(C, 'levre_sup_coins_sup_bas_haut',
-    _norm((L[61].y + L[291].y) / 2, 0.52, 0.82));
   preset(C, 'levre_sup_coins_sup_reduire_elargir');
+  auto(C, 'levre_sup_coins_sup_bas_haut',
+    100 - _norm((L[61].y + L[291].y) / 2, 0.52, 0.82));
   preset(C, 'levre_sup_coins_sup_arriere_avant');
   preset(C, 'levre_sup_coins_sup_arrondi_angulaire');
 
   // Lèvre supérieure : centre inf
+  preset(C, 'levre_sup_centre_inf_reduire_elargir');
   // CORRIGÉ : plage étendue
   auto(C, 'levre_sup_centre_inf_bas_haut',
     _norm(L[13].y, 0.43, 0.86));
-  preset(C, 'levre_sup_centre_inf_reduire_elargir');
   preset(C, 'levre_sup_centre_inf_arriere_avant');
   preset(C, 'levre_sup_centre_inf_arrondi_angulaire');
   preset(C, 'levre_sup_centre_inf_deplacement_gd');
 
   // Lèvre supérieure : côtés inf
+  preset(C, 'levre_sup_cotes_inf_reduire_elargir');
   auto(C, 'levre_sup_cotes_inf_bas_haut',
     _norm((L[82].y + L[312].y) / 2, 0.43, 0.86));
-  preset(C, 'levre_sup_cotes_inf_reduire_elargir');
   preset(C, 'levre_sup_cotes_inf_arriere_avant');
   preset(C, 'levre_sup_cotes_inf_arrondi_angulaire');
 
@@ -638,18 +658,18 @@ function scanToSliders(landmarks) {
     _norm(_dist(L[0], L[13]) / D_H, 0.012, 0.075));
 
   auto(C, 'epaisseur_levre_sup_bas_haut',
-    _norm((L[0].y + L[13].y) / 2, 0.48, 0.80));
+    100 - _norm((L[0].y + L[13].y) / 2, 0.48, 0.80));
 
   preset(C, 'epaisseur_levre_sup_arriere_avant');
   preset(C, 'epaisseur_levre_sup_arrondi_angulaire');
 
   // Philtrum
   // CORRIGÉ : max étendu 0.08→0.18
-  auto(C, 'philtrum_bas_haut',
-    _norm(L[0].y - L[164].y, 0.001, 0.15));
-
   auto(C, 'philtrum_reduire_elargir',
     _norm(_dist(L[164], L[0]) / D_H, 0.02, 0.14));
+
+  auto(C, 'philtrum_bas_haut',
+    _norm(L[0].y - L[164].y, 0.001, 0.15));
 
   preset(C, 'philtrum_arriere_avant');
   preset(C, 'philtrum_arrondi_angulaire');
@@ -661,46 +681,46 @@ function scanToSliders(landmarks) {
     _norm(_dist(L[14], L[17]) / D_H, 0.010, 0.10));
 
   auto(C, 'epaisseur_levre_inf_bas_haut',
-    _norm((L[14].y + L[17].y) / 2, 0.52, 0.85));
+    100 - _norm((L[14].y + L[17].y) / 2, 0.52, 0.85));
 
   preset(C, 'epaisseur_levre_inf_arriere_avant');
   preset(C, 'epaisseur_levre_inf_arrondi_angulaire');
 
   // Lèvre inférieure : centre sup (= "partie sup.centrale" dans le doc)
-  auto(C, 'levre_inf_centre_sup_bas_haut',
-    _norm(L[14].y, 0.45, 0.89));
   preset(C, 'levre_inf_centre_sup_reduire_elargir');
+  auto(C, 'levre_inf_centre_sup_bas_haut',
+    100 - _norm(L[14].y, 0.45, 0.89));
   preset(C, 'levre_inf_centre_sup_arriere_avant');
   preset(C, 'levre_inf_centre_sup_arrondi_angulaire');
   preset(C, 'levre_inf_centre_sup_deplacement_gd');
 
   // Lèvre inférieure : côtés sup
-  auto(C, 'levre_inf_cotes_sup_bas_haut',
-    _norm((L[84].y + L[314].y) / 2, 0.45, 0.89));
   preset(C, 'levre_inf_cotes_sup_reduire_elargir');
+  auto(C, 'levre_inf_cotes_sup_bas_haut',
+    100 - _norm((L[84].y + L[314].y) / 2, 0.45, 0.89));
   preset(C, 'levre_inf_cotes_sup_arriere_avant');
   preset(C, 'levre_inf_cotes_sup_arrondi_angulaire');
 
   // Lèvre inférieure : centre inf (= "partie inf.centrale")
+  preset(C, 'levre_inf_centre_inf_reduire_elargir');
   // CORRIGÉ : plage étendue
   auto(C, 'levre_inf_centre_inf_bas_haut',
     _norm(L[17].y, 0.47, 0.92));
-  preset(C, 'levre_inf_centre_inf_reduire_elargir');
   preset(C, 'levre_inf_centre_inf_arriere_avant');
   preset(C, 'levre_inf_centre_inf_arrondi_angulaire');
   preset(C, 'levre_inf_centre_inf_deplacement_gd');
 
   // Lèvre inférieure : côtés inf
+  preset(C, 'levre_inf_cotes_inf_reduire_elargir');
   auto(C, 'levre_inf_cotes_inf_bas_haut',
     _norm((L[86].y + L[316].y) / 2, 0.47, 0.92));
-  preset(C, 'levre_inf_cotes_inf_reduire_elargir');
   preset(C, 'levre_inf_cotes_inf_arriere_avant');
   preset(C, 'levre_inf_cotes_inf_arrondi_angulaire');
 
   // Lèvre inférieure : coins inf
+  preset(C, 'levre_inf_coins_inf_reduire_elargir');
   auto(C, 'levre_inf_coins_inf_bas_haut',
     _norm((L[61].y + L[291].y) / 2, 0.52, 0.82));
-  preset(C, 'levre_inf_coins_inf_reduire_elargir');
   preset(C, 'levre_inf_coins_inf_arriere_avant');
   preset(C, 'levre_inf_coins_inf_arrondi_angulaire');
 
@@ -789,7 +809,7 @@ function scanToSliders(landmarks) {
   preset(G, 'joues_int_inf_moins_plus');
 
   auto(G, 'tempes_bas_haut',
-    _norm((L[103].y + L[332].y) / 2, 0.05, 0.58));
+    100 - _norm((L[103].y + L[332].y) / 2, 0.05, 0.58));
 
   preset(G, 'tempes_moins_plus');
 
