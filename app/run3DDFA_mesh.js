@@ -26,9 +26,19 @@
     nose_bridge:     197,
     nose_tip:        4,
     nose_under:      2,
+    nose_nostrils_l: 358,
+    nose_nostrils_r: 129,
     philtrum:        164,
     lips_top:        13,
     lips_bottom:     14,
+    levre_sup_cotes_sup_l: 37,
+    levre_sup_cotes_sup_r: 267,
+    levre_sup_cotes_inf_l: 38,
+    levre_sup_cotes_inf_r: 268,
+    levre_inf_cotes_sup_l: 84,
+    levre_inf_cotes_sup_r: 314,
+    levre_inf_cotes_inf_l: 87,
+    levre_inf_cotes_inf_r: 317,
     chin_top:        199,
     chin_bottom:     152,
     cheekbone_l:     234,
@@ -129,27 +139,27 @@
       crane_arriere_avant:              toSlider(fwd(pts.forehead_top),                  0.4),
       crane_couronne_arriere_avant:     toSlider(fwd(pts.forehead_top) - 0.05,           0.4),
       crane_arriere_arriere_avant:      toSlider(fwd(pts.forehead_top) - 0.10,           0.4),
-      tempes_arriere_avant:             toSlider(mean(fwd(pts.temple_l), fwd(pts.temple_r)),  0.3),
+      tempes_arriere_avant:             toSlider(mean(fwd(pts.temple_l), fwd(pts.temple_r)) + 0.25, 0.3),
       front_sup_arriere_avant:          toSlider(fwd(pts.forehead_mid),                  0.3),
       front_inf_arriere_avant:          toSlider(fwd(pts.glabella),                      0.3),
 
       // Sourcils
-      sourcils_arriere_avant:           toSlider(mean(fwd(pts.brow_inner_l), fwd(pts.brow_inner_r), fwd(pts.brow_outer_l), fwd(pts.brow_outer_r)), 0.3),
-      sourcils_central_arriere_avant:   toSlider(mean(fwd(pts.brow_inner_l), fwd(pts.brow_inner_r)), 0.3),
-      sourcils_ext_sup_arriere_avant:   toSlider(mean(fwd(pts.brow_outer_l), fwd(pts.brow_outer_r)), 0.3),
+      sourcils_arriere_avant:           toSlider(mean(fwd(pts.brow_inner_l), fwd(pts.brow_inner_r), fwd(pts.brow_outer_l), fwd(pts.brow_outer_r)), 0.25),
+      sourcils_central_arriere_avant:   toSlider(mean(fwd(pts.brow_inner_l), fwd(pts.brow_inner_r)), 0.25),
+      sourcils_ext_sup_arriere_avant:   toSlider(mean(fwd(pts.brow_outer_l), fwd(pts.brow_outer_r)), 0.25),
 
       // Yeux / orbites
-      yeux_arriere_avant:               toSlider(mean(fwd(pts.eye_inner_l), fwd(pts.eye_inner_r)), 0.2),
-      orbites_arriere_avant:            toSlider(mean(fwd(pts.eye_outer_l), fwd(pts.eye_outer_r)), 0.2),
+      yeux_arriere_avant:               toSlider(mean(fwd(pts.eye_inner_l), fwd(pts.eye_inner_r)), 0.20),
+      orbites_arriere_avant:            toSlider(mean(fwd(pts.eye_outer_l), fwd(pts.eye_outer_r)), 0.20),
 
       // Nez (le nez EST naturellement en avant → on retranche l'offset attendu ~0.3)
       nez_arriere_avant:                toSlider(fwd(pts.nose_tip)    - 0.30, 0.30),
       arete_nez_centrale_arriere_avant: toSlider(fwd(pts.nose_bridge) - 0.15, 0.25),
-      arete_nez_sup_arriere_avant:      toSlider(fwd(pts.nose_root)   - 0.05, 0.20),
+      arete_nez_sup_arriere_avant:      toSlider(fwd(pts.nose_root)   - 0.20, 0.20),
 
       // Joues / bouche
-      joues_arriere_avant:              toSlider(mean(fwd(pts.cheekbone_l), fwd(pts.cheekbone_r)) + 0.10, 0.30),
-      bouche_arriere_avant:             toSlider(mean(fwd(pts.lips_top), fwd(pts.lips_bottom))   - 0.05, 0.25),
+      joues_arriere_avant:              toSlider(mean(fwd(pts.cheekbone_l), fwd(pts.cheekbone_r)) + 0.35, 0.30),
+      bouche_arriere_avant:             toSlider(mean(fwd(pts.lips_top), fwd(pts.lips_bottom))   - 0.20, 0.25),
 
       // Menton
       menton_arriere_avant:             toSlider(fwd(pts.chin_bottom), 0.40),
@@ -158,6 +168,26 @@
       // Mâchoire
       machoire_arriere_avant:           toSlider(mean(fwd(pts.jaw_angle_l), fwd(pts.jaw_angle_r)) + 0.20, 0.40),
       mandibule_arriere_avant:          toSlider(mean(fwd(pts.jaw_angle_l), fwd(pts.jaw_angle_r)) + 0.20, 0.40),
+
+      // Commissures
+      commissures_levres_arriere_avant:   toSlider(mean(fwd(pts.mouth_corner_l), fwd(pts.mouth_corner_r)) - 0.10, 0.25),
+
+      // Lèvres (Chair)
+      epaisseur_levre_sup_arriere_avant:  toSlider(fwd(pts.lips_top)    - 0.15, 0.25),
+      epaisseur_levre_inf_arriere_avant:  toSlider(fwd(pts.lips_bottom) - 0.10, 0.25),
+      levre_sup_centre_sup_arriere_avant: toSlider(fwd(pts.lips_top)    - 0.15, 0.25),
+      levre_sup_centre_inf_arriere_avant: toSlider(fwd(pts.lips_top)    - 0.10, 0.25),
+      levre_inf_centre_sup_arriere_avant: toSlider(fwd(pts.lips_bottom) - 0.10, 0.25),
+      levre_inf_centre_inf_arriere_avant: toSlider(fwd(pts.lips_bottom) - 0.05, 0.25),
+      philtrum_arriere_avant:             toSlider(fwd(pts.philtrum)    - 0.15, 0.25),
+
+      // Lèvres côtés / coins
+      levre_sup_cotes_sup_arriere_avant:  toSlider(mean(fwd(pts.levre_sup_cotes_sup_l), fwd(pts.levre_sup_cotes_sup_r)) - 0.15, 0.25),
+      levre_sup_coins_sup_arriere_avant:  toSlider(mean(fwd(pts.mouth_corner_l), fwd(pts.mouth_corner_r)) - 0.10, 0.25),
+      levre_sup_cotes_inf_arriere_avant:  toSlider(mean(fwd(pts.levre_sup_cotes_inf_l), fwd(pts.levre_sup_cotes_inf_r)) - 0.10, 0.25),
+      levre_inf_cotes_sup_arriere_avant:  toSlider(mean(fwd(pts.levre_inf_cotes_sup_l), fwd(pts.levre_inf_cotes_sup_r)) - 0.08, 0.25),
+      levre_inf_cotes_inf_arriere_avant:  toSlider(mean(fwd(pts.levre_inf_cotes_inf_l), fwd(pts.levre_inf_cotes_inf_r)) - 0.05, 0.25),
+      levre_inf_coins_inf_arriere_avant:  toSlider(mean(fwd(pts.mouth_corner_l), fwd(pts.mouth_corner_r)) - 0.05, 0.25),
     };
 
     // -------- Angle sliders (_arrondi_angulaire) --------
@@ -179,9 +209,10 @@
       machoire_arrondi_angulaire:   toSlider((jawAngle    - 140) / 30, 1),  // 110°-170° → 0-100
       mandibule_arrondi_angulaire:  toSlider((jawAngle    - 140) / 30, 1),
       menton_arrondi_angulaire:     toSlider((chinAngle   - 110) / 40, 1),  // 70°-150°
-      front_sup_arrondi_angulaire:  toSlider((foreheadArc - 150) / 25, 1),  // 125°-175°
-      crane_arrondi_angulaire:      toSlider((foreheadArc - 150) / 25, 1),
-      joues_arrondi_angulaire:      toSlider((cheekArc    - 150) / 25, 1),
+      front_sup_arrondi_angulaire:  toSlider((foreheadArc - 120) / 35, 1),  // 85°-155°
+      crane_arrondi_angulaire:      toSlider((foreheadArc - 120) / 35, 1),
+      joues_arrondi_angulaire:      toSlider((cheekArc    - 120) / 35, 1),
+      nez_arrondi_angulaire:        toSlider((angleAt2D(pts.nose_nostrils_l ?? pts.cheek_l, pts.nose_tip, pts.nose_nostrils_r ?? pts.cheek_r) - 100) / 40, 1),
     };
 
     // -------- Volume sliders (_moins_plus graisse) --------
