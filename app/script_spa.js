@@ -646,7 +646,7 @@ function openCropperInViewport(url, source='upload'){
   document.getElementById('scanlaser')?.setAttribute('hidden','');
   document.getElementById('mesh')?.setAttribute('hidden','');
   document.getElementById('metrics')?.setAttribute('hidden','');
-  // Conteneur flex centré → image en contain (vraies proportions pour Cropper.js)
+  // Conteneur flex centré → image en cover (viewMode 3), cadre fixe = tout le viewport
   let m=vp.querySelector('.viewport__media');
   if(!m){m=document.createElement('div');m.className='viewport__media';vp.prepend(m);}
   if(S.cropper){S.cropper.destroy();S.cropper=null;}
@@ -661,9 +661,21 @@ function openCropperInViewport(url, source='upload'){
   // Init Cropper après chargement (onload avant src)
   img.onload=()=>{
     S.cropper=new Cropper(img,{
-      aspectRatio:NaN,viewMode:1,autoCropArea:0.78,
+      aspectRatio:NaN,        // libre, le cadre = tout le viewport
+      viewMode:3,             // image COUVRE tout le conteneur (plus de bandes)
+      dragMode:'move',        // iPhone-style : on déplace l'image derrière le cadre
+      autoCropArea:1,         // crop = tout ce qui est visible (pas de zoom surprise)
+      cropBoxMovable:false,   // cadre fixe
+      cropBoxResizable:false, // cadre fixe
+      toggleDragModeOnDblclick:false,
       movable:true,zoomable:true,rotatable:false,scalable:false,
       guides:false,center:true,highlight:false,background:false,
+      ready(){
+        // Force la box de crop à couvrir TOUT le conteneur (autoCropArea seul ne suffit
+        // pas avec aspectRatio:NaN → box centrée plus petite, crop zoome au Confirmer)
+        const cd = S.cropper.getContainerData();
+        S.cropper.setCropBoxData({ left:0, top:0, width:cd.width, height:cd.height });
+      }
     });
   };
   img.src=url;
@@ -1023,24 +1035,43 @@ function renderZoneSliders(zk){
   const sl=document.getElementById('sliders');if(!sl)return;
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+  // Ordre canonique des suffixes FC26 (Façonnage Avancé) : pilote le tri intra-bucket
+  const SUFFIX_ORDER = [
+    'reduire_elargir', 'bas_haut', 'neutre_haut', 'arriere_avant',
+    'arrondi_angulaire', 'neutre_arrondi', 'plus_petite', 'plus_grande_petite',
+    'deplacement_gd', 'neutre_avant', 'neutre_moins', 'moins_plus'
+  ];
+  const suffixRank = key => {
+    const i = SUFFIX_ORDER.findIndex(s => key.endsWith(s));
+    return i === -1 ? 999 : i;
+  };
+
   function renderGroup(entries, familyKey, color, fam) {
     if(!entries.length) return '';
-    let lastSubgroup = null;
-    let html = `<div class="slider-section-lbl" style="color:${color};">${familyKey}</div>`;
-    entries.forEach(([key,aiVal])=>{
-      const subgroup = getSubTab(key);
-      if (subgroup && subgroup !== lastSubgroup) {
-        html += `<div class="slider-subgroup-lbl">${esc(subgroup)}</div>`;
-        lastSubgroup = subgroup;
-      }
-      const{v,src}=getVal(key,aiVal,fam);
+    const order = SLIDER_SUBTAB.map(s => s[1]); // ordre de référence des labels
+    const buckets = new Map();
+    const noSub = [];
+    entries.forEach(e => {
+      const sub = getSubTab(e[0]);
+      if (!sub) { noSub.push(e); return; }
+      if (!buckets.has(sub)) buckets.set(sub, []);
+      buckets.get(sub).push(e);
+    });
+    const sortedLabels = [...buckets.keys()].sort((a,b) => order.indexOf(a) - order.indexOf(b));
+    // Tri intra-bucket selon l'ordre canonique des suffixes (sort stable ES2019+)
+    sortedLabels.forEach(label => {
+      buckets.get(label).sort((a,b) => suffixRank(a[0]) - suffixRank(b[0]));
+    });
+
+    const renderRow = ([key,aiVal]) => {
+      const {v,src} = getVal(key,aiVal,fam);
       const isAI=src==='ai', isP9=src==='p9', isNeutral=src==='neutral';
       const lb=sliderLabel(key), parts=lb.split(' / ');
       const ml=parts.length>1?`${esc(parts[0])} <span>/</span> ${esc(parts[1])}`:esc(lb);
       const badge=isAI?`<span title="${t('ai_badge')}" style="margin-left:4px;font-size:9px;background:rgba(0,240,255,0.15);color:#00f0ff;padding:1px 4px;border-radius:3px;">🎯</span>`
         :isP9?`<span title="Preset 9" style="margin-left:4px;font-size:9px;background:rgba(255,255,255,0.06);color:#6b7099;padding:1px 4px;border-radius:3px;">P9</span>`:'';
       const op=isNeutral?'opacity:0.35;':'';
-      html += `<div class="slider-row" data-adjusted="${isAI}" style="${op}">
+      return `<div class="slider-row" data-adjusted="${isAI}" style="${op}">
         <div class="slider-row__label">${ml}${badge}</div>
         <div class="slider-row__value">${v}</div>
         <div class="slider-track">
@@ -1048,6 +1079,13 @@ function renderZoneSliders(zk){
           <div class="slider-track__thumb" style="left:${v}%;"></div>
         </div>
       </div>`;
+    };
+
+    let html = `<div class="slider-section-lbl" style="color:${color};">${familyKey}</div>`;
+    noSub.forEach(e => { html += renderRow(e); });
+    sortedLabels.forEach(label => {
+      html += `<div class="slider-subgroup-lbl">${esc(label)}</div>`;
+      buckets.get(label).forEach(e => { html += renderRow(e); });
     });
     return html;
   }
