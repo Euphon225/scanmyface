@@ -1,5 +1,29 @@
 # ScanMyFace.tech — FC26 PWA
 
+# ════════════════════════════════════════════════════════════
+# DERNIÈRE SESSION (23 mai 2026) — état actuel, lire en premier
+# ════════════════════════════════════════════════════════════
+# SW = v88. Méthode de calibration rodée : outils console smf()/smfShow() (voir section dédiée)
+# → scanner 2-3 visages aux extrêmes → garder ce qui a du signal, P9 le reste → VALIDER EN JEU.
+#
+# ZONES CALIBRÉES & VALIDÉES EN JEU (détails dans "BLOCS ALGO CALIBRÉS") :
+#   ✅ Élancement visage long/court (crane_*_bas_haut, R_P9=1.070, K=45, couronne ×1.4)
+#   ✅ Volume mâchoire/joues (taper, TAPER_P9=0.879, pentes 730/670/720 sur machoireC/jouesC/bajoue)
+#   ✅ Nez largeur narines (bornes 0.24-0.36 ; pointe = P9 car signal plat 2D)
+#   ✅ Bouche/lèvres (largeur + épaisseur sup/inf + position bas_haut ; inf SANS "100-", sens opposé à sup)
+#
+# DÉCOUVERTE MAJEURE : 3DDFA V2 ONNX est DÉJÀ ACTIF en prod (S.tddfa renvoie un objet).
+#   - _arriere_avant (profondeur) : ~35 pilotés par 3DDFA ✅ / ~16 figés P9
+#   - _arrondi_angulaire (arrondi) : seulement ~6 pilotés / ~25 FIGÉS P9 (en preset() simple)
+#   → mécanisme : presetZ/presetA reçoivent 3DDFA ; preset() simple l'ignore (figé P9)
+#
+# FIXES UI : regroupement + ordre canonique des sliders (étape 4) ; cropper upload en cover/iPhone.
+#
+# PROCHAIN GROS CHANTIER : débloquer les ~25 arrondis figés (preset()→presetA() + étendre
+# angle_sliders dans run3DDFA_mesh.js) = nez rond, lèvres ourlées. Puis zones 2D : menton, yeux, sourcils.
+# À NE PAS reperdre : git non sauvegardé = risque iCloud (voir Stack). Committer régulièrement.
+# ════════════════════════════════════════════════════════════
+
 ## Stack
 - Vanilla JS + HTML/CSS pur, SPA 4 steps (100dvh par step)
 - Fichiers principaux : script_spa.js, scanToSliders_v6.js, index.html, style.css, sw.js
@@ -16,7 +40,7 @@
 - Azure Face API → uniquement via server.js (endpoint /api/matchFace), jamais côté client
 - Service Worker : incrémenter CACHE_VERSION dans sw.js à CHAQUE modif de script_spa.js,
   scanToSliders_v6.js ou style.css
-- SW actuel : fc26-cranium-v84 (à incrémenter)
+- SW actuel : fc26-cranium-v88 (à incrémenter)
 - Mobile-first : tester à 375px avant tout commit
 - Chemins fichiers : tous avec ./ prefix (ex: ./style.css, ./9.png, ./sw.js)
 
@@ -62,9 +86,52 @@ Mesure Y brut d'un point : S.landmarks[i].y  (S = état global, S.sliders = dern
 ## Carnations
 - 10 carnations, FC26_CARNATIONS dans script_spa.js. ITA (CIELAB), biasFix 0.6.
 
+## UI/UX — fixes actés (mai 2026)
+### Cropper upload (façon iPhone) — flux UPLOAD uniquement, NE PAS toucher caméra live
+- Init Cropper.js (~ligne 663, dans img.onload) : viewMode:3 (image COUVRE le viewport, plus de
+  bandes), dragMode:'move' (on déplace l'image derrière), autoCropArea:1, cropBoxMovable:false,
+  cropBoxResizable:false, toggleDragModeOnDblclick:false, aspectRatio:NaN.
+- ready() force la box de crop = conteneur entier (sinon box centrée invisible → zoom au Confirmer) :
+    ready(){ const cd=S.cropper.getContainerData(); S.cropper.setCropBoxData({left:0,top:0,width:cd.width,height:cd.height}); }
+- État accepté : léger zoom résiduel au Confirmer toléré par le user (ne pas sur-régler).
+- Déplacement vertical limité = normal (cover ne permet le pan que dans l'axe qui dépasse).
+  Option future si besoin : cadre carré/4:5 centré (marges assombries) → pan vertical garanti sur photo portrait.
+
+### Rendu des sliders (étape 4, renderGroup dans script_spa.js)
+- Sliders REGROUPÉS par sous-zone via bucketing (getSubTab) — chaque titre de sous-zone une seule fois.
+- Ordre DANS chaque sous-zone = ordre canonique FC26 via SUFFIX_ORDER + suffixRank() :
+  reduire_elargir → bas_haut → neutre_haut → arriere_avant → arrondi_angulaire → neutre_arrondi
+  → plus_petite → plus_grande_petite → deplacement_gd → neutre_avant → neutre_moins → moins_plus
+- getSubTab : longest-prefix match (SLIDER_SUBTAB trié) + EXCEPTIONS (crane_arriere_avant/arrondi/deplacement → 'Crane').
+
 ## Azure
 - Resource scanmyface-face-api (Germany West Central, F0). Endpoint backend azurewebsites.net
 - Image POST body JSON { image: dataUrl }. shrinkForAzure() : 512px max, JPEG 75%. CORS prod à gérer.
+
+## ⚠️ 3DDFA — ÉTAT RÉEL (mai 2026) : DÉJÀ ACTIF EN PROD (corrige une erreur de doc)
+Le pipeline 3DDFA V2 ONNX n'est PAS "à faire" : il TOURNE déjà.
+- onnxruntime-web@1.26 chargé (index.html), run3DDFA.js charge ./3ddfa_mb1.onnx (12 Mo)
+- Flow : Promise.all([runMP(img), run3DDFA(img)]) ; computeFC26from3DDFA() mappe vers sliders
+- Vérif runtime : après un scan, `S.tddfa` renvoie {pose, shape[40], expr[10], raw[62]} = ACTIF ✅
+  (si null → fallback P9, voir le .catch ligne ~776 ; vérifier que 3ddfa_mb1.onnx est déployé)
+
+### Couverture réelle 3DDFA (diagnostic 2 visages Cumberbatch vs Elon)
+- `_arriere_avant` (PROFONDEUR) : ~35 sliders RÉELLEMENT pilotés par 3DDFA ✅ (valeurs varient entre visages :
+  crâne, front, sourcils, menton, mâchoire, mandibule, lèvres...). ~16 encore figés P9
+  (orbites, narines, paupières, pointe nez, espacement lèvres).
+- `_arrondi_angulaire` (ARRONDI) : seulement ~6 pilotés (crâne, front_sup, joues, menton, mâchoire, mandibule).
+  ~25 encore FIGÉS sur P9 (nez, toutes les lèvres, sourcils, yeux, tempes, narines).
+
+### MÉCANISME (clé du débogage) — pourquoi certains sont figés alors que 3DDFA tourne
+- presetZ(obj,key) / presetA(obj,key) : REÇOIVENT la valeur 3DDFA si fournie (sinon P9). → alimentés ✅
+- preset(obj,key) simple : IGNORE 3DDFA, retombe toujours en P9. → figés ❌
+Donc un slider peut être "calculé par 3DDFA mais jeté" s'il est en preset() au lieu de presetZ/presetA.
+
+### CHANTIER 3DDFA RESTANT (ce n'est plus "intégrer", c'est "étendre le mapping")
+1. Étendre angle_sliders dans run3DDFA_mesh.js : calculer l'arrondi de plus de zones depuis le mesh
+   (nez, lèvres, sourcils, yeux) — gros potentiel ressemblance (nez rond vs pointu, lèvres ourlées).
+2. Basculer les preset() figés → presetZ()/presetA() là où 3DDFA fournit déjà une valeur ignorée.
+3. volume_sliders reste vide (épaisseur graisse non triviale même via mesh, voir bloc VOLUME).
 
 # ════════════════════════════════════════════════════════════
 # BLOCS ALGO CALIBRÉS (mai 2026) — valeurs à NE PAS reperdre
@@ -116,7 +183,9 @@ Mesure Y brut d'un point : S.landmarks[i].y  (S = état global, S.sliders = dern
   Validé en jeu : Ariana (0.275)→narines fines vs Lebron (0.323)→narines prononcées.
 - Largeur de POINTE (pointe_nez_sup/inf_reduire_elargir) : SIGNAL PLAT en 2D (étendue ~0.01,
   dans le bruit MediaPipe — la pointe est une structure de profondeur). → preset() = P9. NE PAS recalibrer.
-- Arrondi pointe / évasement ailes (ext_narine_*) / profondeur (_arriere_avant) : axe Z → P9 (attend 3DDFA).
+- Profondeur nez (nez_arriere_avant) : pilotée par 3DDFA ✅. MAIS arrondi (_arrondi_angulaire) et
+  évasement ailes (ext_narine_*) encore FIGÉS P9 (en preset() simple → 3DDFA ignoré). À débloquer
+  via le chantier 3DDFA (presetA + angle_sliders étendus). C'est ce qui ferait "nez rond vs pointu".
 - Diagnostic 6 visages (ratios narines /D_W) : Ariana 0.276, Elon 0.273, Zlatan 0.283,
   Haaland 0.284, P9 0.295, Lebron 0.320. (pointe : 0.075-0.10 pour tous = plat, confirmé).
 
@@ -132,7 +201,8 @@ Bonne nouvelle : l'épaisseur des lèvres est une distance verticale FRONTALE �
   auto(C,'epaisseur_levre_inf_bas_haut', _norm((L14.y+L17.y)/2, 0.570, 0.793)); // Kim→23, Zlatan→93
 - ⚠️ LEÇON : sup et inf bas_haut ont des SENS OPPOSÉS. Sup pleine = valeur haute (100-).
   Inf pleine = valeur basse (pas de 100-). Vérifié en jeu, ne pas re-uniformiser.
-- Arrondi arc de cupidon (_arrondi_angulaire) + projection (_arriere_avant) + volume (_moins_plus) → P9 (Z, 3DDFA).
+- Projection lèvres (_arriere_avant) : pilotée par 3DDFA ✅. Arrondi arc de cupidon (_arrondi_angulaire)
+  encore FIGÉ P9 (preset() simple). Volume (_moins_plus) → P9. Arrondi à débloquer via chantier 3DDFA.
 
 ### Visages de calibration bouche (ratios bruts + Y position)
 | Visage | larg /D_W | ép_sup /D_H | ép_inf /D_H | sup Y | inf Y |
@@ -152,8 +222,8 @@ Bonne nouvelle : l'épaisseur des lèvres est une distance verticale FRONTALE �
 
 ### AUDIT RÉEL scanToSliders_v6.js (mai 2026) — corrige l'ancien "256/47" erroné
 - Sliders MESURÉS via auto() : ~117 → ~125 après blocs élancement/volume/nez/bouche
-- Sliders NON mesurés (preset → P9, ou placeholder 3DDFA) : ~180
-- La famille C n'est PAS "quasi-complète" : majorité de ses _moins_plus / _arriere_avant / _plus_petite en P9.
+- Sliders NON mesurés (preset → P9) : ~155. ⚠️ + ~40 _arriere_avant/_arrondi pilotés par 3DDFA (voir section 3DDFA).
+- La famille C n'est PAS "quasi-complète" : beaucoup de _moins_plus / _plus_petite / arrondis encore en P9.
 - Cause racine : tout ce qui dépend du VOLUME / PROFONDEUR (Z) est non mesurable en 2D unique.
   Les proxys 2D (élancement, taper, largeurs) débloquent une partie via ancrage P9, mais restent approximatifs.
 
@@ -163,12 +233,14 @@ Bonne nouvelle : l'épaisseur des lèvres est une distance verticale FRONTALE �
   lèvres sortent corrects sans intervention manuelle. À re-mesurer globalement.
 
 ### Roadmap ressemblance (par impact)
-1. PRIORITÉ — 3DDFA V2 ONNX in-browser (+15-20%). ONNX ~30MB via onnxruntime-web, 100% client, cache SW.
-   Débloquerait les sliders Z/volume restants (~180 P9) : pointe nez, évasement narines, arrondis,
-   projection lèvres, joues_sup/inf (signal vertical). Option B (vertices mesh XYZ). P9 = ancre unique.
-2. Alternative 2 photos (face + 3/4) pour Z sans modèle externe (+20%).
-3. MICA Azure (+8% sur 3DDFA) → β FLAME[300] (V3).
+1. PRIORITÉ — ÉTENDRE le mapping 3DDFA (déjà actif, pas à intégrer). Débloquer les ~25 arrondis figés
+   (nez, lèvres, sourcils, yeux) en preset()→presetA() + étendre angle_sliders du mesh. Gros gain
+   (nez rond vs pointu, lèvres ourlées). Puis les ~16 _arriere_avant encore figés.
+2. Zones 2D faciles restantes (menton trop étroit, yeux/paupières, sourcils) via méthode log→scan→calibrer.
+3. Alternative 2 photos (face + 3/4) pour affiner Z (+20%).
+4. MICA Azure (+8% sur 3DDFA) → β FLAME[300] (V3).
 - Plafond absolu FC26 ~90% (moteur Frostbite ; EA atteint 85-92% en studio multi-cam).
+- joues_sup/inf (_moins_plus) : bascule verticale, à reprendre via mesh 3DDFA (signal de position vertical).
 
 ### Décisions actées
 - ❌ CelebA + Azure Custom Vision (binaire vs continu, dataset biaisé)
@@ -193,11 +265,12 @@ Bonne nouvelle : l'épaisseur des lèvres est une distance verticale FRONTALE �
 1. FC26 ✅ (live) — 2. UFC 6 (19 juin 2026) — 3. NBA 2K — 4. WWE 2K — 5. FC27 (25 sept 2026)
 
 ## Roadmap V2 technique
-### PRIORITÉ 3DDFA V2 ONNX (avant UFC6 / 19 juin 2026)
-- Étape 1 : session Python → ONNX + extraire indices BFM des .npy (cf. bfm_indices.js)
-- Étape 2 : onnxruntime-web (v1.26+) Vanilla JS, cache SW, Promise.all(MediaPipe, 3DDFA)
-- Étape 3 : mesures XYZ → débloquer les ~180 sliders P9 (prioriser volume + joues_sup/inf vertical + pointe nez)
-- Étape 4 : correction pose (yaw) sur sliders C existants. P9 = ancre unique.
+### 3DDFA V2 ONNX : INTÉGRÉ ET ACTIF ✅ (voir section "3DDFA — état réel" en haut)
+Reste à ÉTENDRE le mapping (run3DDFA_mesh.js), pas à intégrer :
+- Étendre angle_sliders : arrondi de nez/lèvres/sourcils/yeux depuis le mesh BFM
+- Basculer les preset() figés → presetZ()/presetA() (sliders calculés mais ignorés)
+- Vérifier que 3ddfa_mb1.onnx est bien déployé en prod (sinon fallback P9 silencieux)
+- Étape future : correction pose (yaw) sur sliders C ; volume_sliders depuis épaisseur mesh
 ### Autres V2
 - joues_sup/inf via signal vertical (bascule haut↔bas) ; affichage compteur mesuré/P9 ; export PDF zone
 - Investiguer : menton (trop étroit), arrondis de toutes les zones

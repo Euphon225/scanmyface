@@ -887,6 +887,7 @@ window.onLaunchClick=async function(){
     const tddfaSliders = (S.tddfa && typeof computeFC26from3DDFA === 'function')
       ? computeFC26from3DDFA(S.tddfa, S.landmarks)
       : null;
+    S.tddfaSliders = tddfaSliders;   // pour lire S.tddfaSliders._debug en console
     S.sliders=scanToSliders(S.landmarks, tddfaSliders);
     renderStep3();
     if(window.goToStep)window.goToStep(3);

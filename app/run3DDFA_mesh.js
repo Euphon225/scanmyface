@@ -59,6 +59,13 @@
     brow_outer_r:    276,
     mouth_corner_l:  61,
     mouth_corner_r:  291,
+    // ajouts arrondi sourcils + yeux
+    brow_peak_l:     105,
+    brow_peak_r:     334,
+    eye_top_l:       159,
+    eye_bot_l:       145,
+    eye_top_r:       386,
+    eye_bot_r:       374,
   };
 
   // -------- Helpers --------
@@ -89,6 +96,9 @@
     const cos = (v1x * v2x + v1y * v2y) / (n1 * n2);
     return Math.acos(Math.max(-1, Math.min(1, cos))) * 180 / Math.PI;
   }
+
+  // Distance 2D (plan XY) entre deux points dé-rotés
+  function dist2D(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 
   // -------- Main --------
 
@@ -204,6 +214,15 @@
     const cheekArcR    = angleAt2D(pts.cheekbone_r, pts.cheek_r, pts.jaw_angle_r);
     const cheekArc     = (cheekArcL + cheekArcR) / 2;
 
+    // Sourcils : angle à l'apex (arc) — courbure de contour 2D
+    const browArcL = angleAt2D(pts.brow_inner_l, pts.brow_peak_l, pts.brow_outer_l);
+    const browArcR = angleAt2D(pts.brow_inner_r, pts.brow_peak_r, pts.brow_outer_r);
+    const browArc  = (browArcL + browArcR) / 2;
+    // Yeux : ouverture verticale / largeur (rond vs amande)
+    const eyeRatioL = dist2D(pts.eye_top_l, pts.eye_bot_l) / (dist2D(pts.eye_outer_l, pts.eye_inner_l) || 1e-6);
+    const eyeRatioR = dist2D(pts.eye_top_r, pts.eye_bot_r) / (dist2D(pts.eye_outer_r, pts.eye_inner_r) || 1e-6);
+    const eyeRatio  = (eyeRatioL + eyeRatioR) / 2;
+
     // (angle - centre) / amplitude → [-1, 1] → slider 0-100
     const angle_sliders = {
       machoire_arrondi_angulaire:   toSlider((jawAngle    - 140) / 30, 1),  // 110°-170° → 0-100
@@ -213,6 +232,8 @@
       crane_arrondi_angulaire:      toSlider((foreheadArc - 120) / 35, 1),
       joues_arrondi_angulaire:      toSlider((cheekArc    - 120) / 35, 1),
       nez_arrondi_angulaire:        toSlider((angleAt2D(pts.nose_nostrils_l ?? pts.cheek_l, pts.nose_tip, pts.nose_nostrils_r ?? pts.cheek_r) - 100) / 40, 1),
+      sourcils_arrondi_angulaire:   toSlider((browArc  - 161)  / 12,   1),  // PROVISOIRE - calibrer via _debug
+      yeux_arrondi_angulaire:       toSlider((eyeRatio - 0.40) / 0.12, 1),  // PROVISOIRE - calibrer via _debug
     };
 
     // -------- Volume sliders (_moins_plus graisse) --------
@@ -224,7 +245,7 @@
       z_sliders,
       angle_sliders,
       volume_sliders,
-      _debug: { jawAngle, chinAngle, foreheadArc, cheekArc, faceWidth, faceDepth },
+      _debug: { jawAngle, chinAngle, foreheadArc, cheekArc, browArc, eyeRatio, faceWidth, faceDepth },
     };
   }
 

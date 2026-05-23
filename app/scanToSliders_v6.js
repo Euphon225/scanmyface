@@ -234,7 +234,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
     _norm(_dist(_mid(L[46], L[276]), L[8]) / D_H, 0.02, 0.65));
 
   presetZ(S, 'sourcils_arriere_avant');
-  preset(S, 'sourcils_arrondi_angulaire');
+  presetA(S, 'sourcils_arrondi_angulaire');
 
   // Sourcils centraux
   auto(S, 'sourcils_central_reduire_elargir',
@@ -271,7 +271,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
     _norm(_dist(_mid(L[33], L[263]), L[8]) / D_H, 0.03, 0.75));
 
   presetZ(S, 'yeux_arriere_avant');
-  preset(S, 'yeux_arrondi_angulaire');
+  preset(S, 'yeux_arrondi_angulaire');   // eyeRatio plat (0.29/0.29 testé) -> P9, forme oeil = profondeur/expression
 
   // Taille des orbites
   // CORRIGÉ : max étendu 0.62→0.82
@@ -303,7 +303,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
     _norm(_dist(L[8], L[4]) / D_H, 0.15, 0.38));
 
   presetZ(S, 'nez_arriere_avant');
-  preset(S, 'nez_arrondi_angulaire');
+  preset(S, 'nez_arrondi_angulaire');   // signal plat 2D (51/51/51) -> P9, vrai nez rond = V3 mesh
 
   // Déplacement latéral pointe du nez
   auto(S, 'nez_deplacement_gd',
@@ -383,7 +383,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
   // ── MENTON ──
   // CORRIGÉ : max étendu 0.20→0.40
   auto(S, 'menton_reduire_elargir',
-    _norm(_dist(L[175], L[152]) / D_W, 0.02, 0.40));
+    _norm(_dist(L[149], L[378]) / D_W, 0.42, 0.53));  // FIX largeur horizontale (était 175/152 = hauteur)
 
   auto(S, 'menton_bas_haut',
     _norm(_dist(L[152], L[17]) / D_H, 0.10, 0.35));
@@ -726,7 +726,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
   // Philtrum
   // CORRIGÉ : max étendu 0.08→0.18
   auto(C, 'philtrum_reduire_elargir',
-    _norm(_dist(L[164], L[0]) / D_H, 0.02, 0.14));
+    _norm(_dist(L[37], L[267]) / D_W, 0.04, 0.12));  // FIX largeur horizontale (était 164/0 = longueur)
 
   auto(C, 'philtrum_bas_haut',
     _norm(L[0].y - L[164].y, 0.001, 0.15));
