@@ -100,9 +100,9 @@ window.setLanguage = l => {
   // Re-render l'étape active pour que les textes dynamiques changent immédiatement
   const step = parseInt(document.getElementById('app')?.dataset.step)||1;
   if(step===2){
-    buildSwatches(S.carnation);
+    buildSwatches(S.skinTone);
     const sg=document.querySelector('.skintone__suggest');
-    if(sg)sg.innerHTML=`${t('suggests')} <b>Carnation ${S.carnation}</b>`;
+    if(sg)sg.innerHTML=`${t('suggests')} <b>${S.skinTone}</b>`;
   } else if(step===3 && S.sliders){
     renderStep3();
   } else if(step===4 && S.sliders){
@@ -163,7 +163,7 @@ function applyI18n() {
 
 // ─── STATE ────────────────────────────────────────────────────────────
 const S = {
-  landmarks:null, skinTone:'Neutre', carnation:5, sliders:null,
+  landmarks:null, skinTone:'Claire-bronzée', sliders:null,
   activeZone:'crane', faceLandmarker:null, cropper:null,
   webcamStream:null, imgNaturalW:1, imgNaturalH:1, cropSource:null,
 };
@@ -349,15 +349,15 @@ function getVal(key, aiVal, fam) {
   return { v: 50, src: 'neutral' };
 }
 
-// ─── ITA → CARNATION FC26 ────────────────────────────────────────────
-const ITA_MAP = [{min:55,c:1},{min:41,c:2},{min:28,c:3},{min:18,c:4},{min:8,c:5},{min:0,c:6},{min:-10,c:7},{min:-22,c:8},{min:-38,c:9},{min:-999,c:10}];
-const itaToCarnation = ita => (ITA_MAP.find(r=>ita>=r.min)||{c:10}).c;
-const skinToneLabel = (ita,l=_lang) => {
-  const lb = {fr:['Claire','Claire bronzée','Intermédiaire','Bronzée','Métissée','Foncée','Très foncée'],
-              en:['Fair','Light','Medium','Tan','Brown','Dark','Very dark']};
-  const i = ita>50?0:ita>38?1:ita>26?2:ita>14?3:ita>4?4:ita>-14?5:6;
-  return (lb[l]||lb.fr)[i];
-};
+// ─── ITA → CATÉGORIE FC26 ────────────────────────────────────────────
+// 5 catégories FC26 nommées (Claire / Claire-bronzée / Métis / Foncée / Très foncée)
+function itaToCategory(ita){
+  if (ita >= 41)  return 'Claire';
+  if (ita >= 28)  return 'Claire-bronzée';
+  if (ita >= 10)  return 'Métis';
+  if (ita >= -30) return 'Foncée';
+  return 'Très foncée';
+}
 
 // ─── ZONES ────────────────────────────────────────────────────────────
 const ZONES = {
@@ -804,7 +804,7 @@ async function runAnalysis(dataUrl){
   if(meshEl)meshEl.hidden=false;
 
   const ita=detectITA(img,lm);
-  S.carnation=itaToCarnation(ita);S.skinTone=skinToneLabel(ita,_lang);
+  S.skinTone = itaToCategory(ita);   // catégorie suggérée
   renderSwatches(ita);
 
   if(metricsEl){
@@ -850,32 +850,49 @@ function drawMesh(lm){
 }
 
 // ─── CARNATIONS FC26 ─────────────────────────────────────────────────
-const FC26_CARNATIONS={
-  1:'#c4948a',2:'#b8857a',3:'#c99090',4:'#b8887e',5:'#9e6e5e',
-  6:'#7a5548',7:'#8a6558',8:'#5c3528',9:'#3d2018',10:'#2a1208'
-};
-function buildSwatches(activeNum){
+const FC26_SKIN_CATEGORIES = [
+  { key: 'Claire',         color: '#c9a896' },
+  { key: 'Claire-bronzée', color: '#b08968' },
+  { key: 'Métis',          color: '#9e6e5e' },
+  { key: 'Foncée',         color: '#6b4435' },
+  { key: 'Très foncée',    color: '#3d2418' },
+];
+// helper couleur par catégorie (pour pastille / export)
+function skinCategoryColor(cat){
+  const f = FC26_SKIN_CATEGORIES.find(c=>c.key===cat);
+  return f ? f.color : '#9e6e5e';
+}
+function buildSwatches(activeKey){
   const row=document.querySelector('.skintone__row');if(!row)return;
-  row.innerHTML=Object.entries(FC26_CARNATIONS).map(([num,color])=>{
-    const n=parseInt(num),a=n===activeNum;
-    return`<button class="swatch${a?' is-active':''}" data-carnation="${n}" aria-pressed="${a}" type="button" title="Carnation ${n}">
+  row.innerHTML=FC26_SKIN_CATEGORIES.map(({key,color})=>{
+    const a = key===activeKey;
+    return `<button class="swatch${a?' is-active':''}" data-cat="${key}" aria-pressed="${a}" type="button" title="${key}">
       <span class="swatch__dot" style="background:${color};"></span>
-      <span class="swatch__label">${n}</span>
+      <span class="swatch__label">${key}</span>
     </button>`;
   }).join('');
   row.querySelectorAll('.swatch').forEach(s=>{
     s.addEventListener('click',()=>{
       row.querySelectorAll('.swatch').forEach(x=>{x.classList.remove('is-active');x.setAttribute('aria-pressed','false');});
       s.classList.add('is-active');s.setAttribute('aria-pressed','true');
-      S.carnation=parseInt(s.dataset.carnation);S.skinTone=`Carnation ${S.carnation}`;
+      S.skinTone = s.dataset.cat;
+      // recalcul LIVE du bestPreset avec la nouvelle catégorie
+      if(S.landmarks){
+        try{
+          const tddfaSliders=(S.tddfa&&typeof computeFC26from3DDFA==='function')?computeFC26from3DDFA(S.tddfa,S.landmarks):null;
+          S.sliders=scanToSliders(S.landmarks, tddfaSliders, S.skinTone);
+          if(typeof renderStep3==='function')renderStep3();
+        }catch(e){console.warn('[recalc carnation] échec:',e);}
+      }
     });
   });
 }
 function renderSwatches(ita){
-  const active=itaToCarnation(ita);
+  const active = itaToCategory(ita);
+  S.skinTone = active;
   buildSwatches(active);
   const sg=document.querySelector('.skintone__suggest');
-  if(sg)sg.innerHTML=`${t('suggests')} <b>Carnation ${active}</b>`;
+  if(sg)sg.innerHTML=`${t('suggests')} <b>${active}</b>`;
 }
 
 // ─── LAUNCH ───────────────────────────────────────────────────────────
@@ -888,7 +905,7 @@ window.onLaunchClick=async function(){
       ? computeFC26from3DDFA(S.tddfa, S.landmarks)
       : null;
     S.tddfaSliders = tddfaSliders;   // pour lire S.tddfaSliders._debug en console
-    S.sliders=scanToSliders(S.landmarks, tddfaSliders);
+    S.sliders=scanToSliders(S.landmarks, tddfaSliders, S.skinTone);
     renderStep3();
     if(window.goToStep)window.goToStep(3);
   }catch(e){
@@ -899,23 +916,41 @@ window.onLaunchClick=async function(){
 };
 
 // ─── STEP 3 : SYNTHÈSE ────────────────────────────────────────────────
+// Switch manuel vers un preset alternatif : recalcule les sliders en forçant ce preset
+function switchToPreset(presetId){
+  if(!window.PRESETS_DB) return;
+  const p = window.PRESETS_DB.find(x=>x.preset_id===presetId);
+  if(!p || !S.landmarks) return;
+  try{
+    const tddfaSliders=(S.tddfa&&typeof computeFC26from3DDFA==='function')?computeFC26from3DDFA(S.tddfa,S.landmarks):null;
+    S.sliders=scanToSliders(S.landmarks, tddfaSliders, S.skinTone, presetId);
+    renderStep3();
+  }catch(e){console.warn('[switchToPreset] échec:',e);}
+}
+
 function renderStep3(){
   if(!S.sliders)return;
   const{squelette,chair,graisse,_meta}=S.sliders;
   // Hero
   const hn=document.getElementById('hero-name');
-  if(hn)hn.textContent=`Carnation ${S.carnation} · ${S.skinTone}`;
+  if(hn)hn.textContent=`${S.skinTone}`;
   const hs=document.querySelector('.hero-compact__score');
   if(hs)hs.innerHTML=`${_meta.autoCount} sliders calculés · <b>${_meta.coverageRate}%</b> auto`;
   const kk=document.querySelector('.hero-compact__kicker');
   if(kk){
-    const dotColor=FC26_CARNATIONS[S.carnation]||'#9e6e5e';
-    kk.innerHTML=`${t('carnation_lbl')} <b>n°${S.carnation}</b><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${dotColor};vertical-align:middle;margin-left:6px;border:1px solid rgba(255,255,255,0.25);flex-shrink:0;"></span>`;
+    const dotColor=skinCategoryColor(S.skinTone);
+    kk.innerHTML=`${t('carnation_lbl')} <b>${S.skinTone}</b><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${dotColor};vertical-align:middle;margin-left:6px;border:1px solid rgba(255,255,255,0.25);flex-shrink:0;"></span>`;
   }
-  // Meta → label cyan + 3 instructions FC26
+  // Meta → label cyan dynamique (vrai preset choisi) + 3 instructions FC26
   const hm=document.querySelector('.hero-compact__meta');
   if(hm){
-    hm.innerHTML=`<div style="color:#00f0ff;font-size:9px;font-weight:700;letter-spacing:0.12em;margin-bottom:6px;">${t('ref_head')}</div>
+    const _mt = S.sliders && S.sliders._meta;
+    const _bpid = _mt && _mt.bestPresetId;
+    const _forme = _mt && _mt.bestPresetForme;
+    const _headLbl = _bpid
+      ? (`TÊTE DE RÉF. · PRESET ${_bpid}` + (_forme ? ` · ${String(_forme).toUpperCase()}` : ''))
+      : t('ref_head');
+    hm.innerHTML=`<div style="color:#00f0ff;font-size:9px;font-weight:700;letter-spacing:0.12em;margin-bottom:6px;">${_headLbl}</div>
       <div style="display:flex;flex-direction:column;gap:3px;">
         <div style="font-size:10px;color:#9ea4c4;line-height:1.4;"><b style="color:#00f0ff;">①</b> ${t('p9_step1')}</div>
         <div style="font-size:10px;color:#9ea4c4;line-height:1.4;"><b style="color:#00f0ff;">②</b> ${t('p9_step2')}</div>
@@ -938,8 +973,9 @@ function renderStep3(){
     const corners=th.querySelector('.hero-compact__thumb-corners');
     const img=document.createElement('img');
     img.className='hero-compact__thumb-img';
-    img.src='./assets/presets/9.png';
-    img.alt='Preset 9';
+    const bpId = (S.sliders._meta && S.sliders._meta.bestPresetId) ? S.sliders._meta.bestPresetId : 9;
+    img.src='./assets/presets/'+bpId+'.png';
+    img.alt='Preset '+bpId;
     img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;';
     img.onerror=function(){this.style.display='none';if(ph)ph.style.display='';};
     if(corners)th.insertBefore(img,corners);else th.appendChild(img);
@@ -947,19 +983,30 @@ function renderStep3(){
   // Masquer l'ancienne preset9-card (déplacée dans la hero)
   const p9c=document.getElementById('preset9-card');
   if(p9c)p9c.style.display='none';
-  // Alts
-  const at=document.getElementById('alts-thin-title');if(at)at.textContent=t('coverage_lbl');
+  // Alts — Têtes alternatives (top 2-4) cliquables pour switcher le preset de réf
+  const at=document.getElementById('alts-thin-title');if(at)at.textContent='Top 3 alternatives';
   const ar=document.getElementById('alts-thin-row');
   if(ar){
-    const fams=[{lb:t('sq_lbl'),co:'#00f0ff',d:squelette},{lb:t('ch_lbl'),co:'#b026ff',d:chair},{lb:t('gr_lbl'),co:'#ff9500',d:graisse}];
-    ar.innerHTML=fams.map(f=>{
-      const e=Object.entries(f.d),a=e.filter(([,v])=>v!==50).length,p=Math.round(a/e.length*100);
-      return`<div style="flex:1;padding:10px 6px;background:${f.co}0d;border:1px solid ${f.co}30;border-radius:10px;text-align:center;min-width:0;">
-        <div style="font-size:9px;letter-spacing:0.14em;color:${f.co};font-weight:700;margin-bottom:4px;">${f.lb}</div>
-        <div style="font-size:24px;font-weight:800;color:#e2e8f0;">${p}%</div>
-        <div style="font-size:9px;color:#6b7099;">${e.length} sliders</div>
-      </div>`;
-    }).join('');
+    const alts = (_meta && _meta.topPresets) ? _meta.topPresets.slice(1, 4) : [];
+    if(alts.length){
+      ar.style.display='flex';ar.style.gap='8px';
+      ar.innerHTML = alts.map(a=>`
+        <button class="alt-head" data-preset-id="${a.id}" type="button"
+                style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:1px solid rgba(0,240,255,0.2);border-radius:10px;padding:6px;cursor:pointer;min-width:0;">
+          <img src="./assets/presets/${a.id}.png" alt="Preset ${a.id}"
+               style="width:56px;height:56px;object-fit:cover;border-radius:8px;"
+               onerror="this.style.opacity=0.2;">
+          <span style="font-size:9px;color:#9ea4c4;letter-spacing:0.05em;text-align:center;line-height:1.2;">P${a.id} · ${(a.forme||'').toUpperCase()}</span>
+        </button>`).join('');
+      ar.querySelectorAll('.alt-head').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const chosenId = parseInt(btn.dataset.presetId, 10);
+          switchToPreset(chosenId);
+        });
+      });
+    } else {
+      ar.innerHTML='';
+    }
   }
   const mt=document.getElementById('mix-title');
   if(mt)mt.innerHTML=t('fam_title');
@@ -1103,7 +1150,7 @@ function renderZoneSliders(zk){
 window.onCopyRecipe=function(){
   if(!S.sliders){toast(t('scan_wait'));return;}
   const{squelette,chair,graisse}=S.sliders;
-  const lines=[`=== SCANMYFACE V2 · ${S.skinTone.toUpperCase()} · CARNATION ${S.carnation} ===`,
+  const lines=[`=== SCANMYFACE V2 · ${S.skinTone.toUpperCase()} ===`,
     '','── SQUELETTE ──',...Object.entries(squelette).map(([k,v])=>{const{v:val}=getVal(k,v,'S');return`${k.replace(/_/g,' ')}: ${val}`;}),
     '','── CHAIR ──',...Object.entries(chair).map(([k,v])=>{const{v:val}=getVal(k,v,'C');return`${k.replace(/_/g,' ')}: ${val}`;}),
     '','── GRAISSE ──',...Object.entries(graisse).map(([k,v])=>{const{v:val}=getVal(k,v,'G');return`${k.replace(/_/g,' ')}: ${val}`;}),
@@ -1120,7 +1167,7 @@ window.onSharePng=function(){
   ctx.fillStyle='#00f0ff';ctx.font='bold 28px Inter,sans-serif';ctx.textAlign='center';
   ctx.fillText('SCANMYFACE V2',360,52);
   ctx.fillStyle='#6b7099';ctx.font='13px Inter,sans-serif';
-  ctx.fillText(`${S.skinTone} · Carnation FC26 n°${S.carnation}`,360,78);
+  ctx.fillText(`${S.skinTone}`,360,78);
   ctx.strokeStyle='rgba(0,240,255,0.2)';ctx.beginPath();ctx.moveTo(40,95);ctx.lineTo(680,95);ctx.stroke();
   let y=118;
   const drawF=(lb,co,data,fam)=>{
@@ -1154,7 +1201,7 @@ window.onNewScan=function(){
   stopWebcam();
 
   // State
-  S.landmarks=null;S.sliders=null;S.tddfa=null;S.skinTone='Neutre';S.carnation=5;S.imgNaturalW=1;S.imgNaturalH=1;S.cropSource=null;
+  S.landmarks=null;S.sliders=null;S.tddfa=null;S.skinTone='Claire-bronzée';S.imgNaturalW=1;S.imgNaturalH=1;S.cropSource=null;
 
   // Viewport
   const vp=document.getElementById('viewport');
@@ -1170,10 +1217,10 @@ window.onNewScan=function(){
   document.getElementById('btn-confirm-crop').hidden=true;
   document.getElementById('btn-retry-crop').hidden=true;
 
-  // Swatches — reset aux 10 carnations FC26 (défaut : 5)
-  buildSwatches(5);
+  // Swatches — reset aux 5 catégories FC26 (défaut : Claire-bronzée, médian)
+  buildSwatches('Claire-bronzée');
   const sg=document.querySelector('.skintone__suggest');
-  if(sg)sg.innerHTML=`${t('suggests')} <b>Carnation 5</b>`;
+  if(sg)sg.innerHTML=`${t('suggests')} <b>Claire-bronzée</b>`;
 
   // Buttons
   const bl=document.getElementById('btn-launch');
@@ -1195,7 +1242,7 @@ function toast(msg){
 // ─── INIT ─────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   initMP();
-  buildSwatches(5);
+  buildSwatches('Claire-bronzée');
 
   // Désactiver btn-launch au départ
   const bl=document.getElementById('btn-launch');

@@ -60,11 +60,15 @@ const softClampSlider = (v) => Math.round(Math.min(100, Math.max(0, v)));
 
 const PRESET_NEUTRE = 50;
 
+// Le VRAI selectBestPreset (carnation + 9 zones pondérées) vit dans presetMatch.js.
+// On l'appelle via window.selectBestPreset(landmarks, skinTone).
+// La DNA est lue via window.lookupPresetDNA(preset, flatKey).
+
 // ─────────────────────────────────────────────
 // FONCTION PRINCIPALE
 // ─────────────────────────────────────────────
 
-function scanToSliders(landmarks, tddfaResult = null) {
+function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forcePresetId = null) {
   const L = landmarks;
 
   // ── Références de normalisation ──
@@ -90,8 +94,55 @@ function scanToSliders(landmarks, tddfaResult = null) {
   const G    = results.graisse;
   const meta = results._meta;
 
+  // ── Signaux de forme : calculés tôt pour permettre le matching bestPreset ──
+  const faceRatio = D_H / D_W;                       // élancement (validé en jeu)
+  const cheekW    = _dist(L[116], L[345]);           // largeur pommettes
+  const jawW      = _dist(L[172], L[397]);           // largeur mâchoire
+  const taper     = jawW / cheekW;                   // plénitude (élevé = plein)
+
+  // Socle cohérent : le preset EA le plus proche de ce visage via le VRAI matching
+  // (carnation + 9 zones pondérées sur scanned_stats). Sert de DNA de remplissage
+  // pour les sliders Squelette non mesurés (≠ neutre 50).
+  let bestPreset = null;
+  let topPresetsArr = [];
+  try {
+    if (typeof selectBestPreset === 'function') {
+      const res = selectBestPreset(landmarks, skinTone);
+      bestPreset = res && res.bestPreset ? res.bestPreset : null;
+      topPresetsArr = (res && res.scores ? res.scores : []).slice(0, 4).map(s => ({
+        id: s.preset_id,
+        position: s.position,
+        forme: s.preset && s.preset.forme_visage,
+        carnation: s.preset && s.preset.couleur_peau,
+        score: s.score
+      }));
+    }
+  } catch (e) { console.warn('[matching] échec, fallback neutre:', e); }
+  // Override manuel : un clic sur une alternative impose un preset précis
+  if (forcePresetId && window.PRESETS_DB) {
+    const forced = window.PRESETS_DB.find(p => p.preset_id === forcePresetId);
+    if (forced) bestPreset = forced;
+  }
+  meta.bestPresetId        = bestPreset ? bestPreset.preset_id    : null;
+  meta.bestPresetPosition  = bestPreset ? bestPreset.position     : null;
+  meta.bestPresetForme     = bestPreset ? bestPreset.forme_visage : null;
+  meta.bestPresetCarnation = bestPreset ? bestPreset.couleur_peau : null;
+  meta.topPresets          = topPresetsArr;
+  console.log('[bestPreset]', meta.bestPresetId, meta.bestPresetForme, meta.bestPresetCarnation);
+
   const auto   = (obj, k, v) => { obj[k] = v; meta.autoCount++;   };
-  const preset = (obj, k, v = PRESET_NEUTRE) => { obj[k] = v; meta.presetCount++; };
+  const preset = (obj, k, v) => {
+    if (v === undefined) {
+      // socle cohérent : Squelette → DNA du preset choisi (via lookupPresetDNA), sinon neutre
+      if (obj === S && bestPreset && typeof lookupPresetDNA === 'function') {
+        const dnaVal = lookupPresetDNA(bestPreset, k);
+        v = Number.isFinite(dnaVal) ? dnaVal : PRESET_NEUTRE;
+      } else {
+        v = PRESET_NEUTRE; // Chair/Graisse : neutre (sauf 3 taper qui sont en auto())
+      }
+    }
+    obj[k] = v; meta.presetCount++;
+  };
 
   // 3DDFA overrides : si tddfaResult fournit la clé, on prend sa valeur (comptée comme auto), sinon preset(50)
   const _tZ = tddfaResult?.z_sliders || {};
@@ -117,7 +168,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
   // Élancement du visage : signal partagé D_H / D_W
   // Un faceRatio élevé → visage long ; bas → visage rond.
   // Propagé aux 3 sliders de hauteur crânienne en gardant les ancres P9.
-  const faceRatio = D_H / D_W;
+  // (faceRatio est calculé plus haut pour permettre selectBestPreset)
   // R_P9 = ratio D_H/D_W mesuré sur le Preset 9 (image 9.png) via re-scan console.
   // P9 a un visage large/court → la majorité des visages réels auront faceRatio > R_P9.
   const R_P9 = 1.070; // mesuré sur 9.png (était 1.30 estimé)
@@ -140,10 +191,7 @@ function scanToSliders(landmarks, tddfaResult = null) {
   // Signal d'effilement : un visage plein garde une mâchoire large sous les pommettes,
   // un visage maigre s'effile. Pentes par slider calibrées sur 3 visages
   // (Cumberbatch 0.822 / P9 0.879 / Elon 0.953).
-  const cheekW = _dist(L[116], L[345]); // largeur pommettes
-  const jawW   = _dist(L[172], L[397]); // largeur mâchoire
-  const taper  = jawW / cheekW;          // élevé = plein, bas = maigre
-
+  // (cheekW, jawW, taper sont calculés plus haut pour permettre selectBestPreset)
   const TAPER_P9 = 0.879; // mesuré sur 9.png via re-scan console
   const dT = taper - TAPER_P9;
 

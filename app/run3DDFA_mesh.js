@@ -201,7 +201,7 @@
     };
 
     // -------- Angle sliders (_arrondi_angulaire) --------
-    // Convention FC26 supposée : 0 = très angulaire, 100 = très arrondi.
+    // Convention FC26 RÉELLE (validée in-game) : 0 = arrondi, 100 = angulaire.
     // Plus l'angle est ouvert (~180°), plus la région est "arrondie".
     // Calibrations empiriques (à ajuster avec data réelle).
     const jawAngleL = angleAt2D(pts.cheekbone_l, pts.jaw_angle_l, pts.chin_bottom);
@@ -225,12 +225,12 @@
 
     // (angle - centre) / amplitude → [-1, 1] → slider 0-100
     const angle_sliders = {
-      machoire_arrondi_angulaire:   toSlider((jawAngle    - 140) / 30, 1),  // 110°-170° → 0-100
-      mandibule_arrondi_angulaire:  toSlider((jawAngle    - 140) / 30, 1),
-      menton_arrondi_angulaire:     toSlider((chinAngle   - 110) / 40, 1),  // 70°-150°
-      front_sup_arrondi_angulaire:  toSlider((foreheadArc - 120) / 35, 1),  // 85°-155°
-      crane_arrondi_angulaire:      toSlider((foreheadArc - 120) / 35, 1),
-      joues_arrondi_angulaire:      toSlider((cheekArc    - 120) / 35, 1),
+      machoire_arrondi_angulaire:   toSlider((140 - jawAngle)    / 30, 1),  // 110°-170° → 0-100
+      mandibule_arrondi_angulaire:  toSlider((140 - jawAngle)    / 30, 1),
+      menton_arrondi_angulaire:     toSlider((110 - chinAngle)   / 40, 1),  // 70°-150°
+      front_sup_arrondi_angulaire:  toSlider((120 - foreheadArc) / 35, 1),  // 85°-155°
+      crane_arrondi_angulaire:      toSlider((120 - foreheadArc) / 35, 1),
+      joues_arrondi_angulaire:      toSlider((120 - cheekArc)    / 35, 1),
       nez_arrondi_angulaire:        toSlider((angleAt2D(pts.nose_nostrils_l ?? pts.cheek_l, pts.nose_tip, pts.nose_nostrils_r ?? pts.cheek_r) - 100) / 40, 1),
       sourcils_arrondi_angulaire:   toSlider((browArc  - 161)  / 12,   1),  // PROVISOIRE - calibrer via _debug
       yeux_arrondi_angulaire:       toSlider((eyeRatio - 0.40) / 0.12, 1),  // PROVISOIRE - calibrer via _debug
