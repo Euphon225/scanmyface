@@ -43,6 +43,87 @@ function midPoint(points, a, b) {
     return { x: (points[a].x + points[b].x) / 2, y: (points[a].y + points[b].y) / 2 };
 }
 
+// ─── HELPERS GÉOMÉTRIQUES (utilisés pour machoire.solidite / machoire.courbure) ──
+// polygonArea : formule du lacet (shoelace), valeur absolue. Travaille sur {x,y}.
+function polygonArea(pts) {
+    if (!pts || pts.length < 3) return 0;
+    let s = 0;
+    for (let i = 0, n = pts.length; i < n; i++) {
+        const p = pts[i], q = pts[(i + 1) % n];
+        s += p.x * q.y - q.x * p.y;
+    }
+    return Math.abs(s) / 2;
+}
+
+// convexHull : enveloppe convexe 2D (algorithme monotone chain d'Andrew).
+// Retourne les points du hull ordonnés (sens trigo / antihoraire).
+function convexHull(pts) {
+    if (!pts || pts.length < 3) return (pts || []).slice();
+    const points = pts.slice().sort((a, b) => a.x === b.x ? a.y - b.y : a.x - b.x);
+    const cross = (O, A, B) => (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
+    const lower = [];
+    for (const p of points) {
+        while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+        lower.push(p);
+    }
+    const upper = [];
+    for (let i = points.length - 1; i >= 0; i--) {
+        const p = points[i];
+        while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+        upper.push(p);
+    }
+    lower.pop();
+    upper.pop();
+    return lower.concat(upper);
+}
+
+// turningAngles : pour chaque triplet (p[i-1], p[i], p[i+1]), angle signé entre
+// (p[i]-p[i-1]) et (p[i+1]-p[i]) via atan2(cross, dot) ∈ (-π, π].
+function _turningAngles(pts) {
+    const out = [];
+    if (!pts || pts.length < 3) return out;
+    for (let i = 1; i < pts.length - 1; i++) {
+        const ax = pts[i].x - pts[i - 1].x, ay = pts[i].y - pts[i - 1].y;
+        const bx = pts[i + 1].x - pts[i].x, by = pts[i + 1].y - pts[i].y;
+        const cross = ax * by - ay * bx;
+        const dot = ax * bx + ay * by;
+        out.push(Math.atan2(cross, dot));
+    }
+    return out;
+}
+
+function _stddev(arr) {
+    if (!arr || arr.length === 0) return 0;
+    const mean = arr.reduce((s, x) => s + x, 0) / arr.length;
+    const v = arr.reduce((s, x) => s + (x - mean) * (x - mean), 0) / arr.length;
+    return Math.sqrt(v);
+}
+
+// perimetre : somme des distances entre points consécutifs, boucle fermée
+// (dernier point reconnecté au premier). Travaille sur {x,y}.
+function perimetre(pts) {
+    if (!pts || pts.length < 2) return 0;
+    let s = 0;
+    for (let i = 0, n = pts.length; i < n; i++) {
+        const p = pts[i], q = pts[(i + 1) % n];
+        s += Math.hypot(q.x - p.x, q.y - p.y);
+    }
+    return s;
+}
+
+// eigenvalues2x2 : valeurs propres d'une matrice symétrique 2x2 [[a,b],[b,c]]
+// via la formule analytique. Retourne [λ_max, λ_min] (λ1 ≥ λ2).
+function eigenvalues2x2(M) {
+    const a = M[0][0], b = M[0][1], c = M[1][1];
+    const tr = a + c;
+    const disc = Math.sqrt(Math.max(0, (a - c) * (a - c) + 4 * b * b));
+    return [(tr + disc) / 2, (tr - disc) / 2];
+}
+
+// Contours des lèvres MediaPipe (FACEMESH_LIPS, boucles fermées dans l'ordre)
+const LIP_OUTER_INDICES = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146];
+const LIP_INNER_INDICES = [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308, 324, 318, 402, 317, 14, 87, 178, 88, 95];
+
 // ─── calculateMixAttributes (OLD_script.js l.3868) ──────────────────────────
 function calculateMixAttributes(rawPoints) {
     // Convertit les points indexés (clé = index MP) en noms sémantiques
@@ -174,10 +255,66 @@ function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
     if (!attributes.bouche) attributes.bouche = {};
     attributes.bouche.volume = bouche_volume_ratio;
 
-    if (!attributes.nez) attributes.nez = {};
-    attributes.nez.volume = narines_taille_ratio;
+    // ── BOUCHE : 4 mesures de forme sur le contour des lèvres ────────────
+    // Toutes invariantes échelle/translation (normalisées par face area ou sans dimension).
+    // Laissées à null si un point manque ; _buildMahalanobisCov les exclut du Mahalanobis
+    // tant que les 31 presets ne les ont pas (log "en attente de re-scan").
+    attributes.bouche.aire = null;
+    attributes.bouche.compacite = null;
+    attributes.bouche.excentricite = null;
+    attributes.bouche.ratio_levres = null;
 
-    // ── Nez : métriques width / height / projection / volume ────────────
+    const lipOuter = [];
+    for (const idx of LIP_OUTER_INDICES) {
+        const p = byIndex(idx);
+        if (!p) { lipOuter.length = 0; break; }
+        lipOuter.push({ x: p.x, y: p.y });
+    }
+    if (lipOuter.length === LIP_OUTER_INDICES.length) {
+        // 1. aire = shoelace(lipOuter) / face area  (remplace l'approximation rectangle×0.7
+        //    de bouche.volume — bouche.volume est CONSERVÉ tel quel pour compatibilité).
+        const aireLip = polygonArea(lipOuter);
+        attributes.bouche.aire = aireLip / (faceAreaTotal || 1);
+
+        // 2. compacité = 4π·aire / perimètre²  ∈ [0, 1].  =1 cercle, <1 forme allongée.
+        const peri = perimetre(lipOuter);
+        if (peri > 1e-12) {
+            attributes.bouche.compacite = (4 * Math.PI * aireLip) / (peri * peri);
+        }
+
+        // 3. excentricité = sqrt(1 - λ_min / λ_max) sur la covariance 2x2 des points.
+        //    λ_max/λ_min sont les variances le long des axes principaux de la bouche.
+        //    Sans dimension, invariant échelle/translation. Bouche fine étirée → ~1.
+        const n = lipOuter.length;
+        let mx = 0, my = 0;
+        for (const p of lipOuter) { mx += p.x; my += p.y; }
+        mx /= n; my /= n;
+        let cxx = 0, cxy = 0, cyy = 0;
+        for (const p of lipOuter) {
+            const dx = p.x - mx, dy = p.y - my;
+            cxx += dx * dx; cxy += dx * dy; cyy += dy * dy;
+        }
+        cxx /= n; cxy /= n; cyy /= n;
+        const [lmax, lmin] = eigenvalues2x2([[cxx, cxy], [cxy, cyy]]);
+        if (lmax > 1e-12) {
+            attributes.bouche.excentricite = Math.sqrt(Math.max(0, 1 - lmin / lmax));
+        }
+    }
+
+    // 4. ratio_levres = épaisseur lèvre sup / épaisseur lèvre inf  (sans dimension).
+    //    ep_sup = |y(point 0, haut externe) − y(point 13, haut interne)|
+    //    ep_inf = |y(point 17, bas externe) − y(point 14, bas interne)|
+    const lipExtTop = byIndex(0),  lipIntTop = byIndex(13);
+    const lipExtBot = byIndex(17), lipIntBot = byIndex(14);
+    if (lipExtTop && lipIntTop && lipExtBot && lipIntBot) {
+        const epSup = Math.abs(lipExtTop.y - lipIntTop.y);
+        const epInf = Math.abs(lipExtBot.y - lipIntBot.y);
+        attributes.bouche.ratio_levres = epSup / (epInf || 1e-9);
+    }
+
+    if (!attributes.nez) attributes.nez = {};
+
+    // ── Nez : métriques width / height / projection / narine + 3 mesures de forme ──
 
     // 1. Largeur : dist(narine_externe_gauche[75], narine_externe_droite[305])
     //              / dist(pommete_gauche[234], pomette_droite[454])
@@ -219,15 +356,7 @@ function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
     }
     attributes.nez.projection = nez_projection;
 
-    // 4. Volume : aire estimée = (largeur_ailes * hauteur_brute) / 2
-    //             largeur_ailes = dist(nez_aile_gauche[294], nez_aile_droite[64])
-    //             / aire_visage(face_larg * face_haut)
-    const largeur_ailes    = distIdx(294, 64); // nez_aile_gauche → nez_aile_droite
-    const aire_nez         = (largeur_ailes * nez_haut_brut) / 2;
-    const aire_visage      = face_larg * faceHeightRaw || 1;
-    attributes.nez.volume  = aire_nez / aire_visage;
-
-    // 5. Périmètre moyen des narines
+    // 4. Périmètre moyen des narines
     //    Gauche : dist(238,237) + dist(237,79) + dist(79,75) + dist(75,238)
     //             narine_interne_gauche → narine_sommet_gauche → narine_sommet_gauche_2 → narine_externe_gauche → narine_interne_gauche
     const perim_g = distIdx(238, 237)  // narine_interne_gauche → narine_sommet_gauche
@@ -245,6 +374,28 @@ function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
     const perim_moyen = (perim_g + perim_d) / 2;
     attributes.nez.narine = perim_moyen / (face_larg || 1);
 
+    // ── Nez : compacité narine gauche (seule mesure de forme retenue, 1.46x d'amplitude
+    //    sur les 31 presets). evasement (1.13x) et ratio_pointe_base (1.08x) retirés : plats.
+    attributes.nez.compacite_narines = null;
+
+    // Compacité de la narine gauche : 4π·aire / perimètre²  ∈ [0, 1].
+    // Narine ronde → ~1 ; narine pincée/allongée → bas.
+    // Contour ordonné en boucle : 75 (aile ext) → 79 → 237 (sommets) → 238 (interne) → 97 → 2 (base)
+    const NARINE_LEFT_CONTOUR = [75, 79, 237, 238, 97, 2];
+    const narineContour = [];
+    for (const idx of NARINE_LEFT_CONTOUR) {
+        const p = byIndex(idx);
+        if (!p) { narineContour.length = 0; break; }
+        narineContour.push({ x: p.x, y: p.y });
+    }
+    if (narineContour.length === NARINE_LEFT_CONTOUR.length) {
+        const aireN = polygonArea(narineContour);
+        const periN = perimetre(narineContour);
+        if (periN > 1e-12) {
+            attributes.nez.compacite_narines = (4 * Math.PI * aireN) / (periN * periN);
+        }
+    }
+
     return attributes;
 }
 
@@ -261,31 +412,202 @@ function normalizeSkinToneLabel(skinTone) {
   return skinToneAliases[skinTone] ?? skinTone;
 }
 
-// ─── EUCLIDEAN DISTANCE CALCULATION FOR SCANNED_STATS ──────────────────────
+// ─── Z-SCORE STATS pré-calculées sur les 31 presets (PRESETS_DB_v3.js, scanned_stats) ───
+// Généré une fois : moyenne + écart-type par mesure zone.key. std<1e-9 → forcé à 1.
+// Sert à normaliser les distances dans calculateCategoryDistance (sinon les mesures à grandes
+// valeurs comme joues.volume écrasent les petites comme nez.narine).
+const ZSCORE_STATS = {
+  "base.height":     { mean: 0.6591893091627036,   std: 0.018916070731326454 },
+  "base.volume":     { mean: 1.0695999207645586,   std: 0.0152269121779691   },
+  "base.width":      { mean: 0.8587388366737854,   std: 0.03529328119669809  },
+  "bouche.height":   { mean: 0.11143413495117663,  std: 0.027246778729886033 },
+  "bouche.volume":   { mean: 0.029635666742049347, std: 0.00938530587213635  },
+  "bouche.width":    { mean: 0.40077822015973225,  std: 0.031071737087938957 },
+  "front.height":    { mean: 0.16922390069904353,  std: 0.009555017690847151 },
+  "front.width":     { mean: 0.6480141920219339,   std: 0.014243494385945821 },
+  "joues.height":    { mean: 0.04230116492435932,  std: 0.020929889593804162 },
+  "joues.volume":    { mean: 1.2418946947553322,   std: 0.02071789276409705  },
+  "joues.width":     { mean: 1.0695999207645586,   std: 0.0152269121779691   },
+  "machoire.angle":  { mean: 0.2888942541587363,   std: 0.023813512212113763 },
+  "machoire.height": { mean: 0.18018686649721338,  std: 0.015051286762304068 },
+  "machoire.width":  { mean: 0.8615919478496559,   std: 0.0224649575135629   },
+  "menton.height":   { mean: 0.22157491557034356,  std: 0.01882997235251153  },
+  "menton.width":    { mean: 0.8615919478496559,   std: 0.0224649575135629   },
+  "nez.height":      { mean: 0.21818139424464905,  std: 0.008735238832562848 },
+  "nez.narine":      { mean: 0.13497465124802202,  std: 0.012229055878892763 },
+  "nez.projection":  { mean: 0.10054612612922444,  std: 0.0074943011036626705},
+  "nez.volume":      { mean: 0.029715456518899227, std: 0.0020050473808184794},
+  "nez.width":       { mean: 0.18374663160031093,  std: 0.014109238040308048 },
+  "sourcils.angle":  { mean: -0.005930269019686606,std: 0.006089567509587374 },
+  "sourcils.height": { mean: 0.10602615940923776,  std: 0.009282785715635426 },
+  "sourcils.width":  { mean: 0.6480141920219339,   std: 0.014243494385945821 },
+  "yeux.height":     { mean: 0.10602615940923776,  std: 0.009282785715635426 },
+  "yeux.spacing":    { mean: 0.26224360869693064,  std: 0.012475608681513579 },
+  "yeux.width":      { mean: 0.6767857126481703,   std: 0.016490543089994574 }
+};
+
+// Mesures EXCLUES du calcul (bruit, pas de signal de forme) :
+// - joues.height : varie d'un facteur ~4000 entre presets (instable)
+// - base.height / base.volume : quasi plates, ne discriminent rien
+// L'exclusion est appliquée par ORDERED_KEYS plus bas (ces clés n'y figurent pas).
+// Constante conservée pour documentation + usage potentiel par d'autres modules.
+const ZSCORE_EXCLUDED = new Set(['joues.height', 'base.height', 'base.volume']);
+
+// ─── ORDRE FIXE DES MESURES PAR ZONE ───────────────────────────────────────
+// Doit être identique à l'ordre utilisé pour construire la covariance par zone.
+// (Les clés exclues ne figurent pas ici → automatiquement ignorées partout.)
+const ORDERED_KEYS = {
+  base:     ['width'],
+  front:    ['width', 'height'],
+  sourcils: ['width', 'height', 'angle'],
+  yeux:     ['width', 'spacing', 'height'],
+  nez:      ['width', 'height', 'projection', 'narine', 'compacite_narines'],
+  joues:    ['width', 'volume'],
+  bouche:   ['width', 'height', 'volume', 'aire', 'compacite', 'excentricite', 'ratio_levres'],
+  menton:   ['width', 'height'],
+  machoire: ['width', 'height', 'angle'],
+};
+
+// ─── INVERSION DE MATRICE (sans librairie : k=1/2/3 analytique, k>=4 Gauss-Jordan) ──
+function _invertMatrix(M) {
+  const n = M.length;
+  if (n === 1) {
+    const v = M[0][0];
+    if (Math.abs(v) < 1e-12) return null;
+    return [[1 / v]];
+  }
+  if (n === 2) {
+    const a = M[0][0], b = M[0][1], c = M[1][0], d = M[1][1];
+    const det = a * d - b * c;
+    if (Math.abs(det) < 1e-12) return null;
+    return [[ d / det, -b / det], [-c / det,  a / det]];
+  }
+  if (n === 3) {
+    const a = M[0][0], b = M[0][1], c = M[0][2];
+    const d = M[1][0], e = M[1][1], f = M[1][2];
+    const g = M[2][0], h = M[2][1], i = M[2][2];
+    const A =  (e * i - f * h);
+    const B = -(d * i - f * g);
+    const C =  (d * h - e * g);
+    const det = a * A + b * B + c * C;
+    if (Math.abs(det) < 1e-12) return null;
+    return [
+      [A / det, -(b * i - c * h) / det,  (b * f - c * e) / det],
+      [B / det,  (a * i - c * g) / det, -(a * f - c * d) / det],
+      [C / det, -(a * h - b * g) / det,  (a * e - b * d) / det],
+    ];
+  }
+  // k >= 4 : Gauss-Jordan avec pivot partiel
+  const A = M.map((row, r) => [...row, ...Array.from({ length: n }, (_, j) => (r === j ? 1 : 0))]);
+  for (let col = 0; col < n; col++) {
+    let pivotRow = col, maxAbs = Math.abs(A[col][col]);
+    for (let r = col + 1; r < n; r++) {
+      if (Math.abs(A[r][col]) > maxAbs) { maxAbs = Math.abs(A[r][col]); pivotRow = r; }
+    }
+    if (maxAbs < 1e-12) return null;
+    if (pivotRow !== col) { const tmp = A[col]; A[col] = A[pivotRow]; A[pivotRow] = tmp; }
+    const piv = A[col][col];
+    for (let j = 0; j < 2 * n; j++) A[col][j] /= piv;
+    for (let r = 0; r < n; r++) {
+      if (r === col) continue;
+      const factor = A[r][col];
+      if (factor === 0) continue;
+      for (let j = 0; j < 2 * n; j++) A[r][j] -= factor * A[col][j];
+    }
+  }
+  return A.map(row => row.slice(n));
+}
+
+// ─── COVARIANCES PAR ZONE (Ledoit-Wolf simplifié, α=0.2) ───────────────────
+// Calculées UNE SEULE FOIS au chargement, depuis PRESETS_DB[].scanned_stats.
+// Stocke C_reg + Cinv par zone. Si singulière malgré shrinkage → fallback diagonal.
+const MAHALANOBIS_COV = (function _buildMahalanobisCov() {
+  const ALPHA = 0.2;
+  const out = {};
+  if (typeof PRESETS_DB === 'undefined' || !Array.isArray(PRESETS_DB) || PRESETS_DB.length < 2) {
+    console.warn('⚠️ MAHALANOBIS_COV : PRESETS_DB indisponible au chargement — Mahalanobis désactivé.');
+    return out;
+  }
+  for (const zone of Object.keys(ORDERED_KEYS)) {
+    const declared = ORDERED_KEYS[zone];
+    // Garde uniquement les clés présentes (numériques) sur TOUS les presets.
+    // Les clés manquantes (ex. machoire.solidite / courbure avant re-scan) sont
+    // exclues silencieusement de la covariance — le code tourne avant ET après le re-scan.
+    const present = [];
+    const missing = [];
+    for (const key of declared) {
+      let allHaveIt = PRESETS_DB.length > 0;
+      for (const p of PRESETS_DB) {
+        const z = p.scanned_stats && p.scanned_stats[zone];
+        if (!z || typeof z[key] !== 'number') { allHaveIt = false; break; }
+      }
+      (allHaveIt ? present : missing).push(key);
+    }
+    if (missing.length) {
+      console.warn(`⏳ MAHALANOBIS_COV : clés en attente de re-scan : ${missing.map(k => `${zone}.${k}`).join(', ')}`);
+    }
+    if (present.length === 0) continue;
+    const keys = present;
+    const k = keys.length;
+    const vectors = PRESETS_DB.map(p => keys.map(key => p.scanned_stats[zone][key]));
+    if (vectors.length < 2) continue;
+    const N = vectors.length;
+    const mean = keys.map((_, j) => vectors.reduce((s, v) => s + v[j], 0) / N);
+    const C = Array.from({ length: k }, () => Array(k).fill(0));
+    for (const v of vectors) for (let i = 0; i < k; i++) for (let j = 0; j < k; j++) {
+      C[i][j] += (v[i] - mean[i]) * (v[j] - mean[j]);
+    }
+    for (let i = 0; i < k; i++) for (let j = 0; j < k; j++) C[i][j] /= N;
+    for (let i = 0; i < k; i++) if (C[i][i] < 1e-9) C[i][i] = 1e-9;
+    const Creg = Array.from({ length: k }, (_, i) => Array.from({ length: k }, (_, j) =>
+      i === j ? C[i][i] : (1 - ALPHA) * C[i][j]
+    ));
+    let Cinv = _invertMatrix(Creg);
+    let fallback = false;
+    if (!Cinv) {
+      console.warn(`⚠️ MAHALANOBIS_COV : zone '${zone}' singulière malgré shrinkage → fallback diagonal.`);
+      Cinv = Array.from({ length: k }, (_, i) => Array.from({ length: k }, (_, j) =>
+        i === j ? 1 / Math.max(Creg[i][i], 1e-9) : 0
+      ));
+      fallback = true;
+    }
+    out[zone] = { keys, Creg, Cinv, fallback };
+  }
+  return out;
+})();
+if (typeof window !== 'undefined') window.MAHALANOBIS_COV = MAHALANOBIS_COV;
+
+// ─── DISTANCE DE MAHALANOBIS PAR CATÉGORIE ─────────────────────────────────
 /**
- * Calcule la distance euclidienne entre deux catégories de features
+ * Distance de Mahalanobis régularisée entre deux vecteurs de mesures d'une zone.
+ * d_zone = sqrt( (u - p)^T  Cinv  (u - p) )  où Cinv = inverse de la covariance
+ * (avec shrinkage α=0.2). Décorrèle les mesures redondantes (ex. width/height).
  * @param {Object} userCat - Catégorie de l'utilisateur (ex: user.nez)
  * @param {Object} presetCat - Catégorie du preset (ex: preset.scanned_stats.nez)
- * @param {string} categoryName - Nom de la catégorie ('nez', 'machoire', 'menton', 'yeux', etc.)
- * @returns {number} Distance pondérée
+ * @param {string} categoryName - 'nez', 'machoire', 'menton', 'yeux', etc.
+ * @returns {number} Distance de Mahalanobis × pondération de zone
  */
 function calculateCategoryDistance(userCat, presetCat, categoryName) {
   if (!userCat || !presetCat) return 0;
-
-  let distance = 0;
-  const keys = Object.keys(userCat);
-
-  for (const key of keys) {
-    if (typeof userCat[key] === 'number' && typeof presetCat[key] === 'number') {
-      distance += Math.abs(userCat[key] - presetCat[key]);
-    }
+  const cov = MAHALANOBIS_COV[categoryName];
+  if (!cov) return 0;
+  const { keys, Cinv } = cov;
+  const k = keys.length;
+  const d = new Array(k);
+  for (let i = 0; i < k; i++) {
+    const u = userCat[keys[i]], p = presetCat[keys[i]];
+    if (typeof u !== 'number' || typeof p !== 'number') return 0;
+    d[i] = u - p;
   }
-
-  // Pondérations : nez 2.0x, machoire/menton/yeux 1.5x, autres 1.0x
+  // forme quadratique d^T Cinv d
+  let q = 0;
+  for (let i = 0; i < k; i++) for (let j = 0; j < k; j++) q += d[i] * Cinv[i][j] * d[j];
+  if (q < 0) q = 0; // garde-fou numérique (Cinv symétrique semi-définie positive)
+  const distance = Math.sqrt(q);
+  // Pondérations de zone : nez 2.0x, machoire/menton/yeux 1.5x, autres 1.0x
   const weight = categoryName === 'nez' ? 2.0 :
                  (categoryName === 'machoire' || categoryName === 'menton' || categoryName === 'yeux') ? 1.5 :
                  1.0;
-
   return distance * weight;
 }
 
@@ -348,9 +670,13 @@ function selectBestPreset(landmarks, skinTone) {
   for (const preset of scoringPool) {
     if (preset.scanned_stats) {
       const distance = computeGlobalDistance(userAttr, preset.scanned_stats);
-      // Convertit la distance en pourcentage : score élevé = faible distance
-      // Normalise la distance sur une échelle [0, 100] où 100 = meilleure correspondance
-      const score = Math.max(0, 100 - distance * 25);   // échelle douce : dist 0→100, 2→50, 4→0
+      // Score d'affichage (cosmétique) : exp(−distance / D0).
+      // D0 = 75 calibré pour que la MEILLEURE distance Mahalanobis observée
+      // entre 2 presets de la DB (~7.7) donne un score ~90 :
+      //   exp(−7.7 / 75) ≈ 0.903 → 90.3.
+      // Le tri (ligne plus bas) reste sur distance croissante : le score n'influence rien.
+      const D0 = 75;
+      const score = Math.max(0, 100 * Math.exp(-distance / D0));
       distances.push({
         preset_id: preset.preset_id,
         position: preset.position,
@@ -374,9 +700,44 @@ function selectBestPreset(landmarks, skinTone) {
     score: d.score.toFixed(1)
   })));
 
-  return { bestPreset, ratios: userAttr, scores: distances };
+  // Mix Frankenstein : meilleur preset par zone (sur le même pool filtré par carnation)
+  const zoneMix = computeZoneMix(userAttr, scoringPool);
+
+  return { bestPreset, ratios: userAttr, scores: distances, zoneMix };
 }
 window.selectBestPreset = selectBestPreset;
+
+// ─── computeZoneMix : meilleur preset PAR ZONE (mix Frankenstein) ───────────
+// Pour chaque zone, classe les presets du pool par distance Mahalanobis sur CETTE
+// zone seule et renvoie {best, distance, separation, top3}.
+// `separation` = (d2 − d1) / d1 : grand = choix net, petit = indécis.
+function computeZoneMix(userAttr, scoringPool) {
+  // Zones affichables (toutes celles de ORDERED_KEYS sauf 'base' qui est interne)
+  const ZONES = ['front', 'sourcils', 'yeux', 'nez', 'joues', 'bouche', 'menton', 'machoire'];
+  const mix = {};
+  for (const zone of ZONES) {
+    if (!userAttr[zone]) continue;
+    const ranked = scoringPool
+      .filter(p => p.scanned_stats && p.scanned_stats[zone])
+      .map(p => ({
+        preset_id: p.preset_id,
+        distance: calculateCategoryDistance(userAttr[zone], p.scanned_stats[zone], zone)
+      }))
+      .sort((a, b) => a.distance - b.distance);
+    if (ranked.length === 0) continue;
+    const separation = ranked.length > 1
+      ? (ranked[1].distance - ranked[0].distance) / (ranked[0].distance || 1)
+      : 1;
+    mix[zone] = {
+      best: ranked[0].preset_id,
+      distance: ranked[0].distance,
+      separation: separation,        // >0.15 = choix net, <0.05 = indécis
+      top3: ranked.slice(0, 3).map(r => ({ id: r.preset_id, d: r.distance }))
+    };
+  }
+  return mix;
+}
+window.computeZoneMix = computeZoneMix;
 
 // ─── DNA lookup (copié depuis lookupPresetDNA.js) ───────────────────────────
 // Table générée et validée (3191/3193) : clé plate -> [zone .avance, abrév]

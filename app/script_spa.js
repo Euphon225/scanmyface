@@ -45,6 +45,7 @@ const TR = {
     step4_wordmark:'Façonnage · sliders',
     btn_to_shaping:'Passer au façonnage avancé',
     fam_title:'Familles · <b>3 groupes</b>',
+    mix_title:'Mix par zone · <b>Frankenstein</b>',
     zone_sliders_suffix:'sliders · V2',
     mediapipe_wait:'⏳ MediaPipe en cours de chargement, réessayez dans quelques secondes',
     scan_laser_caption:'Analyse en cours…',
@@ -87,6 +88,7 @@ const TR = {
     step4_wordmark:'Shaping · sliders',
     btn_to_shaping:'Go to advanced shaping',
     fam_title:'Families · <b>3 groups</b>',
+    mix_title:'Zone mix · <b>Frankenstein</b>',
     zone_sliders_suffix:'sliders · V2',
     mediapipe_wait:'⏳ MediaPipe loading, please retry in a few seconds',
     scan_laser_caption:'Analyzing…',
@@ -1009,35 +1011,34 @@ function renderStep3(){
     }
   }
   const mt=document.getElementById('mix-title');
-  if(mt)mt.innerHTML=t('fam_title');
+  if(mt)mt.innerHTML=t('mix_title');
   const ml=document.getElementById('mix-list');
   if(!ml)return;ml.innerHTML='';
-  [{k:'squelette',fam:'S',lb:t('sq_lbl'),co:'#00f0ff',d:squelette},
-   {k:'chair',fam:'C',lb:t('ch_lbl'),co:'#b026ff',d:chair},
-   {k:'graisse',fam:'G',lb:t('gr_lbl'),co:'#ff9500',d:graisse}
-  ].forEach(f=>{
-    const entries=Object.entries(f.d),auto=entries.filter(([,v])=>v!==50).length;
-    const w=document.createElement('div');
-    w.style.cssText=`margin-bottom:10px;border-radius:10px;overflow:hidden;background:${f.co}09;border:1px solid ${f.co}25;`;
-    const h=document.createElement('div');
-    h.style.cssText='display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;';
-    h.innerHTML=`<div style="width:7px;height:7px;border-radius:50%;background:${f.co};flex-shrink:0;"></div>
-      <span style="font-size:10px;letter-spacing:0.14em;color:${f.co};font-weight:700;flex:1;">${f.lb}</span>
-      <span style="font-size:9px;color:#6b7099;">${auto}/${entries.length}</span>
-      <span class="arr" style="font-size:10px;color:#6b7099;">▼</span>`;
-    const b=document.createElement('div');b.style.cssText='display:none;padding:6px 14px 12px;';
-    entries.forEach(([key,val])=>{
-      const{v,src}=getVal(key,val,f.fam);
-      const ip=src==='neutral';
-      const c=v>=95?'#ff3355':v<=5?'#b026ff':v>=80||v<=20?'#ff9500':'#00ff88';
-      b.insertAdjacentHTML('beforeend',`<div style="display:grid;grid-template-columns:1fr 80px 32px;align-items:center;gap:8px;padding:3px 0;${ip?'opacity:0.3;':''}">
-        <span style="font-size:9px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${key}">${key.replace(/_/g,' ')}</span>
-        <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${v}%;background:${c};border-radius:2px;"></div></div>
-        <span style="font-size:11px;font-weight:700;color:${c};text-align:right;">${v}</span>
-      </div>`);
-    });
-    h.addEventListener('click',()=>{const op=b.style.display!=='none';b.style.display=op?'none':'block';h.querySelector('.arr').textContent=op?'▼':'▲';});
-    w.appendChild(h);w.appendChild(b);ml.appendChild(w);
+
+  // Mix Frankenstein : meilleur preset PAR zone (stashé dans _meta.zoneMix par scanToSliders).
+  const zoneMix = (S.sliders && S.sliders._meta && S.sliders._meta.zoneMix) || null;
+  if(!zoneMix){
+    ml.innerHTML='<div style="font-size:11px;color:#64748b;padding:14px;text-align:center;">Mix non disponible</div>';
+    return;
+  }
+  const ZONE_LABELS=[
+    ['front','Front'],['sourcils','Sourcils'],['yeux','Yeux'],['nez','Nez'],
+    ['joues','Joues'],['bouche','Bouche'],['menton','Menton'],['machoire','Mâchoire']
+  ];
+  ZONE_LABELS.forEach(([k,lbl])=>{
+    const z=zoneMix[k]; if(!z) return;
+    // Pastille de confiance basée sur separation
+    let conf,confLbl;
+    if(z.separation>0.15){       conf='#00ff88'; confLbl='FIABLE'; }
+    else if(z.separation>=0.05){ conf='#ff9500'; confLbl='CORRECT'; }
+    else{                         conf='#ff5577'; confLbl='APPROX.'; }
+    const row=document.createElement('div');
+    row.style.cssText='display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.10);margin-bottom:6px;';
+    row.innerHTML=`<span style="font-size:11px;letter-spacing:0.08em;color:#9ea4c4;font-weight:600;">${lbl}</span>
+      <span style="font-size:11px;color:#cfd5ff;font-weight:700;">Preset #${z.best}</span>
+      <span style="font-size:9px;padding:3px 9px;border-radius:10px;background:${conf}22;color:${conf};letter-spacing:0.08em;font-weight:700;">${confLbl}</span>`;
+    row.title=`${lbl} · Preset #${z.best} · d=${z.distance.toFixed(2)} · sep=${z.separation.toFixed(2)}`;
+    ml.appendChild(row);
   });
 }
 

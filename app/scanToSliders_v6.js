@@ -116,6 +116,7 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
         carnation: s.preset && s.preset.couleur_peau,
         score: s.score
       }));
+      meta.zoneMix = (res && res.zoneMix) ? res.zoneMix : null;
     }
   } catch (e) { console.warn('[matching] échec, fallback neutre:', e); }
   // Override manuel : un clic sur une alternative impose un preset précis
@@ -279,7 +280,7 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   // Hauteur sourcils (distance du milieu sourcils au nasion)
   // CORRIGÉ : max étendu 0.40→0.65
   auto(S, 'sourcils_bas_haut',
-    _norm(_dist(_mid(L[46], L[276]), L[8]) / D_H, 0.02, 0.65));
+    _norm(_dist(_mid(L[46], L[276]), L[8]) / D_H, 0.02, 0.30));
 
   presetZ(S, 'sourcils_arriere_avant');
   presetA(S, 'sourcils_arrondi_angulaire');
@@ -289,7 +290,7 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
     _norm(_dist(L[107], L[336]) / D_W, 0.02, 0.60));
 
   auto(S, 'sourcils_central_bas_haut',
-    _norm(_dist(_mid(L[107], L[336]), L[8]) / D_H, 0.001, 0.60));
+    _norm(_dist(_mid(L[107], L[336]), L[8]) / D_H, 0.001, 0.13));
 
   presetZ(S, 'sourcils_central_arriere_avant');
   preset(S, 'sourcils_central_arrondi_angulaire');
@@ -302,7 +303,7 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
 
   // CORRIGÉ : max étendu 0.42→0.65
   auto(S, 'sourcils_ext_sup_bas_haut',
-    _norm(_dist(_mid(L[70], L[300]), L[8]) / D_H, 0.02, 0.65));
+    _norm(_dist(_mid(L[70], L[300]), L[8]) / D_H, 0.02, 0.40));
 
   presetZ(S, 'sourcils_ext_sup_arriere_avant');
   preset(S, 'sourcils_ext_sup_arrondi_angulaire');
@@ -348,10 +349,10 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
 
   // Longueur nez (nasion → pointe)
   auto(S, 'nez_bas_haut',
-    _norm(_dist(L[8], L[4]) / D_H, 0.15, 0.38));
+    100 - _norm((L[2].y - L[8].y) / (L[152].y - L[8].y), 0.38, 0.54));
 
   presetZ(S, 'nez_arriere_avant');
-  preset(S, 'nez_arrondi_angulaire');   // signal plat 2D (51/51/51) -> P9, vrai nez rond = V3 mesh
+  presetA(S, 'nez_arrondi_angulaire');  // 3DDFA actif : angle réel pointe du nez (rond vs pointu)
 
   // Déplacement latéral pointe du nez
   auto(S, 'nez_deplacement_gd',
@@ -431,7 +432,7 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   // ── MENTON ──
   // CORRIGÉ : max étendu 0.20→0.40
   auto(S, 'menton_reduire_elargir',
-    _norm(_dist(L[149], L[378]) / D_W, 0.42, 0.53));  // FIX largeur horizontale (était 175/152 = hauteur)
+    _norm(_dist(L[149], L[378]) / D_W, 0.40, 0.51));  // FIX largeur horizontale (était 175/152 = hauteur)
 
   auto(S, 'menton_bas_haut',
     _norm(_dist(L[152], L[17]) / D_H, 0.10, 0.35));
