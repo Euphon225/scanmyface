@@ -1,0 +1,5 @@
+crane_couronne_arrondi_angulaire: missing val0
+joues_ext_sup_moins_plus: missing val0
+joues_ext_inf_neutre_avant: missing val100
+espacement_levres_cotes_arrondi_angulaire: missing val100
+bouche_neutre_avant: missing val100
