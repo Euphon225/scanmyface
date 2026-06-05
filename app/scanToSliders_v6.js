@@ -65,6 +65,68 @@ const PRESET_NEUTRE = 50;
 // La DNA est lue via window.lookupPresetDNA(preset, flatKey).
 
 // ─────────────────────────────────────────────
+// PHASE 1 v2 — directScan (calibration empirique v7)
+// ─────────────────────────────────────────────
+// Kill switch : true → directScan écrase auto() ET preset() pour tous les
+// sliders 2D mesurés en calibration v7. false → directScan revient à
+// n'écraser QUE les preset() (comportement Phase 1 conservateur).
+const DIRECTSCAN_OVERRIDE_AUTO = true;
+
+// directScan(landmarks, key)
+// Renvoie la valeur 0-100 calculée à partir de window.V7_SLIM (auto-généré
+// par build_v7_slim.py) ou null si non calculable.
+// Modèle linéaire x(s) = x0 + (s/100) · dx inversé et projeté en 2D :
+//   midpoint_user = mid(L234,L454), D_W_user = dist2D(L234,L454)
+//   pour chaque landmark top-K du slider :
+//     p_user = (L.xy − midpoint_user) / D_W_user
+//     q      = p_user − lm.p (déjà précalculé en p_v7 normalisé)
+//     s      = 50 + 100 · (q · e) / (e · e)
+//   moyenne pondérée par delta (lm.w) → softClamp 0-100.
+function directScan(landmarks, key) {
+  if (!window.V7_SLIM || !landmarks) return null;
+  const entry = window.V7_SLIM[key];
+  if (!entry || !entry.lms || !entry.lms.length) return null;
+
+  const L234 = landmarks[234];
+  const L454 = landmarks[454];
+  if (!L234 || !L454) return null;
+
+  const mx = (L234.x + L454.x) / 2;
+  const my = (L234.y + L454.y) / 2;
+  const dxw = L234.x - L454.x;
+  const dyw = L234.y - L454.y;
+  const Dw = Math.sqrt(dxw * dxw + dyw * dyw);
+  if (Dw < 1e-6) return null;
+
+  let wsum = 0;
+  let ssum = 0;
+  for (let i = 0; i < entry.lms.length; i++) {
+    const lm = entry.lms[i];
+    const node = landmarks[lm.id];
+    if (!node) continue;
+
+    const pux = (node.x - mx) / Dw;
+    const puy = (node.y - my) / Dw;
+    const qx  = pux - lm.px;
+    const qy  = puy - lm.py;
+
+    const dot_qe = qx * lm.ex + qy * lm.ey;
+    const dot_ee = lm.ex * lm.ex + lm.ey * lm.ey;
+    if (dot_ee < 1e-12) continue;
+
+    const s = 50 + 100 * dot_qe / dot_ee;
+    if (!Number.isFinite(s)) continue;
+
+    wsum += lm.w;
+    ssum += lm.w * s;
+  }
+  if (wsum <= 0) return null;
+  const v = ssum / wsum;
+  if (!Number.isFinite(v)) return null;
+  return softClampSlider(v);
+}
+
+// ─────────────────────────────────────────────
 // FONCTION PRINCIPALE
 // ─────────────────────────────────────────────
 
@@ -131,7 +193,12 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   meta.topPresets          = topPresetsArr;
   console.log('[bestPreset]', meta.bestPresetId, meta.bestPresetForme, meta.bestPresetCarnation);
 
-  const auto   = (obj, k, v) => { obj[k] = v; meta.autoCount++;   };
+  // Suivi des sources (auto / preset / z3ddfa / angle3ddfa / directScan)
+  // utilisé par le post-process directScan pour décider quoi écraser.
+  S._sources = {}; C._sources = {}; G._sources = {};
+  const _mark = (obj, k, src) => { obj._sources[k] = src; };
+
+  const auto   = (obj, k, v) => { obj[k] = v; meta.autoCount++; _mark(obj, k, 'auto'); };
   const preset = (obj, k, v) => {
     if (v === undefined) {
       // socle cohérent : Squelette → DNA du preset choisi (via lookupPresetDNA), sinon neutre
@@ -142,19 +209,19 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
         v = PRESET_NEUTRE; // Chair/Graisse : neutre (sauf 3 taper qui sont en auto())
       }
     }
-    obj[k] = v; meta.presetCount++;
+    obj[k] = v; meta.presetCount++; _mark(obj, k, 'preset');
   };
 
   // 3DDFA overrides : si tddfaResult fournit la clé, on prend sa valeur (comptée comme auto), sinon preset(50)
   const _tZ = tddfaResult?.z_sliders || {};
   const _tA = tddfaResult?.angle_sliders || {};
   const presetZ = (obj, k) => {
-    if (Number.isFinite(_tZ[k])) { obj[k] = _tZ[k]; meta.autoCount++; }
-    else { obj[k] = PRESET_NEUTRE; meta.presetCount++; }
+    if (Number.isFinite(_tZ[k])) { obj[k] = _tZ[k]; meta.autoCount++; _mark(obj, k, 'z3ddfa'); }
+    else { obj[k] = PRESET_NEUTRE; meta.presetCount++; _mark(obj, k, 'preset'); }
   };
   const presetA = (obj, k) => {
-    if (Number.isFinite(_tA[k])) { obj[k] = _tA[k]; meta.autoCount++; }
-    else { obj[k] = PRESET_NEUTRE; meta.presetCount++; }
+    if (Number.isFinite(_tA[k])) { obj[k] = _tA[k]; meta.autoCount++; _mark(obj, k, 'angle3ddfa'); }
+    else { obj[k] = PRESET_NEUTRE; meta.presetCount++; _mark(obj, k, 'preset'); }
   };
 
   // ════════════════════════════════════════════
@@ -959,6 +1026,60 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   // ── Finalisation méta ──
   meta.totalSliders  = meta.autoCount + meta.presetCount;
   meta.coverageRate  = Math.round((meta.autoCount / meta.totalSliders) * 100);
+
+  // ════════════════════════════════════════════
+  // PHASE 1 v2 — Post-process directScan
+  // ════════════════════════════════════════════
+  // Pour chaque clé de window.V7_SLIM, on calcule la valeur directScan et
+  // on écrase la valeur courante (auto / preset / angle3ddfa).
+  // Si DIRECTSCAN_OVERRIDE_AUTO=false, on laisse les auto() intacts
+  // (comportement Phase 1 conservateur, on n'écrase que les preset).
+  const _ds_stats = {
+    auto: 0, z3ddfa: 0, angle3ddfa: 0, directScan: 0, preset: 0,
+    ds_overrides_auto: 0,
+    ds_overrides_preset: 0,
+    ds_overrides_angle3ddfa: 0,
+    ds_skipped_no_lm: 0,
+    ds_skipped_kill_switch: 0
+  };
+  // Compte les sources existantes (avant directScan)
+  for (const fam of [S, C, G]) {
+    for (const k in fam._sources) {
+      const s = fam._sources[k];
+      if (s in _ds_stats) _ds_stats[s]++;
+    }
+  }
+
+  if (window.V7_SLIM && landmarks) {
+    const FAMILY_MAP = { squelette: S, chair: C, graisse: G };
+    for (const key in window.V7_SLIM) {
+      const entry = window.V7_SLIM[key];
+      const target = FAMILY_MAP[entry.family];
+      if (!target) continue;
+
+      const v = directScan(landmarks, key);
+      if (v === null || !Number.isFinite(v)) {
+        _ds_stats.ds_skipped_no_lm++;
+        continue;
+      }
+
+      const prevSrc = target._sources[key];
+      if (prevSrc === 'auto' && !DIRECTSCAN_OVERRIDE_AUTO) {
+        _ds_stats.ds_skipped_kill_switch++;
+        continue;
+      }
+
+      target[key] = v;
+      target._sources[key] = 'directScan';
+      _ds_stats.directScan++;
+      if (prevSrc === 'auto')       _ds_stats.ds_overrides_auto++;
+      else if (prevSrc === 'preset') _ds_stats.ds_overrides_preset++;
+      else if (prevSrc === 'angle3ddfa') _ds_stats.ds_overrides_angle3ddfa++;
+    }
+  }
+
+  meta.source_counts = _ds_stats;
+  console.log('[directScan] override:', _ds_stats);
 
   return results;
 }
