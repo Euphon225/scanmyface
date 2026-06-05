@@ -70,7 +70,7 @@ const PRESET_NEUTRE = 50;
 // Kill switch : true → directScan écrase auto() ET preset() pour tous les
 // sliders 2D mesurés en calibration v7. false → directScan revient à
 // n'écraser QUE les preset() (comportement Phase 1 conservateur).
-const DIRECTSCAN_OVERRIDE_AUTO = true;
+const DIRECTSCAN_OVERRIDE_AUTO = false;
 
 // directScan(landmarks, key)
 // Renvoie la valeur 0-100 calculée à partir de window.V7_SLIM (auto-généré
@@ -1028,21 +1028,23 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   meta.coverageRate  = Math.round((meta.autoCount / meta.totalSliders) * 100);
 
   // ════════════════════════════════════════════
-  // PHASE 1 v2 — Post-process directScan
+  // PHASE 1 v2 + 1.4 — Post-process directScan + DNA Squelette
   // ════════════════════════════════════════════
-  // Pour chaque clé de window.V7_SLIM, on calcule la valeur directScan et
-  // on écrase la valeur courante (auto / preset / angle3ddfa).
+  // Ordre de résolution :
+  //   Squelette : (1) DNA bestPreset si dispo, sinon (2) directScan
+  //   Chair/Graisse : directScan (kill switch protège auto si false)
   // Si DIRECTSCAN_OVERRIDE_AUTO=false, on laisse les auto() intacts
   // (comportement Phase 1 conservateur, on n'écrase que les preset).
   const _ds_stats = {
     auto: 0, z3ddfa: 0, angle3ddfa: 0, directScan: 0, preset: 0,
+    dna_squelette: 0,
     ds_overrides_auto: 0,
     ds_overrides_preset: 0,
     ds_overrides_angle3ddfa: 0,
     ds_skipped_no_lm: 0,
     ds_skipped_kill_switch: 0
   };
-  // Compte les sources existantes (avant directScan)
+  // Compte les sources existantes (avant directScan / DNA)
   for (const fam of [S, C, G]) {
     for (const k in fam._sources) {
       const s = fam._sources[k];
@@ -1050,12 +1052,31 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
     }
   }
 
+  // Phase 1.4 : DNA bestPreset prêt pour la priorité Squelette.
+  // bestPreset est résolu plus haut (selectBestPreset, ligne ~170).
+  const _hasDnaLookup = (typeof lookupPresetDNA === 'function');
+
   if (window.V7_SLIM && landmarks) {
     const FAMILY_MAP = { squelette: S, chair: C, graisse: G };
     for (const key in window.V7_SLIM) {
       const entry = window.V7_SLIM[key];
       const target = FAMILY_MAP[entry.family];
       if (!target) continue;
+
+      // === Phase 1.4 : DNA Squelette prioritaire sur directScan ===
+      // Pour Squelette uniquement : si la DNA du bestPreset est dispo et
+      // finie, on l'utilise telle quelle. directScan ne touche plus à ce
+      // slider. Chair/Graisse : pas de DNA fiable hors Phase 2 célébrités
+      // → comportement inchangé.
+      if (entry.family === 'squelette' && bestPreset && _hasDnaLookup) {
+        const dnaValue = lookupPresetDNA(bestPreset, key);
+        if (Number.isFinite(dnaValue)) {
+          target[key] = dnaValue;
+          target._sources[key] = 'dna';
+          _ds_stats.dna_squelette++;
+          continue; // skip directScan pour ce slider
+        }
+      }
 
       const v = directScan(landmarks, key);
       if (v === null || !Number.isFinite(v)) {
