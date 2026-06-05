@@ -518,26 +518,38 @@ function _invertMatrix(M) {
   return A.map(row => row.slice(n));
 }
 
+// ─── HELPER : pool matchable (Phase 2.0 Étape 1) ──────────────────────────
+// Filtre PRESETS_DB pour ne garder que les entrées exploitables par le
+// matcher Mahalanobis : scanned_stats présents ET _matchable !== false.
+// Les célébrités Phase 2.0 ont scanned_stats:null + _matchable:false jusqu'à
+// l'Étape 2 (batch scan) → exclues d'office, le matcher continue à piocher
+// dans les 31 officiels sans crash NaN.
+function _matchablePool() {
+  if (typeof PRESETS_DB === 'undefined' || !Array.isArray(PRESETS_DB)) return [];
+  return PRESETS_DB.filter(p => p.scanned_stats && p._matchable !== false);
+}
+
 // ─── COVARIANCES PAR ZONE (Ledoit-Wolf simplifié, α=0.2) ───────────────────
 // Calculées UNE SEULE FOIS au chargement, depuis PRESETS_DB[].scanned_stats.
 // Stocke C_reg + Cinv par zone. Si singulière malgré shrinkage → fallback diagonal.
 const MAHALANOBIS_COV = (function _buildMahalanobisCov() {
   const ALPHA = 0.2;
   const out = {};
-  if (typeof PRESETS_DB === 'undefined' || !Array.isArray(PRESETS_DB) || PRESETS_DB.length < 2) {
-    console.warn('⚠️ MAHALANOBIS_COV : PRESETS_DB indisponible au chargement — Mahalanobis désactivé.');
+  const pool = _matchablePool();
+  if (pool.length < 2) {
+    console.warn('⚠️ MAHALANOBIS_COV : pool matchable insuffisant (<2 presets avec scanned_stats) — Mahalanobis désactivé.');
     return out;
   }
   for (const zone of Object.keys(ORDERED_KEYS)) {
     const declared = ORDERED_KEYS[zone];
-    // Garde uniquement les clés présentes (numériques) sur TOUS les presets.
+    // Garde uniquement les clés présentes (numériques) sur TOUS les presets matchables.
     // Les clés manquantes (ex. machoire.solidite / courbure avant re-scan) sont
     // exclues silencieusement de la covariance — le code tourne avant ET après le re-scan.
     const present = [];
     const missing = [];
     for (const key of declared) {
-      let allHaveIt = PRESETS_DB.length > 0;
-      for (const p of PRESETS_DB) {
+      let allHaveIt = pool.length > 0;
+      for (const p of pool) {
         const z = p.scanned_stats && p.scanned_stats[zone];
         if (!z || typeof z[key] !== 'number') { allHaveIt = false; break; }
       }
@@ -549,7 +561,7 @@ const MAHALANOBIS_COV = (function _buildMahalanobisCov() {
     if (present.length === 0) continue;
     const keys = present;
     const k = keys.length;
-    const vectors = PRESETS_DB.map(p => keys.map(key => p.scanned_stats[zone][key]));
+    const vectors = pool.map(p => keys.map(key => p.scanned_stats[zone][key]));
     if (vectors.length < 2) continue;
     const N = vectors.length;
     const mean = keys.map((_, j) => vectors.reduce((s, v) => s + v[j], 0) / N);
@@ -661,8 +673,10 @@ function selectBestPreset(landmarks, skinTone) {
     "Très foncée":    ["Foncée", "Très foncée"],
   };
   const allowedSkinTones = neighborhoods[resolvedSkinTone] ?? [resolvedSkinTone];
-  const candidates = PRESETS_DB.filter(p => allowedSkinTones.includes(p.couleur_peau));
-  const scoringPool = candidates.length > 0 ? candidates : PRESETS_DB;
+  // Phase 2.0 Étape 1 : on ne pioche que dans le pool matchable (scanned_stats + _matchable!=false).
+  const matchable = _matchablePool();
+  const candidates = matchable.filter(p => allowedSkinTones.includes(p.couleur_peau));
+  const scoringPool = candidates.length > 0 ? candidates : matchable;
 
   const distances = [];
 

@@ -2,6 +2,8 @@ window.PRESETS_DB = [
  {
   "position": 1,
   "preset_id": 23,
+  "entry_type": "official",
+  "nearest_official_preset_id": 23,
   "couleur_peau": "Claire",
   "forme_visage": "Carré",
   "peau_detail": "Claire",
@@ -288,6 +290,8 @@ window.PRESETS_DB = [
  {
   "position": 2,
   "preset_id": 175,
+  "entry_type": "official",
+  "nearest_official_preset_id": 175,
   "couleur_peau": "Métis",
   "forme_visage": "Ovale",
   "peau_detail": "Métis foncée",
@@ -574,6 +578,8 @@ window.PRESETS_DB = [
  {
   "position": 3,
   "preset_id": 170,
+  "entry_type": "official",
+  "nearest_official_preset_id": 170,
   "couleur_peau": "Claire",
   "forme_visage": "Rond",
   "peau_detail": "Claire",
@@ -860,6 +866,8 @@ window.PRESETS_DB = [
  {
   "position": 4,
   "preset_id": 17,
+  "entry_type": "official",
+  "nearest_official_preset_id": 17,
   "couleur_peau": "Claire-bronzée",
   "forme_visage": "Ovale",
   "peau_detail": "Métis claire",
@@ -1146,6 +1154,8 @@ window.PRESETS_DB = [
  {
   "position": 5,
   "preset_id": 260,
+  "entry_type": "official",
+  "nearest_official_preset_id": 260,
   "couleur_peau": "Claire-bronzée",
   "forme_visage": "Ovale",
   "peau_detail": "Claire-bronzée",
@@ -1432,6 +1442,8 @@ window.PRESETS_DB = [
  {
   "position": 6,
   "preset_id": 116,
+  "entry_type": "official",
+  "nearest_official_preset_id": 116,
   "couleur_peau": "Foncée",
   "forme_visage": "Ovale",
   "peau_detail": "Foncée",
@@ -1718,6 +1730,8 @@ window.PRESETS_DB = [
  {
   "position": 7,
   "preset_id": 249,
+  "entry_type": "official",
+  "nearest_official_preset_id": 249,
   "couleur_peau": "Claire",
   "forme_visage": "Ovale",
   "peau_detail": "Claire",
@@ -2004,6 +2018,8 @@ window.PRESETS_DB = [
  {
   "position": 8,
   "preset_id": 43,
+  "entry_type": "official",
+  "nearest_official_preset_id": 43,
   "couleur_peau": "Claire",
   "forme_visage": "Ovale",
   "peau_detail": "Claire",
@@ -2290,6 +2306,8 @@ window.PRESETS_DB = [
  {
   "position": 9,
   "preset_id": 52,
+  "entry_type": "official",
+  "nearest_official_preset_id": 52,
   "couleur_peau": "Claire-bronzée",
   "forme_visage": "Ovale",
   "peau_detail": "Claire",
@@ -2576,6 +2594,8 @@ window.PRESETS_DB = [
  {
   "position": 10,
   "preset_id": 236,
+  "entry_type": "official",
+  "nearest_official_preset_id": 236,
   "couleur_peau": "Claire",
   "forme_visage": "Ovale",
   "peau_detail": "Claire",
@@ -2862,6 +2882,8 @@ window.PRESETS_DB = [
  {
   "position": 11,
   "preset_id": 93,
+  "entry_type": "official",
+  "nearest_official_preset_id": 93,
   "couleur_peau": "Très foncée",
   "forme_visage": "Long",
   "peau_detail": "Très foncée",
@@ -3148,6 +3170,8 @@ window.PRESETS_DB = [
  {
   "position": 12,
   "preset_id": 134,
+  "entry_type": "official",
+  "nearest_official_preset_id": 134,
   "couleur_peau": "Claire",
   "forme_visage": "Rond",
   "peau_detail": "Claire",
@@ -3434,6 +3458,8 @@ window.PRESETS_DB = [
  {
   "position": 13,
   "preset_id": 33,
+  "entry_type": "official",
+  "nearest_official_preset_id": 33,
   "couleur_peau": "Claire",
   "forme_visage": "Carré",
   "peau_detail": "Claire",
@@ -3720,6 +3746,8 @@ window.PRESETS_DB = [
  {
   "position": 14,
   "preset_id": 294,
+  "entry_type": "official",
+  "nearest_official_preset_id": 294,
   "couleur_peau": "Claire",
   "forme_visage": "Ovale",
   "peau_detail": "Claire",
@@ -4006,6 +4034,8 @@ window.PRESETS_DB = [
  {
   "position": 15,
   "preset_id": 9,
+  "entry_type": "official",
+  "nearest_official_preset_id": 9,
   "couleur_peau": "Claire",
   "forme_visage": "Carré",
   "peau_detail": "Claire-bronzée",
@@ -4292,6 +4322,8 @@ window.PRESETS_DB = [
  {
   "position": 16,
   "preset_id": 203,
+  "entry_type": "official",
+  "nearest_official_preset_id": 203,
   "couleur_peau": "Claire-bronzée",
   "forme_visage": "Carré",
   "peau_detail": "Claire",
@@ -4578,6 +4610,8 @@ window.PRESETS_DB = [
  {
   "position": 17,
   "preset_id": 241,
+  "entry_type": "official",
+  "nearest_official_preset_id": 241,
   "couleur_peau": "Claire",
   "forme_visage": "Ovale",
   "peau_detail": "Claire",
@@ -4864,6 +4898,8 @@ window.PRESETS_DB = [
  {
   "position": 18,
   "preset_id": 304,
+  "entry_type": "official",
+  "nearest_official_preset_id": 304,
   "couleur_peau": "Claire",
   "forme_visage": "Rond",
   "peau_detail": "Claire-bronzée",
@@ -5150,6 +5186,8 @@ window.PRESETS_DB = [
  {
   "position": 19,
   "preset_id": 57,
+  "entry_type": "official",
+  "nearest_official_preset_id": 57,
   "couleur_peau": "Claire-bronzée",
   "forme_visage": "Ovale",
   "peau_detail": "Claire-bronzée",
@@ -5436,6 +5474,8 @@ window.PRESETS_DB = [
  {
   "position": 20,
   "preset_id": 268,
+  "entry_type": "official",
+  "nearest_official_preset_id": 268,
   "couleur_peau": "Foncée",
   "forme_visage": "Ovale",
   "peau_detail": "Foncée",
@@ -5722,6 +5762,8 @@ window.PRESETS_DB = [
  {
   "position": 21,
   "preset_id": 99,
+  "entry_type": "official",
+  "nearest_official_preset_id": 99,
   "couleur_peau": "Foncée",
   "forme_visage": "Carré",
   "peau_detail": "Métis foncée",
@@ -6008,6 +6050,8 @@ window.PRESETS_DB = [
  {
   "position": 22,
   "preset_id": 202,
+  "entry_type": "official",
+  "nearest_official_preset_id": 202,
   "couleur_peau": "Claire",
   "forme_visage": "Carré",
   "peau_detail": "Claire",
@@ -6294,6 +6338,8 @@ window.PRESETS_DB = [
  {
   "position": 23,
   "preset_id": 226,
+  "entry_type": "official",
+  "nearest_official_preset_id": 226,
   "couleur_peau": "Foncée",
   "forme_visage": "Ovale",
   "peau_detail": "Foncée",
@@ -6580,6 +6626,8 @@ window.PRESETS_DB = [
  {
   "position": 24,
   "preset_id": 151,
+  "entry_type": "official",
+  "nearest_official_preset_id": 151,
   "couleur_peau": "Foncée",
   "forme_visage": "Long",
   "peau_detail": "Métis",
@@ -6866,6 +6914,8 @@ window.PRESETS_DB = [
  {
   "position": 25,
   "preset_id": 299,
+  "entry_type": "official",
+  "nearest_official_preset_id": 299,
   "couleur_peau": "Foncée",
   "forme_visage": "Ovale",
   "peau_detail": "Foncée",
@@ -7152,6 +7202,8 @@ window.PRESETS_DB = [
  {
   "position": 26,
   "preset_id": 1001,
+  "entry_type": "official",
+  "nearest_official_preset_id": 1001,
   "couleur_peau": "Claire",
   "forme_visage": "Ovale",
   "peau_detail": "Claire-bronzée",
@@ -7438,6 +7490,8 @@ window.PRESETS_DB = [
  {
   "position": 27,
   "preset_id": 1002,
+  "entry_type": "official",
+  "nearest_official_preset_id": 1002,
   "couleur_peau": "Très foncée",
   "forme_visage": "Long",
   "peau_detail": "Foncée",
@@ -7724,6 +7778,8 @@ window.PRESETS_DB = [
  {
   "position": 28,
   "preset_id": 1003,
+  "entry_type": "official",
+  "nearest_official_preset_id": 1003,
   "couleur_peau": "Claire",
   "forme_visage": "Carré",
   "peau_detail": "Claire-bronzée",
@@ -8010,6 +8066,8 @@ window.PRESETS_DB = [
  {
   "position": 29,
   "preset_id": 1004,
+  "entry_type": "official",
+  "nearest_official_preset_id": 1004,
   "couleur_peau": "Claire-bronzée",
   "forme_visage": "Ovale",
   "peau_detail": "Claire",
@@ -8296,6 +8354,8 @@ window.PRESETS_DB = [
  {
   "position": 30,
   "preset_id": 1005,
+  "entry_type": "official",
+  "nearest_official_preset_id": 1005,
   "couleur_peau": "Claire",
   "forme_visage": "Rond",
   "peau_detail": "Claire-bronzée",
@@ -8582,6 +8642,8 @@ window.PRESETS_DB = [
  {
   "position": 31,
   "preset_id": 1006,
+  "entry_type": "official",
+  "nearest_official_preset_id": 1006,
   "couleur_peau": "Claire",
   "forme_visage": "Carré",
   "peau_detail": "Claire",
@@ -8867,4 +8929,14 @@ window.PRESETS_DB = [
  }
 ];
 
-if (typeof module !== "undefined") module.exports = { PRESETS_DB };
+// === Phase 2.0 Étape 1 — fusion des 10 célébrités ===
+// celebrities_to_inject.js doit être chargé AVANT ce fichier dans index.html.
+// Les 10 célébrités ont _matchable: false → ignorées par presetMatch.js tant
+// que scanned_stats reste null (Phase 2.0 Étape 2).
+if (window.CELEBRITIES_PHASE2 && Array.isArray(window.CELEBRITIES_PHASE2)) {
+  window.PRESETS_DB.push(...window.CELEBRITIES_PHASE2);
+  console.log("[PRESETS_DB] +" + window.CELEBRITIES_PHASE2.length
+    + " celebrities loaded, total: " + window.PRESETS_DB.length);
+}
+
+if (typeof module !== "undefined") module.exports = { PRESETS_DB: window.PRESETS_DB };
