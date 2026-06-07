@@ -166,11 +166,14 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   // (carnation + 9 zones pondérées sur scanned_stats). Sert de DNA de remplissage
   // pour les sliders Squelette non mesurés (≠ neutre 50).
   let bestPreset = null;
+  let bestOfficial = null;
   let topPresetsArr = [];
+  let officialTopPresetsArr = [];
   try {
     if (typeof selectBestPreset === 'function') {
       const res = selectBestPreset(landmarks, skinTone);
       bestPreset = res && res.bestPreset ? res.bestPreset : null;
+      bestOfficial = res && res.bestOfficial ? res.bestOfficial : null;
       topPresetsArr = (res && res.scores ? res.scores : []).slice(0, 4).map(s => ({
         id: s.preset_id,
         position: s.position,
@@ -178,20 +181,35 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
         carnation: s.preset && s.preset.couleur_peau,
         score: s.score
       }));
+      officialTopPresetsArr = (res && res.officialTopPresets) ? res.officialTopPresets : [];
       meta.zoneMix = (res && res.zoneMix) ? res.zoneMix : null;
     }
   } catch (e) { console.warn('[matching] échec, fallback neutre:', e); }
-  // Override manuel : un clic sur une alternative impose un preset précis
+  // Override manuel : un clic sur une alternative impose un preset précis.
+  // L'override pilote la DNA ET la tête de réf affichée : si l'user clique
+  // une alternative officielle, on aligne bestOfficial sur ce choix aussi.
   if (forcePresetId && window.PRESETS_DB) {
     const forced = window.PRESETS_DB.find(p => p.preset_id === forcePresetId);
-    if (forced) bestPreset = forced;
+    if (forced) {
+      bestPreset = forced;
+      if (forced.entry_type !== 'celebrity') bestOfficial = forced;
+    }
   }
   meta.bestPresetId        = bestPreset ? bestPreset.preset_id    : null;
   meta.bestPresetPosition  = bestPreset ? bestPreset.position     : null;
   meta.bestPresetForme     = bestPreset ? bestPreset.forme_visage : null;
   meta.bestPresetCarnation = bestPreset ? bestPreset.couleur_peau : null;
+  meta.bestPresetDisplayName = bestPreset ? (bestPreset.display_name || null) : null;
+  meta.bestPresetEntryType = bestPreset ? (bestPreset.entry_type || null) : null;
   meta.topPresets          = topPresetsArr;
-  console.log('[bestPreset]', meta.bestPresetId, meta.bestPresetForme, meta.bestPresetCarnation);
+  // Phase 2.3 : bestOfficial pour l'UI étape 3 (toujours un preset EA <1000)
+  meta.bestOfficialId        = bestOfficial ? bestOfficial.preset_id    : null;
+  meta.bestOfficialPosition  = bestOfficial ? bestOfficial.position     : null;
+  meta.bestOfficialForme     = bestOfficial ? bestOfficial.forme_visage : null;
+  meta.bestOfficialCarnation = bestOfficial ? bestOfficial.couleur_peau : null;
+  meta.officialTopPresets    = officialTopPresetsArr;
+  console.log('[bestPreset]', meta.bestPresetId, meta.bestPresetForme, meta.bestPresetCarnation,
+              '| official:', meta.bestOfficialId);
 
   // Suivi des sources (auto / preset / z3ddfa / angle3ddfa / directScan)
   // utilisé par le post-process directScan pour décider quoi écraser.
@@ -1096,6 +1114,45 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
       if (prevSrc === 'auto')       _ds_stats.ds_overrides_auto++;
       else if (prevSrc === 'preset') _ds_stats.ds_overrides_preset++;
       else if (prevSrc === 'angle3ddfa') _ds_stats.ds_overrides_angle3ddfa++;
+    }
+  }
+
+  // ════════════════════════════════════════════
+  // Phase 2.1 — 2e passe DNA (Squelette hors V7_SLIM + Chair + Graisse)
+  // ════════════════════════════════════════════
+  // Pour chaque slider dans S, C, G : si la DNA bestPreset est dispo, on écrase.
+  // Squelette : via lookupPresetDNA (DNA_KEY_MAP) — marche officiels + célébs.
+  // Chair / Graisse : via faconner.<family>[key] — célébrités uniquement
+  // (les officiels n'ont pas la structure flat → lookup retourne undefined
+  // → fallback comportement actuel).
+  if (bestPreset && typeof window.lookupPresetDNAByFamily === 'function') {
+    const FAMILIES = [
+      ['squelette', S],
+      ['chair', C],
+      ['graisse', G],
+    ];
+
+    for (const [familyName, target] of FAMILIES) {
+      if (!target) continue;
+
+      for (const key in target) {
+        if (key.startsWith('_')) continue; // skip _sources, _meta, etc.
+
+        const dnaValue = window.lookupPresetDNAByFamily(bestPreset, familyName, key);
+        if (!Number.isFinite(dnaValue)) continue;
+
+        const prevSource = target._sources ? target._sources[key] : undefined;
+
+        target[key] = dnaValue;
+        if (target._sources) target._sources[key] = 'dna';
+
+        _ds_stats[`dna_${familyName}_pass2`] = (_ds_stats[`dna_${familyName}_pass2`] || 0) + 1;
+
+        if (prevSource && prevSource !== 'dna') {
+          const ovKey = `dna_overrides_${prevSource}`;
+          _ds_stats[ovKey] = (_ds_stats[ovKey] || 0) + 1;
+        }
+      }
     }
   }
 

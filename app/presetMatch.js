@@ -529,6 +529,19 @@ function _matchablePool() {
   return PRESETS_DB.filter(p => p.scanned_stats && p._matchable !== false);
 }
 
+// Pool des presets officiels EA (exclut les célébrités). Utilisé par l'UI
+// étape 3 : la tête de référence + Mix Frankenstein doivent être des presets
+// sélectionnables dans FC26 (les célébrités preset_id ≥ 10001 n'existent pas
+// en jeu). Le matcher DNA (pool complet) reste inchangé en arrière-plan.
+function _officialPool() {
+  if (typeof PRESETS_DB === 'undefined' || !Array.isArray(PRESETS_DB)) return [];
+  return PRESETS_DB.filter(p =>
+    p.scanned_stats &&
+    p._matchable !== false &&
+    p.entry_type !== 'celebrity'
+  );
+}
+
 // ─── COVARIANCES PAR ZONE (Ledoit-Wolf simplifié, α=0.2) ───────────────────
 // Calculées UNE SEULE FOIS au chargement, depuis PRESETS_DB[].scanned_stats.
 // Stocke C_reg + Cinv par zone. Si singulière malgré shrinkage → fallback diagonal.
@@ -714,10 +727,54 @@ function selectBestPreset(landmarks, skinTone) {
     score: d.score.toFixed(1)
   })));
 
-  // Mix Frankenstein : meilleur preset par zone (sur le même pool filtré par carnation)
-  const zoneMix = computeZoneMix(userAttr, scoringPool);
+  // ── Phase 2.3 : pool officiel pour l'UI ─────────────────────────────────
+  // bestPreset (pool 41) sert au matcher DNA (peut être célébrité, preset_id
+  // ≥ 10001). Mais l'UI doit afficher une tête sélectionnable dans FC26 →
+  // recalcul sur les officiels uniquement, en respectant la même
+  // restriction carnation (neighborhoods).
+  const officialFromPool = scoringPool.filter(p => p.entry_type !== 'celebrity');
+  // Fallback : si la carnation user n'a aucun officiel proche, on élargit au
+  // pool officiel complet plutôt que de retomber sur les célébrités.
+  const officialScoringPool = officialFromPool.length > 0 ? officialFromPool : _officialPool();
 
-  return { bestPreset, ratios: userAttr, scores: distances, zoneMix };
+  const officialDistances = [];
+  for (const preset of officialScoringPool) {
+    if (!preset.scanned_stats) continue;
+    const distance = computeGlobalDistance(userAttr, preset.scanned_stats);
+    const D0 = 75;
+    const score = Math.max(0, 100 * Math.exp(-distance / D0));
+    officialDistances.push({
+      preset_id: preset.preset_id,
+      position: preset.position,
+      distance,
+      score,
+      preset,
+    });
+  }
+  officialDistances.sort((a, b) => a.distance - b.distance);
+
+  const bestOfficial = officialDistances.length > 0 ? officialDistances[0].preset : null;
+  const officialTopPresets = officialDistances.slice(0, 4).map(s => ({
+    id: s.preset_id,
+    position: s.position,
+    forme: s.preset && s.preset.forme_visage,
+    carnation: s.preset && s.preset.couleur_peau,
+    score: s.score,
+  }));
+
+  // Mix Frankenstein : calculé sur les OFFICIELS uniquement (sinon une zone
+  // pourrait renvoyer preset_id 10001+ → non sélectionnable en jeu).
+  const zoneMix = computeZoneMix(userAttr, officialScoringPool);
+
+  return {
+    bestPreset,           // pool 41 (DNA) — peut être célébrité
+    ratios: userAttr,
+    scores: distances,
+    zoneMix,              // calculé sur officiels uniquement
+    bestOfficial,         // pool 31 (UI tête de réf)
+    officialScores: officialDistances,
+    officialTopPresets,   // top 3-4 officiels pour le bloc Alternatives
+  };
 }
 window.selectBestPreset = selectBestPreset;
 
@@ -767,3 +824,17 @@ function lookupPresetDNA(preset, flatKey) {
   return Number.isFinite(v) ? v : undefined;
 }
 window.lookupPresetDNA = lookupPresetDNA;
+
+function lookupPresetDNAByFamily(preset, family, flatKey) {
+  if (!preset) return undefined;
+  if (family === 'squelette') {
+    return lookupPresetDNA(preset, flatKey);
+  }
+  // Chair / Graisse : flat key direct dans faconner.<family>
+  // Présent uniquement sur les célébrités (faconner zone-groupé sur officiels).
+  const fam = preset.faconner && preset.faconner[family];
+  if (!fam || typeof fam !== 'object') return undefined;
+  const v = fam[flatKey];
+  return Number.isFinite(v) ? v : undefined;
+}
+window.lookupPresetDNAByFamily = lookupPresetDNAByFamily;

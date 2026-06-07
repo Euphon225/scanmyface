@@ -1,0 +1,21 @@
+{
+  "squelette": {
+    "expected_count": 103,
+    "inventory_count": 103,
+    "missing_in_inventory": [],
+    "extra_in_inventory": []
+  },
+  "chair": {
+    "expected_count": 163,
+    "inventory_count": 163,
+    "missing_in_inventory": [],
+    "extra_in_inventory": []
+  },
+  "graisse": {
+    "expected_count": 37,
+    "inventory_count": 37,
+    "missing_in_inventory": [],
+    "extra_in_inventory": []
+  },
+  "all_match": true
+}

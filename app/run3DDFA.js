@@ -4,14 +4,14 @@
 //
 // Dépendances :
 //   - onnxruntime-web (window.ort) chargé via CDN avant ce script
-//   - ./3ddfa_mb1.onnx (12 Mo) à la racine de app/
-//   - ./3ddfa_params.json — { mean:[62 floats], std:[62 floats] } extrait du pkl officiel
+//   - ./3ddfa_mb1.onnx (12 Mo, MIT — cleardusk/3DDFA_V2) à la racine de app/
+//   - ./3ddfa_params.json — { mean:[62], std:[62] } : statistiques de centrage/réduction
+//     des 62 sorties du réseau (12 caméra + 40 shape + 10 expr), nécessaires pour
+//     reconstruire la matrice caméra → pose.R. Origine : 300W-LP, redistribuées par
+//     cleardusk/3DDFA_V2 sous MIT. Pas de donnée mesh BFM ici (audit licence 29 mai 2026).
 //
-// Génération de 3ddfa_params.json depuis le repo cleardusk/3DDFA_V2 :
-//   import pickle, json
-//   d = pickle.load(open('configs/param_mean_std_62d_120x120.pkl','rb'))
-//   json.dump({'mean': d['mean'].tolist(), 'std': d['std'].tolist()},
-//             open('3ddfa_params.json','w'))
+// Note licence : les indices/vertex BFM ont été retirés du projet (suppression de
+// bfm_indices.js le 29 mai 2026). Le reste du pipeline 3DDFA est sous MIT, OK commercial.
 
 (function () {
   'use strict';

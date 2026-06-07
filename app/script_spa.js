@@ -378,16 +378,28 @@ const SL = {
   'bas_haut':{fr:'Bas / Haut',en:'Down / Up'},
   'arriere_avant':{fr:'Arrière / Avant',en:'Back / Forward'},
   'arrondi_angulaire':{fr:'Arrondi / Angulaire',en:'Round / Angular'},
-  'deplacement_gd':{fr:'Gauche / Droite',en:'Left / Right'},
+  'deplacement_gd':{fr:'Déplacer gauche / droite',en:'Move left / right'},
   'moins_plus':{fr:'Moins / Plus',en:'Less / More'},
   'neutre_moins':{fr:'Neutre / Moins',en:'Neutral / Less'},
-  'plus_petite':{fr:'+ Grande / + Petite',en:'Larger / Smaller'},
-  'plus_grande_petite':{fr:'+ Grande / + Petite',en:'Larger / Smaller'},
+  'plus_petite':{fr:'Plus grande / Plus petite',en:'Larger / Smaller'},
+  'plus_grande_petite':{fr:'Plus grande / Plus petite',en:'Larger / Smaller'},
   'neutre_avant':{fr:'Neutre / Avant',en:'Neutral / Forward'},
   'neutre_arrondi':{fr:'Neutre / Arrondi',en:'Neutral / Round'},
   'neutre_haut':{fr:'Neutre / Haut',en:'Neutral / Up'},
 };
+// Overrides par clé exacte : pour les sliders dont le suffixe data ne reflète
+// pas le vrai libellé canonique (cf. slider_ui_order.json). Audit du 7 juin :
+// - crane_arriere_avant   : 3e slider du Crâne, canonique = "Neutre / Avant"
+// - yeux_arrondi_angulaire: 4e slider des Yeux, canonique = "Plus grande / Plus petite"
+const KEY_LABEL_OVERRIDE = {
+  'crane_arriere_avant':    {fr:'Neutre / Avant',           en:'Neutral / Forward'},
+  'yeux_arrondi_angulaire': {fr:'Plus grande / Plus petite', en:'Larger / Smaller'},
+};
 function sliderLabel(key) {
+  if (KEY_LABEL_OVERRIDE[key]) {
+    const ov = KEY_LABEL_OVERRIDE[key];
+    return ov[_lang] || ov.fr;
+  }
   for (const [s,lb] of Object.entries(SL)) {
     if (key.endsWith('_'+s)||key===s) return lb[_lang]||lb.fr;
   }
@@ -396,13 +408,13 @@ function sliderLabel(key) {
 
 const SLIDER_SUBTAB = [
   // SQUELETTE — Tête
-  ['crane_',                        'Crane'],
-  ['crane_couronne_',               'CRANE:courone'],
-  ['crane_arriere_',                'Arrière du crane'],
+  ['crane_',                        'Crâne'],
+  ['crane_couronne_',               'Crâne : couronne'],
+  ['crane_arriere_',                'Arrière du crâne'],
   ['tempes_',                       'Tempes'],
   // SQUELETTE — Front
-  ['front_sup_',                    'front : partie supérieur'],
-  ['front_inf_',                    'front : partie inférieure'],
+  ['front_sup_',                    'Front : partie supérieure'],
+  ['front_inf_',                    'Front : partie inférieure'],
   // SQUELETTE — Sourcils
   ['sourcils_',                     'Sourcils'],
   ['sourcils_central_',             'Sourcils : partie centrale'],
@@ -412,19 +424,19 @@ const SLIDER_SUBTAB = [
   ['orbites_',                      'Orbites'],
   // SQUELETTE — Nez
   ['nez_',                          'Nez'],
-  ['arete_nez_cotes_',              'Arete du nez : cotés'],
-  ['arete_nez_centrale_',           'Arete du nez : partie centrale'],
-  ['arete_nez_sup_',                'Arete du nez : partie supérieure'],
+  ['arete_nez_cotes_',              'Arête du nez : côtés'],
+  ['arete_nez_centrale_',           'Arête du nez : partie centrale'],
+  ['arete_nez_sup_',                'Arête du nez : partie supérieure'],
   // SQUELETTE — Joues
   ['joues_',                        'Joues'],
   // SQUELETTE — Bouche
   ['bouche_',                       'Bouche'],
-  ['ext_bouche_sup_',               'Extérieur de la bouche: partie sup.'],
+  ['ext_bouche_sup_',               'Extérieur de la bouche : partie sup.'],
   // SQUELETTE — Menton
   ['menton_',                       'Menton'],
-  ['menton_sup_',                   'Menton: partie supérieure'],
+  ['menton_sup_',                   'Menton : partie supérieure'],
   // SQUELETTE — Mâchoire
-  ['machoire_',                     'Machoire'],
+  ['machoire_',                     'Mâchoire'],
   ['maxillaire_',                   'Maxillaire'],
   ['mandibule_',                    'Mandibule'],
   // CHAIR — Tête
@@ -434,16 +446,16 @@ const SLIDER_SUBTAB = [
   ['espace_sourcils_',              'Espace entre les sourcils'],
   // CHAIR — Yeux
   ['pli_paupieres_central_',        'Pli des paupières : partie centrale'],
-  ['pli_paupieres_ext_',            'Pli des paupières : partie extèrieure'],
+  ['pli_paupieres_ext_',            'Pli des paupières : partie extérieure'],
   ['pli_paupieres_int_',            'Pli des paupières : partie intérieure'],
-  ['paupiere_inf_centrale_',        'Paupières inférieure: partie centrale'],
-  ['paupiere_inf_ext_',             'Paupières inférieure: partie extérieure'],
-  ['paupiere_inf_int_',             'Paupières inférieure: partie intérieure'],
-  ['paupiere_sup_centrale_',        'Paupières supérieure: partie centrale'],
-  ['paupiere_sup_ext_',             'Paupières supérieure: partie ext.'],
-  ['paupiere_sup_int_',             'Paupières supérieure: partie int.'],
-  ['coin_oeil_ext_',                'Extérieur du coin de l\'oeil'],
-  ['coin_oeil_int_',                'Intérieur du coin de l\'oeil'],
+  ['paupiere_inf_centrale_',        'Paupière inférieure : partie centrale'],
+  ['paupiere_inf_ext_',             'Paupière inférieure : partie extérieure'],
+  ['paupiere_inf_int_',             'Paupière inférieure : partie intérieure'],
+  ['paupiere_sup_centrale_',        'Paupière supérieure : partie centrale'],
+  ['paupiere_sup_ext_',             'Paupière supérieure : partie ext.'],
+  ['paupiere_sup_int_',             'Paupière supérieure : partie int.'],
+  ['coin_oeil_ext_',                'Extérieur du coin de l\'œil'],
+  ['coin_oeil_int_',                'Intérieur du coin de l\'œil'],
   // CHAIR — Nez
   ['narine_sup_',                   'Narine : partie supérieure'],
   ['narine_sup_ext_',               'Narine : partie supérieure extérieure'],
@@ -456,56 +468,56 @@ const SLIDER_SUBTAB = [
   ['pointe_nez_inf_',               'Pointe du nez : partie inférieure'],
   // CHAIR — Joues
   ['joues_',                        'Joues'],
-  ['joues_ext_sup_',                'Joues:partie externe supérieure'],
-  ['joues_yeux_int_sup_',           'Yeux:partie interne supérieure'],
-  ['joues_int_sup_',                'Joues:partie interne supérieure'],
-  ['joues_ext_inf_',                'Joues:partie externe inférieure'],
-  ['joues_int_inf_',                'Joues:partie interne inférieure'],
+  ['joues_ext_sup_',                'Joues : partie externe supérieure'],
+  ['joues_yeux_int_sup_',           'Yeux : partie interne supérieure'],
+  ['joues_int_sup_',                'Joues : partie interne supérieure'],
+  ['joues_ext_inf_',                'Joues : partie externe inférieure'],
+  ['joues_int_inf_',                'Joues : partie interne inférieure'],
   // CHAIR — Bouche
   ['commissures_levres_',           'Commissures des lèvres'],
-  ['espacement_levres_centre_',     'Espacement entre les lèvres: centre'],
-  ['espacement_levres_cotes_',      'Espacement entre les lèvres: côtés'],
-  ['levre_sup_centre_sup_',         'Lèvres supérieure : centre supérieur'],
-  ['levre_sup_cotes_sup_',          'Lèvres supérieure : côtés supérieurs'],
-  ['levre_sup_coins_sup_',          'Lèvres supérieure : coins supérieurs'],
-  ['levre_sup_centre_inf_',         'Lèvres supérieure : centre inférieur'],
-  ['levre_sup_cotes_inf_',          'Lèvres supérieure : côtés inférieurs'],
-  ['epaisseur_levre_sup_',          'Épaisseur de la lèvres supérieure'],
+  ['espacement_levres_centre_',     'Espacement entre les lèvres : centre'],
+  ['espacement_levres_cotes_',      'Espacement entre les lèvres : côtés'],
+  ['levre_sup_centre_sup_',         'Lèvre supérieure : centre supérieur'],
+  ['levre_sup_cotes_sup_',          'Lèvre supérieure : côtés supérieurs'],
+  ['levre_sup_coins_sup_',          'Lèvre supérieure : coins supérieurs'],
+  ['levre_sup_centre_inf_',         'Lèvre supérieure : centre inférieur'],
+  ['levre_sup_cotes_inf_',          'Lèvre supérieure : côtés inférieurs'],
+  ['epaisseur_levre_sup_',          'Épaisseur de la lèvre supérieure'],
   ['philtrum_',                     'Philtrum'],
-  ['epaisseur_levre_inf_',          'Épaisseur de la lèvres inférieure'],
-  ['levre_inf_centre_sup_',         'Lèvres inférieure : partie sup.centrale'],
-  ['levre_inf_cotes_sup_',          'Lèvres inférieure : côtés supérieurs'],
-  ['levre_inf_centre_inf_',         'Lèvres inférieure : partie inf.centrale'],
-  ['levre_inf_cotes_inf_',          'Lèvres inférieure : côtés inférieurs'],
-  ['levre_inf_coins_inf_',          'Lèvres inférieure : coins inférieurs'],
+  ['epaisseur_levre_inf_',          'Épaisseur de la lèvre inférieure'],
+  ['levre_inf_centre_sup_',         'Lèvre inférieure : partie sup. centrale'],
+  ['levre_inf_cotes_sup_',          'Lèvre inférieure : côtés supérieurs'],
+  ['levre_inf_centre_inf_',         'Lèvre inférieure : partie inf. centrale'],
+  ['levre_inf_cotes_inf_',          'Lèvre inférieure : côtés inférieurs'],
+  ['levre_inf_coins_inf_',          'Lèvre inférieure : coins inférieurs'],
   ['plis_coin_bouche_',             'Plis du coin de la bouche'],
   // CHAIR — Menton
   ['fossette_mentonniere_',         'Fossette mentonnière'],
-  ['menton_cotes_',                 'Menton:côtés'],
+  ['menton_cotes_',                 'Menton : côtés'],
   // CHAIR — Mâchoire
   ['machoire_',                     'Mâchoire'],
   // GRAISSE — Tête
-  ['haut_cou_',                     'haut du cou'],
+  ['haut_cou_',                     'Haut du cou'],
   // GRAISSE — Front
   ['front_centre_',                 'Front : centre'],
   ['front_cotes_',                  'Front : côtés'],
   // GRAISSE — Yeux
   ['paupiere_sup_',                 'Paupière supérieure'],
   ['paupiere_inf_',                 'Paupière inférieure'],
-  ['cernes_inf_',                   'Cernes : Partie inférieure'],
+  ['cernes_inf_',                   'Cernes : partie inférieure'],
   // GRAISSE — Nez
   ['nez_',                          'Nez'],
   // GRAISSE — Joues
-  ['joues_sup_',                    'Joues : Partie supérieure'],
-  ['joues_inf_',                    'Joues : Partie inférieure'],
+  ['joues_sup_',                    'Joues : partie supérieure'],
+  ['joues_inf_',                    'Joues : partie inférieure'],
   ['bajoue_',                       'Bajoue'],
-  ['joues_int_sup_',                'Joues : Partie intérieure supérieure'],
-  ['joues_int_inf_',                'Joues : Partie intérieure infrieure'],
+  ['joues_int_sup_',                'Joues : partie intérieure supérieure'],
+  ['joues_int_inf_',                'Joues : partie intérieure inférieure'],
   ['tempes_',                       'Tempes'],
   // GRAISSE — Bouche
   ['cotes_bouche_',                 'Côtés de la bouche'],
-  ['levres_sup_',                   'Lèvres supérieure'],
-  ['levres_inf_',                   'Lèvres inférieure'],
+  ['levres_sup_',                   'Lèvre supérieure'],
+  ['levres_inf_',                   'Lèvre inférieure'],
   // GRAISSE — Menton
   ['menton_',                       'Menton'],
   ['sous_menton_',                  'Sous le menton'],
@@ -516,9 +528,9 @@ const SLIDER_SUBTAB = [
 function getSubTab(key) {
   // MAP d'exceptions — clés qui ne suivent pas leur préfixe naturel
   const EXCEPTIONS = {
-    'crane_arriere_avant': 'Crane',
-    'crane_arrondi_angulaire': 'Crane',
-    'crane_deplacement_gd': 'Crane',
+    'crane_arriere_avant': 'Crâne',
+    'crane_arrondi_angulaire': 'Crâne',
+    'crane_deplacement_gd': 'Crâne',
   };
   if (key in EXCEPTIONS) return EXCEPTIONS[key];
   const sorted = [...SLIDER_SUBTAB].sort((a, b) => b[0].length - a[0].length);
@@ -947,12 +959,23 @@ function renderStep3(){
   const hm=document.querySelector('.hero-compact__meta');
   if(hm){
     const _mt = S.sliders && S.sliders._meta;
-    const _bpid = _mt && _mt.bestPresetId;
-    const _forme = _mt && _mt.bestPresetForme;
+    // Phase 2.3 : on affiche bestOfficial (preset EA sélectionnable en jeu),
+    // pas bestPreset (qui peut être une célébrité preset_id ≥ 10001).
+    const _bpid = _mt && (_mt.bestOfficialId || _mt.bestPresetId);
+    const _forme = _mt && (_mt.bestOfficialForme || _mt.bestPresetForme);
     const _headLbl = _bpid
       ? (`TÊTE DE RÉF. · PRESET ${_bpid}` + (_forme ? ` · ${String(_forme).toUpperCase()}` : ''))
       : t('ref_head');
+    // Bonus UX : "INSPIRATION MORPHO · <célébrité>" quand le matcher DNA
+    // a piqué une célébrité différente du preset officiel affiché.
+    const _isCeleb = _mt && _mt.bestPresetEntryType === 'celebrity'
+                     && _mt.bestPresetId !== _mt.bestOfficialId
+                     && _mt.bestPresetDisplayName;
+    const _inspirationLine = _isCeleb
+      ? `<div style="color:#7a82a6;font-size:8.5px;font-weight:600;letter-spacing:0.08em;margin-bottom:6px;">INSPIRATION MORPHO · ${_mt.bestPresetDisplayName.toUpperCase()}</div>`
+      : '';
     hm.innerHTML=`<div style="color:#00f0ff;font-size:9px;font-weight:700;letter-spacing:0.12em;margin-bottom:6px;">${_headLbl}</div>
+      ${_inspirationLine}
       <div style="display:flex;flex-direction:column;gap:3px;">
         <div style="font-size:10px;color:#9ea4c4;line-height:1.4;"><b style="color:#00f0ff;">①</b> ${t('p9_step1')}</div>
         <div style="font-size:10px;color:#9ea4c4;line-height:1.4;"><b style="color:#00f0ff;">②</b> ${t('p9_step2')}</div>
@@ -975,7 +998,10 @@ function renderStep3(){
     const corners=th.querySelector('.hero-compact__thumb-corners');
     const img=document.createElement('img');
     img.className='hero-compact__thumb-img';
-    const bpId = (S.sliders._meta && S.sliders._meta.bestPresetId) ? S.sliders._meta.bestPresetId : 9;
+    // Phase 2.3 : la vignette montre le preset officiel (bestOfficial), pas la
+    // célébrité (qui n'a pas d'image dans ./assets/presets/).
+    const _metaTh = S.sliders._meta;
+    const bpId = (_metaTh && (_metaTh.bestOfficialId || _metaTh.bestPresetId)) || 9;
     img.src='./assets/presets/'+bpId+'.png';
     img.alt='Preset '+bpId;
     img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;';
@@ -989,7 +1015,13 @@ function renderStep3(){
   const at=document.getElementById('alts-thin-title');if(at)at.textContent='Top 3 alternatives';
   const ar=document.getElementById('alts-thin-row');
   if(ar){
-    const alts = (_meta && _meta.topPresets) ? _meta.topPresets.slice(1, 4) : [];
+    // Phase 2.3 : les 3 alternatives sont des presets officiels uniquement
+    // (officialTopPresets), pas le pool 41 (qui inclurait des célébrités
+    // avec preset_id ≥ 10001 et donc pas d'image dans ./assets/presets/).
+    const _altsSrc = (_meta && _meta.officialTopPresets && _meta.officialTopPresets.length)
+                     ? _meta.officialTopPresets
+                     : ((_meta && _meta.topPresets) ? _meta.topPresets : []);
+    const alts = _altsSrc.slice(1, 4);
     if(alts.length){
       ar.style.display='flex';ar.style.gap='8px';
       ar.innerHTML = alts.map(a=>`

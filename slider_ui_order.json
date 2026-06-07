@@ -1,0 +1,1012 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "source": "FAÇONNAGE AVANCÉ COMPLET.md (Tête 15 — Preset 9)",
+    "description": "Ordre canonique d'affichage in-game FC26 pour Façonnage Avancé. Reproduire visuellement le menu du jeu pour minimiser le temps de saisie en regardant les vidéos tutoriels.",
+    "totals_expected": {
+      "squelette": 103,
+      "chair": 163,
+      "graisse": 37,
+      "total": 303
+    }
+  },
+  "default_suffix_labels": {
+    "reduire_elargir": "Réduire / Élargir",
+    "bas_haut": "Bas / Haut",
+    "arriere_avant": "Arrière / Avant",
+    "arrondi_angulaire": "Arrondi / Angulaire",
+    "deplacement_gd": "Déplacer gauche / droite",
+    "plus_grande_petite": "Plus grande / Plus petite",
+    "moins_plus": "Moins / Plus",
+    "neutre_moins": "Neutre / Moins",
+    "neutre_haut": "Neutre / Haut",
+    "neutre_arrondi": "Neutre / Arrondi",
+    "neutre_avant": "Neutre / Avant",
+    "plus_petite": "Plus grande / Plus petite"
+  },
+  "squelette": [
+    {
+      "group_label": "Tête",
+      "zones": [
+        {
+          "key": "crane",
+          "label": "Crâne",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "neutre_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "crane_couronne",
+          "label": "Couronne",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "neutre_arrondi",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "crane_arriere",
+          "label": "Arrière du crâne",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "tempes",
+          "label": "Tempes",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Front",
+      "zones": [
+        {
+          "key": "front_sup",
+          "label": "Front : partie supérieure",
+          "sliders": [
+            "reduire_elargir",
+            "arriere_avant",
+            "neutre_haut",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "front_inf",
+          "label": "Front : partie inférieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Sourcils",
+      "zones": [
+        {
+          "key": "sourcils",
+          "label": "Sourcils",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "sourcils_central",
+          "label": "Sourcils : partie centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "sourcils_ext_sup",
+          "label": "Sourcils : partie supérieure extérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Yeux",
+      "zones": [
+        {
+          "key": "yeux",
+          "label": "Yeux",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "plus_grande_petite"
+          ]
+        },
+        {
+          "key": "orbites",
+          "label": "Orbites",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "plus_grande_petite"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Nez",
+      "zones": [
+        {
+          "key": "nez",
+          "label": "Nez",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "arete_nez_cotes",
+          "label": "Arête du nez : côtés",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "arete_nez_centrale",
+          "label": "Arête du nez : partie centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "arete_nez_sup",
+          "label": "Arête du nez : partie supérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Joues",
+      "zones": [
+        {
+          "key": "joues",
+          "label": "Joues",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Bouche",
+      "zones": [
+        {
+          "key": "bouche",
+          "label": "Bouche",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "ext_bouche_sup",
+          "label": "Extérieur de la bouche : partie sup.",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Menton",
+      "zones": [
+        {
+          "key": "menton",
+          "label": "Menton",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "menton_sup",
+          "label": "Menton : partie supérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Mâchoire",
+      "zones": [
+        {
+          "key": "machoire",
+          "label": "Mâchoire",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "maxillaire",
+          "label": "Maxillaire",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "mandibule",
+          "label": "Mandibule",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        }
+      ]
+    }
+  ],
+  "chair": [
+    {
+      "group_label": "Tête",
+      "zones": [
+        {
+          "key": "tempes",
+          "label": "Tempes",
+          "sliders": [
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Sourcils",
+      "zones": [
+        {
+          "key": "sourcils_central",
+          "label": "Sourcils : partie centrale",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "espace_sourcils",
+          "label": "Espace entre les sourcils",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Yeux",
+      "zones": [
+        {
+          "key": "pli_paupieres_central",
+          "label": "Pli des paupières : partie centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "pli_paupieres_ext",
+          "label": "Pli des paupières : partie extérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "pli_paupieres_int",
+          "label": "Pli des paupières : partie intérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "paupiere_inf_centrale",
+          "label": "Paupière inférieure : partie centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "paupiere_inf_ext",
+          "label": "Paupière inférieure : partie extérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "paupiere_inf_int",
+          "label": "Paupière inférieure : partie intérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "paupiere_sup_centrale",
+          "label": "Paupière supérieure : partie centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "neutre_avant",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "paupiere_sup_ext",
+          "label": "Paupière supérieure : partie ext.",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "paupiere_sup_int",
+          "label": "Paupière supérieure : partie int.",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "coin_oeil_ext",
+          "label": "Extérieur du coin de l'œil",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "plus_petite"
+          ]
+        },
+        {
+          "key": "coin_oeil_int",
+          "label": "Intérieur du coin de l'œil",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "plus_petite"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Nez",
+      "zones": [
+        {
+          "key": "narine_sup",
+          "label": "Narine : partie supérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "narine_sup_ext",
+          "label": "Narine : partie supérieure extérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "narine_sup_centrale",
+          "label": "Narine : partie supérieure centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "narine_inf",
+          "label": "Narine : partie inférieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "ext_narine_ext",
+          "label": "Extérieur de la narine : partie ext.",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "ext_narine_centrale",
+          "label": "Extérieur de la narine : partie centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "pointe_nez_sup",
+          "label": "Pointe du nez : partie supérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "pointe_nez_sous_jacente",
+          "label": "Pointe du nez : partie sous-jacente",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "pointe_nez_inf",
+          "label": "Pointe du nez : partie inférieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Joues",
+      "zones": [
+        {
+          "key": "joues",
+          "label": "Joues",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "joues_ext_sup",
+          "label": "Joues : partie externe supérieure",
+          "sliders": [
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "joues_yeux_int_sup",
+          "label": "Yeux : partie interne supérieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "joues_int_sup",
+          "label": "Joues : partie interne supérieure",
+          "sliders": [
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "joues_ext_inf",
+          "label": "Joues : partie externe inférieure",
+          "sliders": [
+            "neutre_moins"
+          ],
+          "label_variant": "Neutre / Moins"
+        },
+        {
+          "key": "joues_int_inf",
+          "label": "Joues : partie interne inférieure",
+          "sliders": [
+            "neutre_moins"
+          ],
+          "label_variant": "Neutre / Moins"
+        }
+      ]
+    },
+    {
+      "group_label": "Bouche",
+      "zones": [
+        {
+          "key": "commissures_levres",
+          "label": "Commissures des lèvres",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "espacement_levres_centre",
+          "label": "Espacement entre les lèvres : centre",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "espacement_levres_cotes",
+          "label": "Espacement entre les lèvres : côtés",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "levre_sup_centre_sup",
+          "label": "Lèvre supérieure : centre supérieur",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "levre_sup_cotes_sup",
+          "label": "Lèvre supérieure : côtés supérieurs",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "levre_sup_coins_sup",
+          "label": "Lèvre supérieure : coins supérieurs",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "levre_sup_centre_inf",
+          "label": "Lèvre supérieure : centre inférieur",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "levre_sup_cotes_inf",
+          "label": "Lèvre supérieure : côtés inférieurs",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "epaisseur_levre_sup",
+          "label": "Épaisseur de la lèvre supérieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "philtrum",
+          "label": "Philtrum",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "epaisseur_levre_inf",
+          "label": "Épaisseur de la lèvre inférieure",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "levre_inf_centre_sup",
+          "label": "Lèvre inférieure : partie sup. centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "levre_inf_cotes_sup",
+          "label": "Lèvre inférieure : côtés supérieurs",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "levre_inf_centre_inf",
+          "label": "Lèvre inférieure : partie inf. centrale",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "levre_inf_cotes_inf",
+          "label": "Lèvre inférieure : côtés inférieurs",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "levre_inf_coins_inf",
+          "label": "Lèvre inférieure : coins inférieurs",
+          "sliders": [
+            "reduire_elargir",
+            "bas_haut",
+            "arriere_avant",
+            "arrondi_angulaire"
+          ]
+        },
+        {
+          "key": "plis_coin_bouche",
+          "label": "Plis du coin de la bouche",
+          "sliders": [
+            "neutre_moins"
+          ],
+          "label_variant": "Neutre / Moins"
+        }
+      ]
+    },
+    {
+      "group_label": "Menton",
+      "zones": [
+        {
+          "key": "fossette_mentonniere",
+          "label": "Fossette mentonnière",
+          "sliders": [
+            "bas_haut",
+            "deplacement_gd"
+          ]
+        },
+        {
+          "key": "menton_cotes",
+          "label": "Menton : côtés",
+          "sliders": [
+            "neutre_moins"
+          ],
+          "label_variant": "Neutre / Moins"
+        }
+      ]
+    },
+    {
+      "group_label": "Mâchoire",
+      "zones": [
+        {
+          "key": "machoire",
+          "label": "Mâchoire",
+          "sliders": [
+            "moins_plus"
+          ]
+        }
+      ]
+    }
+  ],
+  "graisse": [
+    {
+      "group_label": "Tête",
+      "zones": [
+        {
+          "key": "haut_cou",
+          "label": "Haut du cou",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Front",
+      "zones": [
+        {
+          "key": "front_centre",
+          "label": "Front : centre",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "front_cotes",
+          "label": "Front : côtés",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Yeux",
+      "zones": [
+        {
+          "key": "paupiere_sup",
+          "label": "Paupière supérieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "paupiere_inf",
+          "label": "Paupière inférieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "cernes_inf",
+          "label": "Cernes : partie inférieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Nez",
+      "zones": [
+        {
+          "key": "nez",
+          "label": "Nez",
+          "sliders": [
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Joues",
+      "zones": [
+        {
+          "key": "joues_sup",
+          "label": "Joues : partie supérieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "joues_inf",
+          "label": "Joues : partie inférieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "bajoue",
+          "label": "Bajoue",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "joues_int_sup",
+          "label": "Joues : partie intérieure supérieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "joues_int_inf",
+          "label": "Joues : partie intérieure inférieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "tempes",
+          "label": "Tempes",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Bouche",
+      "zones": [
+        {
+          "key": "cotes_bouche",
+          "label": "Côtés de la bouche",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "levres_sup",
+          "label": "Lèvre supérieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "levres_inf",
+          "label": "Lèvre inférieure",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ],
+          "note": "Étiquetée 'Lèvre supérieure' dans le markdown source (probable typo) — c'est en réalité la lèvre inférieure."
+        }
+      ]
+    },
+    {
+      "group_label": "Menton",
+      "zones": [
+        {
+          "key": "menton",
+          "label": "Menton",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        },
+        {
+          "key": "sous_menton",
+          "label": "Sous le menton",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        }
+      ]
+    },
+    {
+      "group_label": "Mâchoire",
+      "zones": [
+        {
+          "key": "machoire",
+          "label": "Mâchoire",
+          "sliders": [
+            "bas_haut",
+            "moins_plus"
+          ]
+        }
+      ]
+    }
+  ]
+}

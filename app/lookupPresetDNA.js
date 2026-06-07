@@ -10,3 +10,24 @@ function lookupPresetDNA(preset, flatKey) {
   const v = zone[za[1]];
   return Number.isFinite(v) ? v : undefined;
 }
+
+function lookupPresetDNAByFamily(preset, family, flatKey) {
+  if (!preset) return undefined;
+
+  if (family === 'squelette') {
+    return lookupPresetDNA(preset, flatKey);
+  }
+
+  // Chair / Graisse : flat key direct dans faconner.<family>
+  // Présent uniquement sur les célébrités (entry_type='celebrity').
+  // Sur les officiels, faconner est zone-groupé → retourne undefined → fallback.
+  const fam = preset.faconner && preset.faconner[family];
+  if (!fam || typeof fam !== 'object') return undefined;
+  const v = fam[flatKey];
+  return Number.isFinite(v) ? v : undefined;
+}
+
+if (typeof window !== 'undefined') {
+  window.lookupPresetDNA = lookupPresetDNA;
+  window.lookupPresetDNAByFamily = lookupPresetDNAByFamily;
+}
