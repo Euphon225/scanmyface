@@ -1,6 +1,447 @@
 # ScanMyFace.tech — FC26 PWA
 
 # ════════════════════════════════════════════════════════════
+# SESSION (7 juin 2026) — PHASE 2.5 : INJECTION DNA CHAIR/GRAISSE DÉPLOYÉE ✅
+# 31 officiels EA reçoivent enfin une DNA chair (163) + graisse (37) flat,
+# format identique aux 10 célébrités, lue directement par lookupPresetDNAByFamily.
+# ════════════════════════════════════════════════════════════
+#
+# ▶ CE QUI A ÉTÉ FAIT :
+#   - Le snapshot Notion (Phase 2.4, 6 200 valeurs : 31 presets × 200 sliders C+G)
+#     a été injecté dans les 31 officiels EA via `app/admin/inject_v4.py`.
+#   - `PRESETS_DB_v3.js` → `PRESETS_DB_v4.js`. Chaque officiel a maintenant
+#     `faconner.chair` (163 clés flat) + `faconner.graisse` (37 clés flat),
+#     format identique aux 10 célébrités, lu directement par
+#     `lookupPresetDNAByFamily` (presetMatch.js).
+#   - Option A retenue : `faconner.chair`/`graisse` ajoutés dans le bloc
+#     `faconner` existant, à côté du façonnage de base (`crane`, `nez`, etc.).
+#     Un seul usage de `.faconner` dans tout le prod (`presetMatch.js:835`),
+#     rien ne l'énumère → zéro collision, zéro modif JS du lookup nécessaire.
+#   - Anciens fichiers gardés en backup : `app/PRESETS_DB_v3.js.bak`
+#     (rollback express possible, supprimer une fois Mode B KEITA validé in-game).
+#
+# ▶ FICHIERS DÉPOSÉS / MODIFIÉS :
+#   - app/PRESETS_DB_v4.js                                 (drop-in, 414 KB)
+#   - app/admin/inject_v4.py                               (script régénération)
+#   - app/admin/notion_chair_graisse_31presets.json        (snapshot Notion, 247 KB)
+#   - app/admin/roundtrip_test.js                          (test console DevTools)
+#   - app/index.html                                       (v3 → v4, ordre de chargement intact)
+#   - app/sw.js                                            (CACHE_VERSION v126 → v127)
+#
+# ▶ TEST STATIQUE DE COMPLÉTUDE :
+#   Les seeds littéraux de `scanToSliders_v6.js` couvrent EXACTEMENT
+#   163 chair + 37 graisse. La 2e passe DNA (L1135) `for (key in C/G)`
+#   applique donc 100% des clés DNA, sans aucune ratée.
+#   → Le « bug Phase 1.5 » que la session précédente craignait (post-process
+#   borné à V7_SLIM) ne concerne que la boucle directScan (L1077), de toute
+#   façon écrasée par la 2e passe. Aucune boucle à élargir, la DNA fraîche
+#   se propage telle quelle.
+#
+# ▶ FIX DES 6 SUFFIXES PAUPIÈRES (build_v7_slim.py) :
+#   Défaut trouvé pendant l'analyse : 6 sliders paupières
+#   (`pli_paupieres_{central,ext,int}` et `paupiere_inf_{centrale,ext,int}`)
+#   avaient un suffixe `_plus_grande_petite` côté V7_SLIM/directScan, alors
+#   que la DNA canonique (lue par l'UI) utilise `_plus_petite`. Conséquence
+#   AVANT fix : ces 6 clés directScan étaient calculées mais orphelines
+#   (l'UI lit `_plus_petite` donc la DNA gagne, pas de bug fonctionnel).
+#
+#   Fix appliqué : ajout d'un dict `KEY_RENAME` dans `build_v7_slim.py` qui
+#   réécrit ces 6 clés en sortie. `calibration_table.json` source INTACTE.
+#   Vérification post-build :
+#     grep -c "_plus_grande_petite" calibration_v7_slim.js → 2
+#       (les 2 restants = `orbites_plus_grande_petite` + `yeux_plus_grande_petite`,
+#        canoniques en SQUELETTE — règle CLAUDE.md "orbites & yeux → plus_grande_petite,
+#        tout le reste Chair → plus_petite", à conserver).
+#     6 renames effectués (`stats['renamed'] = 6 / 6`).
+#
+# ▶ VÉRIFICATIONS POST-DÉPLOIEMENT (à exécuter par Alex en DevTools) :
+#   1. Hard reload (Cmd+Shift+R), Application → Service Workers → sw.js actif
+#      doit être en v127. Cache Storage → ancien cache v126 supprimé.
+#   2. Console :
+#        window.PRESETS_DB.length                            // 41 (31 + 10 célébs)
+#        const p = window.PRESETS_DB.find(x=>x.preset_id===116)
+#        Object.keys(p.faconner.chair).length                // 163
+#        Object.keys(p.faconner.graisse).length               // 37
+#        p.faconner.chair.tempes_moins_plus                  // 22 (validé)
+#   3. Round-trip plomberie : scanner une photo, coller
+#      `app/admin/roundtrip_test.js` dans la console.
+#      Attendu : strict Δ≤10 sur CHAIR et GRAISSE ≥ 99% (idéalement 100%).
+#   4. Si vert : test in-game KEITA Mode B (sans `forcePresetId`).
+#      Cible : ressemblance visuelle ~80-85% (vs ~50-55% avant Phase 2.5),
+#      proche du ceiling Frostbite ~90%.
+#
+# ▶ DÉCISIONS ACTÉES (cumul) :
+#   - PRESETS_DB_v4 déployée, DNA Chair/Graisse 31 officiels propagée
+#     par la 2e passe (Phase 2.5, 7 juin).
+#   - Fix 6 suffixes paupières `_plus_grande_petite` → `_plus_petite`
+#     dans build_v7_slim.py (KEY_RENAME, 7 juin).
+#
+# ▶ SOURCE NOTION :
+#   `notion_chair_graisse_31presets.json` est dérivé de la DB Notion v2
+#   (data_source_id 6d724705-34f3-4af5-9f48-b86054a9748f). En cas de retouche
+#   Notion : ré-exporter le CSV → relancer `inject_v4.py`.
+# ════════════════════════════════════════════════════════════
+
+# ════════════════════════════════════════════════════════════
+# SESSION (5 juin 2026) — PHASE 3 : CALIBRATION EMPIRIQUE SLIDER-PAR-SLIDER 🚧
+# Pipeline calibrate_fc26.py validé. Bloc 1 fini (262→267 sliders).
+# Bloc 2 en cours : 67 captures, 20 traitées via inspection visuelle Claude.
+# ════════════════════════════════════════════════════════════
+#
+# ▶ POURQUOI CETTE SESSION (passage de Phase 2 à Phase 3) :
+#
+#   Phase 2 (10 célébrités via Gemini OCR) terminée le 3 juin.
+#   Phase 3 = améliorer la PRÉCISION des sliders mesurés en in-game testing.
+#   Au lieu d'inférer slider→landmark depuis la théorie, on capture
+#   les val0/val100 réels du jeu pour CHAQUE slider et on mesure l'amplitude
+#   Δlandmarks effective. Calibration = source de vérité du pipeline.
+#
+# ▶ NOUVEAU PIPELINE — calibrate_fc26.py (3 passes) :
+#
+#   Pass 1 : OCR de la valeur du slider (0/50/100) + zone affichée
+#            → pass1/<timestamp>.json
+#   Pass 2 : MediaPipe Face Mesh landmarks sur l'image
+#            → pass2/<timestamp>.json
+#   Pass 3 : Agrégation Δlandmarks entre val0 et val100 par slider
+#            → calibration_table.json (avec amp, axis, separation)
+#
+#   Local : /Users/loriekeita/Desktop/FC26/app/admin/calibrate_fc26.py
+#   Pas dans le repo Git (gitignored — ne pas commit, contient infos crédit Gemini).
+#
+# ▶ INNOVATION MÉTHODOLOGIQUE — INSPECTION VISUELLE CLAUDE :
+#
+#   Gemini Flash a halluciné sur certains screens FC26 (notamment confusion
+#   "Neutre/Avant" vs "Neutre/Moins" car "Avant" sur-représenté dans le
+#   vocabulaire FC26). Patches successifs sur le prompt contraint ont aidé
+#   mais ça reste cher (~$0.50/visage) et imparfait.
+#
+#   MÉTHODE ACTUELLE pour calibration : Claude lit directement les screens
+#   uploadés via `view`, identifie sub_zone + valeurs + présence HL, et
+#   génère les pass1 JSONs propres au format exact attendu par calibrate_fc26.py.
+#
+#   Avantages :
+#   - Coût $0 (pas d'appel Gemini)
+#   - Précision 100% sur la lecture des valeurs (Claude lit les chiffres
+#     parfaitement et ne confond pas les sliders bipolaires)
+#   - Pas de retry, pas de 503, pas de timeout
+#
+#   Limite : Alex doit envoyer les screens en upload (max ~20 par message
+#   pour pas saturer la mémoire conv), Claude génère, puis ZIP final livré
+#   à intégrer dans calibration/pass1/.
+#
+# ▶ SCHÉMA EXACT DU PASS1 JSON (à respecter au caractère près) :
+#
+#   {
+#     "timestamp": "20260605033359",
+#     "filename": "EA_SPORTS_FC_26_20260605033359.jpg",
+#     "family": "chair",                          // squelette/chair/graisse
+#     "group": "Yeux",                            // 1er bouton de nav
+#     "sub_zone": "Paupière supérieure : partie ext.",  // 2e bouton actif
+#     "zone_key": "paupiere_sup_ext",             // clé technique
+#     "zone_unknown": false,
+#     "slider_key": "paupiere_sup_ext_bas_haut",  // zone_key + "_" + suffix
+#     "primary_suffix": "bas_haut",
+#     "primary_value": 100,                       // 0 / 50 / 100
+#     "sliders": [                                // TOUS les sliders visibles
+#       {"label": "Réduire / Élargir", "value": 50, "suffix": "reduire_elargir"},
+#       {"label": "Bas / Haut", "value": 100, "suffix": "bas_haut"},
+#       {"label": "Plus grande / Plus petite", "value": 50, "suffix": "plus_petite"}
+#     ],
+#     "type": "TYPE_VAL_FACE",
+#     "view": "face",
+#     "has_highlight": false,                     // zone colorée sur visage ?
+#     "highlight_bbox_norm": null,
+#     "highlight_color": null                     // "red" / "green" / "pink"
+#   }
+#
+# ▶ TRIPLETTES POUR CALIBRER 1 SLIDER (3 frames minimum) :
+#
+#   1. HL frame : tous sliders à 50, zone colorée sur le visage
+#      → has_highlight: true, primary_value: 50
+#   2. val0 frame : ce slider à 0, autres à 50
+#      → has_highlight: false, primary_value: 0
+#   3. val100 frame : ce slider à 100, autres à 50
+#      → has_highlight: false, primary_value: 100
+#
+#   Amplitude mesurée entre val0 et val100 = sensibilité du slider sur
+#   landmarks MediaPipe.
+#
+# ▶ NOUVELLE MÉTHODE ALEX — DOUBLE CAPTURE (val + HL bonus) :
+#
+#   Depuis le 5 juin, Alex prend 2 captures par valeur :
+#   - 1 sans HL (zone propre, lecture slider parfaite)
+#   - 1 avec HL (zone colorée affichée, mesure HSV bonus en Pass 2)
+#
+#   Les 2 JSONs sont créés, calibrate_fc26.py les utilise en complémentarité.
+#   Le frame sans HL fixe la valeur, le frame avec HL fixe la zone HSV.
+#
+# ▶ ÉTAT CALIBRATION AU 5 JUIN 2026 (calibration v6 → v7 en cours) :
+#
+#   - Avant cette session : v6 = 262 sliders (231 complets, 26 partiels)
+#     Distribution : chair 137 / squelette 96 / graisse 29
+#
+#   - Bloc 1 (5 sliders Neutre/X bipolaires, calibrés en début de session) :
+#     ✅ crane_couronne_neutre_arrondi (amp=0.0309 axis=y)
+#     ✅ joues_ext_inf_neutre_moins (amp=0.0069 axis=x)
+#     ✅ joues_int_inf_neutre_moins (amp=0.0221 axis=x)
+#     ✅ menton_cotes_neutre_moins (amp=0.0216 axis=z)
+#     ✅ plis_coin_bouche_neutre_moins (amp=0.0174 axis=x)
+#
+#   - Bloc 2 (67 captures total, batches de 20+20+27) :
+#     Batch 1 traité (20 images du 2026-06-05, timestamps 032858 → 033359)
+#     → 35 JSONs livrés (15 du 03/06 + 20 du 05/06) dans
+#        calibration_fc26_handoff.md
+#     Batch 2 + Batch 3 (47 images restantes) à venir.
+#
+#   - Sliders projetés après Bloc 2 complet :
+#     262 (v6) + 5 (Bloc 1) + ~11 (Bloc 2) = ~278 sliders (~94% des 295)
+#
+# ▶ ZONES TRAITÉES DANS BLOC 1 + BATCH 1 BLOC 2 (cumul) :
+#
+#   Bloc 1 obligatoire (15 images du 03/06) :
+#   - espace_sourcils (bas_haut, moins_plus) — chair ✅
+#   - fossette_mentonniere (bas_haut, deplacement_gd) — chair ✅
+#   - HL acquis (sans val0/100) : front_cotes, paupiere_inf_int,
+#     paupiere_sup_centrale, paupiere_sup_ext, cernes_inf
+#
+#   Batch 1 du Bloc 2 (20 images du 05/06) :
+#   - front_cotes (bas_haut, moins_plus) — graisse ✅
+#   - paupiere_sup_centrale (bas_haut, reduire_elargir) — chair ✅
+#   - paupiere_sup_ext (bas_haut val100 only) — chair ⚠️ partiel
+#
+# ▶ RESTE À CAPTURER (Batch 2 + Batch 3, 47 images attendues) :
+#
+#   Priorité 1 (sliders incomplets) :
+#   - paupiere_sup_centrale_neutre_avant (val0 + val100)
+#   - paupiere_sup_ext_bas_haut (val0)
+#   - paupiere_sup_ext_reduire_elargir (val0 + val100)
+#   - paupiere_inf_int_plus_petite (val0 + val100)
+#   - cernes_inf_bas_haut (val0 + val100)
+#   - cernes_inf_moins_plus (val0 + val100)
+#
+#   Bonus (zones jamais touchées) :
+#   - coin_oeil_ext (Bas/Haut + Réduire/Élargir)
+#   - coin_oeil_int (Bas/Haut + Réduire/Élargir)
+#   - paupiere_sup_int (Bas/Haut + Réduire/Élargir)
+#
+# ▶ SLIDERS NON-CALIBRABLES (à laisser tels quels) :
+#
+#   - 5 sliders crâne arrière : hors champ MediaPipe Face Mesh (face uniquement)
+#   - 5 sliders `plus_petite` paupières : zones trop fines pour la précision
+#     mesh MediaPipe (variance bruit > variance signal)
+#
+#   → Plafond technique de la calibration empirique = ~290/295 sliders.
+#
+# ▶ FICHIER DE HANDOFF GÉNÉRÉ (5 juin) :
+#
+#   /Users/loriekeita/Desktop/FC26/calibration_fc26_handoff.md (44 KB, 1346 lignes)
+#
+#   Contient :
+#   - Méthode d'inspection visuelle Claude (étape par étape)
+#   - Schéma exact des pass1 JSONs (tous champs documentés)
+#   - Mapping zones (35+ sub_zone → zone_key) + suffixes (12 labels)
+#   - Comment classifier HL vs val0/val100 (checklist + couleurs)
+#   - 35 JSONs déjà générés (15 Bloc 1 ancien + 20 Batch 1 Bloc 2)
+#   - Plan des batches 2 et 3 + commande Claude Code pour re-run pipeline
+#
+#   Permet de reprendre dans une nouvelle conversation Claude sans perdre
+#   le contexte ni les JSONs déjà produits.
+#
+# ▶ COMMANDE POUR RE-LANCER LE PIPELINE (Claude Code, post-Bloc 2) :
+#
+#   cd /Users/loriekeita/Desktop/FC26/app/admin
+#   python3 calibrate_fc26.py --skip-ocr  # utilise pass1 existants
+#
+#   → Lance Pass 2 (MediaPipe sur chaque image)
+#   → Lance Pass 3 (agrégation Δlandmarks)
+#   → Écrit calibration_table.json (v7)
+#
+#   Vérifier la diff avec v6 :
+#     diff <(jq -S . calibration_table.json.v6.bak) \
+#          <(jq -S . calibration_table.json)
+#
+# ▶ DÉCISIONS À PRENDRE APRÈS BLOC 2 COMPLET :
+#
+#   Option A — STOP à 278 sliders (94.2%) : assez pour production, focus
+#              sur reste de la roadmap (Stripe Live, TikTok, FC27 prep)
+#   Option B — Capturer les bonus zones œil (+6 sliders) → 284 (96.3%)
+#   Option C — Tout sauf crâne arrière (impossible techniquement) → ~290 max
+#
+#   Recommandation : Option A. Le vrai goulot d'étranglement reste
+#   l'homogénéité des presets stock (31 presets), pas le nombre de sliders.
+#
+# ▶ FICHIERS LOCAUX IMPORTANTS (Mac Alex, hors repo) :
+#
+#   /Users/loriekeita/Desktop/FC26/app/admin/
+#   ├── calibrate_fc26.py           # pipeline 3 passes (gitignored)
+#   ├── extract_sliders.py          # OCR Gemini (committed)
+#   ├── calibration/
+#   │   ├── pass1/<timestamp>.json  # OCR results (manuel ou Gemini)
+#   │   ├── pass2/<timestamp>.json  # MediaPipe landmarks
+#   │   ├── calibration_table.json  # final (v6 actuelle, v7 en cours)
+#   │   └── suffix_rejected.txt     # logs post-validation
+#   └── EA SPORTS FC 26/            # dataset screens (929+ images)
+#
+#   /Users/loriekeita/Desktop/FC26/calibration_fc26_handoff.md
+#   (généré le 5 juin pour transfert vers nouvelle conv Claude)
+#
+# ════════════════════════════════════════════════════════════
+# FIN SESSION 5 JUIN 2026
+# ════════════════════════════════════════════════════════════
+
+# ════════════════════════════════════════════════════════════
+# SESSION (3 juin 2026) — 10 VISAGES CÉLÈBRES BOUCLÉS ✅
+# Phase 2 (extension bank) presque terminée. Plan freeze FC26 au 7 juin.
+# ════════════════════════════════════════════════════════════
+#
+# ▶ ÉTAT FINAL — 10 célébrités intégrables dans PRESETS_DB_v3 :
+#
+#   #  | Joueur            | Carnation       | Forme    | Source YouTube
+#   ---|-------------------|-----------------|----------|------------------
+#   1  | Neymar            | Métis           | Ovale    | PAO.FACES
+#   2  | Zlatan            | Claire          | Allongé  | JAXSTASH
+#   3  | Pogba             | Foncée          | Ovale    | ESEC CREATIVE
+#   4  | Henry             | Métis           | Allongé  | F.P.Fifa20VPL
+#   5  | Evra              | Foncée          | Carré    | F.P.Fifa20VPL
+#   6  | CR7               | Claire-bronzée  | Carré    | (manuel, antérieur)
+#   7  | Abidal            | Foncée          | Allongé  | F.P.Fifa20VPL
+#   8  | Gerrard           | Claire          | Carré    | F.P.Fifa20VPL
+#   9  | Makelele          | Très foncée     | Rond     | F.P.Fifa20VPL
+#   10 | Drogba            | Foncée          | Allongé  | F.P.Fifa20VPL
+#
+#   Diversité carnations : Très foncée(1), Foncée(4), Métis(2), Claire-bronzée(1), Claire(2)
+#   Diversité formes : Allongé(4), Carré(3), Ovale(2), Rond(1)
+#   Manque : Triangle (rare), 2e Très foncée, 2e Rond
+#
+#   Coût Gemini cumulé : ~$0.50 sur les 10€ de crédit initial.
+#
+# ▶ BUG #1 RÉSOLU — Zone "Temples" présente dans 3 familles différentes :
+#   - squelette/tempes (groupe Head : 4 sliders reduire_elargir, bas_haut,
+#     arriere_avant, arrondi_angulaire)
+#   - chair/tempes (groupe Head : 1 slider moins_plus)
+#   - graisse/tempes (groupe CHEEKS : 2 sliders bas_haut, moins_plus)
+#
+#   Gemini lit "Temples" comme zone mais ne sait pas la désambiguïser par
+#   groupe parent → un slider Chair/Tempes peut être classé en Squelette/Tempes
+#   ou inversement. Pattern observé sur Gerrard, Makelele, Drogba.
+#
+#   FIX MANUEL (en attendant patch script) : après chaque run, vérifier
+#   non_canonical_keys et déplacer manuellement les sliders mal classés via
+#   un petit script Python data['faconner'][src].pop(k) puis dst[k] = v.
+#
+#   FIX SCRIPT À FAIRE (post-freeze) : modifier extract_sliders.py pour
+#   utiliser group_label_en + zone_label_en pour désambiguïser. Quand zone =
+#   "Temples" et group = "Cheeks" → forcer famille=graisse. Quand zone =
+#   "Temples" et group = "Head" → laisser la famille détectée par le crop.
+#
+# ▶ BUG #2 RÉSOLU — Popup musique EA cache les tabs Skeletal/Flesh/Fat :
+#   FC26 affiche périodiquement un popup "Peace of Mind / Wesley Joseph" ou
+#   "Last Chance / Mild Minds" (musique EA Sports) en bas-droite, exactement
+#   où sont les tabs famille. Le crop tombe sur le popup, Gemini hallucine
+#   la famille.
+#
+#   WORKAROUND ALEX : pour ces screenshots, renommer le fichier en
+#   "skeletal.png" / "flesh.png" / "fat.png" selon la famille connue par Alex
+#   (qui se souvient de la vidéo). Mais le script ne lit pas le nom de fichier
+#   pour déduire la famille — il faut le traitement par dossier séparé +
+#   merge manuel (voir bug #4 plus bas).
+#
+#   FIX SCRIPT À FAIRE (post-freeze) : ajouter une option --force-family pour
+#   un run où Alex sait que toutes les images sont d'une seule famille.
+#
+# ▶ BUG #3 RÉSOLU — 503 Gemini "high demand" sur runs longs :
+#   Les runs sur 100 screenshots × 2 appels (image complète + crop) = 200
+#   appels en série. Gemini renvoie parfois 503 sur certains, surtout en fin
+#   de run. Le script avait un retry sur l'appel principal (call_gemini_with_retry)
+#   mais PAS sur detect_family_from_crop.
+#
+#   FIX APPLIQUÉ : ajout d'une boucle try/except avec sleep(5, 25, 60) dans
+#   detect_family_from_crop. Sur le run final Zlatan : 6 erreurs 503 absorbées
+#   sans plantage. Sur Drogba : 3 screenshots quand même failed → traitement
+#   par dossier retry (voir procédure ci-dessous).
+#
+# ▶ PROCÉDURE STANDARD POUR LES VISAGES NON COMPLETS (formalisée) :
+#
+#   Quand un visage termine avec moins de 303/303 OU avec des non-canonical :
+#
+#   1. Diagnostic des manquants :
+#      /usr/bin/python3 << 'EOF'
+#      import json
+#      data = json.loads(open('<path>/<nom>_v1.json').read())
+#      canonical = json.loads(open('<path>/slider_ui_order.json').read())
+#      for fam in ['squelette', 'chair', 'graisse']:
+#          canon = set()
+#          for g in canonical[fam]:
+#              for z in g.get('zones', []):
+#                  for s in z['sliders']:
+#                      canon.add(f"{z['key']}_{s}")
+#          got = set(data['faconner'][fam].keys())
+#          missing = canon - got
+#          if missing:
+#              print(f"\n{fam.upper()} manquants ({len(missing)}):")
+#              for k in sorted(missing): print(f"  {k}")
+#      EOF
+#
+#   2. Cas A — Sliders mal classés (présents dans une autre famille) :
+#      Déplacer en Python :
+#      v = data['faconner'][src_fam].pop(k)
+#      data['faconner'][dst_fam][k] = v
+#
+#   3. Cas B — Screenshots failed (3 max par run) :
+#      Récupérer dans failed_screenshots.txt, copier dans <nom>_retry/,
+#      relancer le script sur ce dossier seul, puis merger :
+#      for fam in ['squelette','chair','graisse']:
+#          for k, v in retry['faconner'][fam].items():
+#              main['faconner'][fam][k] = v
+#
+#   4. Cas C — Zones non screenshotées (visibles via diagnostic missing) :
+#      Retourner sur la vidéo source, faire les captures des zones manquantes,
+#      relancer en mode retry puis merger.
+#
+#   5. Toujours vider _meta.non_canonical_keys après les corrections manuelles
+#      pour avoir un fichier propre.
+#
+# ▶ PROCHAIN PLAN (4-7 juin) :
+#
+#   ÉTAPE A — Intégration en 1 jour (4 juin) :
+#   - Conversion des 10 *_v1.json au format PRESETS_DB_v3.js (entry_type=celebrity)
+#   - PAS BESOIN de calculer nearest_official_preset_id : les YouTubers le donnent
+#     directement dans leurs vidéos (zone_presets aussi).
+#   - Scan scanned_stats via app PWA pour chaque visage
+#   - Activation Stripe Live mode
+#   - Système free scan (à concevoir le 5-6 juin)
+#
+#   ÉTAPE B — Option B (calibration empirique) sur 2-3 jours :
+#   PROTOCOLE ALEX :
+#   1. Mettre TOUS les sliders à 50 → screenshot tête neutre
+#   2. Mettre TOUS les sliders à 0 → screenshot tête min
+#   3. Mettre TOUS les sliders à 100 → screenshot tête max
+#   → 3 captures de référence pour calibrer le baseline
+#   4. POUR CHAQUE SLIDER individuellement :
+#      - Mettre uniquement ce slider à 0 → screenshot
+#      - Mettre uniquement ce slider à 100 → screenshot
+#      → mesurer via MediaPipe quels landmarks ont bougé entre 0 et 100
+#   5. POUR CHAQUE SOUS-ZONE FC26 affichée à l'écran (zone surlignée vert/bleu
+#      quand on sélectionne un slider) : screenshot et noter quels landmarks
+#      MediaPipe correspondent à cette région anatomique.
+#   → Documente une table slider → landmarks MediaPipe utilisée pour mieux
+#     piloter les sliders depuis les mesures user.
+#
+#   Estimation Option B : 303 sliders × 2 captures = 606 captures min,
+#   plus ~75 zones surlignées. Soit ~15-25h de travail si méthodique.
+#   But long terme : améliorer la précision du modèle de matching actuel
+#   et préparer le terrain pour V3 (modèle inverse).
+#
+#   ÉTAPE C — Freeze FC26 (7 juin) : tag git v1.0-FC26, pivot UFC 6.
+#
+# ▶ DÉCISION ALEX — Pas de pivot prématuré sur Option B :
+#   Alex a confirmé qu'il poursuit A en 1 jour PUIS Option B en 2-3 jours,
+#   tient la deadline 7 juin sans souci. Aucune raison de couper l'Option B
+#   du plan, l'intégration A est rapide grâce aux nearest_official_preset_id /
+#   zone_presets déjà fournis par les YouTubers.
+# ════════════════════════════════════════════════════════════
+
+# ════════════════════════════════════════════════════════════
 # SESSION (31 mai 2026 - 2/2) — ZLATAN 303/303 ✅ + LEÇONS PIPELINE
 # Deuxième visage célèbre. Validation que le pipeline gère plusieurs chaînes
 # YouTube différentes. 3 bugs majeurs résolus en cours de route.
@@ -555,7 +996,10 @@
 
 ## Stack
 - Vanilla JS + HTML/CSS pur, SPA 4 steps (100dvh par step)
-- Fichiers principaux : script_spa.js, scanToSliders_v6.js, index.html, style.css, sw.js
+- Fichiers principaux : script_spa.js, scanToSliders_v6.js, PRESETS_DB_v4.js (31 officiels avec
+  faconner.chair + graisse flat injectés depuis Notion le 7 juin), celebrities_to_inject.js
+  (10 célébs fusionnées au runtime), presetMatch.js, calibration_v7_slim.js, index.html, style.css,
+  sw.js (CACHE v127)
 - Backend : Node.js/Express (server.js) sur Azure App Service (Germany West Central)
 - Deploy : Vercel (auto-deploy depuis GitHub main) | Secrets : Doppler
 - Domain : scanmyface.tech | Repo : github.com/Euphon225/scanmyface
@@ -569,7 +1013,7 @@
 - Azure Face API → uniquement via server.js (endpoint /api/matchFace), jamais côté client
 - Service Worker : incrémenter CACHE_VERSION dans sw.js à CHAQUE modif de script_spa.js,
   scanToSliders_v6.js ou style.css
-- SW actuel : fc26-cranium-v115 (à incrémenter) — mis à jour 26 mai
+- SW actuel : fc26-cranium-v127 (à incrémenter) — mis à jour 7 juin (Phase 2.5 DNA Chair/Graisse)
 - Mobile-first : tester à 375px avant tout commit
 - Chemins fichiers : tous avec ./ prefix (ex: ./style.css, ./9.png, ./sw.js)
 

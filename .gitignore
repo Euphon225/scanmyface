@@ -97,3 +97,9 @@ local.settings.json
 __blobstorage__
 __queuestorage__
 __azurite_db*__.json
+
+# Internal-only admin tools (not deployed)
+app/admin/
+
+# Local validation artifacts
+ui_order_validation.json*.bak

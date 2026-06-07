@@ -12,10 +12,20 @@
 //             et graisse *_moins_plus (volume non mesurable en 2D)
 // Top-K landmarks par slider : 3
 //
-// Sliders conservés : 158 / 273
+// WHITELIST (audit calibration v7 du 5 juin 2026) — 6 sliders forcés
+// contournent is_z_axis OU _arrondi_angulaire (amplitude XY validée empiriquement) :
+//   - espacement_levres_cotes_arriere_avant
+//   - ext_narine_centrale_arriere_avant
+//   - ext_narine_centrale_arrondi_angulaire
+//   - ext_narine_ext_arrondi_angulaire
+//   - pli_paupieres_int_arriere_avant
+//   - pointe_nez_sup_arriere_avant
+//
+// Sliders conservés : 164 / 273
 //   squelette: 53
-//   chair:     91
+//   chair:     97
 //   graisse:   14
+//   (dont 6 whitelistés)
 // ============================================================
 
 window.V7_SLIM = {
@@ -275,6 +285,14 @@ window.V7_SLIM = {
       {id: 109, ex: 0.0360224, ey: -0.059955, px: -0.1041742, py: -0.6822739, w: 0.0291255}
     ]
   },
+  "espacement_levres_cotes_arriere_avant": {
+    family: "chair",
+    lms: [
+      {id: 4, ex: -0.1304985, ey: -0.0258696, px: 0.0128764, py: 0.1311891, w: 0.0507903},
+      {id: 275, ex: -0.1290713, ey: -0.0256568, px: 0.0565063, py: 0.1316469, w: 0.0502281},
+      {id: 45, ex: -0.1290595, ey: -0.0246692, px: -0.0328079, py: 0.1341504, w: 0.0502156}
+    ]
+  },
   "espacement_levres_cotes_bas_haut": {
     family: "chair",
     lms: [
@@ -299,6 +317,22 @@ window.V7_SLIM = {
       {id: 10, ex: -0.0581003, ey: 0.0191791, px: 0.0424412, py: -0.6687206, w: 0.0233526}
     ]
   },
+  "ext_narine_centrale_arriere_avant": {
+    family: "chair",
+    lms: [
+      {id: 4, ex: 0.4990818, ey: -0.0215948, px: -0.2159756, py: 0.1448158, w: 0.1911623},
+      {id: 275, ex: 0.4995138, ey: -0.019938, px: -0.1727682, py: 0.1446323, w: 0.190914},
+      {id: 1, ex: 0.4930404, ey: -0.0205408, px: -0.2129706, py: 0.2056867, w: 0.1887547}
+    ]
+  },
+  "ext_narine_centrale_arrondi_angulaire": {
+    family: "chair",
+    lms: [
+      {id: 275, ex: 0.5826464, ey: -0.0365585, px: -0.2137604, py: 0.1500176, w: 0.2231866},
+      {id: 4, ex: 0.5803521, ey: -0.0392192, px: -0.2560116, py: 0.1504172, w: 0.2230169},
+      {id: 274, ex: 0.5742812, ey: -0.0352923, px: -0.2152173, py: 0.2083832, w: 0.219952}
+    ]
+  },
   "ext_narine_centrale_bas_haut": {
     family: "chair",
     lms: [
@@ -313,6 +347,14 @@ window.V7_SLIM = {
       {id: 118, ex: 0.0308171, ey: -0.0059663, px: -0.3442696, py: 0.0150572, w: 0.0120275},
       {id: 117, ex: 0.0299107, ey: -0.0072243, px: -0.4062454, py: -0.0061834, w: 0.0118006},
       {id: 119, ex: 0.0282932, ey: -0.0058999, px: -0.2553175, py: -0.002124, w: 0.0110689}
+    ]
+  },
+  "ext_narine_ext_arrondi_angulaire": {
+    family: "chair",
+    lms: [
+      {id: 4, ex: 0.4849127, ey: -0.0353826, px: -0.2654655, py: 0.1302034, w: 0.1862205},
+      {id: 275, ex: 0.4861469, ey: -0.0336616, px: -0.2219264, py: 0.1302656, w: 0.1861978},
+      {id: 274, ex: 0.4809697, ey: -0.0325827, px: -0.2239801, py: 0.1888815, w: 0.1842006}
     ]
   },
   "ext_narine_ext_bas_haut": {
@@ -899,7 +941,7 @@ window.V7_SLIM = {
       {id: 288, ex: 0.0126187, ey: -0.0148649, px: 0.4452551, py: 0.4410896, w: 0.0112724}
     ]
   },
-  "paupiere_inf_centrale_plus_grande_petite": {
+  "paupiere_inf_centrale_plus_petite": {
     family: "chair",
     lms: [
       {id: 454, ex: -0.0359429, ey: 0.0205321, px: 0.5128792, py: 0.0010084, w: 0.0161455},
@@ -923,7 +965,7 @@ window.V7_SLIM = {
       {id: 67, ex: -0.0741023, ey: 0.0246479, px: -0.2644654, py: -0.6349975, w: 0.0302664}
     ]
   },
-  "paupiere_inf_ext_plus_grande_petite": {
+  "paupiere_inf_ext_plus_petite": {
     family: "chair",
     lms: [
       {id: 251, ex: -0.0136201, ey: 0.0084525, px: 0.4943361, py: -0.391286, w: 0.0080258},
@@ -945,14 +987,6 @@ window.V7_SLIM = {
       {id: 103, ex: -0.0432092, ey: 0.0051693, px: -0.3882107, py: -0.5771189, w: 0.0174763},
       {id: 67, ex: -0.0435382, ey: 0.0030849, px: -0.2742096, py: -0.635581, w: 0.0173465},
       {id: 104, ex: -0.0438737, ey: 0.0014238, px: -0.3538785, py: -0.4874387, w: 0.017338}
-    ]
-  },
-  "paupiere_inf_int_plus_grande_petite": {
-    family: "chair",
-    lms: [
-      {id: 332, ex: -0.0630276, ey: 0.0149137, px: 0.3706364, py: -0.5901247, w: 0.0247226},
-      {id: 284, ex: -0.063049, ey: 0.0139478, px: 0.4451578, py: -0.5067871, w: 0.0246751},
-      {id: 297, ex: -0.0620069, ey: 0.0161264, px: 0.2579457, py: -0.6445449, w: 0.0244577}
     ]
   },
   "paupiere_inf_int_plus_petite": {
@@ -1027,7 +1061,7 @@ window.V7_SLIM = {
       {id: 389, ex: -0.0446858, ey: 0.0241787, px: 0.5091143, py: -0.2854722, w: 0.0203664}
     ]
   },
-  "pli_paupieres_central_plus_grande_petite": {
+  "pli_paupieres_central_plus_petite": {
     family: "chair",
     lms: [
       {id: 155, ex: 0.0530376, ey: 0.0016174, px: -0.1730003, py: -0.1625465, w: 0.020298},
@@ -1051,7 +1085,7 @@ window.V7_SLIM = {
       {id: 136, ex: -0.0479351, ey: 0.0102072, px: -0.3714001, py: 0.6715602, w: 0.0187271}
     ]
   },
-  "pli_paupieres_ext_plus_grande_petite": {
+  "pli_paupieres_ext_plus_petite": {
     family: "chair",
     lms: [
       {id: 9, ex: 0.0191292, ey: -0.0217155, px: 0.0659479, py: -0.3499083, w: 0.0113215},
@@ -1067,6 +1101,14 @@ window.V7_SLIM = {
       {id: 234, ex: -0.0040436, ey: -0.0006111, px: -0.5608983, py: 0.0296453, w: 0.0078287}
     ]
   },
+  "pli_paupieres_int_arriere_avant": {
+    family: "chair",
+    lms: [
+      {id: 4, ex: 0.9661085, ey: 0.0077192, px: 0.1822897, py: 0.1331451, w: 0.3698036},
+      {id: 45, ex: 0.9680237, ey: 0.0043233, px: 0.1452748, py: 0.1363451, w: 0.3697256},
+      {id: 1, ex: 0.9569617, ey: 0.001227, px: 0.18202, py: 0.1912681, w: 0.3662399}
+    ]
+  },
   "pli_paupieres_int_bas_haut": {
     family: "chair",
     lms: [
@@ -1075,7 +1117,7 @@ window.V7_SLIM = {
       {id: 347, ex: 0.0204952, ey: -0.0021326, px: 0.3775543, py: 0.006645, w: 0.007976}
     ]
   },
-  "pli_paupieres_int_plus_grande_petite": {
+  "pli_paupieres_int_plus_petite": {
     family: "chair",
     lms: [
       {id: 297, ex: 0.0251033, ey: -0.0006251, px: 0.2701365, py: -0.6361969, w: 0.0120109},
@@ -1145,6 +1187,14 @@ window.V7_SLIM = {
       {id: 338, ex: -0.0006015, ey: -0.0163529, px: 0.1665732, py: -0.6635947, w: 0.0139072},
       {id: 297, ex: -0.0008144, ey: -0.0150144, px: 0.2848851, py: -0.6380106, w: 0.0138979},
       {id: 10, ex: -0.0008182, ey: -0.0168734, px: 0.0255479, py: -0.6677081, w: 0.0137752}
+    ]
+  },
+  "pointe_nez_sup_arriere_avant": {
+    family: "chair",
+    lms: [
+      {id: 275, ex: 0.9608176, ey: -0.1077819, px: -0.3828763, py: 0.1624379, w: 0.3713471},
+      {id: 4, ex: 0.9483107, ey: -0.1100991, px: -0.4198526, py: 0.1624618, w: 0.3684033},
+      {id: 274, ex: 0.947889, ey: -0.1025601, px: -0.3820243, py: 0.2188966, w: 0.3661324}
     ]
   },
   "pointe_nez_sup_bas_haut": {
