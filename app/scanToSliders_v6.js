@@ -1118,6 +1118,20 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   }
 
   // ════════════════════════════════════════════
+  // DEBUG HOOK — snapshot pré-DNA pour diagnostic batch
+  // ════════════════════════════════════════════
+  // No-op total en prod (bloc skipped si flag absente). Activable uniquement
+  // via window.__SMF_DEBUG_CAPTURE_PRE_DNA__ posée AVANT l'appel scan.
+  // Capture S/C/G + leurs _sources juste avant que la 2e passe DNA n'écrase.
+  if (typeof window !== 'undefined' && window.__SMF_DEBUG_CAPTURE_PRE_DNA__) {
+    results._pre_dna_snapshot = {
+      squelette: JSON.parse(JSON.stringify(S)),
+      chair:     JSON.parse(JSON.stringify(C)),
+      graisse:   JSON.parse(JSON.stringify(G)),
+    };
+  }
+
+  // ════════════════════════════════════════════
   // Phase 2.1 — 2e passe DNA (Squelette hors V7_SLIM + Chair + Graisse)
   // ════════════════════════════════════════════
   // Pour chaque slider dans S, C, G : si la DNA bestPreset est dispo, on écrase.

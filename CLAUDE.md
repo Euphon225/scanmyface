@@ -1,6 +1,54 @@
 # ScanMyFace.tech — FC26 PWA
 
 # ════════════════════════════════════════════════════════════
+# SESSION (7 juin 2026, soir) — DIAG 31 PRESETS (Phase 3.0 prep) 🔬
+# Outillage de diagnostic pour mesurer l'erreur du moteur de scan
+# (chaîne landmark→directScan) sur photos canoniques, AVANT de décider
+# Chantier B (normalisation) vs recalibration ciblée.
+# ════════════════════════════════════════════════════════════
+#
+# ▶ POURQUOI : Phase 2.5 round-trip (Δ=0) ne valide QUE la plomberie DNA.
+#   En jeu, KEITA Mode B → crane_reduire_elargir = 90 calculé par directScan
+#   a cassé le visage. Hypothèse : la conversion landmark→slider dérive sur
+#   certains sliders même en pose canonique. Le diag décide la priorité suivante.
+#
+# ▶ FICHIERS CRÉÉS :
+#   - app/scanToSliders_v6.js                       (modif minimale : 1 hook debug)
+#   - app/admin/smf_batch_diagnostic_presets.js     (script console pur, jamais en cache)
+#   - app/admin/analyze_diagnostic_batch.py         (3 CSV via stdlib uniquement)
+#   - app/admin/diag_output/README.md               (protocole de relance + lecture)
+#
+# ▶ HOOK DEBUG (scanToSliders_v6.js L1120 environ) :
+#   Bloc no-op total en prod sauf si `window.__SMF_DEBUG_CAPTURE_PRE_DNA__ = true`
+#   est posé AVANT l'appel. Capture S/C/G + leurs _sources juste avant la 2e
+#   passe DNA → permet de récupérer les valeurs PRE-DNA via S.sliders._pre_dna_snapshot.
+#   Aucun changement de source_counts en mode prod normal.
+#
+# ▶ PROTOCOLE (Alex en DevTools) :
+#   1. Ouvrir prod, scanner une photo normale (charge MediaPipe).
+#   2. Coller smf_batch_diagnostic_presets.js → smfBatchDiagnosticPresets()
+#      → sélectionner les 31 fichiers de app/assets/presets/ (9.png, 116.png, …).
+#   3. smfExportDiagnosticResults() → coller dans app/admin/diag_results_ALL.json.
+#   4. /usr/bin/python3 app/admin/analyze_diagnostic_batch.py
+#   5. Partager les 3 CSV pour interprétation et décision Chantier B vs recalibration.
+#
+# ▶ DÉCISION ATTENDUE DES CSV :
+#   - csv_1 mean_delta_pre_dna_directScan > 15 sur la majorité des presets →
+#     Chantier B (normalisation) prioritaire.
+#   - csv_1 mean_delta < 10 sur > 80% → scan OK sur canoniques, le bug KEITA
+#     vient d'ailleurs (pose, normalisation conditionnelle, etc.).
+#   - csv_2 top 20 = TODO recalibration ciblée si scan globalement OK.
+#
+# ▶ SW NON BUMPÉ : la logique de scan en prod normale est strictement identique.
+#   Cache reste v127. Aucun fichier prod chargé modifié hormis le hook minimal.
+#
+# ▶ FONCTIONS PROTÉGÉES : aucune touchée. softClampSlider, extractMorphRatios,
+#   computePresetScore, calculateMixAttributes, augmentAttributesWithCustomMetrics,
+#   et la signature de selectBestPreset sont intactes. PRESETS_DB_v4.js,
+#   presetMatch.js et calibration_v7_slim.js sont intacts.
+# ════════════════════════════════════════════════════════════
+
+# ════════════════════════════════════════════════════════════
 # SESSION (7 juin 2026) — PHASE 2.5 : INJECTION DNA CHAIR/GRAISSE DÉPLOYÉE ✅
 # 31 officiels EA reçoivent enfin une DNA chair (163) + graisse (37) flat,
 # format identique aux 10 célébrités, lue directement par lookupPresetDNAByFamily.
