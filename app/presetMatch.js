@@ -396,8 +396,123 @@ function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
         }
     }
 
+    // ── PHASE 4.0 — Mesures morphologiques par sous-onglet (v4.0.1, 5 ratios) ──
+    // Philtrum : zone trapézoïdale entre base du nez (L97-L2-L326) et arc de
+    // cupidon (L37-L0-L267). L167 / L393 = arches latérales philtrum (validées
+    // MediaPipe). L164 = sillon central pour profondeur Z.
+    // Tous les ratios XY sont normalisés par faceWidthRaw (= dist(L234, L454))
+    // pour rester invariants au cadrage. profondeur_z reste brute (axe Z déjà
+    // dimensionné par MediaPipe relativement à la taille du visage).
+    const L37_  = byIndex(37);
+    const L267_ = byIndex(267);
+    const L2_   = byIndex(2);
+    const L0_   = byIndex(0);
+    const L97_  = byIndex(97);
+    const L326_ = byIndex(326);
+    const L167_ = byIndex(167);
+    const L393_ = byIndex(393);
+    const L164_ = byIndex(164);
+    if (faceWidthRaw > 1e-6
+        && L37_ && L267_ && L2_ && L0_
+        && L97_ && L326_ && L167_ && L393_ && L164_) {
+        const largeur_sup    = distIdx(97, 326) / faceWidthRaw;
+        const largeur_milieu = distIdx(167, 393) / faceWidthRaw;
+        const largeur_inf    = distIdx(37, 267)  / faceWidthRaw;
+        const hauteur        = distIdx(2,  0)    / faceWidthRaw;
+        const profondeur_z   = L164_.z - (L2_.z + L0_.z) / 2;
+        attributes.philtrum = {
+            largeur_sup,
+            largeur_milieu,
+            largeur_inf,
+            hauteur,
+            profondeur_z,
+        };
+    }
+
+    // ── PHASE 4.0 / v4.1.0 — Ratios géométriques génériques (20 sous-onglets) ──
+    // Pour chaque zone de zone_definitions.json portant `landmarks_selected`
+    // (nouveau format mapper, v4.1+), `computeZoneGeometry()` produit 6 ratios
+    // invariants échelle/translation :
+    //   largeur_max  = (max_x - min_x) / faceW
+    //   hauteur_max  = (max_y - min_y) / faceH
+    //   aire_bbox    = largeur_max * hauteur_max          (sans dimension)
+    //   aspect_ratio = (max_y - min_y) / (max_x - min_x)  (null si dx≈0)
+    //   centroide_x  = (mean_x - cx_visage) / faceW       (~0 pour zones centrées)
+    //   dispersion   = sqrt(mean((p-mean)^2)) / faceW     (étalement radial normalisé)
+    // Si un seul landmark manque → ratios tous null (Mahalanobis les exclut
+    // tant que les 41 presets ne les ont pas, même pattern que bouche).
+    // Les clés philtrum / nez (5 ratios spécifiques) restent intactes et
+    // continuent d'alimenter le matching GLOBAL via computeGlobalDistance.
+    const _zdef = (typeof window !== 'undefined') ? window._zoneDefinitions : null;
+    if (_zdef && _zdef.zones
+        && faceWidthRaw > 1e-6 && faceHeightRaw > 1e-6
+        && byIndex(234) && byIndex(454)) {
+        const cxFace = (byIndex(234).x + byIndex(454).x) / 2;
+        for (const zoneKey of Object.keys(_zdef.zones)) {
+            const zone = _zdef.zones[zoneKey];
+            if (!zone || !Array.isArray(zone.landmarks_selected)) continue;
+            // Ne pas écraser une zone déjà calculée (philtrum / nez / etc.)
+            if (attributes[zoneKey] !== undefined) continue;
+            attributes[zoneKey] = computeZoneGeometry(
+                rawPoints, zone.landmarks_selected, faceWidthRaw, faceHeightRaw, cxFace
+            );
+        }
+    }
+
     return attributes;
 }
+
+// ─── computeZoneGeometry : 6 ratios géométriques universels ─────────────────
+// Générique, ne hardcode aucune zone : prend un nuage de landmarks identifié
+// par leurs indices MediaPipe et produit les 6 ratios normalisés.
+// `rawPoints` = dict {String(idx): {x,y,z}}, `landmarkIndices` = liste d'entiers.
+// Retourne {largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion}.
+// Si un landmark manque → toutes les valeurs à null (la Mahalanobis exclut
+// ces clés tant que les presets ne les ont pas, comme pour les mesures bouche).
+function computeZoneGeometry(rawPoints, landmarkIndices, faceW, faceH, cxFace) {
+    const nullOut = {
+        largeur_max: null, hauteur_max: null, aire_bbox: null,
+        aspect_ratio: null, centroide_x: null, dispersion: null,
+    };
+    if (!rawPoints || !Array.isArray(landmarkIndices) || landmarkIndices.length === 0) {
+        return nullOut;
+    }
+    if (!(faceW > 1e-6) || !(faceH > 1e-6)) return nullOut;
+
+    const pts = [];
+    for (let i = 0; i < landmarkIndices.length; i++) {
+        const p = rawPoints[String(landmarkIndices[i])];
+        if (!p) return nullOut; // un seul landmark manquant → tout à null
+        pts.push(p);
+    }
+    let minX = +Infinity, maxX = -Infinity;
+    let minY = +Infinity, maxY = -Infinity;
+    let sumX = 0, sumY = 0;
+    for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        if (p.x < minX) minX = p.x;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.y > maxY) maxY = p.y;
+        sumX += p.x; sumY += p.y;
+    }
+    const n = pts.length;
+    const meanX = sumX / n, meanY = sumY / n;
+    const dx = maxX - minX, dy = maxY - minY;
+    const largeur_max  = dx / faceW;
+    const hauteur_max  = dy / faceH;
+    const aire_bbox    = largeur_max * hauteur_max;
+    const aspect_ratio = (dx > 1e-12) ? (dy / dx) : null;
+    const centroide_x  = (meanX - cxFace) / faceW;
+    let sumSq = 0;
+    for (let i = 0; i < pts.length; i++) {
+        const ex = pts[i].x - meanX, ey = pts[i].y - meanY;
+        sumSq += ex * ex + ey * ey;
+    }
+    const dispersion = Math.sqrt(sumSq / n) / faceW;
+    return { largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion };
+}
+if (typeof window !== 'undefined') window.computeZoneGeometry = computeZoneGeometry;
 
 // ─── normalizeSkinToneLabel (OLD_script.js l.601) ───────────────────────────
 function normalizeSkinToneLabel(skinTone) {
@@ -838,3 +953,199 @@ function lookupPresetDNAByFamily(preset, family, flatKey) {
   return Number.isFinite(v) ? v : undefined;
 }
 window.lookupPresetDNAByFamily = lookupPresetDNAByFamily;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 4.0 — Matching par sous-onglet via ratios morphologiques
+// ═══════════════════════════════════════════════════════════════════════════
+// Au lieu d'inverser 163 sliders d'un coup (régression v8 = échec), on traite
+// chaque sous-onglet indépendamment :
+//   1. Layer 1 : best preset (officiel OU célébrité) sur les ratios de la zone.
+//   2. Layer 2 : si Layer 1 = célébrité, mapping pré-calculé vers l'officiel
+//                EA le plus proche (UI seulement).
+//   3. Application du baseline preset Layer 1 + delta % via régression locale
+//      slider = a + b*ratio1 + c*ratio2 + d*ratio3 (apprise au build sur 41 presets).
+// Les artifacts (zone_definitions, zone_regressions, celebrity_to_official) sont
+// chargés en async au démarrage. Si absents → matchZoneByStats retourne null
+// → fallback silencieux sur DNA pass2 (comportement pré-Phase 4.0).
+// ═══════════════════════════════════════════════════════════════════════════
+
+window._zoneDefinitions = null;
+window._zoneRegressions = null;
+window._celebrityToOfficialPerZone = null;
+window._zoneArtifactsReady = false;
+
+async function loadZoneArtifacts() {
+  const safeFetch = async (url) => {
+    try {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return await r.json();
+    } catch (e) {
+      console.warn(`[Phase 4.0] ${url} indispo (${e.message}) — fallback`);
+      return null;
+    }
+  };
+  const [defs, regs, c2o] = await Promise.all([
+    safeFetch('./zone_definitions.json'),
+    safeFetch('./zone_regressions.json'),
+    safeFetch('./celebrity_to_official_per_zone.json'),
+  ]);
+  window._zoneDefinitions = defs;
+  window._zoneRegressions = regs;
+  window._celebrityToOfficialPerZone = c2o;
+  window._zoneArtifactsReady = true;
+  const n = defs && defs.zones ? Object.keys(defs.zones).length : 0;
+  const m = regs && regs.zones ? Object.keys(regs.zones).length : 0;
+  console.log('[Phase 4.0] Zone artifacts loaded:',
+    `definitions=${n}`, `regressions=${m}`,
+    `c2o=${c2o ? Object.keys(c2o).filter(k => k !== '_meta').length : 0}`);
+}
+window.loadZoneArtifacts = loadZoneArtifacts;
+loadZoneArtifacts();
+
+// matchZoneByStats(userAttrs, zoneKey, allPresets) — retourne :
+//   {
+//     zone, best_preset_id_morpho, display_official_id, distance,
+//     sliders: { flat_key: value 0-100, ... }
+//   }
+// ou null si conditions non remplies (artifacts pas chargés, ratios manquants,
+// pas de preset matchable, etc.). L'appelant traite null comme "pas de match"
+// et garde le comportement par défaut sur les sliders concernés.
+function matchZoneByStats(userAttrs, zoneKey, allPresets) {
+  if (!userAttrs) return null;
+  if (!window._zoneDefinitions || !window._zoneRegressions) return null;
+
+  const zoneDef = window._zoneDefinitions.zones && window._zoneDefinitions.zones[zoneKey];
+  if (!zoneDef) return null;
+  const zoneReg = window._zoneRegressions.zones && window._zoneRegressions.zones[zoneKey];
+  if (!zoneReg) return null;
+
+  // v4.1.0 : pour les 20 nouvelles zones squelette, scanned_stats_key n'est
+  // pas pose (la cle stats == zoneKey). On retombe sur zoneKey si absent.
+  const statsKey = zoneDef.scanned_stats_key || zoneKey;
+  const userZoneStats = userAttrs[statsKey];
+  if (!userZoneStats) return null;
+
+  const ratios = zoneDef.ratios;
+  const means  = zoneReg.ratios_mean;
+  const stds   = zoneReg.ratios_std;
+
+  // Vecteur user standardisé (centré-réduit)
+  const userVec = [];
+  for (let i = 0; i < ratios.length; i++) {
+    const v = userZoneStats[ratios[i]];
+    if (typeof v !== 'number' || !Number.isFinite(v)) return null;
+    const s = stds[i] || 1;
+    userVec.push((v - means[i]) / s);
+  }
+
+  // Layer 1 — best preset (officiel ou célébrité) sur cette zone
+  let bestPreset = null, bestDist = Infinity;
+  if (!Array.isArray(allPresets)) return null;
+  for (let p_i = 0; p_i < allPresets.length; p_i++) {
+    const p = allPresets[p_i];
+    const pStats = p && p.scanned_stats && p.scanned_stats[statsKey];
+    if (!pStats) continue;
+    let d = 0, ok = true;
+    for (let i = 0; i < ratios.length; i++) {
+      const v = pStats[ratios[i]];
+      if (typeof v !== 'number' || !Number.isFinite(v)) { ok = false; break; }
+      const pn = (v - means[i]) / (stds[i] || 1);
+      const diff = userVec[i] - pn;
+      d += diff * diff;
+    }
+    if (!ok) continue;
+    d = Math.sqrt(d);
+    if (d < bestDist) { bestDist = d; bestPreset = p; }
+  }
+  if (!bestPreset) return null;
+
+  // Layer 2 — si célébrité, mapper sur officiel pour affichage UI
+  let displayOfficialId = bestPreset.preset_id;
+  const isCelebrity = bestPreset.entry_type === 'celebrity'
+                   || (typeof bestPreset.preset_id === 'number' && bestPreset.preset_id >= 10000);
+  if (isCelebrity && window._celebrityToOfficialPerZone
+      && window._celebrityToOfficialPerZone[zoneKey]) {
+    const mapping = window._celebrityToOfficialPerZone[zoneKey][String(bestPreset.preset_id)];
+    if (mapping && Number.isFinite(mapping.best_official)) {
+      displayOfficialId = mapping.best_official;
+    }
+  }
+
+  // Application des sliders
+  const family = zoneDef.family;
+  // v4.1.1 : lecture canonique de la DNA via lookupPresetDNAByFamily.
+  // - Squelette officiel : faconner.squelette n'existe pas (DNA dans preset.avance,
+  //   table DNA_KEY_MAP). lookupPresetDNAByFamily resoud ca via lookupPresetDNA.
+  // - Squelette celebrite, Chair/Graisse officiels (Notion v4) + celebrites :
+  //   faconner.<fam>[flatKey] flat. lookupPresetDNAByFamily resoud aussi ca.
+  // L'ancien acces direct `bestPreset.faconner[family][sliderKey]` retournait
+  // undefined pour le squelette officiel -> zone non couverte.
+  const baselineStats   = bestPreset.scanned_stats && bestPreset.scanned_stats[statsKey];
+  const targetRatios    = ratios.map(r => userZoneStats[r]);
+  const baselineRatios  = baselineStats ? ratios.map(r => baselineStats[r]) : null;
+  const noDelta = new Set(zoneDef.sliders_no_delta || []);
+  const _lookup = (typeof window !== 'undefined') ? window.lookupPresetDNAByFamily : null;
+
+  // v4.1.0 : les 20 nouvelles zones squelette n'ont pas de sliders associes
+  // (Mode A pur strict, usage diagnostique). Defaut [] -> finalSliders reste vide,
+  // aucun override de slider, mais l'objet de retour est bien rempli.
+  const finalSliders = {};
+  for (const sliderKey of (zoneDef.sliders || [])) {
+    let base;
+    if (typeof _lookup === 'function') {
+      base = _lookup(bestPreset, family, sliderKey);
+    } else {
+      // fallback ultime si lookupPresetDNAByFamily n'est pas dispo
+      const bs = (bestPreset.faconner && bestPreset.faconner[family]) || {};
+      base = bs[sliderKey];
+    }
+    if (typeof base !== 'number' || !Number.isFinite(base)) continue;
+
+    // PHASE 4.0 — delta désactivé temporairement (Mode A pur par zone).
+    // Les sliders viennent directement du preset matché par zone, sans
+    // correction via régression locale. À ré-activer quand on saura
+    // pourquoi la régression dégrade ; le bloc original est conservé
+    // ci-dessous en commentaire pour ré-activation rapide.
+    finalSliders[sliderKey] = base;
+
+    // ── bloc delta (désactivé) ────────────────────────────────────────────
+    // if (noDelta.has(sliderKey)) {
+    //   finalSliders[sliderKey] = base;
+    //   continue;
+    // }
+    // const reg = zoneReg.regressions && zoneReg.regressions[sliderKey];
+    // if (!reg || !Array.isArray(reg.coeffs) || reg.coeffs.length < (1 + ratios.length)
+    //     || !baselineRatios) {
+    //   finalSliders[sliderKey] = base;
+    //   continue;
+    // }
+    // const predict = (rs) => {
+    //   let v = reg.coeffs[0];
+    //   for (let i = 0; i < ratios.length; i++) v += reg.coeffs[i + 1] * rs[i];
+    //   return v;
+    // };
+    // const delta = predict(targetRatios) - predict(baselineRatios);
+    // finalSliders[sliderKey] = base + delta;
+  }
+
+  // v4.1.1 — confidence preparatoire (badges FIABLE / CORRECT / APPROX a caler
+  // ensuite avec Alex). Seuils heuristiques posés sur la distance euclidienne
+  // z-scoree de la zone (cf. diag_zone_discrimination : dist_mediane ~2.0-3.0
+  // toutes zones, paires confondues sous 0.5). Pas encore cable au rendu :
+  // _meta.zone_matches[zoneKey].confidence est expose, libre a l'UI de lire.
+  let confidence;
+  if      (bestDist < 0.8) confidence = 'FIABLE';
+  else if (bestDist < 2.0) confidence = 'CORRECT';
+  else                     confidence = 'APPROX';
+
+  return {
+    zone: zoneKey,
+    best_preset_id_morpho: bestPreset.preset_id,
+    display_official_id: displayOfficialId,
+    distance: bestDist,
+    confidence,
+    sliders: finalSliders,
+  };
+}
+window.matchZoneByStats = matchZoneByStats;

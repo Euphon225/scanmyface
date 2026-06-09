@@ -1,0 +1,3044 @@
+{
+  "_meta": {
+    "version": "4.3.0",
+    "n_zones": 22,
+    "created": "2026-06-09",
+    "notes": "v4.1.0 — Ajoute 20 sous-onglets squelette mappés via landmark_mapper.html (Alex, 8 juin). Format à 2 régimes :\n  • philtrum + nez (v4.0.x) gardent leurs ratios spécifiques (largeur_sup/milieu/inf/hauteur/profondeur_z et width/height/projection/narine/compacite_narines). Utilisés pour le matching GLOBAL computeGlobalDistance (présent dans `attributes.nez`).\n  • Les 20 nouvelles zones portent `landmarks_selected` + 6 ratios géométriques GÉNÉRIQUES (largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion) calculés par `computeZoneGeometry()` dans presetMatch.js. Utilisés UNIQUEMENT pour le matching PAR ZONE (Mode A pur via matchZoneByStats).\n  • 'nez > nez' (nouveau, clé `nez__nez`) coexiste avec la macro 'nez' (ancienne) — usages séparés, pas de conflit.\n  • Typos mapper corrigées : 'bouuche > bouche' → 'bouche__bouche', 'machoire > maxilaire' → 'machoire__maxillaire'.\n  • Clés canoniques : lowercase + accents strippés + ' > ' → '__', non-alnum → '_'. Même règle réplicable côté audit_labels_303.md (groupe canonique '__' zone canonique).",
+    "sliders_attached": "2026-06-09 : 20 zones squelette recoivent leurs slider_ids depuis audit_labels_303 (zone_sliders_squelette.json, vu 20/20, 88 sliders).",
+    "chair_attached": "2026-06-09 : 49 zones chair (prefix 'chair:') depuis zone_landmark_mappings (8).json + zone_sliders_chair.json (cleaned). 21 typos raw->clean resolues (levres/levre, paupieres/paupiere, fossete/fossette, oeil/il, et remap PLI EXT/INT -> PAUPIERE SUPERIEURE).",
+    "graisse_attached": "2026-06-09 : 17 zones graisse (prefix 'graisse:') depuis zone_landmark_mappings (10).json + zone_sliders_graisse.json (cleaned). 4 typos raw->clean resolues (levres/levre x2, joue/joues, cerne/cernes)."
+  },
+  "zones": {
+    "philtrum": {
+      "family": "chair",
+      "scanned_stats_key": "philtrum",
+      "ratios": [
+        "largeur_sup",
+        "largeur_milieu",
+        "largeur_inf",
+        "hauteur",
+        "profondeur_z"
+      ],
+      "sliders": [
+        "philtrum_reduire_elargir",
+        "philtrum_bas_haut",
+        "philtrum_arriere_avant",
+        "philtrum_arrondi_angulaire",
+        "philtrum_deplacement_gd"
+      ],
+      "sliders_no_delta": [
+        "philtrum_deplacement_gd"
+      ],
+      "notes": "R² < 0.3 sur tous sliders, variance intra-personne forte. Pilote conservé pour comparaison."
+    },
+    "nez": {
+      "family": "squelette",
+      "scanned_stats_key": "nez",
+      "ratios": [
+        "width",
+        "height",
+        "projection",
+        "narine",
+        "compacite_narines"
+      ],
+      "sliders": [
+        "nez_reduire_elargir",
+        "nez_bas_haut",
+        "nez_arriere_avant",
+        "nez_arrondi_angulaire",
+        "nez_deplacement_gd"
+      ],
+      "sliders_no_delta": [
+        "nez_deplacement_gd"
+      ],
+      "notes": "Test secondaire — grande zone. 5 ratios (évasement et ratio_pointe_base retirés du runtime). Attente R² > 0.5."
+    },
+    "nez__nez": {
+      "family": "squelette",
+      "groupe": "NEZ",
+      "zone": "NEZ",
+      "source_label": "NEZ > NEZ",
+      "landmarks_selected": [
+        2,
+        3,
+        49,
+        97,
+        98,
+        129,
+        195,
+        198,
+        236,
+        248,
+        278,
+        290,
+        294,
+        326,
+        360,
+        420,
+        456,
+        460
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "nez_reduire_elargir",
+        "nez_bas_haut",
+        "nez_arriere_avant",
+        "nez_arrondi_angulaire",
+        "nez_deplacement_gd"
+      ]
+    },
+    "nez__arete_du_nez_cotes": {
+      "family": "squelette",
+      "groupe": "NEZ",
+      "zone": "ARETE DU NEZ : COTES",
+      "source_label": "NEZ > ARETE DU NEZ : COTES",
+      "landmarks_selected": [
+        47,
+        114,
+        121,
+        126,
+        128,
+        174,
+        188,
+        198,
+        217,
+        236,
+        244,
+        245,
+        277,
+        343,
+        350,
+        355,
+        357,
+        399,
+        412,
+        437,
+        453,
+        464,
+        465
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "arete_nez_cotes_reduire_elargir",
+        "arete_nez_cotes_bas_haut",
+        "arete_nez_cotes_arriere_avant",
+        "arete_nez_cotes_arrondi_angulaire"
+      ]
+    },
+    "nez__arete_du_nez_partie_centrale": {
+      "family": "squelette",
+      "groupe": "NEZ",
+      "zone": "ARETE DU NEZ : PARTIE CENTRALE",
+      "source_label": "NEZ > ARETE DU NEZ : PARTIE CENTRALE",
+      "landmarks_selected": [
+        6,
+        122,
+        168,
+        193,
+        196,
+        197,
+        351,
+        412,
+        417,
+        419
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "arete_nez_centrale_reduire_elargir",
+        "arete_nez_centrale_bas_haut",
+        "arete_nez_centrale_arriere_avant",
+        "arete_nez_centrale_arrondi_angulaire",
+        "arete_nez_centrale_deplacement_gd"
+      ]
+    },
+    "nez__arete_du_nez_partie_superieure": {
+      "family": "squelette",
+      "groupe": "NEZ",
+      "zone": "ARETE DU NEZ : PARTIE SUPERIEURE",
+      "source_label": "NEZ > ARETE DU NEZ : PARTIE SUPERIEURE",
+      "landmarks_selected": [
+        8,
+        55,
+        168,
+        193,
+        285,
+        417
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "arete_nez_sup_reduire_elargir",
+        "arete_nez_sup_bas_haut",
+        "arete_nez_sup_arriere_avant",
+        "arete_nez_sup_arrondi_angulaire",
+        "arete_nez_sup_deplacement_gd"
+      ]
+    },
+    "yeux__yeux": {
+      "family": "squelette",
+      "groupe": "yeux",
+      "zone": "yeux",
+      "source_label": "yeux > yeux",
+      "landmarks_selected": [
+        7,
+        33,
+        130,
+        144,
+        145,
+        153,
+        154,
+        155,
+        157,
+        158,
+        159,
+        160,
+        161,
+        163,
+        173,
+        246,
+        249,
+        255,
+        263,
+        359,
+        373,
+        374,
+        380,
+        381,
+        382,
+        384,
+        385,
+        386,
+        387,
+        388,
+        390,
+        398,
+        466,
+        470,
+        472,
+        475,
+        477
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "yeux_reduire_elargir",
+        "yeux_bas_haut",
+        "yeux_arriere_avant",
+        "yeux_arrondi_angulaire"
+      ]
+    },
+    "yeux__orbites": {
+      "family": "squelette",
+      "groupe": "yeux",
+      "zone": "orbites",
+      "source_label": "yeux > orbites",
+      "landmarks_selected": [
+        27,
+        28,
+        29,
+        30,
+        31,
+        56,
+        113,
+        189,
+        190,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        228,
+        229,
+        230,
+        231,
+        232,
+        243,
+        257,
+        258,
+        259,
+        260,
+        261,
+        286,
+        341,
+        342,
+        414,
+        441,
+        442,
+        443,
+        444,
+        445,
+        448,
+        449,
+        450,
+        451,
+        452,
+        463,
+        467
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "orbites_reduire_elargir",
+        "orbites_bas_haut",
+        "orbites_arriere_avant",
+        "orbites_plus_grande_petite"
+      ]
+    },
+    "joues__joues": {
+      "family": "squelette",
+      "groupe": "joues",
+      "zone": "joues",
+      "source_label": "joues > joues",
+      "landmarks_selected": [
+        35,
+        50,
+        100,
+        101,
+        111,
+        116,
+        117,
+        118,
+        119,
+        120,
+        123,
+        127,
+        142,
+        143,
+        227,
+        265,
+        280,
+        323,
+        329,
+        330,
+        340,
+        345,
+        346,
+        347,
+        348,
+        349,
+        352,
+        366,
+        372,
+        376,
+        447,
+        454
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_reduire_elargir",
+        "joues_bas_haut",
+        "joues_arriere_avant",
+        "joues_arrondi_angulaire"
+      ]
+    },
+    "front__front_partie_inferieure": {
+      "family": "squelette",
+      "groupe": "front",
+      "zone": "front : partie inférieure",
+      "source_label": "front > front : partie inférieure",
+      "landmarks_selected": [
+        10,
+        108,
+        109,
+        151,
+        337,
+        338
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "front_inf_reduire_elargir",
+        "front_inf_bas_haut",
+        "front_inf_arriere_avant",
+        "front_inf_arrondi_angulaire"
+      ]
+    },
+    "sourcils__sourcils_partie_superieure_exterieure": {
+      "family": "squelette",
+      "groupe": "sourcils",
+      "zone": "sourcils : partie supérieure extérieure",
+      "source_label": "sourcils > sourcils : partie supérieure extérieure",
+      "landmarks_selected": [
+        46,
+        63,
+        66,
+        68,
+        70,
+        104,
+        105,
+        156,
+        293,
+        296,
+        298,
+        299,
+        300,
+        301,
+        333,
+        334,
+        368,
+        383
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "sourcils_ext_sup_reduire_elargir",
+        "sourcils_ext_sup_bas_haut",
+        "sourcils_ext_sup_arriere_avant",
+        "sourcils_ext_sup_arrondi_angulaire"
+      ]
+    },
+    "front__front_partie_superieure": {
+      "family": "squelette",
+      "groupe": "front",
+      "zone": "front : partie supérieure",
+      "source_label": "front > front : partie supérieure",
+      "landmarks_selected": [
+        10,
+        67,
+        69,
+        103,
+        104,
+        109,
+        297,
+        299,
+        332,
+        333,
+        338
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "front_sup_reduire_elargir",
+        "front_sup_arriere_avant",
+        "front_sup_neutre_haut",
+        "front_sup_arrondi_angulaire",
+        "front_sup_deplacement_gd"
+      ]
+    },
+    "menton__menton": {
+      "family": "squelette",
+      "groupe": "menton",
+      "zone": "menton",
+      "source_label": "menton > menton",
+      "landmarks_selected": [
+        32,
+        140,
+        148,
+        149,
+        152,
+        171,
+        175,
+        176,
+        194,
+        211,
+        262,
+        369,
+        377,
+        378,
+        396,
+        400,
+        418,
+        431
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "menton_reduire_elargir",
+        "menton_bas_haut",
+        "menton_arriere_avant",
+        "menton_arrondi_angulaire",
+        "menton_deplacement_gd"
+      ]
+    },
+    "bouche__exterieur_de_la_bouche_partie_sup": {
+      "family": "squelette",
+      "groupe": "bouche",
+      "zone": "Extérieur de la bouche : partie sup.",
+      "source_label": "bouche > Extérieur de la bouche : partie sup.",
+      "landmarks_selected": [
+        36,
+        203,
+        205,
+        206,
+        207,
+        216,
+        266,
+        279,
+        423,
+        425,
+        426,
+        427,
+        436
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "ext_bouche_sup_reduire_elargir",
+        "ext_bouche_sup_bas_haut",
+        "ext_bouche_sup_arriere_avant",
+        "ext_bouche_sup_arrondi_angulaire"
+      ]
+    },
+    "sourcils__sourcils": {
+      "family": "squelette",
+      "groupe": "sourcils",
+      "zone": "sourcils",
+      "source_label": "sourcils > sourcils",
+      "landmarks_selected": [
+        46,
+        52,
+        53,
+        55,
+        63,
+        65,
+        66,
+        70,
+        105,
+        107,
+        124,
+        222,
+        223,
+        224,
+        225,
+        276,
+        282,
+        283,
+        285,
+        293,
+        295,
+        296,
+        300,
+        334,
+        336,
+        353,
+        383
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "sourcils_reduire_elargir",
+        "sourcils_bas_haut",
+        "sourcils_arriere_avant",
+        "sourcils_arrondi_angulaire"
+      ]
+    },
+    "sourcils__sourcils_partie_centrale": {
+      "family": "squelette",
+      "groupe": "sourcils",
+      "zone": "sourcils : partie centrale",
+      "source_label": "sourcils > sourcils : partie centrale",
+      "landmarks_selected": [
+        9,
+        66,
+        107,
+        108,
+        151,
+        296,
+        336,
+        337
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "sourcils_central_reduire_elargir",
+        "sourcils_central_bas_haut",
+        "sourcils_central_arriere_avant",
+        "sourcils_central_arrondi_angulaire",
+        "sourcils_central_deplacement_gd"
+      ]
+    },
+    "machoire__mandibule": {
+      "family": "squelette",
+      "groupe": "machoire",
+      "zone": "mandibule",
+      "source_label": "machoire > mandibule",
+      "landmarks_selected": [
+        149,
+        150,
+        170,
+        176,
+        378,
+        379,
+        395,
+        400
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "mandibule_reduire_elargir",
+        "mandibule_bas_haut",
+        "mandibule_arriere_avant",
+        "mandibule_arrondi_angulaire"
+      ]
+    },
+    "bouche__bouche": {
+      "family": "squelette",
+      "groupe": "bouche",
+      "zone": "bouche",
+      "source_label": "bouche > bouche",
+      "landmarks_selected": [
+        18,
+        43,
+        57,
+        83,
+        92,
+        106,
+        164,
+        165,
+        167,
+        182,
+        186,
+        273,
+        287,
+        313,
+        322,
+        335,
+        391,
+        393,
+        406,
+        410,
+        424
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "bouche_reduire_elargir",
+        "bouche_bas_haut",
+        "bouche_arriere_avant",
+        "bouche_arrondi_angulaire",
+        "bouche_deplacement_gd"
+      ]
+    },
+    "machoire__maxillaire": {
+      "family": "squelette",
+      "groupe": "machoire",
+      "zone": "maxillaire",
+      "source_label": "machoire > maxillaire",
+      "landmarks_selected": [
+        202,
+        210,
+        211,
+        212,
+        214,
+        422,
+        430,
+        431,
+        432,
+        434
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "maxillaire_reduire_elargir",
+        "maxillaire_bas_haut",
+        "maxillaire_arriere_avant",
+        "maxillaire_arrondi_angulaire"
+      ]
+    },
+    "machoire__machoire": {
+      "family": "squelette",
+      "groupe": "machoire",
+      "zone": "machoire",
+      "source_label": "machoire > machoire",
+      "landmarks_selected": [
+        58,
+        93,
+        132,
+        135,
+        136,
+        137,
+        138,
+        150,
+        169,
+        172,
+        177,
+        213,
+        215,
+        227,
+        234,
+        288,
+        323,
+        361,
+        364,
+        365,
+        366,
+        367,
+        379,
+        394,
+        397,
+        401,
+        416,
+        433,
+        435
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "machoire_reduire_elargir",
+        "machoire_bas_haut",
+        "machoire_arriere_avant",
+        "machoire_arrondi_angulaire"
+      ]
+    },
+    "menton__menton_partie_superieure": {
+      "family": "squelette",
+      "groupe": "menton",
+      "zone": "menton : partie supérieure",
+      "source_label": "menton > menton : partie supérieure",
+      "landmarks_selected": [
+        18,
+        83,
+        199,
+        200,
+        201,
+        208,
+        313,
+        421,
+        428
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "menton_sup_reduire_elargir",
+        "menton_sup_bas_haut",
+        "menton_sup_arriere_avant",
+        "menton_sup_arrondi_angulaire",
+        "menton_sup_deplacement_gd"
+      ]
+    },
+    "tete__tempes": {
+      "family": "squelette",
+      "groupe": "tete",
+      "zone": "tempes",
+      "source_label": "tete > tempes",
+      "landmarks_selected": [
+        21,
+        54,
+        68,
+        71,
+        139,
+        162,
+        251,
+        264,
+        284,
+        298,
+        301,
+        356,
+        368,
+        389
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "tempes_reduire_elargir",
+        "tempes_bas_haut",
+        "tempes_arriere_avant",
+        "tempes_arrondi_angulaire"
+      ]
+    },
+    "chair:sourcils__sourcils_partie_centrale": {
+      "family": "chair",
+      "groupe": "SOURCILS",
+      "zone": "SOURCILS : PARTIE CENTRALE",
+      "source_label": "SOURCILS > SOURCILS : PARTIE CENTRALE",
+      "landmarks_selected": [
+        66,
+        69,
+        107,
+        108,
+        296,
+        299,
+        333,
+        336,
+        337
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "sourcils_central_bas_haut",
+        "sourcils_central_moins_plus"
+      ]
+    },
+    "chair:sourcils__espace_entre_les_sourcils": {
+      "family": "chair",
+      "groupe": "SOURCILS",
+      "zone": "ESPACE ENTRE LES SOURCILS",
+      "source_label": "SOURCILS > ESPACE ENTRE LES SOURCILS",
+      "landmarks_selected": [
+        8,
+        9,
+        108,
+        151,
+        168,
+        337
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "espace_sourcils_bas_haut",
+        "espace_sourcils_moins_plus"
+      ]
+    },
+    "chair:yeux__pli_des_paupieres_partie_centrale": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PLI DES PAUPIERES : PARTIE CENTRALE",
+      "source_label": "YEUX > PLI DES PAUPIERES : PARTIE CENTRALE",
+      "landmarks_selected": [
+        27,
+        28,
+        29,
+        222,
+        223,
+        224,
+        257,
+        258,
+        259,
+        442,
+        443,
+        444
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "pli_paupieres_central_reduire_elargir",
+        "pli_paupieres_central_bas_haut",
+        "pli_paupieres_central_arriere_avant",
+        "pli_paupieres_central_plus_petite"
+      ]
+    },
+    "chair:yeux__pli_des_paupieres_partie_exterieure": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PLI DES PAUPIERES : PARTIE EXTERIEURE",
+      "source_label": "YEUX > PLI DES PAUPIERES : PARTIE EXTERIEURE",
+      "landmarks_selected": [
+        29,
+        30,
+        113,
+        224,
+        225,
+        247,
+        260,
+        342,
+        445,
+        467
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "pli_paupieres_ext_reduire_elargir",
+        "pli_paupieres_ext_bas_haut",
+        "pli_paupieres_ext_arriere_avant",
+        "pli_paupieres_ext_plus_petite"
+      ]
+    },
+    "chair:yeux__pli_des_paupieres_partie_interieure": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PLI DES PAUPIERES : PARTIE INTERIEURE",
+      "source_label": "YEUX > PLI DES PAUPIERES : PARTIE INTERIEURE",
+      "landmarks_selected": [
+        56,
+        189,
+        190,
+        221,
+        286,
+        413,
+        414,
+        441
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "pli_paupieres_int_reduire_elargir",
+        "pli_paupieres_int_bas_haut",
+        "pli_paupieres_int_arriere_avant",
+        "pli_paupieres_int_plus_petite"
+      ]
+    },
+    "chair:yeux__paupiere_inferieure_partie_centrale": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PAUPIERES INFERIEURE : PARTIE CENTRALE",
+      "source_label": "YEUX > PAUPIERES INFERIEURE : PARTIE CENTRALE",
+      "landmarks_selected": [
+        23,
+        24,
+        144,
+        145,
+        253,
+        254,
+        373,
+        374,
+        472,
+        477
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_inf_centrale_reduire_elargir",
+        "paupiere_inf_centrale_bas_haut",
+        "paupiere_inf_centrale_plus_petite"
+      ]
+    },
+    "chair:yeux__paupiere_inferieure_partie_exterieure": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PAUPIERES INFERIEURE : PARTIE EXTERIEURE",
+      "source_label": "YEUX > PAUPIERES INFERIEURE : PARTIE EXTERIEURE",
+      "landmarks_selected": [
+        7,
+        25,
+        110,
+        163,
+        249,
+        255,
+        339,
+        390
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_inf_ext_reduire_elargir",
+        "paupiere_inf_ext_bas_haut",
+        "paupiere_inf_ext_plus_petite"
+      ]
+    },
+    "chair:yeux__paupiere_inferieure_partie_interieure": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PAUPIERES INFERIEURE : PARTIE INTERIEURE",
+      "source_label": "YEUX > PAUPIERES INFERIEURE : PARTIE INTERIEURE",
+      "landmarks_selected": [
+        22,
+        153,
+        154,
+        252,
+        380,
+        381
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_inf_int_reduire_elargir",
+        "paupiere_inf_int_bas_haut",
+        "paupiere_inf_int_plus_petite"
+      ]
+    },
+    "chair:yeux__paupiere_superieure_partie_centrale": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PAUPIERES SUPERIEURE : PARTIE CENTRALE",
+      "source_label": "YEUX > PAUPIERES SUPERIEURE : PARTIE CENTRALE",
+      "landmarks_selected": [
+        27,
+        28,
+        158,
+        159,
+        160,
+        257,
+        258,
+        385,
+        386,
+        387,
+        470,
+        475
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_sup_centrale_reduire_elargir",
+        "paupiere_sup_centrale_bas_haut",
+        "paupiere_sup_centrale_neutre_avant",
+        "paupiere_sup_centrale_plus_petite"
+      ]
+    },
+    "chair:yeux__paupiere_superieure_partie_ext": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PLI DES PAUPIERES : PARTIE EXT.",
+      "source_label": "YEUX > PLI DES PAUPIERES : PARTIE EXT.",
+      "landmarks_selected": [
+        29,
+        30,
+        33,
+        160,
+        161,
+        246,
+        259,
+        260,
+        263,
+        387,
+        388,
+        466
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_sup_ext_reduire_elargir",
+        "paupiere_sup_ext_bas_haut",
+        "paupiere_sup_ext_plus_petite"
+      ]
+    },
+    "chair:yeux__paupiere_superieure_partie_int": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "PLI DES PAUPIERES : PARTIE INT.",
+      "source_label": "YEUX > PLI DES PAUPIERES : PARTIE INT.",
+      "landmarks_selected": [
+        28,
+        56,
+        157,
+        158,
+        258,
+        286,
+        384,
+        385
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_sup_int_reduire_elargir",
+        "paupiere_sup_int_bas_haut",
+        "paupiere_sup_int_plus_petite"
+      ]
+    },
+    "chair:yeux__exterieur_du_coin_de_l_il": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "EXTERIEUR DU COIN DE L OEIL",
+      "source_label": "YEUX > EXTERIEUR DU COIN DE L OEIL",
+      "landmarks_selected": [
+        25,
+        33,
+        130,
+        247,
+        255,
+        263,
+        359,
+        446,
+        467
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "coin_oeil_ext_reduire_elargir",
+        "coin_oeil_ext_bas_haut",
+        "coin_oeil_ext_plus_petite"
+      ]
+    },
+    "chair:yeux__interieur_du_coin_de_l_il": {
+      "family": "chair",
+      "groupe": "YEUX",
+      "zone": "INTERIEUR DU COIN DE L OEIL",
+      "source_label": "YEUX > INTERIEUR DU COIN DE L OEIL",
+      "landmarks_selected": [
+        26,
+        154,
+        155,
+        157,
+        173,
+        256,
+        341,
+        362,
+        381,
+        382,
+        384,
+        398
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "coin_oeil_int_reduire_elargir",
+        "coin_oeil_int_bas_haut",
+        "coin_oeil_int_plus_petite"
+      ]
+    },
+    "chair:joues__joues": {
+      "family": "chair",
+      "groupe": "JOUES",
+      "zone": "JOUES",
+      "source_label": "JOUES > JOUES",
+      "landmarks_selected": [
+        147,
+        187,
+        192,
+        205,
+        207,
+        213,
+        376,
+        411,
+        416,
+        425,
+        427,
+        433
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_bas_haut",
+        "joues_moins_plus"
+      ]
+    },
+    "chair:joues__yeux_partie_interne_superieure": {
+      "family": "chair",
+      "groupe": "JOUES",
+      "zone": "YEUX : PARTIE INTERNE SUPERIEURE",
+      "source_label": "JOUES > YEUX : PARTIE INTERNE SUPERIEURE",
+      "landmarks_selected": [
+        50,
+        101,
+        112,
+        118,
+        119,
+        120,
+        230,
+        231,
+        232,
+        280,
+        330,
+        341,
+        347,
+        348,
+        349,
+        451,
+        452,
+        453
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_yeux_int_sup_bas_haut",
+        "joues_yeux_int_sup_moins_plus"
+      ]
+    },
+    "chair:joues__joues_partie_externe_superieure": {
+      "family": "chair",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE EXTERNE SUPERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE EXTERNE SUPERIEURE",
+      "landmarks_selected": [
+        111,
+        117,
+        118,
+        340,
+        346,
+        347
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_ext_sup_moins_plus"
+      ]
+    },
+    "chair:joues__joues_partie_interne_superieure": {
+      "family": "chair",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE INTERNE SUPERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE INTERNE SUPERIEURE",
+      "landmarks_selected": [
+        36,
+        49,
+        203,
+        205,
+        206,
+        207,
+        216,
+        266,
+        279,
+        371,
+        423,
+        425,
+        426,
+        427,
+        436
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_int_sup_moins_plus"
+      ]
+    },
+    "chair:joues__joues_partie_externe_inferieure": {
+      "family": "chair",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE EXTERNE INFERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE EXTERNE INFERIEURE",
+      "landmarks_selected": [
+        135,
+        136,
+        150,
+        169,
+        192,
+        214,
+        364,
+        365,
+        379,
+        394,
+        416,
+        434
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_ext_inf_neutre_moins"
+      ]
+    },
+    "chair:joues__joues_partie_interne_inferieure": {
+      "family": "chair",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE INTERNE INFERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE INTERNE INFERIEURE",
+      "landmarks_selected": [
+        210,
+        212,
+        214,
+        216,
+        430,
+        432,
+        434,
+        436
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_int_inf_neutre_moins"
+      ]
+    },
+    "chair:bouche__commissures_des_levres": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "COMMISSURES DES LEVRES",
+      "source_label": "BOUCHE > COMMISSURES DES LEVRES",
+      "landmarks_selected": [
+        61,
+        62,
+        76,
+        77,
+        78,
+        146,
+        184,
+        185,
+        291,
+        292,
+        306,
+        308,
+        375,
+        409
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "commissures_levres_reduire_elargir",
+        "commissures_levres_bas_haut",
+        "commissures_levres_arriere_avant",
+        "commissures_levres_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__espacement_entre_les_levres_centre": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "ESPACEMENT ENTRE LES LEVRES : CENTRE",
+      "source_label": "BOUCHE >ESPACEMENT ENTRE LES LEVRES : CENTRE",
+      "landmarks_selected": [
+        13,
+        14,
+        82,
+        87,
+        312,
+        317
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "espacement_levres_centre_reduire_elargir",
+        "espacement_levres_centre_bas_haut",
+        "espacement_levres_centre_arriere_avant",
+        "espacement_levres_centre_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__espacement_entre_les_levres_cotes": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "ESPACEMENT ENTRE LES LEVRES : CÔTÉS",
+      "source_label": "BOUCHE >ESPACEMENT ENTRE LES LEVRES : CÔTÉS",
+      "landmarks_selected": [
+        38,
+        41,
+        80,
+        81,
+        82,
+        87,
+        88,
+        178,
+        311,
+        312,
+        317,
+        319,
+        402
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "espacement_levres_cotes_reduire_elargir",
+        "espacement_levres_cotes_bas_haut",
+        "espacement_levres_cotes_arriere_avant",
+        "espacement_levres_cotes_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__levre_superieure_centre_superieur": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES SUPEIEURE : CENTRE SUPERIEURE",
+      "source_label": "BOUCHE >LEVRES SUPEIEURE : CENTRE SUPERIEURE",
+      "landmarks_selected": [
+        0,
+        37,
+        267
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_sup_centre_sup_reduire_elargir",
+        "levre_sup_centre_sup_bas_haut",
+        "levre_sup_centre_sup_arriere_avant",
+        "levre_sup_centre_sup_arrondi_angulaire",
+        "levre_sup_centre_sup_deplacement_gd"
+      ]
+    },
+    "chair:bouche__levre_superieure_cotes_superieurs": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES SUPERIEURE : COTES SUPERIEURE",
+      "source_label": "BOUCHE >LEVRES SUPERIEURE : COTES SUPERIEURE",
+      "landmarks_selected": [
+        37,
+        39,
+        72,
+        73,
+        267,
+        269,
+        302,
+        303
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_sup_cotes_sup_reduire_elargir",
+        "levre_sup_cotes_sup_bas_haut",
+        "levre_sup_cotes_sup_arriere_avant",
+        "levre_sup_cotes_sup_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__levre_superieure_coins_superieurs": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES SUPERIEURE : COIN SUPERIEURE",
+      "source_label": "BOUCHE >LEVRES SUPERIEURE : COIN SUPERIEURE",
+      "landmarks_selected": [
+        39,
+        40,
+        73,
+        74,
+        184,
+        185,
+        269,
+        270,
+        303,
+        304,
+        408,
+        409
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_sup_coins_sup_reduire_elargir",
+        "levre_sup_coins_sup_bas_haut",
+        "levre_sup_coins_sup_arriere_avant",
+        "levre_sup_coins_sup_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__levre_superieure_centre_inferieur": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES SUPERIEURE :CENTRE INFERIEUR",
+      "source_label": "BOUCHE >LEVRES SUPERIEURE :CENTRE INFERIEUR",
+      "landmarks_selected": [
+        11,
+        12,
+        38,
+        72,
+        268,
+        302
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_sup_centre_inf_reduire_elargir",
+        "levre_sup_centre_inf_bas_haut",
+        "levre_sup_centre_inf_arriere_avant",
+        "levre_sup_centre_inf_arrondi_angulaire",
+        "levre_sup_centre_inf_deplacement_gd"
+      ]
+    },
+    "chair:bouche__levre_superieure_cotes_inferieurs": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES SUPERIEURE :COTES INFERIEUR",
+      "source_label": "BOUCHE >LEVRES SUPERIEURE :COTES INFERIEUR",
+      "landmarks_selected": [
+        38,
+        41,
+        42,
+        72,
+        73,
+        74,
+        183,
+        184,
+        191,
+        268,
+        271,
+        272,
+        302,
+        303,
+        304,
+        310,
+        311,
+        318,
+        324,
+        325,
+        407,
+        415
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_sup_cotes_inf_reduire_elargir",
+        "levre_sup_cotes_inf_bas_haut",
+        "levre_sup_cotes_inf_arriere_avant",
+        "levre_sup_cotes_inf_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__epaisseur_de_la_levre_superieure": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "EPAISSEUR DE LA LEVRES SUPERIEURE",
+      "source_label": "BOUCHE >EPAISSEUR DE LA LEVRES SUPERIEURE",
+      "landmarks_selected": [
+        37,
+        39,
+        40,
+        92,
+        165,
+        167,
+        267,
+        269,
+        270,
+        322,
+        391,
+        393
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "epaisseur_levre_sup_reduire_elargir",
+        "epaisseur_levre_sup_bas_haut",
+        "epaisseur_levre_sup_arriere_avant",
+        "epaisseur_levre_sup_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__epaisseur_de_la_levre_inferieure": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "EPAISSEUR DE LA LEVRES INFERIEURE",
+      "source_label": "BOUCHE >EPAISSEUR DE LA LEVRES INFERIEURE",
+      "landmarks_selected": [
+        84,
+        91,
+        106,
+        181,
+        314,
+        321,
+        335,
+        405
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "epaisseur_levre_inf_reduire_elargir",
+        "epaisseur_levre_inf_bas_haut",
+        "epaisseur_levre_inf_arriere_avant",
+        "epaisseur_levre_inf_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__levre_inferieure_partie_sup_centrale": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES INFERIEURE : PARTIE SUP.CENTRALE",
+      "source_label": "BOUCHE > LEVRES INFERIEURE : PARTIE SUP.CENTRALE",
+      "landmarks_selected": [
+        15,
+        16,
+        85,
+        86,
+        315,
+        316
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_inf_centre_sup_reduire_elargir",
+        "levre_inf_centre_sup_bas_haut",
+        "levre_inf_centre_sup_arriere_avant",
+        "levre_inf_centre_sup_arrondi_angulaire",
+        "levre_inf_centre_sup_deplacement_gd"
+      ]
+    },
+    "chair:bouche__levre_inferieure_cotes_superieurs": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES INFERIEURE : COTES SUPERIEURS",
+      "source_label": "BOUCHE > LEVRES INFERIEURE : COTES SUPERIEURS",
+      "landmarks_selected": [
+        77,
+        85,
+        86,
+        89,
+        90,
+        179,
+        180,
+        307,
+        315,
+        316,
+        319,
+        320,
+        403,
+        404
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_inf_cotes_sup_reduire_elargir",
+        "levre_inf_cotes_sup_bas_haut",
+        "levre_inf_cotes_sup_arriere_avant",
+        "levre_inf_cotes_sup_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__levre_inferieure_partie_inf_centrale": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES INFERIEURE : PARTIE INF.CENTRALE",
+      "source_label": "BOUCHE > LEVRES INFERIEURE : PARTIE INF.CENTRALE",
+      "landmarks_selected": [
+        17,
+        84,
+        314
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_inf_centre_inf_reduire_elargir",
+        "levre_inf_centre_inf_bas_haut",
+        "levre_inf_centre_inf_arriere_avant",
+        "levre_inf_centre_inf_arrondi_angulaire",
+        "levre_inf_centre_inf_deplacement_gd"
+      ]
+    },
+    "chair:bouche__levre_inferieure_cotes_inferieurs": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES INFERIEURE : COTES INFERIEURS",
+      "source_label": "BOUCHE > LEVRES INFERIEURE : COTES INFERIEURS",
+      "landmarks_selected": [
+        84,
+        181,
+        314,
+        405
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_inf_cotes_inf_reduire_elargir",
+        "levre_inf_cotes_inf_bas_haut",
+        "levre_inf_cotes_inf_arriere_avant",
+        "levre_inf_cotes_inf_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__levre_inferieure_coins_inferieurs": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES INFERIEURE : COINS INFERIEURS",
+      "source_label": "BOUCHE > LEVRES INFERIEURE : COINS INFERIEURS",
+      "landmarks_selected": [
+        90,
+        91,
+        146,
+        180,
+        181,
+        320,
+        321,
+        404,
+        405
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levre_inf_coins_inf_reduire_elargir",
+        "levre_inf_coins_inf_bas_haut",
+        "levre_inf_coins_inf_arriere_avant",
+        "levre_inf_coins_inf_arrondi_angulaire"
+      ]
+    },
+    "chair:bouche__plis_du_coin_de_la_bouche": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "PLIS DU COIN DE LA BOUCHE",
+      "source_label": "BOUCHE >PLIS DU COIN DE LA BOUCHE",
+      "landmarks_selected": [
+        43,
+        57,
+        202,
+        204,
+        273,
+        424
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "plis_coin_bouche_neutre_moins"
+      ]
+    },
+    "chair:menton__fossette_mentonniere": {
+      "family": "chair",
+      "groupe": "MENTON",
+      "zone": "FOSSETE MENTONNIERE",
+      "source_label": "MENTON > FOSSETE MENTONNIERE",
+      "landmarks_selected": [
+        152,
+        171,
+        175,
+        199,
+        396
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "fossette_mentonniere_bas_haut",
+        "fossette_mentonniere_deplacement_gd"
+      ]
+    },
+    "chair:menton__menton_cotes": {
+      "family": "chair",
+      "groupe": "MENTON",
+      "zone": "MENTON : COTES",
+      "source_label": "MENTON > MENTON : COTES",
+      "landmarks_selected": [
+        32,
+        140,
+        149,
+        170,
+        176,
+        211,
+        262,
+        369,
+        378,
+        395,
+        400
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "menton_cotes_neutre_moins"
+      ]
+    },
+    "chair:machoire__machoire": {
+      "family": "chair",
+      "groupe": "MACHOIRE",
+      "zone": "MACHOIRE",
+      "source_label": "MACHOIRE > MACHOIRE",
+      "landmarks_selected": [
+        58,
+        132,
+        135,
+        136,
+        138,
+        147,
+        172,
+        177,
+        192,
+        213,
+        215,
+        288,
+        361,
+        364,
+        365,
+        367,
+        397,
+        401,
+        416,
+        433,
+        435
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "machoire_moins_plus"
+      ]
+    },
+    "chair:tete__tempes": {
+      "family": "chair",
+      "groupe": "TETE",
+      "zone": "TEMPES",
+      "source_label": "TETE > TEMPES",
+      "landmarks_selected": [
+        21,
+        54,
+        68,
+        70,
+        71,
+        103,
+        251,
+        284,
+        298,
+        301
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "tempes_moins_plus"
+      ]
+    },
+    "chair:bouche__philtrum": {
+      "family": "chair",
+      "groupe": "BOUCHE",
+      "zone": "PHILTRUM",
+      "source_label": "BOUCHE > PHILTRUM",
+      "landmarks_selected": [
+        0,
+        164,
+        167,
+        393
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "philtrum_reduire_elargir",
+        "philtrum_bas_haut",
+        "philtrum_arriere_avant",
+        "philtrum_arrondi_angulaire",
+        "philtrum_deplacement_gd"
+      ]
+    },
+    "chair:nez__pointe_du_nez_partie_inferieure": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "POINTE DU NEZ : PARTIE INFERIEURE",
+      "source_label": "NEZ > POINTE DU NEZ : PARTIE INFERIEURE",
+      "landmarks_selected": [
+        1,
+        4,
+        5,
+        44,
+        45,
+        51,
+        274,
+        275,
+        281
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "pointe_nez_inf_reduire_elargir",
+        "pointe_nez_inf_bas_haut",
+        "pointe_nez_inf_arriere_avant",
+        "pointe_nez_inf_arrondi_angulaire",
+        "pointe_nez_inf_deplacement_gd"
+      ]
+    },
+    "chair:nez__pointe_du_nez_partie_sous_jacente": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "POINTE DU NEZ : PARTIE SOUS - JACENTE",
+      "source_label": "NEZ > POINTE DU NEZ : PARTIE SOUS - JACENTE",
+      "landmarks_selected": [
+        2,
+        19,
+        94,
+        125,
+        141,
+        250,
+        354,
+        370,
+        461,
+        462
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "pointe_nez_sous_jacente_reduire_elargir",
+        "pointe_nez_sous_jacente_bas_haut",
+        "pointe_nez_sous_jacente_arriere_avant",
+        "pointe_nez_sous_jacente_arrondi_angulaire",
+        "pointe_nez_sous_jacente_deplacement_gd"
+      ]
+    },
+    "chair:nez__pointe_du_nez_partie_superieure": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "POINTE DU NEZ : PARTIE SUPERIEURE",
+      "source_label": "NEZ > POINTE DU NEZ : PARTIE SUPERIEURE",
+      "landmarks_selected": [
+        3,
+        5,
+        51,
+        195,
+        236,
+        248,
+        281,
+        456
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "pointe_nez_sup_reduire_elargir",
+        "pointe_nez_sup_bas_haut",
+        "pointe_nez_sup_arriere_avant",
+        "pointe_nez_sup_arrondi_angulaire",
+        "pointe_nez_sup_deplacement_gd"
+      ]
+    },
+    "chair:nez__narine_partie_inferieure": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "NARINE : PARTIE INFERIEURE",
+      "source_label": "NEZ > NARINE : PARTIE INFERIEURE",
+      "landmarks_selected": [
+        20,
+        60,
+        97,
+        99,
+        242,
+        250,
+        290,
+        326,
+        328,
+        458,
+        461,
+        462
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "narine_inf_reduire_elargir",
+        "narine_inf_bas_haut",
+        "narine_inf_arriere_avant",
+        "narine_inf_arrondi_angulaire"
+      ]
+    },
+    "chair:nez__exterieur_de_la_narine_partie_ext": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "EXTERIEUR DE LA NARINE : PARTIE EXT.",
+      "source_label": "NEZ > EXTERIEUR DE LA NARINE : PARTIE EXT.",
+      "landmarks_selected": [
+        49,
+        131,
+        134,
+        198,
+        209,
+        279,
+        360,
+        420,
+        429
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "ext_narine_ext_reduire_elargir",
+        "ext_narine_ext_bas_haut",
+        "ext_narine_ext_arriere_avant",
+        "ext_narine_ext_arrondi_angulaire"
+      ]
+    },
+    "chair:nez__exterieur_de_la_narine_partie_centrale": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "EXTERIEUR DE LA NARINE : PARTIE CENTRALE",
+      "source_label": "NEZ > EXTERIEUR DE LA NARINE : PARTIE CENTRALE",
+      "landmarks_selected": [
+        134,
+        236,
+        363,
+        456
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "ext_narine_centrale_reduire_elargir",
+        "ext_narine_centrale_bas_haut",
+        "ext_narine_centrale_arriere_avant",
+        "ext_narine_centrale_arrondi_angulaire"
+      ]
+    },
+    "chair:nez__narine_partie_superieure_centrale": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "NARINE : PARTIE SUPERIEURE CENTRALE",
+      "source_label": "NEZ > NARINE : PARTIE SUPERIEURE CENTRALE",
+      "landmarks_selected": [
+        134,
+        220,
+        237,
+        239,
+        363,
+        440,
+        457,
+        459
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "narine_sup_centrale_reduire_elargir",
+        "narine_sup_centrale_bas_haut",
+        "narine_sup_centrale_arriere_avant",
+        "narine_sup_centrale_arrondi_angulaire"
+      ]
+    },
+    "chair:nez__narine_partie_superieure_exterieure": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "NARINE : PARTIE SUPERIEURE EXTERIEURE",
+      "source_label": "NEZ > NARINE : PARTIE SUPERIEURE EXTERIEURE",
+      "landmarks_selected": [
+        59,
+        75,
+        166,
+        219,
+        235,
+        240,
+        289,
+        305,
+        392,
+        439,
+        455,
+        460
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "narine_sup_ext_reduire_elargir",
+        "narine_sup_ext_bas_haut",
+        "narine_sup_ext_arriere_avant",
+        "narine_sup_ext_arrondi_angulaire"
+      ]
+    },
+    "chair:nez__narine_partie_superieure": {
+      "family": "chair",
+      "groupe": "NEZ",
+      "zone": "NARINE : PARTIE SUPERIEURE",
+      "source_label": "NEZ > NARINE : PARTIE SUPERIEURE",
+      "landmarks_selected": [
+        79,
+        115,
+        166,
+        218,
+        309,
+        344,
+        392,
+        438
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "narine_sup_reduire_elargir",
+        "narine_sup_bas_haut",
+        "narine_sup_arriere_avant",
+        "narine_sup_arrondi_angulaire"
+      ]
+    },
+    "graisse:machoire__machoire": {
+      "family": "graisse",
+      "groupe": "MACHOIRE",
+      "zone": "MACHOIRE",
+      "source_label": "MACHOIRE > MACHOIRE",
+      "landmarks_selected": [
+        136,
+        149,
+        150,
+        176,
+        365,
+        378,
+        379
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "machoire_bas_haut",
+        "machoire_moins_plus"
+      ]
+    },
+    "graisse:menton__menton": {
+      "family": "graisse",
+      "groupe": "MENTON",
+      "zone": "MENTON",
+      "source_label": "MENTON > MENTON",
+      "landmarks_selected": [
+        32,
+        140,
+        148,
+        152,
+        171,
+        175,
+        176,
+        194,
+        199,
+        200,
+        201,
+        208,
+        262,
+        369,
+        377,
+        396,
+        400,
+        418,
+        421,
+        428
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "menton_bas_haut",
+        "menton_moins_plus"
+      ]
+    },
+    "graisse:bouche__levre_inferieure": {
+      "family": "graisse",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES INFERIEURE",
+      "source_label": "BOUCHE > LEVRES INFERIEURE",
+      "landmarks_selected": [
+        17,
+        43,
+        83,
+        84,
+        91,
+        106,
+        146,
+        181,
+        182,
+        273,
+        313,
+        314,
+        321,
+        335,
+        375,
+        405,
+        406
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levres_inf_bas_haut",
+        "levres_inf_moins_plus"
+      ]
+    },
+    "graisse:bouche__levre_superieure": {
+      "family": "graisse",
+      "groupe": "BOUCHE",
+      "zone": "LEVRES SUPERIEURE",
+      "source_label": "BOUCHE > LEVRES SUPERIEURE",
+      "landmarks_selected": [
+        92,
+        98,
+        165,
+        167,
+        203,
+        206,
+        294,
+        322,
+        327,
+        391,
+        393,
+        423
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "levres_sup_bas_haut",
+        "levres_sup_moins_plus"
+      ]
+    },
+    "graisse:bouche__cotes_de_la_bouche": {
+      "family": "graisse",
+      "groupe": "BOUCHE",
+      "zone": "COTES DE LA BOUCHE",
+      "source_label": "BOUCHE > COTES DE LA BOUCHE",
+      "landmarks_selected": [
+        43,
+        57,
+        92,
+        186,
+        202,
+        204,
+        210,
+        212,
+        214,
+        216,
+        273,
+        287,
+        291,
+        322,
+        410,
+        422,
+        424,
+        431,
+        432,
+        436
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "cotes_bouche_bas_haut",
+        "cotes_bouche_moins_plus"
+      ]
+    },
+    "graisse:joues__tempes": {
+      "family": "graisse",
+      "groupe": "JOUES",
+      "zone": "TEMPES",
+      "source_label": "JOUES > TEMPES",
+      "landmarks_selected": [
+        34,
+        35,
+        116,
+        123,
+        127,
+        137,
+        143,
+        156,
+        227,
+        234,
+        264,
+        356,
+        366,
+        372,
+        447,
+        454
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "tempes_bas_haut",
+        "tempes_moins_plus"
+      ]
+    },
+    "graisse:joues__joues_partie_interieure_inferieure": {
+      "family": "graisse",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE INTERIEURE  INFERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE INTERIEURE  INFERIEURE",
+      "landmarks_selected": [
+        203,
+        205,
+        206,
+        207,
+        216,
+        416,
+        425,
+        426,
+        427,
+        432,
+        436
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_int_inf_bas_haut",
+        "joues_int_inf_moins_plus"
+      ]
+    },
+    "graisse:joues__joues_partie_interieure_superieure": {
+      "family": "graisse",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE INTERIEURE  SUPERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE INTERIEURE  SUPERIEURE",
+      "landmarks_selected": [
+        36,
+        47,
+        100,
+        101,
+        114,
+        121,
+        126,
+        142,
+        203,
+        217,
+        266,
+        277,
+        329,
+        330,
+        343,
+        349,
+        350,
+        355,
+        371,
+        437
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_int_sup_bas_haut",
+        "joues_int_sup_moins_plus"
+      ]
+    },
+    "graisse:joues__joues_partie_inferieure": {
+      "family": "graisse",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE INFERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE INFERIEURE",
+      "landmarks_selected": [
+        135,
+        137,
+        138,
+        147,
+        177,
+        187,
+        192,
+        213,
+        215,
+        288,
+        361,
+        364,
+        367,
+        397,
+        416,
+        433,
+        435
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_inf_bas_haut",
+        "joues_inf_moins_plus"
+      ]
+    },
+    "graisse:joues__joues_partie_superieure": {
+      "family": "graisse",
+      "groupe": "JOUES",
+      "zone": "JOUES : PARTIE SUPERIEURE",
+      "source_label": "JOUES > JOUES : PARTIE SUPERIEURE",
+      "landmarks_selected": [
+        50,
+        100,
+        101,
+        116,
+        123,
+        187,
+        280,
+        330,
+        345,
+        349,
+        352,
+        366,
+        376,
+        411
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "joues_sup_bas_haut",
+        "joues_sup_moins_plus"
+      ]
+    },
+    "graisse:yeux__paupiere_inferieure": {
+      "family": "graisse",
+      "groupe": "YEUX",
+      "zone": "PAUPIERE INFERIEURE",
+      "source_label": "YEUX > PAUPIERE INFERIEURE",
+      "landmarks_selected": [
+        22,
+        23,
+        24,
+        25,
+        110,
+        228,
+        229,
+        230,
+        231,
+        252,
+        253,
+        254,
+        255,
+        261,
+        339,
+        448,
+        449,
+        450,
+        451
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_inf_bas_haut",
+        "paupiere_inf_moins_plus"
+      ]
+    },
+    "graisse:yeux__paupiere_superieure": {
+      "family": "graisse",
+      "groupe": "YEUX",
+      "zone": "PAUPIERE SUPERIEURE",
+      "source_label": "YEUX > PAUPIERE SUPERIEURE",
+      "landmarks_selected": [
+        27,
+        28,
+        29,
+        30,
+        46,
+        53,
+        113,
+        124,
+        222,
+        223,
+        224,
+        225,
+        257,
+        258,
+        259,
+        260,
+        276,
+        283,
+        300,
+        342,
+        353,
+        442,
+        443,
+        444,
+        445
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "paupiere_sup_bas_haut",
+        "paupiere_sup_moins_plus"
+      ]
+    },
+    "graisse:front__front_cotes": {
+      "family": "graisse",
+      "groupe": "FRONT",
+      "zone": "FRONT : COTES",
+      "source_label": "FRONT > FRONT : COTES",
+      "landmarks_selected": [
+        66,
+        67,
+        69,
+        103,
+        104,
+        105,
+        108,
+        109,
+        296,
+        297,
+        299,
+        332,
+        333,
+        334,
+        337,
+        338
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "front_cotes_bas_haut",
+        "front_cotes_moins_plus"
+      ]
+    },
+    "graisse:front__front_centre": {
+      "family": "graisse",
+      "groupe": "FRONT",
+      "zone": "FRONT : CENTRE",
+      "source_label": "FRONT > FRONT : CENTRE",
+      "landmarks_selected": [
+        8,
+        9,
+        10,
+        55,
+        107,
+        108,
+        109,
+        151,
+        285,
+        336,
+        337,
+        338
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "front_centre_bas_haut",
+        "front_centre_moins_plus"
+      ]
+    },
+    "graisse:yeux__cernes_partie_inferieure": {
+      "family": "graisse",
+      "groupe": "YEUX",
+      "zone": "CERNE : PARTIE INFERIEURE",
+      "source_label": "YEUX > CERNE : PARTIE INFERIEURE",
+      "landmarks_selected": [
+        31,
+        111,
+        117,
+        118,
+        119,
+        120,
+        228,
+        229,
+        230,
+        261,
+        340,
+        346,
+        347,
+        348,
+        349,
+        448,
+        449,
+        450,
+        451
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "cernes_inf_bas_haut",
+        "cernes_inf_moins_plus"
+      ]
+    },
+    "graisse:nez__nez": {
+      "family": "graisse",
+      "groupe": "NEZ",
+      "zone": "NEZ",
+      "source_label": "NEZ > NEZ",
+      "landmarks_selected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        19,
+        20,
+        44,
+        45,
+        51,
+        59,
+        60,
+        75,
+        79,
+        94,
+        97,
+        98,
+        99,
+        115,
+        125,
+        131,
+        134,
+        141,
+        166,
+        195,
+        218,
+        219,
+        220,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        248,
+        250,
+        274,
+        275,
+        281,
+        289,
+        290,
+        294,
+        305,
+        309,
+        326,
+        327,
+        328,
+        344,
+        354,
+        358,
+        360,
+        363,
+        370,
+        392,
+        420,
+        438,
+        439,
+        440,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460,
+        461,
+        462
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "nez_moins_plus"
+      ]
+    },
+    "graisse:joues__bajoue": {
+      "family": "graisse",
+      "groupe": "JOUE",
+      "zone": "BAJOUE",
+      "source_label": "JOUE > BAJOUE",
+      "landmarks_selected": [
+        135,
+        138,
+        169,
+        210,
+        212,
+        214,
+        364,
+        394,
+        422,
+        430,
+        432,
+        434
+      ],
+      "ratios": [
+        "largeur_max",
+        "hauteur_max",
+        "aire_bbox",
+        "aspect_ratio",
+        "centroide_x",
+        "dispersion"
+      ],
+      "sliders": [
+        "bajoue_bas_haut",
+        "bajoue_moins_plus"
+      ]
+    }
+  }
+}

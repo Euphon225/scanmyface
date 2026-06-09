@@ -127,6 +127,86 @@ function directScan(landmarks, key) {
 }
 
 // ─────────────────────────────────────────────
+// PHASE 3.1 — directScanRegressionChair(landmarks)
+// ─────────────────────────────────────────────
+// Calcule simultanément les 163 sliders Chair via régression multiple Ridge,
+// pré-calculée au build par build_regression_chair.py et stockée dans
+// window.V8_CHAIR (charged via index.html).
+//
+// Modèle :
+//   d_obs_norm[i] = (landmark.axis - mid_user_axis) / D_W_user
+//   delta[i]      = d_obs_norm[i] - V.ref_positions[i]
+//   s_chair[j]    = 50 + 50 * sum_i(P[j, i] * delta[i])
+//
+// P_flat est stocké row-major : P_flat[j * n_obs + i] = P[j, i].
+//
+// Retourne { flat_key: value 0-100 } pour les sliders mesurables, ou null
+// si V8_CHAIR absent / landmarks de référence (L234, L454) invalides.
+// Les sliders non mesurables ne sont PAS dans la sortie → leur valeur
+// d'origine est conservée par l'appelant.
+function directScanRegressionChair(landmarks) {
+  if (typeof window === 'undefined' || !window.V8_CHAIR || !landmarks) return null;
+  const V = window.V8_CHAIR;
+  const L234 = landmarks[234];
+  const L454 = landmarks[454];
+  if (!L234 || !L454) return null;
+
+  const mx = (L234.x + L454.x) / 2;
+  const my = (L234.y + L454.y) / 2;
+  const dxw = L234.x - L454.x;
+  const dyw = L234.y - L454.y;
+  const Dw  = Math.sqrt(dxw * dxw + dyw * dyw);
+  if (Dw < 1e-6) return null;
+
+  // Cache lazy : set des sliders non mesurables (à skipper).
+  let nonMesSet = V._nonMesSet;
+  if (!nonMesSet) {
+    nonMesSet = new Set(V.non_mesurable_sliders || []);
+    V._nonMesSet = nonMesSet;
+  }
+
+  const n_obs    = V.observations.length;
+  const n_slid   = V.slider_keys.length;
+  const refs     = V.ref_positions;
+  const P        = V.P_flat;
+  const obs      = V.observations;
+
+  // Pré-calcul du vecteur delta (n_obs)
+  // PATCH GF3 — DÉSACTIVÉ — testé empiriquement et nuisible : la normalisation
+  // par Dw_user est déjà invariante au cadrage. Voir CLAUDE.md session 8 juin
+  // pour l'analyse complète.
+  // const dwScale = V.meta.dw_baketime / Dw;
+  const d = new Float64Array(n_obs);
+  for (let i = 0; i < n_obs; i++) {
+    const pair = obs[i];
+    const lm_id = pair[0];
+    const node = landmarks[lm_id];
+    if (!node) {
+      d[i] = 0; // delta=0 = neutre, ne perturbe pas la prédiction
+      continue;
+    }
+    let norm;
+    if (pair[1] === 'x') norm = (node.x - mx) / Dw;
+    else                 norm = (node.y - my) / Dw;
+    // d[i] = (norm * dwScale) - refs[i];  // ← variant GF3 (nuisible, voir CLAUDE.md 8 juin)
+    d[i] = norm - refs[i];
+  }
+
+  const out = {};
+  for (let j = 0; j < n_slid; j++) {
+    const key = V.slider_keys[j];
+    if (nonMesSet.has(key)) continue;
+    let acc = 0;
+    const offset = j * n_obs;
+    for (let i = 0; i < n_obs; i++) {
+      acc += P[offset + i] * d[i];
+    }
+    out[key] = softClampSlider(50 + 50 * acc);
+  }
+  return out;
+}
+
+// ─────────────────────────────────────────────
 // FONCTION PRINCIPALE
 // ─────────────────────────────────────────────
 
@@ -1118,6 +1198,99 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   }
 
   // ════════════════════════════════════════════
+  // Phase 3.1 — Régression multiple Chair (override des sliders mesurables)
+  // ════════════════════════════════════════════
+  // S'exécute AVANT la 2e passe DNA et AVANT le snapshot debug : le snapshot
+  // capture donc l'état final pré-DNA, incluant l'override régression.
+  // Filet de sécurité : si V8_CHAIR pas chargé ou landmarks de réf invalides,
+  // chairRegression = null → on retombe automatiquement sur le comportement
+  // pré-3.1 (DNA pass 2 Chair s'applique).
+  const chairRegression = directScanRegressionChair(L);
+  let _chair_regression_n = 0;
+  if (chairRegression) {
+    for (const key in chairRegression) {
+      if (Object.prototype.hasOwnProperty.call(C, key)) {
+        C[key] = chairRegression[key];
+        if (C._sources) C._sources[key] = 'regression_chair';
+        _chair_regression_n++;
+      }
+    }
+    _ds_stats.regression_chair = _chair_regression_n;
+    console.log('[regression] chair override:', _chair_regression_n, 'sliders');
+  }
+
+  // ════════════════════════════════════════════
+  // PHASE 4.0 — Matching par sous-onglet via ratios morphologiques
+  // ════════════════════════════════════════════
+  // Pour chaque zone définie dans zone_definitions.json, on calcule un best
+  // preset Layer 1 sur les ratios morphologiques de cette zone, puis on
+  // applique baseline + delta via régression locale. Écrase les sources
+  // précédentes (auto / preset / regression v8) sur les sliders couverts.
+  // Filet de sécurité : si artifacts pas chargés ou userAttrs nuls,
+  // zoneResults reste vide → DNA pass2 prend le relais normalement.
+  const zoneCoveredSliders = new Set();
+  const zoneResults = {};
+  if (typeof window.matchZoneByStats === 'function'
+      && window._zoneDefinitions && window._zoneRegressions) {
+    let userAttrs = null;
+    try {
+      if (typeof window.calculateMixAttributes === 'function'
+          && typeof window.augmentAttributesWithCustomMetrics === 'function') {
+        userAttrs = window.calculateMixAttributes(landmarks);
+        userAttrs = window.augmentAttributesWithCustomMetrics(landmarks, userAttrs);
+      }
+    } catch (e) {
+      console.warn('[Phase 4.0] userAttrs compute fail:', e && e.message ? e.message : e);
+    }
+
+    if (userAttrs && Array.isArray(window.PRESETS_DB)) {
+      const FAMILY_OBJ = { squelette: S, chair: C, graisse: G };
+      const zoneDefs = (window._zoneDefinitions && window._zoneDefinitions.zones) || {};
+      for (const zoneKey in zoneDefs) {
+        const def = zoneDefs[zoneKey];
+        const target = FAMILY_OBJ[def && def.family];
+        if (!target) continue;
+        let r = null;
+        try {
+          r = window.matchZoneByStats(userAttrs, zoneKey, window.PRESETS_DB);
+        } catch (e) {
+          console.warn(`[Phase 4.0] zone ${zoneKey} match fail:`, e && e.message ? e.message : e);
+        }
+        if (!r) continue;
+        // display_id : officiel mappe via _celebrityToOfficialPerZone uniquement
+        // si Layer 1 est une celebrite (ID 5 chiffres, >= 10000), sinon null.
+        // Cohérent avec la règle d'identification présente plus haut (L1064-style).
+        const _morphoId = r.best_preset_id_morpho;
+        const _isCelebMorpho = (typeof _morphoId === 'number' && _morphoId >= 10000);
+        const _displayId = (_isCelebMorpho
+                              && typeof r.display_official_id === 'number'
+                              && r.display_official_id !== _morphoId)
+                            ? r.display_official_id : null;
+        zoneResults[zoneKey] = {
+          morpho_id: _morphoId,
+          display_id: _displayId,
+          distance: r.distance,
+          confidence: r.confidence || null,
+        };
+        if (!r.sliders) continue;
+        for (const sk in r.sliders) {
+          const v = softClampSlider(r.sliders[sk]);
+          target[sk] = v;
+          if (target._sources) target._sources[sk] = `zone:${zoneKey}`;
+          zoneCoveredSliders.add(`${def.family}:${sk}`);
+        }
+      }
+      if (Object.keys(zoneResults).length) {
+        _ds_stats.zone_matches = Object.keys(zoneResults).length;
+        _ds_stats.zone_covered_sliders = zoneCoveredSliders.size;
+        meta.zone_matches = zoneResults;
+        console.log('[Phase 4.0] zones matched:', Object.keys(zoneResults),
+                    '| sliders overridden:', zoneCoveredSliders.size);
+      }
+    }
+  }
+
+  // ════════════════════════════════════════════
   // DEBUG HOOK — snapshot pré-DNA pour diagnostic batch
   // ════════════════════════════════════════════
   // No-op total en prod (bloc skipped si flag absente). Activable uniquement
@@ -1139,6 +1312,12 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   // Chair / Graisse : via faconner.<family>[key] — célébrités uniquement
   // (les officiels n'ont pas la structure flat → lookup retourne undefined
   // → fallback comportement actuel).
+  //
+  // GF1 Phase 3.1 : skipper la famille Chair si la régression a réussi ET
+  // que window.__ENABLE_DNA_FALLBACK_CHAIR__ n'est pas true. Permet un
+  // rollback instantané sans redéploy (poser la flag en console).
+  const ENABLE_DNA_FALLBACK_CHAIR = (typeof window !== 'undefined' &&
+                                     window.__ENABLE_DNA_FALLBACK_CHAIR__ === true);
   if (bestPreset && typeof window.lookupPresetDNAByFamily === 'function') {
     const FAMILIES = [
       ['squelette', S],
@@ -1148,9 +1327,16 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
 
     for (const [familyName, target] of FAMILIES) {
       if (!target) continue;
+      if (familyName === 'chair' && chairRegression && !ENABLE_DNA_FALLBACK_CHAIR) {
+        _ds_stats.dna_chair_pass2_skipped_regression = (target ? Object.keys(target).filter(k => !k.startsWith('_')).length : 0);
+        continue;
+      }
 
       for (const key in target) {
         if (key.startsWith('_')) continue; // skip _sources, _meta, etc.
+
+        // PHASE 4.0 — preserve zone-matched values from DNA pass2 overwrite
+        if (zoneCoveredSliders.has(`${familyName}:${key}`)) continue;
 
         const dnaValue = window.lookupPresetDNAByFamily(bestPreset, familyName, key);
         if (!Number.isFinite(dnaValue)) continue;
@@ -1171,6 +1357,32 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
   }
 
   meta.source_counts = _ds_stats;
+
+  // Diag pose 3DDFA : stash le brut { pose, shape, expr } pose par script_spa.js
+  // dans window._lastTddfa apres le scan principal. Pas de raw (redondant avec
+  // shape+expr). Skipped silencieusement si 3DDFA a echoue ou n'a pas tourne.
+  // UNITES : pose.yaw/pitch/roll en DEGRES (run3DDFA.js L148-152 applique
+  // * 180/PI a la sortie de extractPose). tx/ty en pixels image source, scale
+  // = facteur d'echelle de la camera matrix.
+  const _tddfa = (typeof window !== 'undefined') ? window._lastTddfa : null;
+  if (_tddfa && _tddfa.pose) {
+    const _p = _tddfa.pose;
+    meta.pose3ddfa = {
+      yaw:   _p.yaw,
+      pitch: _p.pitch,
+      roll:  _p.roll,
+      tx:    _p.tx,
+      ty:    _p.ty,
+      scale: _p.scale,
+      shape: _tddfa.shape ? Array.from(_tddfa.shape) : null,  // 40 floats
+      expr:  _tddfa.expr  ? Array.from(_tddfa.expr)  : null,  // 10 floats
+    };
+  }
+
+  // Expose le dernier scan en global pour outils diag (stabilite zone_matches
+  // + pose3ddfa). Ne change rien au flow runtime — sert juste à inspecter en
+  // console : window.lastScanResult._meta.zone_matches / pose3ddfa
+  if (typeof window !== 'undefined') window.lastScanResult = results;
   console.log('[directScan] override:', _ds_stats);
 
   return results;

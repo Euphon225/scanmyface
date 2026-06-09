@@ -1,6 +1,87 @@
 # ScanMyFace.tech — FC26 PWA
 
 # ════════════════════════════════════════════════════════════
+# MONÉTISATION — DÉCISION ACTÉE (7 juin 2026)
+# Remplace l'ancien bloc "⚠️ À REDÉFINIR". Issu de 3 analyses
+# stratégiques convergentes. Seuls désaccords restants = à
+# trancher par 30j de données live, pas par plus d'analyse.
+# ════════════════════════════════════════════════════════════
+#
+# ▶ MODÈLE RETENU — Hybride "preuve gratuite → paiement sur l'intent"
+#
+#   Ni freemium large, ni hard paywall sec. On laisse circuler
+#   gratuitement ce qui nourrit la preuve sociale (carburant viral,
+#   seul canal d'acquisition sans budget marketing), on fait payer
+#   le cas "moi dans le jeu" où l'intent est maximal.
+#
+#   PALIERS :
+#     - Gratuit : avatars célébrités stylisés (PAS de likeness réel)
+#       utilisables + export filigrané partageable ; aperçu 1 zone
+#       (5/303 sliders) du scan custom.
+#     - Scan custom : A/B 3,99€ vs 5,99€  (JAMAIS 2,99€, plancher trop bas)
+#     - Pack 5 crédits : ~9,99€  (decoy qui rend le pack évident)
+#     - Pass Saison FC26 : 19,99€  (ancre haute)
+#     - Creator Pass : GRATUIT, seuil ~5-10K followers, contre crédit
+#       visible (handle + filigrane non retiré + lien bio, post sous 14j)
+#
+#   Stripe web only, PWA installable. Pas d'IAP en phase 1.
+#
+# ▶ COUPERET J30 (métrique unique go/no-go)
+#
+#   Revenu par visiteur (RPV) = revenu total ÷ visiteurs uniques.
+#     RPV ≥ 0,40€  → ça marche, scale acquisition (créateurs, SEO)
+#     RPV < 0,20€  → pivot (B2B licence, ou repositionnement)
+#     0,20-0,40€   → itère prix + copy avant de trancher
+#   Garder conversion gate→achat en diagnostic à côté (le RPV dit SI
+#   ça marche, la conversion dit POURQUOI quand ça ne marche pas).
+#
+# ▶ CIBLE TRAFIC RÉALISTE
+#
+#   ~10 000 visiteurs/mois pour atteindre l'objectif 2-5K€/mois.
+#   PAS 100 000. Conversion one-shot web réaliste = 2-8% (hypothèse
+#   de travail, pas benchmark prouvé). À 10k visiteurs × ~6% × ~7€
+#   panier ≈ 4 200€/mois. Toute projection bâtie sur le "10,7%"
+#   RevenueCat est gonflée 2-4× (c'est de l'abonnement mobile J35,
+#   pas du one-shot web — NON transférable).
+#
+# ▶ CE QU'ON IGNORE (fausses certitudes à ne pas re-débattre)
+#
+#   - "12% / 10,7% conversion" comme cible → non transférable
+#   - "3,99€ est le bon prix" → c'est un test, pas un optimum
+#   - "PWA = zéro friction" → faux. Web checkout convertit MOINS bien
+#     que l'IAP one-tap (18,1% vs 27,0%, test RevenueCat). On gagne la
+#     marge et le contrôle, PAS la conversion.
+#   - Pass 7j payant → pas de client réel. ABANDONNÉ.
+#   - Débat IAP vs web → prématuré tant que < 10k scans/mois. Web-first.
+#
+# ▶ RISQUES À GARDER AU MUR
+#
+#   1. DROIT À L'IMAGE (France, commercial) : reproduire Pogba/CR7/
+#      Zlatan = exposition réelle. Avatars stylisés non identifiables
+#      AVANT toute ouverture publique des célébrités.
+#   2. RISQUE PLATEFORME EA (existentiel) : si FC27 (~25 sept 2026)
+#      livre nativement le "Face Code Sharing System" demandé sur les
+#      forums EA, le produit est obsolète. La fenêtre FC26 est une
+#      COURSE contre EA, pas une rampe tranquille.
+#   → Le B2B (licence du moteur scan→sliders à FUTBin / fut.gg) est
+#     une ASSURANCE contre ce risque, pas un simple upside.
+#     Réf. : FUTBin racheté 105M€ par Better Collective (2022),
+#     13M€ de revenu sur 12 mois, ~50M visiteurs/mois.
+#
+# ▶ 3 PROCHAINS PAS (14 jours) — n'est plus une analyse, c'est exécuter
+#
+#   1. Flipper Stripe Live + instrumenter le funnel à 3 events :
+#      gate-view → checkout-start → purchase. (Sans ça, couperet J30
+#      impossible.)
+#   2. Ouvrir les avatars génériques en gratuit + export filigrané ;
+#      DM-seeding 20-50 micro-créateurs FC (5-50K followers) avec
+#      Creator Pass gratuit, calé sur UFC 6 (19 juin).
+#   3. Lancer l'A/B prix (3,99€ vs 5,99€ + pack 5 à 9,99€) sur le
+#      funnel live et figer le couperet RPV à 30 jours.
+#
+# ════════════════════════════════════════════════════════════
+
+# ════════════════════════════════════════════════════════════
 # SESSION (7 juin 2026, soir) — DIAG 31 PRESETS (Phase 3.0 prep) 🔬
 # Outillage de diagnostic pour mesurer l'erreur du moteur de scan
 # (chaîne landmark→directScan) sur photos canoniques, AVANT de décider

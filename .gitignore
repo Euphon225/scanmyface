@@ -103,3 +103,13 @@ app/admin/
 
 # Local validation artifacts
 ui_order_validation.json*.bak
+
+.DS_Store
+**/.DS_Store
+*.bak_before_*
+compare_pogba_zones.py
+compare_pose.py
+
+app/assets/presets/1000*.png
+app/assets/presets/10010.png
+app/calibration_v8_chair_k*.js

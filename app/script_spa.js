@@ -338,9 +338,33 @@ const P9 = {
   },
 };
 
-// Retourne la valeur effective : IA si calculée (≠50), sinon valeur preset 9
+// Retourne la valeur effective + source pour le badge a l'étape 4.
 // fam = 'S' (squelette), 'C' (chair), 'G' (graisse)
-function getVal(key, aiVal, fam) {
+//
+// v4.1.1 — source lue depuis _sources[key] (pose par scanToSliders) au lieu
+// d'etre inferee de "aiVal === 50". L'ancienne regle classait a tort un slider
+// DNA / zone match qui tombait a 50 par coincidence dans la branche P9.
+//
+// Sources connues (cf. scanToSliders_v6.js) :
+//   'auto'      = mesure 2D directe (faceRatio, taper, etc.)         -> AI
+//   'z3ddfa'    = profondeur Z calculee par 3DDFA                     -> AI
+//   'angle3ddfa'= arrondi/angle calcule par 3DDFA                     -> AI
+//   'directScan'= regression v7_slim                                  -> AI
+//   'regression_chair' = regression Chair v8                          -> AI
+//   'dna'       = DNA pass2 du bestPreset global (lookupPresetDNAByFamily) -> AI
+//   'zone:<zoneKey>' = valeur DNA du preset matche par zone (Phase 4.0) -> AI
+//   'preset'    = socle preset 9 / DNA bestPreset pour squelette       -> P9
+// Inconnue : on retombe sur l'ancienne heuristique (aiVal !== 50 -> AI).
+function getVal(key, aiVal, fam, src) {
+  if (typeof src === 'string') {
+    if (src === 'preset') {
+      // Socle preset 9 : la valeur dans S/C/G est deja la DNA P9 (ou neutre 50).
+      return { v: aiVal, src: 'p9' };
+    }
+    // Tous les autres marqueurs (auto, z3ddfa, dna, zone:*, etc.) = "AI".
+    return { v: aiVal, src: 'ai' };
+  }
+  // Fallback retro-compat (call-site qui n'a pas passe _sources) : ancienne regle.
   if (aiVal !== 50) return { v: aiVal, src: 'ai' };
   const p9 = (fam && P9[fam] && P9[fam][key] !== undefined) ? P9[fam][key]
            : (P9.S[key] !== undefined) ? P9.S[key]
@@ -349,6 +373,17 @@ function getVal(key, aiVal, fam) {
            : undefined;
   if (p9 !== undefined) return { v: p9, src: 'p9' };
   return { v: 50, src: 'neutral' };
+}
+
+// helper court — recupere la source pour une cle (fam = 'S'/'C'/'G').
+// Renvoie undefined si _sources absent (call avant scan ou famille manquante).
+function _srcOf(key, fam) {
+  if (!S || !S.sliders) return undefined;
+  const famObj = fam === 'S' ? S.sliders.squelette
+               : fam === 'C' ? S.sliders.chair
+               : fam === 'G' ? S.sliders.graisse : null;
+  if (!famObj || !famObj._sources) return undefined;
+  return famObj._sources[key];
 }
 
 // ─── ITA → CATÉGORIE FC26 ────────────────────────────────────────────
@@ -812,6 +847,10 @@ async function runAnalysis(dataUrl){
   }
   S.landmarks=lm;
   S.tddfa=tddfa;
+  // Expose le brut 3DDFA pour que scanToSliders puisse le stash dans
+  // results._meta.pose3ddfa sans ajouter d'argument a sa signature.
+  // null si 3DDFA a echoue (catch L801).
+  if(typeof window!=='undefined') window._lastTddfa = tddfa;
   if(chipMode)chipMode.textContent=`SCAN · ${elapsed}s`;
 
   drawMesh(lm);
@@ -1145,7 +1184,7 @@ function renderZoneSliders(zk){
     });
 
     const renderRow = ([key,aiVal]) => {
-      const {v,src} = getVal(key,aiVal,fam);
+      const {v,src} = getVal(key,aiVal,fam,_srcOf(key,fam));
       const isAI=src==='ai', isP9=src==='p9', isNeutral=src==='neutral';
       const lb=sliderLabel(key), parts=lb.split(' / ');
       const ml=parts.length>1?`${esc(parts[0])} <span>/</span> ${esc(parts[1])}`:esc(lb);
@@ -1184,9 +1223,9 @@ window.onCopyRecipe=function(){
   if(!S.sliders){toast(t('scan_wait'));return;}
   const{squelette,chair,graisse}=S.sliders;
   const lines=[`=== SCANMYFACE V2 · ${S.skinTone.toUpperCase()} ===`,
-    '','── SQUELETTE ──',...Object.entries(squelette).map(([k,v])=>{const{v:val}=getVal(k,v,'S');return`${k.replace(/_/g,' ')}: ${val}`;}),
-    '','── CHAIR ──',...Object.entries(chair).map(([k,v])=>{const{v:val}=getVal(k,v,'C');return`${k.replace(/_/g,' ')}: ${val}`;}),
-    '','── GRAISSE ──',...Object.entries(graisse).map(([k,v])=>{const{v:val}=getVal(k,v,'G');return`${k.replace(/_/g,' ')}: ${val}`;}),
+    '','── SQUELETTE ──',...Object.entries(squelette).filter(([k])=>!k.startsWith('_')).map(([k,v])=>{const{v:val}=getVal(k,v,'S',_srcOf(k,'S'));return`${k.replace(/_/g,' ')}: ${val}`;}),
+    '','── CHAIR ──',...Object.entries(chair).filter(([k])=>!k.startsWith('_')).map(([k,v])=>{const{v:val}=getVal(k,v,'C',_srcOf(k,'C'));return`${k.replace(/_/g,' ')}: ${val}`;}),
+    '','── GRAISSE ──',...Object.entries(graisse).filter(([k])=>!k.startsWith('_')).map(([k,v])=>{const{v:val}=getVal(k,v,'G',_srcOf(k,'G'));return`${k.replace(/_/g,' ')}: ${val}`;}),
   ];
   navigator.clipboard.writeText(lines.join('\n')).then(()=>toast(t('copied'))).catch(()=>toast('❌'));
 };
@@ -1205,8 +1244,8 @@ window.onSharePng=function(){
   let y=118;
   const drawF=(lb,co,data,fam)=>{
     ctx.fillStyle=co;ctx.font='bold 11px Inter,sans-serif';ctx.textAlign='left';ctx.fillText(`── ${lb} ──`,40,y);y+=20;
-    Object.entries(data).forEach(([k,v])=>{
-      const{v:val}=getVal(k,v,fam);
+    Object.entries(data).filter(([k])=>!k.startsWith('_')).forEach(([k,v])=>{
+      const{v:val}=getVal(k,v,fam,_srcOf(k,fam));
       if(val===50)return;if(y>1050)return;
       ctx.fillStyle='rgba(255,255,255,0.05)';ctx.fillRect(40,y-10,440,14);
       ctx.fillStyle=co;ctx.fillRect(40,y-10,(val/100)*440,14);

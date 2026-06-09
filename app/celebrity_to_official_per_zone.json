@@ -1,0 +1,89 @@
+{
+  "_meta": {
+    "version": "4.0"
+  },
+  "philtrum": {
+    "10001": {
+      "best_official": 226,
+      "distance": 1.6506
+    },
+    "10002": {
+      "best_official": 202,
+      "distance": 0.6888
+    },
+    "10003": {
+      "best_official": 99,
+      "distance": 1.6453
+    },
+    "10004": {
+      "best_official": 1003,
+      "distance": 2.6879
+    },
+    "10005": {
+      "best_official": 260,
+      "distance": 0.5367
+    },
+    "10006": {
+      "best_official": 268,
+      "distance": 2.4945
+    },
+    "10007": {
+      "best_official": 260,
+      "distance": 1.4894
+    },
+    "10008": {
+      "best_official": 134,
+      "distance": 1.3345
+    },
+    "10009": {
+      "best_official": 1003,
+      "distance": 0.9872
+    },
+    "10010": {
+      "best_official": 1002,
+      "distance": 1.1353
+    }
+  },
+  "nez": {
+    "10001": {
+      "best_official": 226,
+      "distance": 1.9391
+    },
+    "10002": {
+      "best_official": 33,
+      "distance": 1.0111
+    },
+    "10003": {
+      "best_official": 57,
+      "distance": 4.0396
+    },
+    "10004": {
+      "best_official": 151,
+      "distance": 0.8633
+    },
+    "10005": {
+      "best_official": 116,
+      "distance": 1.4547
+    },
+    "10006": {
+      "best_official": 170,
+      "distance": 1.4984
+    },
+    "10007": {
+      "best_official": 260,
+      "distance": 1.6056
+    },
+    "10008": {
+      "best_official": 33,
+      "distance": 2.0904
+    },
+    "10009": {
+      "best_official": 1002,
+      "distance": 2.5143
+    },
+    "10010": {
+      "best_official": 299,
+      "distance": 1.2201
+    }
+  }
+}

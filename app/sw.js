@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fc26-cranium-v128';
+const CACHE_NAME = 'fc26-cranium-v133';
 const ASSETS = [
   './',
   './app_index_v2.html',
@@ -6,9 +6,11 @@ const ASSETS = [
   './script_spa.js',
   './scanToSliders_v6.js',
   './calibration_v7_slim.js',
+  './calibration_v8_chair.js',
   './celebrities_to_inject.js',
   './PRESETS_DB_v4.js',
   './presetMatch.js',
+  './zone_definitions.json',
   './manifest.json',
   './run3DDFA.js',
   './run3DDFA_mesh.js',

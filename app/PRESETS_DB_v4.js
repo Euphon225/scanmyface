@@ -461,9 +461,7 @@ window.PRESETS_DB = [
     "height": 0.21711006895700763,
     "projection": 0.10232295144285843,
     "narine": 0.1383936533926579,
-    "evasement": 2.017374486372649,
-    "compacite_narines": 0.2037532213458045,
-    "ratio_pointe_base": 0.5560838362392357
+    "compacite_narines": 0.2037532213458045
    },
    "joues": {
     "width": 1.0611074579239477,
@@ -487,6 +485,701 @@ window.PRESETS_DB = [
     "width": 0.8566443441777617,
     "height": 0.16269058433859263,
     "angle": 0.28031087117136544
+   },
+   "philtrum": {
+    "largeur_sup": 0.1124589113284899,
+    "largeur_milieu": 0.1155826686403102,
+    "largeur_inf": 0.10699255102150385,
+    "hauteur": 0.09923029561441209,
+    "profondeur_z": 0.006537396460771561
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4589492114134391,
+    "hauteur_max": 0.20981937642279583,
+    "aire_bbox": 0.09629643734850168,
+    "aspect_ratio": 0.534203373770808,
+    "centroide_x": 0.018008934235544113,
+    "dispersion": 0.17854701494089445
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6451588254149739,
+    "hauteur_max": 0.16293795296355326,
+    "aire_bbox": 0.1051208583494863,
+    "aspect_ratio": 0.29510819905059793,
+    "centroide_x": 0.013654038039009338,
+    "dispersion": 0.2526895801889328
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2673395436983455,
+    "hauteur_max": 0.09447522984942155,
+    "aire_bbox": 0.02525696483874067,
+    "aspect_ratio": 0.4129337852040407,
+    "centroide_x": -0.017477768926934034,
+    "dispersion": 0.11503054825347238
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7091579642886858,
+    "hauteur_max": 0.12764022895009736,
+    "aire_bbox": 0.09051708492359282,
+    "aspect_ratio": 0.2103150019252113,
+    "centroide_x": -0.01716577393853765,
+    "dispersion": 0.26063225554299524
+   },
+   "joues__joues": {
+    "largeur_max": 1.005714853829839,
+    "hauteur_max": 0.24387025749929941,
+    "aire_bbox": 0.24526394037435312,
+    "aspect_ratio": 0.28334113865457605,
+    "centroide_x": 0.036767355441499304,
+    "dispersion": 0.38347271048048853
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9969840687828351,
+    "hauteur_max": 0.47067576644300513,
+    "aire_bbox": 0.46925624070582667,
+    "aspect_ratio": 0.551644487066282,
+    "centroide_x": -0.01307685687634069,
+    "dispersion": 0.45029691434601216
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5753304220889085,
+    "hauteur_max": 0.07924533161798172,
+    "aire_bbox": 0.045592250088348954,
+    "aspect_ratio": 0.16094667556168524,
+    "centroide_x": 0.014555661006670002,
+    "dispersion": 0.2361743533421616
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6646755024035801,
+    "hauteur_max": 0.1380016472095099,
+    "aire_bbox": 0.0917263141915026,
+    "aspect_ratio": 0.2426052865361848,
+    "centroide_x": 0.010470302778510668,
+    "dispersion": 0.27758450936625956
+   },
+   "menton__menton": {
+    "largeur_max": 0.45751172428724834,
+    "hauteur_max": 0.1553787401279917,
+    "aire_bbox": 0.07108759531353774,
+    "aspect_ratio": 0.396839624762228,
+    "centroide_x": 0.01460102970476006,
+    "dispersion": 0.16799544871318256
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17215755272320238,
+    "hauteur_max": 0.10635717254050352,
+    "aire_bbox": 0.018310190539132465,
+    "aspect_ratio": 0.721882253442008,
+    "centroide_x": 0.012799061359046005,
+    "dispersion": 0.0758818211658061
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.25881154470607765,
+    "hauteur_max": 0.12245023428053832,
+    "aire_bbox": 0.031691534283767225,
+    "aspect_ratio": 0.5528427747122314,
+    "centroide_x": -0.006669800685938994,
+    "dispersion": 0.10683819175861033
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12136034601678389,
+    "hauteur_max": 0.08442394401288254,
+    "aire_bbox": 0.010245719057505017,
+    "aspect_ratio": 0.8128576429606814,
+    "centroide_x": 0.00034722400301651307,
+    "dispersion": 0.05344300514896041
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17650280664222445,
+    "hauteur_max": 0.054372434811022156,
+    "aire_bbox": 0.009596887348116798,
+    "aspect_ratio": 0.3599588271221147,
+    "centroide_x": -0.00895085583980966,
+    "dispersion": 0.06593903035151089
+   },
+   "nez__nez": {
+    "largeur_max": 0.28455444281074266,
+    "hauteur_max": 0.17507781707674863,
+    "aire_bbox": 0.04981917068679533,
+    "aspect_ratio": 0.7189379596540478,
+    "centroide_x": 0.007453972992889801,
+    "dispersion": 0.11973813604448356
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8401168861273347,
+    "hauteur_max": 0.12524548130976018,
+    "aire_bbox": 0.10522084375947502,
+    "aspect_ratio": 0.17419994539182646,
+    "centroide_x": -0.03762442446112756,
+    "dispersion": 0.3043633280188213
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.411149749061579,
+    "hauteur_max": 0.11042290261558324,
+    "aire_bbox": 0.04540034870104822,
+    "aspect_ratio": 0.31382301602601714,
+    "centroide_x": -0.014580363105079503,
+    "dispersion": 0.14134114265651945
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8957931274645646,
+    "hauteur_max": 0.21438233218031322,
+    "aire_bbox": 0.19204221981694997,
+    "aspect_ratio": 0.2796449154967168,
+    "centroide_x": 0.028698564382780428,
+    "dispersion": 0.36553041369469974
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9982477392906806,
+    "hauteur_max": 0.2505500398507423,
+    "aire_bbox": 0.25011101086019344,
+    "aspect_ratio": 0.2932795648898753,
+    "centroide_x": 0.0613904318958795,
+    "dispersion": 0.45983889916079623
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7324973684105576,
+    "hauteur_max": 0.1620834989687656,
+    "aire_bbox": 0.11872573645739612,
+    "aspect_ratio": 0.25855824848828524,
+    "centroide_x": -0.007388535776287428,
+    "dispersion": 0.265008042888462
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6750613684289225,
+    "hauteur_max": 0.07112142892953867,
+    "aire_bbox": 0.04801132913779473,
+    "aspect_ratio": 0.12310703758106657,
+    "centroide_x": 0.00196896917301574,
+    "dispersion": 0.24939689930124445
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.35666136230944673,
+    "hauteur_max": 0.035666887585467794,
+    "aire_bbox": 0.012721000715570837,
+    "aspect_ratio": 0.11685163981747866,
+    "centroide_x": -0.008942601935070588,
+    "dispersion": 0.16517805190347143
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.31105420782602117,
+    "hauteur_max": 0.04767560208863374,
+    "aire_bbox": 0.014829696640308566,
+    "aspect_ratio": 0.17909595130767153,
+    "centroide_x": 0.010947270010121598,
+    "dispersion": 0.11571782990151086
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.36413962308156594,
+    "hauteur_max": 0.0900589533641191,
+    "aire_bbox": 0.032794033333130655,
+    "aspect_ratio": 0.28899120079792445,
+    "centroide_x": 0.006247503959429679,
+    "dispersion": 0.12718277626516153
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08548293751702285,
+    "hauteur_max": 0.002587508996188583,
+    "aire_bbox": 0.00022118786984592318,
+    "aspect_ratio": 0.035369432621388336,
+    "centroide_x": 0.008127147429122072,
+    "dispersion": 0.03436312380247906
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.233995183947096,
+    "hauteur_max": 0.02231884340349108,
+    "aire_bbox": 0.005222501867686326,
+    "aspect_ratio": 0.1114526575653409,
+    "centroide_x": -0.009498717420774135,
+    "dispersion": 0.07837990152651693
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2873264086396748,
+    "hauteur_max": 0.025905964957922276,
+    "aire_bbox": 0.0074434678737050715,
+    "aspect_ratio": 0.10535372404621868,
+    "centroide_x": -0.006132926009416744,
+    "dispersion": 0.11623653474089737
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.18651740080155382,
+    "hauteur_max": 0.009986264016527927,
+    "aire_bbox": 0.001862612008080874,
+    "aspect_ratio": 0.06256181669635408,
+    "centroide_x": 0.010307223159452355,
+    "dispersion": 0.07434610090636819
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.30361724734704654,
+    "hauteur_max": 0.019896400430888382,
+    "aire_bbox": 0.0060408903309409215,
+    "aspect_ratio": 0.0765726604955941,
+    "centroide_x": 0.01042286628796597,
+    "dispersion": 0.10222605499696122
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.0963709763374977,
+    "hauteur_max": 0.0035460163358274526,
+    "aire_bbox": 0.0003417330563924077,
+    "aspect_ratio": 0.04299521604886536,
+    "centroide_x": 0.009585123162276974,
+    "dispersion": 0.039389324948443674
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09404965216870527,
+    "hauteur_max": 0.01990598550428477,
+    "aire_bbox": 0.0018721510127532718,
+    "aspect_ratio": 0.24731596497013666,
+    "centroide_x": 0.008636517711238894,
+    "dispersion": 0.03890681922777427
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10343833419307655,
+    "hauteur_max": 0.021116469677247937,
+    "aire_bbox": 0.0021842524474531395,
+    "aspect_ratio": 0.23854233038900896,
+    "centroide_x": 0.006778955808535198,
+    "dispersion": 0.04184254524003328
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10693071282772137,
+    "hauteur_max": 0.00997796924147336,
+    "aire_bbox": 0.0010669513635638247,
+    "aspect_ratio": 0.10903485775806937,
+    "centroide_x": 0.0055119378410324014,
+    "dispersion": 0.04392533741434315
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.331310305447563,
+    "hauteur_max": 0.05177755268145173,
+    "aire_bbox": 0.01715443679421906,
+    "aspect_ratio": 0.18261322942071512,
+    "centroide_x": 0.00991167548010675,
+    "dispersion": 0.13740039508499233
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.30602111825559214,
+    "hauteur_max": 0.04936810485643452,
+    "aire_bbox": 0.015107682654325423,
+    "aspect_ratio": 0.18850406522089896,
+    "centroide_x": 0.029766534006614692,
+    "dispersion": 0.11443261326190851
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.21503231858168703,
+    "hauteur_max": 0.0377783686576915,
+    "aire_bbox": 0.008123570204697138,
+    "aspect_ratio": 0.20528873807447184,
+    "centroide_x": 0.006773914426598218,
+    "dispersion": 0.08294258657419488
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11551799685617203,
+    "hauteur_max": 0.054533261282913484,
+    "aire_bbox": 0.006299573105436408,
+    "aspect_ratio": 0.5516167991799821,
+    "centroide_x": 0.004168893051848857,
+    "dispersion": 0.048948058290689496
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.43291753433597807,
+    "hauteur_max": 0.0934946491917208,
+    "aire_bbox": 0.040475473001687017,
+    "aspect_ratio": 0.25235228561762424,
+    "centroide_x": -0.06692039422382187,
+    "dispersion": 0.19620929483631006
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8728975264927552,
+    "hauteur_max": 0.16620369806670363,
+    "aire_bbox": 0.14507879693637432,
+    "aspect_ratio": 0.22248620197881183,
+    "centroide_x": 0.004842181164101706,
+    "dispersion": 0.381050871347669
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7733832586137762,
+    "hauteur_max": 0.23299663688026734,
+    "aire_bbox": 0.1801956982765119,
+    "aspect_ratio": 0.3520307072541223,
+    "centroide_x": 0.011030198162838427,
+    "dispersion": 0.34886397195830066
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8051136761402237,
+    "hauteur_max": 0.049417781342594655,
+    "aire_bbox": 0.039786931603430144,
+    "aspect_ratio": 0.07172188612831523,
+    "centroide_x": -0.003909294414376567,
+    "dispersion": 0.366293635782922
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6646755024035801,
+    "hauteur_max": 0.173367803117166,
+    "aire_bbox": 0.11523333163750726,
+    "aspect_ratio": 0.30477857621173754,
+    "centroide_x": 0.008955338563935199,
+    "dispersion": 0.29596995149689964
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6451588254149739,
+    "hauteur_max": 0.18744283825059188,
+    "aire_bbox": 0.12093040135820081,
+    "aspect_ratio": 0.3394906921006797,
+    "centroide_x": 0.013404199500398952,
+    "dispersion": 0.24406538296533273
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6896465104140758,
+    "hauteur_max": 0.18529366203395353,
+    "aire_bbox": 0.12778712742356116,
+    "aspect_ratio": 0.31394941921339076,
+    "centroide_x": -0.009937976521489367,
+    "dispersion": 0.23524573718724434
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9578362909165324,
+    "hauteur_max": 0.2844355784111582,
+    "aire_bbox": 0.2724427194300423,
+    "aspect_ratio": 0.34699106635600485,
+    "centroide_x": -0.012338211934145103,
+    "dispersion": 0.43193891914563737
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18779146369085553,
+    "hauteur_max": 0.08216850251137846,
+    "aire_bbox": 0.015430543355897499,
+    "aspect_ratio": 0.5112757420650884,
+    "centroide_x": 0.015298689357520538,
+    "dispersion": 0.06675601447270368
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4758367774332338,
+    "hauteur_max": 0.11663025144558492,
+    "aire_bbox": 0.05549696299909489,
+    "aspect_ratio": 0.2864038612609436,
+    "centroide_x": -0.005858128643242103,
+    "dispersion": 0.20223128120397726
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1498879177328871,
+    "hauteur_max": 0.03660760724082298,
+    "aire_bbox": 0.005487038022510317,
+    "aspect_ratio": 0.28538449849170844,
+    "centroide_x": -0.0034929709465412948,
+    "dispersion": 0.07389597671212744
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2728221979981934,
+    "hauteur_max": 0.05853880815676396,
+    "aire_bbox": 0.015970686309522916,
+    "aspect_ratio": 0.2507204940846656,
+    "centroide_x": -0.010156297301873706,
+    "dispersion": 0.11539887948980244
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13423332969539362,
+    "hauteur_max": 0.03186944740131969,
+    "aire_bbox": 0.004277942040231351,
+    "aspect_ratio": 0.2774213191372092,
+    "centroide_x": 0.007650479943228532,
+    "dispersion": 0.05108680752289645
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.2185659436629404,
+    "hauteur_max": 0.03814748614761974,
+    "aire_bbox": 0.008337741308223455,
+    "aspect_ratio": 0.2039431364902109,
+    "centroide_x": -0.00016474347702204582,
+    "dispersion": 0.09905307726854719
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15377062990730406,
+    "hauteur_max": 0.07625985774750847,
+    "aire_bbox": 0.01172652636247578,
+    "aspect_ratio": 0.5794930875576036,
+    "centroide_x": -0.0014298947646087358,
+    "dispersion": 0.07802353006576135
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.24159562250949568,
+    "hauteur_max": 0.031456091111100426,
+    "aire_bbox": 0.007599653913701721,
+    "aspect_ratio": 0.15213927962014326,
+    "centroide_x": 0.00111536368595045,
+    "dispersion": 0.10813547967792062
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08160027918914194,
+    "hauteur_max": 0.08939684598643009,
+    "aire_bbox": 0.007294807591121419,
+    "aspect_ratio": 1.2801363051768384,
+    "centroide_x": -0.002748431901207323,
+    "dispersion": 0.05130065112550053
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.060656345916193136,
+    "hauteur_max": 0.029035491421843185,
+    "aire_bbox": 0.0017611868115299787,
+    "aspect_ratio": 0.5593435049584231,
+    "centroide_x": 0.011110075011846113,
+    "dispersion": 0.02203736892145628
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13502433530985802,
+    "hauteur_max": 0.04368093058652148,
+    "aire_bbox": 0.005897988618161109,
+    "aspect_ratio": 0.37801192146841356,
+    "centroide_x": -0.004415967882479894,
+    "dispersion": 0.04676300951631392
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23341401828358924,
+    "hauteur_max": 0.20253790030531135,
+    "aire_bbox": 0.04727518516498372,
+    "aspect_ratio": 1.0139231304966478,
+    "centroide_x": -0.0130229014093747,
+    "dispersion": 0.1171138057591569
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5444457182575446,
+    "hauteur_max": 0.10893449739620845,
+    "aire_bbox": 0.05930892067790333,
+    "aspect_ratio": 0.23379569487402066,
+    "centroide_x": 0.02037044672377659,
+    "dispersion": 0.19734213647669308
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9419761706509647,
+    "hauteur_max": 0.18026366435878038,
+    "aire_bbox": 0.16980407626019475,
+    "aspect_ratio": 0.22361140018311715,
+    "centroide_x": -0.08796102510619586,
+    "dispersion": 0.4215043710020322
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7097439761404364,
+    "hauteur_max": 0.05411055032971602,
+    "aire_bbox": 0.038404637142159845,
+    "aspect_ratio": 0.08908526951112317,
+    "centroide_x": 0.03337026292656019,
+    "dispersion": 0.3304872688232905
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.334649652226775,
+    "hauteur_max": 0.05272251188850148,
+    "aire_bbox": 0.017643570268009032,
+    "aspect_ratio": 0.18409050024795337,
+    "centroide_x": 0.01565592073926053,
+    "dispersion": 0.14870032909129083
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5356401942185137,
+    "hauteur_max": 0.03228197421403349,
+    "aire_bbox": 0.01729152293776195,
+    "aspect_ratio": 0.07042268671036327,
+    "centroide_x": -0.0047779700673132326,
+    "dispersion": 0.24411538659940468
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6375687253874944,
+    "hauteur_max": 0.03790878095438275,
+    "aire_bbox": 0.024169453154079534,
+    "aspect_ratio": 0.06947658700940959,
+    "centroide_x": -0.006152108090013374,
+    "dispersion": 0.3011102108197124
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.38968662748810834,
+    "hauteur_max": 0.028852361221471796,
+    "aire_bbox": 0.011243379339464022,
+    "aspect_ratio": 0.08651502158495263,
+    "centroide_x": -0.005131027445067717,
+    "dispersion": 0.18259766497921878
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5423583572878569,
+    "hauteur_max": 0.04360194589516854,
+    "aire_bbox": 0.023647879750257624,
+    "aspect_ratio": 0.09393884096757264,
+    "centroide_x": -0.008451222806293892,
+    "dispersion": 0.23473367477873405
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.64965872658551,
+    "hauteur_max": 0.06340512227086031,
+    "aire_bbox": 0.04119169099348567,
+    "aspect_ratio": 0.11404197511729171,
+    "centroide_x": -0.0088410313423396,
+    "dispersion": 0.3017300358082639
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4061012055353057,
+    "hauteur_max": 0.047807120355332265,
+    "aire_bbox": 0.019414529209471884,
+    "aspect_ratio": 0.1375574032071278,
+    "centroide_x": -0.008319222510397059,
+    "dispersion": 0.18452460652696456
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6274098225115712,
+    "hauteur_max": 0.02991777899514731,
+    "aire_bbox": 0.018770708409285786,
+    "aspect_ratio": 0.05571904941153369,
+    "centroide_x": -0.01037330632081052,
+    "dispersion": 0.2580821638733321
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7300673280854953,
+    "hauteur_max": 0.0516781075449642,
+    "aire_bbox": 0.037728497895866894,
+    "aspect_ratio": 0.08271215772895371,
+    "centroide_x": -0.07049894347009557,
+    "dispersion": 0.33265255128273635
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.31509172879156033,
+    "hauteur_max": 0.040030400085006475,
+    "aire_bbox": 0.012613247967002514,
+    "aspect_ratio": 0.14844944906250565,
+    "centroide_x": -0.007264368869324375,
+    "dispersion": 0.12852356622422187
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6080550082103088,
+    "hauteur_max": 0.2073108521179602,
+    "aire_bbox": 0.1260564018866724,
+    "aspect_ratio": 0.3983866982750299,
+    "centroide_x": -0.0008534541346397028,
+    "dispersion": 0.24328606702898928
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.38794986131459336,
+    "hauteur_max": 0.08374893365177533,
+    "aire_bbox": 0.03249038719545132,
+    "aspect_ratio": 0.252248938614233,
+    "centroide_x": 0.011369526627158656,
+    "dispersion": 0.12721566079132587
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4088692944136428,
+    "hauteur_max": 0.11400541596165079,
+    "aire_bbox": 0.046613313983574,
+    "aspect_ratio": 0.32581167995239974,
+    "centroide_x": -0.0037781646374790553,
+    "dispersion": 0.1568066262151889
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2673395436983455,
+    "hauteur_max": 0.24976825730184937,
+    "aire_bbox": 0.06677293193740737,
+    "aspect_ratio": 1.0916909339713128,
+    "centroide_x": -0.014529662104184113,
+    "dispersion": 0.14368136160858558
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7091579642886858,
+    "hauteur_max": 0.19358728503642977,
+    "aire_bbox": 0.13728396496860812,
+    "aspect_ratio": 0.31897710118532424,
+    "centroide_x": -0.01643385510710062,
+    "dispersion": 0.2612441313682364
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7644628260668306,
+    "hauteur_max": 0.15389462054239508,
+    "aire_bbox": 0.11764671653632186,
+    "aspect_ratio": 0.235230011609441,
+    "centroide_x": -0.003644616253671001,
+    "dispersion": 0.3185887505137729
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9671370415475463,
+    "hauteur_max": 0.28507851564205444,
+    "aire_bbox": 0.27570999222682246,
+    "aspect_ratio": 0.34443092192751745,
+    "centroide_x": -0.018489011097069966,
+    "dispersion": 0.433090940598523
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7116488511994761,
+    "hauteur_max": 0.17128811868265145,
+    "aire_bbox": 0.12189699288462842,
+    "aspect_ratio": 0.28124651470516354,
+    "centroide_x": 0.0487120558922784,
+    "dispersion": 0.2848145397948631
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.48592347210432413,
+    "hauteur_max": 0.1821815545976472,
+    "aire_bbox": 0.08852629356345222,
+    "aspect_ratio": 0.4380888383927314,
+    "centroide_x": -0.0027164715888867586,
+    "dispersion": 0.17011857109954362
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.936463308444397,
+    "hauteur_max": 0.2130659513791534,
+    "aire_bbox": 0.199528445745375,
+    "aspect_ratio": 0.2658575205656977,
+    "centroide_x": 0.06579272852747638,
+    "dispersion": 0.3729059324287424
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.005714853829839,
+    "hauteur_max": 0.2464043573605533,
+    "aire_bbox": 0.24781252224590428,
+    "aspect_ratio": 0.2862853875659225,
+    "centroide_x": -0.1113085910167682,
+    "dispersion": 0.46733017354980017
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7060714269961934,
+    "hauteur_max": 0.10546069168543937,
+    "aire_bbox": 0.07446278107034376,
+    "aspect_ratio": 0.1745290163050035,
+    "centroide_x": -0.009358454886745741,
+    "dispersion": 0.28125740964780643
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3477868608577453,
+    "hauteur_max": 0.1553787401279917,
+    "aire_bbox": 0.054038684273145614,
+    "aspect_ratio": 0.5220403684678998,
+    "centroide_x": 0.014378287824619147,
+    "dispersion": 0.12940823058636522
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2695138668237419,
+    "hauteur_max": 0.17507781707674863,
+    "aire_bbox": 0.047185899475414274,
+    "aspect_ratio": 0.7590592385312779,
+    "centroide_x": 0.005245882370399973,
+    "dispersion": 0.0932349625031071
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8051136761402237,
+    "hauteur_max": 0.07769254972776676,
+    "aire_bbox": 0.06255133432002943,
+    "aspect_ratio": 0.11275812173685068,
+    "centroide_x": 0.00553713990925245,
+    "dispersion": 0.3050446707023316
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6885770105151996,
+    "hauteur_max": 0.06065683288486404,
+    "aire_bbox": 0.041766900655179726,
+    "aspect_ratio": 0.10293258370029859,
+    "centroide_x": 0.014089602233052815,
+    "dispersion": 0.2703442625411473
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8036792582665874,
+    "hauteur_max": 0.08044641504588305,
+    "aire_bbox": 0.06465311517428132,
+    "aspect_ratio": 0.11696329590845544,
+    "centroide_x": 0.006071437094343302,
+    "dispersion": 0.31815764034714916
    }
   },
   "notes": ""
@@ -953,9 +1646,7 @@ window.PRESETS_DB = [
     "height": 0.22325499595988535,
     "projection": 0.09109571811667734,
     "narine": 0.1310009878231933,
-    "evasement": 2.0375052855881703,
-    "compacite_narines": 0.17920715953531782,
-    "ratio_pointe_base": 0.5640315088988596
+    "compacite_narines": 0.17920715953531782
    },
    "joues": {
     "width": 1.078946049267703,
@@ -979,6 +1670,701 @@ window.PRESETS_DB = [
     "width": 0.8817154001007957,
     "height": 0.19913158315952068,
     "angle": 0.321812540736235
+   },
+   "philtrum": {
+    "largeur_sup": 0.11526170712803022,
+    "largeur_milieu": 0.1199211553367733,
+    "largeur_inf": 0.11487235474571131,
+    "hauteur": 0.08193813013789968,
+    "profondeur_z": 0.006710231304168701
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4700393273015861,
+    "hauteur_max": 0.2264458164017122,
+    "aire_bbox": 0.10643843921171928,
+    "aspect_ratio": 0.547369154137171,
+    "centroide_x": 0.0007444386365096485,
+    "dispersion": 0.18457691965273404
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6451757134361314,
+    "hauteur_max": 0.15695634539133055,
+    "aire_bbox": 0.10126442211617954,
+    "aspect_ratio": 0.2764083011836174,
+    "centroide_x": 4.742114662019252e-05,
+    "dispersion": 0.25347972811067565
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.26298932302330935,
+    "hauteur_max": 0.09194263090551456,
+    "aire_bbox": 0.024179930258823274,
+    "aspect_ratio": 0.3972180949450147,
+    "centroide_x": -0.03285182738010784,
+    "dispersion": 0.11272117348263798
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6956350481967397,
+    "hauteur_max": 0.11595270479927455,
+    "aire_bbox": 0.08066076539158569,
+    "aspect_ratio": 0.1893867726974882,
+    "centroide_x": -0.02987921112237204,
+    "dispersion": 0.25661150457470355
+   },
+   "joues__joues": {
+    "largeur_max": 1.0035060710818589,
+    "hauteur_max": 0.24510910410579562,
+    "aire_bbox": 0.24596847404760128,
+    "aspect_ratio": 0.2775170388651286,
+    "centroide_x": 0.029497267136081293,
+    "dispersion": 0.38499080215083537
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9983875818181039,
+    "hauteur_max": 0.47412842731918864,
+    "aire_bbox": 0.4733639340224254,
+    "aspect_ratio": 0.5395690609585305,
+    "centroide_x": -0.017768286413063435,
+    "dispersion": 0.4523525586368943
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5809799318204633,
+    "hauteur_max": 0.08496925188999829,
+    "aire_bbox": 0.049365430169886974,
+    "aspect_ratio": 0.16616933346139404,
+    "centroide_x": 0.0003592977009996725,
+    "dispersion": 0.23926833871866762
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6677697881772393,
+    "hauteur_max": 0.1423680279804794,
+    "aire_bbox": 0.095069067887736,
+    "aspect_ratio": 0.24223445560002335,
+    "centroide_x": -0.004406745541436203,
+    "dispersion": 0.2799952585105191
+   },
+   "menton__menton": {
+    "largeur_max": 0.4638540811176279,
+    "hauteur_max": 0.15557083598865196,
+    "aire_bbox": 0.07216216717621735,
+    "aspect_ratio": 0.38106320693148565,
+    "centroide_x": -0.0028621941292565063,
+    "dispersion": 0.16968382178626615
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17511543575786684,
+    "hauteur_max": 0.09911671331137342,
+    "aire_bbox": 0.017356866442408716,
+    "aspect_ratio": 0.6430913645292005,
+    "centroide_x": -0.005706174189044934,
+    "dispersion": 0.07389869530537237
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.256783176824155,
+    "hauteur_max": 0.13630933870946615,
+    "aire_bbox": 0.03500194502461649,
+    "aspect_ratio": 0.60312767648708,
+    "centroide_x": -0.02079830251871516,
+    "dispersion": 0.10740929852324123
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11925478164834347,
+    "hauteur_max": 0.09354949912695881,
+    "aire_bbox": 0.01115622509169737,
+    "aspect_ratio": 0.8912835265222283,
+    "centroide_x": -0.0155591850237223,
+    "dispersion": 0.0556355460695591
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17742974732009043,
+    "hauteur_max": 0.06447321600042784,
+    "aire_bbox": 0.011439466423869522,
+    "aspect_ratio": 0.41286029103715904,
+    "centroide_x": -0.024674843322280364,
+    "dispersion": 0.06702638331896188
+   },
+   "nez__nez": {
+    "largeur_max": 0.28919779099480464,
+    "hauteur_max": 0.17402207311424617,
+    "aire_bbox": 0.05032679912897638,
+    "aspect_ratio": 0.6836905566274963,
+    "centroide_x": -0.00679341424328443,
+    "dispersion": 0.11951994166094769
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8417090818751294,
+    "hauteur_max": 0.14126438095836366,
+    "aire_bbox": 0.11890351239812279,
+    "aspect_ratio": 0.1906869059763602,
+    "centroide_x": -0.04909094893300895,
+    "dispersion": 0.30521217038904896
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.41440580347768813,
+    "hauteur_max": 0.10141881843156403,
+    "aire_bbox": 0.042028546939890055,
+    "aspect_ratio": 0.27806282604167454,
+    "centroide_x": -0.030405675752145547,
+    "dispersion": 0.1383327712071726
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8950019550815084,
+    "hauteur_max": 0.20433759329625378,
+    "aire_bbox": 0.18288254549679725,
+    "aspect_ratio": 0.25940270737110993,
+    "centroide_x": 0.018636491789973408,
+    "dispersion": 0.3645621483848967
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9919554132859371,
+    "hauteur_max": 0.23673510087838986,
+    "aire_bbox": 0.23483066483111123,
+    "aspect_ratio": 0.27115693647892836,
+    "centroide_x": 0.05678451032341575,
+    "dispersion": 0.4547436836100248
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7276414321910525,
+    "hauteur_max": 0.17733616125230597,
+    "aire_bbox": 0.12903713835289135,
+    "aspect_ratio": 0.2769045536756667,
+    "centroide_x": -0.018007918337153265,
+    "dispersion": 0.26274961900007165
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6661502636262103,
+    "hauteur_max": 0.07657038236356822,
+    "aire_bbox": 0.051007380397450695,
+    "aspect_ratio": 0.130598691683067,
+    "centroide_x": -0.008051182662766174,
+    "dispersion": 0.2422473104937943
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3769807757845146,
+    "hauteur_max": 0.04510764372996016,
+    "aire_bbox": 0.017004714527131877,
+    "aspect_ratio": 0.13595060742785584,
+    "centroide_x": -0.03162368349230409,
+    "dispersion": 0.17503770513700503
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.32685861114857634,
+    "hauteur_max": 0.03948874664953419,
+    "aire_bbox": 0.012907236885864742,
+    "aspect_ratio": 0.13726620700281192,
+    "centroide_x": -0.006308084134717842,
+    "dispersion": 0.1243585322955983
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3712055224287773,
+    "hauteur_max": 0.08983950050247233,
+    "aire_bbox": 0.03334891871876064,
+    "aspect_ratio": 0.2749812707456509,
+    "centroide_x": -0.009881632104483581,
+    "dispersion": 0.13234971878890864
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.09066084133999298,
+    "hauteur_max": 0.004434002418182567,
+    "aire_bbox": 0.0004019903897359949,
+    "aspect_ratio": 0.05556820845660654,
+    "centroide_x": -0.00708330892528126,
+    "dispersion": 0.036740794320627164
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.24386364357511053,
+    "hauteur_max": 0.026924040674791844,
+    "aire_bbox": 0.006565794658719217,
+    "aspect_ratio": 0.12544212264301932,
+    "centroide_x": -0.02692484456279885,
+    "dispersion": 0.08237005719257962
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.31316074118903514,
+    "hauteur_max": 0.03855481987512642,
+    "aire_bbox": 0.012073855968504334,
+    "aspect_ratio": 0.13988191871712002,
+    "centroide_x": -0.025510239592336618,
+    "dispersion": 0.12750222818904344
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.20852343016886243,
+    "hauteur_max": 0.016493492570680026,
+    "aire_bbox": 0.0034392796463028476,
+    "aspect_ratio": 0.08986860148956632,
+    "centroide_x": -0.005338480809250079,
+    "dispersion": 0.08378117675687842
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.32290397574309243,
+    "hauteur_max": 0.03377756501550989,
+    "aire_bbox": 0.010906910034428932,
+    "aspect_ratio": 0.1188516350904008,
+    "centroide_x": -0.007135542176110745,
+    "dispersion": 0.11009746671806488
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.1108570548195751,
+    "hauteur_max": 0.005342486669167931,
+    "aire_bbox": 0.0005922523375567985,
+    "aspect_ratio": 0.05475582481952111,
+    "centroide_x": -0.005048117485680892,
+    "dispersion": 0.045337295556831116
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.10583933888210316,
+    "hauteur_max": 0.030114373542128033,
+    "aire_bbox": 0.0031872853865475303,
+    "aspect_ratio": 0.3232785796298332,
+    "centroide_x": -0.006463686426569114,
+    "dispersion": 0.044190543921070864
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.1116353915300718,
+    "hauteur_max": 0.030094693262686316,
+    "aire_bbox": 0.003359632865357401,
+    "aspect_ratio": 0.30629382112544784,
+    "centroide_x": -0.007684280888344463,
+    "dispersion": 0.04578434289776185
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.11474893981798823,
+    "hauteur_max": 0.011441600297953356,
+    "aire_bbox": 0.0013129115040113259,
+    "aspect_ratio": 0.11328914648458244,
+    "centroide_x": -0.00884962041034631,
+    "dispersion": 0.04714900120418153
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.35444945145047757,
+    "hauteur_max": 0.06320773857236225,
+    "aire_bbox": 0.022403948264398992,
+    "aspect_ratio": 0.20261246420556894,
+    "centroide_x": -0.00819297382848957,
+    "dispersion": 0.14772586717302444
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3218616441418533,
+    "hauteur_max": 0.06123873547920886,
+    "aire_bbox": 0.019710400086506208,
+    "aspect_ratio": 0.21617586403940023,
+    "centroide_x": 0.01268091825627361,
+    "dispersion": 0.1205237521237847
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2357250769347741,
+    "hauteur_max": 0.04894653931979917,
+    "aire_bbox": 0.011537926746850604,
+    "aspect_ratio": 0.23592090178696945,
+    "centroide_x": -0.008453099278667511,
+    "dispersion": 0.09061171924825358
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11982935580104855,
+    "hauteur_max": 0.04581631108967688,
+    "aire_bbox": 0.005490139043056418,
+    "aspect_ratio": 0.43441729690655356,
+    "centroide_x": -0.010884501287471813,
+    "dispersion": 0.0476170590040394
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4419267420420177,
+    "hauteur_max": 0.09613089578039781,
+    "aire_bbox": 0.042482813581811954,
+    "aspect_ratio": 0.24715131256713604,
+    "centroide_x": -0.0862087268177785,
+    "dispersion": 0.20149354105936065
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8773286000627696,
+    "hauteur_max": 0.1563115059649383,
+    "aire_bbox": 0.1371365547019226,
+    "aspect_ratio": 0.20243186424920298,
+    "centroide_x": -0.004605964654157281,
+    "dispersion": 0.38196582149771224
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7767225242628116,
+    "hauteur_max": 0.2327331337838975,
+    "aire_bbox": 0.18076906715222352,
+    "aspect_ratio": 0.3404415290773204,
+    "centroide_x": 0.0009278767389040417,
+    "dispersion": 0.34974588340070006
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8062907578096784,
+    "hauteur_max": 0.05793750157772136,
+    "aire_bbox": 0.04671447205270039,
+    "aspect_ratio": 0.08164287622013848,
+    "centroide_x": -0.011687745947805701,
+    "dispersion": 0.36775387979831187
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6677697881772393,
+    "hauteur_max": 0.17224765656782512,
+    "aire_bbox": 0.11502178114032244,
+    "aspect_ratio": 0.2930736479879308,
+    "centroide_x": -0.005457270955861797,
+    "dispersion": 0.2968808186043586
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6451757134361314,
+    "hauteur_max": 0.1850322143129074,
+    "aire_bbox": 0.1193782908779972,
+    "aspect_ratio": 0.3258513690221199,
+    "centroide_x": -0.00016110973963072165,
+    "dispersion": 0.24460973532015698
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6941929975096894,
+    "hauteur_max": 0.19107822664716315,
+    "aire_bbox": 0.13264516691503,
+    "aspect_ratio": 0.3127383842593751,
+    "centroide_x": -0.021370360665283708,
+    "dispersion": 0.23501627760476673
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9635555661307573,
+    "hauteur_max": 0.2801064918470626,
+    "aire_bbox": 0.2698981693285968,
+    "aspect_ratio": 0.330290912124255,
+    "centroide_x": -0.017056479618983406,
+    "dispersion": 0.4348658120418722
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18992558941770118,
+    "hauteur_max": 0.07542280931233818,
+    "aire_bbox": 0.01432472151418471,
+    "aspect_ratio": 0.45120035892637106,
+    "centroide_x": -0.00415407694808556,
+    "dispersion": 0.06600580081235957
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4805892520807315,
+    "hauteur_max": 0.11526961293784133,
+    "aire_bbox": 0.055397337069432576,
+    "aspect_ratio": 0.2725153660447873,
+    "centroide_x": -0.022221766036672145,
+    "dispersion": 0.20424004211929586
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15292113046405265,
+    "hauteur_max": 0.040083321578433376,
+    "aire_bbox": 0.006129586848528187,
+    "aspect_ratio": 0.2978148969033121,
+    "centroide_x": -0.019754581050043248,
+    "dispersion": 0.07526727266260909
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2777995270446261,
+    "hauteur_max": 0.062415562999879305,
+    "aire_bbox": 0.017339013881590537,
+    "aspect_ratio": 0.2552769514609115,
+    "centroide_x": -0.024462737545571114,
+    "dispersion": 0.11753745405578526
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13691212171567904,
+    "hauteur_max": 0.030614890919280977,
+    "aire_bbox": 0.004191549671852834,
+    "aspect_ratio": 0.25406277082073486,
+    "centroide_x": -0.00556492282128268,
+    "dispersion": 0.051835730929387994
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.22137714096040975,
+    "hauteur_max": 0.03856909251021704,
+    "aire_bbox": 0.008538315429349403,
+    "aspect_ratio": 0.19795061744684597,
+    "centroide_x": -0.013874424726466092,
+    "dispersion": 0.09970852989467534
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15641460577519695,
+    "hauteur_max": 0.07867422196586962,
+    "aire_bbox": 0.012305797413461838,
+    "aspect_ratio": 0.5714856988677451,
+    "centroide_x": -0.016569538342674286,
+    "dispersion": 0.07892718875621689
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.24395021496335664,
+    "hauteur_max": 0.03260286509261692,
+    "aire_bbox": 0.007953475947765215,
+    "aspect_ratio": 0.15184649660279637,
+    "centroide_x": -0.011582406513785002,
+    "dispersion": 0.10911022502093154
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08367625770737715,
+    "hauteur_max": 0.09037343889471323,
+    "aire_bbox": 0.007562111162855926,
+    "aspect_ratio": 1.227124915664217,
+    "centroide_x": -0.018883563823699226,
+    "dispersion": 0.051352450449650186
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.0627642061169571,
+    "hauteur_max": 0.02571113264181158,
+    "aire_bbox": 0.0016137388286310858,
+    "aspect_ratio": 0.46543536975015126,
+    "centroide_x": -0.002487333471158061,
+    "dispersion": 0.02211346565282887
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13655420266026008,
+    "hauteur_max": 0.046056463688810306,
+    "aire_bbox": 0.006289203676376713,
+    "aspect_ratio": 0.3832090285714707,
+    "centroide_x": -0.02109127551591213,
+    "dispersion": 0.047569637486676336
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2349987636355969,
+    "hauteur_max": 0.19973697337712204,
+    "aire_bbox": 0.04693794179593982,
+    "aspect_ratio": 0.9657019356055411,
+    "centroide_x": -0.029135225521188964,
+    "dispersion": 0.11227722142288746
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5475637284878364,
+    "hauteur_max": 0.10072012418642926,
+    "aire_bbox": 0.055150686733279115,
+    "aspect_ratio": 0.2089930264592806,
+    "centroide_x": 0.005620805880656109,
+    "dispersion": 0.19631579221046117
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9262206854910804,
+    "hauteur_max": 0.16034294915363956,
+    "aire_bbox": 0.14851295627874547,
+    "aspect_ratio": 0.19669150610745753,
+    "centroide_x": -0.09383256217622998,
+    "dispersion": 0.415864802943568
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7058595370766144,
+    "hauteur_max": 0.06732778734350495,
+    "aire_bbox": 0.047523960806679144,
+    "aspect_ratio": 0.10837429109777844,
+    "centroide_x": 0.025010569751121627,
+    "dispersion": 0.326147732006475
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.32022137066007544,
+    "hauteur_max": 0.05727754734211826,
+    "aire_bbox": 0.01834149471794047,
+    "aspect_ratio": 0.20322836134169636,
+    "centroide_x": 0.003488372014261061,
+    "dispersion": 0.14122784025979404
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5260725198498128,
+    "hauteur_max": 0.0423269620846969,
+    "aire_bbox": 0.022267051601483984,
+    "aspect_ratio": 0.09141589116526724,
+    "centroide_x": -0.015532911438354098,
+    "dispersion": 0.23788491721826452
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6272415866615239,
+    "hauteur_max": 0.04692088893582029,
+    "aire_bbox": 0.029430732823673058,
+    "aspect_ratio": 0.08499269517875374,
+    "centroide_x": -0.015344193114392479,
+    "dispersion": 0.29444656656217494
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3781901564228755,
+    "hauteur_max": 0.034534103325219986,
+    "aire_bbox": 0.013060457938488692,
+    "aspect_ratio": 0.1037500173113779,
+    "centroide_x": -0.016122045095621082,
+    "dispersion": 0.17686838793023235
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5279976378760469,
+    "hauteur_max": 0.05965243403628028,
+    "aire_bbox": 0.03149634426471269,
+    "aspect_ratio": 0.12836493466903773,
+    "centroide_x": -0.018722527388004038,
+    "dispersion": 0.22813141728185451
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.642778003259053,
+    "hauteur_max": 0.07817117806635591,
+    "aire_bbox": 0.05024671374990013,
+    "aspect_ratio": 0.1381770337199997,
+    "centroide_x": -0.017852679667195746,
+    "dispersion": 0.2959027106694951
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.3944956935796221,
+    "hauteur_max": 0.06041845788608166,
+    "aire_bbox": 0.023834821448780973,
+    "aspect_ratio": 0.1740113530956756,
+    "centroide_x": -0.01904073851294543,
+    "dispersion": 0.17815040071857555
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6252852445162016,
+    "hauteur_max": 0.04141945298269288,
+    "aire_bbox": 0.025898972786010433,
+    "aspect_ratio": 0.0752621105994213,
+    "centroide_x": -0.021783179332239312,
+    "dispersion": 0.2550579166385673
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7266801322149955,
+    "hauteur_max": 0.054158223050605574,
+    "aire_bbox": 0.03935570468694328,
+    "aspect_ratio": 0.08467814480607631,
+    "centroide_x": -0.07899046926425739,
+    "dispersion": 0.3308085890323957
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3007513697567057,
+    "hauteur_max": 0.04856937828878656,
+    "aire_bbox": 0.014607307048584161,
+    "aspect_ratio": 0.1834869344573619,
+    "centroide_x": -0.01962477432915646,
+    "dispersion": 0.12292902905526328
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6083412244855839,
+    "hauteur_max": 0.20456303001075962,
+    "aire_bbox": 0.12444412416122676,
+    "aspect_ratio": 0.3820587186847396,
+    "centroide_x": -0.017266849723174205,
+    "dispersion": 0.24580436274979542
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.40311929165695587,
+    "hauteur_max": 0.09358717533760175,
+    "aire_bbox": 0.03772679583026935,
+    "aspect_ratio": 0.26377459923872976,
+    "centroide_x": -0.006607847157419974,
+    "dispersion": 0.13518197028913828
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4132370141941418,
+    "hauteur_max": 0.10929124048292808,
+    "aire_bbox": 0.04516318589473912,
+    "aspect_ratio": 0.3004943806640929,
+    "centroide_x": -0.018412967946059965,
+    "dispersion": 0.15903278829190917
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.26298932302330935,
+    "hauteur_max": 0.2364006691027417,
+    "aire_bbox": 0.062170851929587406,
+    "aspect_ratio": 1.0213175596554063,
+    "centroide_x": -0.03046431120642517,
+    "dispersion": 0.1348062419900246
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6956350481967397,
+    "hauteur_max": 0.1689735938629542,
+    "aire_bbox": 0.11754395411083247,
+    "aspect_ratio": 0.2759863486427374,
+    "centroide_x": -0.029448760372650012,
+    "dispersion": 0.2564916451975495
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7658755674604693,
+    "hauteur_max": 0.1480537670910813,
+    "aire_bbox": 0.11339076288554205,
+    "aspect_ratio": 0.21964001339859382,
+    "centroide_x": -0.016095479413654922,
+    "dispersion": 0.31899770192430715
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9762460553578453,
+    "hauteur_max": 0.29253671591228647,
+    "aire_bbox": 0.28558781495670826,
+    "aspect_ratio": 0.34046408377378207,
+    "centroide_x": -0.023683763910444022,
+    "dispersion": 0.43627464095464025
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7174843269746295,
+    "hauteur_max": 0.1706346715027706,
+    "aire_bbox": 0.12242770244170235,
+    "aspect_ratio": 0.2702122767059965,
+    "centroide_x": 0.035053565005058705,
+    "dispersion": 0.28570324750957554
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4906769591744069,
+    "hauteur_max": 0.19157971917329744,
+    "aire_bbox": 0.09400375404344041,
+    "aspect_ratio": 0.4436128131703462,
+    "centroide_x": -0.016216782598238434,
+    "dispersion": 0.17155733973200407
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9466391441924951,
+    "hauteur_max": 0.21156823434303074,
+    "aire_bbox": 0.20027877229680385,
+    "aspect_ratio": 0.25393128905167706,
+    "centroide_x": 0.057385714908564436,
+    "dispersion": 0.375377482938758
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0035060710818589,
+    "hauteur_max": 0.23966325164460495,
+    "aire_bbox": 0.24050352804058037,
+    "aspect_ratio": 0.2713511444784652,
+    "centroide_x": -0.1146717073371347,
+    "dispersion": 0.4679706745143898
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7136735239628809,
+    "hauteur_max": 0.12829707142918628,
+    "aire_bbox": 0.09156222308098481,
+    "aspect_ratio": 0.20425249588614622,
+    "centroide_x": -0.02140188895173789,
+    "dispersion": 0.28595002227287625
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.35217693991864624,
+    "hauteur_max": 0.15557083598865196,
+    "aire_bbox": 0.05478846095906905,
+    "aspect_ratio": 0.501900333791793,
+    "centroide_x": -0.003948118629661293,
+    "dispersion": 0.12922503895466247
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2732157760009976,
+    "hauteur_max": 0.17402207311424617,
+    "aire_bbox": 0.04754557574721111,
+    "aspect_ratio": 0.7236836817942693,
+    "centroide_x": -0.00886044220418207,
+    "dispersion": 0.0931002635052471
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8062907578096784,
+    "hauteur_max": 0.08677735540122951,
+    "aire_bbox": 0.06996777964717713,
+    "aspect_ratio": 0.12228267862447555,
+    "centroide_x": -0.003967351679789988,
+    "dispersion": 0.3049689832636662
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6863391746908444,
+    "hauteur_max": 0.0695580860387055,
+    "aire_bbox": 0.04774043936487988,
+    "aspect_ratio": 0.11514870281274435,
+    "centroide_x": 0.004054952827820962,
+    "dispersion": 0.2673488451216318
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8025983042815705,
+    "hauteur_max": 0.09774742684174813,
+    "aire_bbox": 0.07845191903107392,
+    "aspect_ratio": 0.13837489691278942,
+    "centroide_x": -0.003941555521274871,
+    "dispersion": 0.31690198853467205
    }
   },
   "notes": "visage asiatique avec nez gros nez (nez de cochon)"
@@ -1445,9 +2831,7 @@ window.PRESETS_DB = [
     "height": 0.21170838534555433,
     "projection": 0.10004990732662407,
     "narine": 0.1259373975868499,
-    "evasement": 2.0032076404388315,
-    "compacite_narines": 0.16944662274543557,
-    "ratio_pointe_base": 0.566308725370228
+    "compacite_narines": 0.16944662274543557
    },
    "joues": {
     "width": 1.0890143740184284,
@@ -1471,6 +2855,701 @@ window.PRESETS_DB = [
     "width": 0.8644856820884501,
     "height": 0.18444132237736777,
     "angle": 0.2952098131229623
+   },
+   "philtrum": {
+    "largeur_sup": 0.11507688188462993,
+    "largeur_milieu": 0.11155071521761181,
+    "largeur_inf": 0.10260285058468606,
+    "hauteur": 0.10484185947077601,
+    "profondeur_z": 0.007374778389930725
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4454834118788366,
+    "hauteur_max": 0.2175613026554354,
+    "aire_bbox": 0.09691995139974756,
+    "aspect_ratio": 0.52558169433201,
+    "centroide_x": 0.0029367659298707182,
+    "dispersion": 0.17298599125010788
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6182178816833285,
+    "hauteur_max": 0.1539297036659874,
+    "aire_bbox": 0.09516209532852922,
+    "aspect_ratio": 0.26796062860207415,
+    "centroide_x": 0.005587836563053529,
+    "dispersion": 0.24204135946573652
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2453249532118887,
+    "hauteur_max": 0.08602858862507921,
+    "aire_bbox": 0.02110495947933238,
+    "aspect_ratio": 0.37739069730953345,
+    "centroide_x": 0.0017906745959421382,
+    "dispersion": 0.10651957394321901
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6653493556411868,
+    "hauteur_max": 0.10459856445966664,
+    "aire_bbox": 0.06959458746423235,
+    "aspect_ratio": 0.16918665376507055,
+    "centroide_x": 0.0023666925437638062,
+    "dispersion": 0.24827637333254338
+   },
+   "joues__joues": {
+    "largeur_max": 1.0005233167589243,
+    "hauteur_max": 0.24930621712546855,
+    "aire_bbox": 0.2494366832469943,
+    "aspect_ratio": 0.2681612442910706,
+    "centroide_x": 0.03719651923033844,
+    "dispersion": 0.3775649637444373
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9892054276948743,
+    "hauteur_max": 0.4892105141204574,
+    "aire_bbox": 0.48392969585335643,
+    "aspect_ratio": 0.5322300715500092,
+    "centroide_x": -0.024544287271969962,
+    "dispersion": 0.4406100135720737
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5636291181628315,
+    "hauteur_max": 0.07426789478450205,
+    "aire_bbox": 0.04185954804519884,
+    "aspect_ratio": 0.1418070456734893,
+    "centroide_x": -0.0036354896766075755,
+    "dispersion": 0.231206126170065
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6420132435838338,
+    "hauteur_max": 0.13064002059936192,
+    "aire_bbox": 0.0838726233668552,
+    "aspect_ratio": 0.21898903540752535,
+    "centroide_x": -0.004109660839570427,
+    "dispersion": 0.2696236837715523
+   },
+   "menton__menton": {
+    "largeur_max": 0.44855144628500476,
+    "hauteur_max": 0.14522609390062208,
+    "aire_bbox": 0.06514137445744594,
+    "aspect_ratio": 0.3484355932018947,
+    "centroide_x": -0.0036816640146155595,
+    "dispersion": 0.16260013935552056
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.16927645190462934,
+    "hauteur_max": 0.09877018261232329,
+    "aire_bbox": 0.0167194660665864,
+    "aspect_ratio": 0.6279418476854911,
+    "centroide_x": -0.004705677373818207,
+    "dispersion": 0.07092958720049326
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.24648569917136584,
+    "hauteur_max": 0.1341785699306399,
+    "aire_bbox": 0.033073098623167776,
+    "aspect_ratio": 0.5858434101348592,
+    "centroide_x": -0.004262921379414445,
+    "dispersion": 0.10106734050454577
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.09976827456063794,
+    "hauteur_max": 0.09060475476202416,
+    "aire_bbox": 0.009039480049596895,
+    "aspect_ratio": 0.9773466869698602,
+    "centroide_x": 0.0044492937405813705,
+    "dispersion": 0.050707901776470804
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17426330365323722,
+    "hauteur_max": 0.07549004591404436,
+    "aire_bbox": 0.013155144793915932,
+    "aspect_ratio": 0.4662017117291837,
+    "centroide_x": 0.0003876126320685769,
+    "dispersion": 0.06675210965538811
+   },
+   "nez__nez": {
+    "largeur_max": 0.26254940238540575,
+    "hauteur_max": 0.16741479128210374,
+    "aire_bbox": 0.043954653401593775,
+    "aspect_ratio": 0.6862350701448224,
+    "centroide_x": 0.001260867084363286,
+    "dispersion": 0.11061417414573095
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8360749153614604,
+    "hauteur_max": 0.11964588717814141,
+    "aire_bbox": 0.10003292499581141,
+    "aspect_ratio": 0.1540077932951373,
+    "centroide_x": -0.026254962104875056,
+    "dispersion": 0.30601994278291317
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.420320667157551,
+    "hauteur_max": 0.09634449793132627,
+    "aire_bbox": 0.04049558364745435,
+    "aspect_ratio": 0.24668133518138627,
+    "centroide_x": -5.7115683626199965e-05,
+    "dispersion": 0.13781907823270972
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8920749458865553,
+    "hauteur_max": 0.18714341977804602,
+    "aire_bbox": 0.16694595607152532,
+    "aspect_ratio": 0.22576849417128772,
+    "centroide_x": 0.04148331710449439,
+    "dispersion": 0.3625897407310473
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9883332295414957,
+    "hauteur_max": 0.24649846172942536,
+    "aire_bbox": 0.24362262075805374,
+    "aspect_ratio": 0.26841138519809854,
+    "centroide_x": 0.07387219311780456,
+    "dispersion": 0.4504685993057401
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7267389124914041,
+    "hauteur_max": 0.1678888699816664,
+    "aire_bbox": 0.12201137478988698,
+    "aspect_ratio": 0.24861859545594633,
+    "centroide_x": 0.0007200756136402073,
+    "dispersion": 0.26294784725848686
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6621966675287345,
+    "hauteur_max": 0.07242937655117294,
+    "aire_bbox": 0.04796249178337059,
+    "aspect_ratio": 0.11771122338583478,
+    "centroide_x": 0.009529244840331989,
+    "dispersion": 0.2440329965878256
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3418058189347524,
+    "hauteur_max": 0.03720586912662659,
+    "aire_bbox": 0.012717182566005823,
+    "aspect_ratio": 0.11714455837779128,
+    "centroide_x": -0.02461079551678013,
+    "dispersion": 0.15807378819947465
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3085599701565961,
+    "hauteur_max": 0.03883376250901558,
+    "aire_bbox": 0.011982544600850187,
+    "aspect_ratio": 0.13544407256664234,
+    "centroide_x": -0.006277977664695141,
+    "dispersion": 0.1144398692044314
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.34636159225481966,
+    "hauteur_max": 0.09657564099477592,
+    "aire_bbox": 0.033450092787980425,
+    "aspect_ratio": 0.30007373861205516,
+    "centroide_x": -0.009123439687832191,
+    "dispersion": 0.12147751886847317
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08266301929316838,
+    "hauteur_max": 0.0051112379229570565,
+    "aire_bbox": 0.00042251035903737304,
+    "aspect_ratio": 0.06654339441833157,
+    "centroide_x": -0.009676175859011775,
+    "dispersion": 0.03311897941103218
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.22302383847288246,
+    "hauteur_max": 0.026044825446170525,
+    "aire_bbox": 0.005808616943361154,
+    "aspect_ratio": 0.12567829556333784,
+    "centroide_x": -0.0256819902370263,
+    "dispersion": 0.07463330501295265
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2816247506889072,
+    "hauteur_max": 0.029571711793495693,
+    "aire_bbox": 0.00832812596128744,
+    "aspect_ratio": 0.11300450621542116,
+    "centroide_x": -0.0231440438566499,
+    "dispersion": 0.11475482236873646
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.18730522750655254,
+    "hauteur_max": 0.011056163217354635,
+    "aire_bbox": 0.002070877166776188,
+    "aspect_ratio": 0.06352499805170018,
+    "centroide_x": -0.007125787322379437,
+    "dispersion": 0.07491937900976628
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.29380461066010694,
+    "hauteur_max": 0.023846223382358107,
+    "aire_bbox": 0.007006130376567662,
+    "aspect_ratio": 0.0873476285110315,
+    "centroide_x": -0.0068445380510895725,
+    "dispersion": 0.09987633259407393
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.0983316253903996,
+    "hauteur_max": 0.003562307261552174,
+    "aire_bbox": 0.0003502874631684486,
+    "aspect_ratio": 0.03898775923919313,
+    "centroide_x": -0.00808779154472548,
+    "dispersion": 0.04018988257559391
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09559197856313917,
+    "hauteur_max": 0.02283318523546572,
+    "aire_bbox": 0.002182669353556825,
+    "aspect_ratio": 0.2570603925993109,
+    "centroide_x": -0.009296690788529625,
+    "dispersion": 0.039296971275093254
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.09831112441045929,
+    "hauteur_max": 0.02029678859939087,
+    "aire_bbox": 0.0019954001091275074,
+    "aspect_ratio": 0.22218502383455166,
+    "centroide_x": -0.012005307220982451,
+    "dispersion": 0.03954458777282203
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10258992530765958,
+    "hauteur_max": 0.009428788189807991,
+    "aire_bbox": 0.0009672986761341446,
+    "aspect_ratio": 0.09891024633082128,
+    "centroide_x": -0.012684086454017172,
+    "dispersion": 0.042117866091938676
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.31405985776602297,
+    "hauteur_max": 0.04994780868376557,
+    "aire_bbox": 0.015686601690947943,
+    "aspect_ratio": 0.1711567877883784,
+    "centroide_x": -0.008045480187411162,
+    "dispersion": 0.12970181739252945
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.2886843398356971,
+    "hauteur_max": 0.050110485711788624,
+    "aire_bbox": 0.01446611248655383,
+    "aspect_ratio": 0.18680801431640934,
+    "centroide_x": 0.011194483814669004,
+    "dispersion": 0.1080217144101634
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.20323030504671039,
+    "hauteur_max": 0.035767434439115224,
+    "aire_bbox": 0.007269026611799602,
+    "aspect_ratio": 0.18940412711607169,
+    "centroide_x": -0.01162087123357577,
+    "dispersion": 0.07829473675366373
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11154783081694891,
+    "hauteur_max": 0.06333129875078199,
+    "aire_bbox": 0.007064468998469877,
+    "aspect_ratio": 0.6110086833888722,
+    "centroide_x": -0.009774830045549956,
+    "dispersion": 0.04910269623362491
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.42387370547237485,
+    "hauteur_max": 0.09377730237836868,
+    "aire_bbox": 0.03974973264832248,
+    "aspect_ratio": 0.23809560367176288,
+    "centroide_x": -0.08117387800686977,
+    "dispersion": 0.1922418315483049
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8460029216630268,
+    "hauteur_max": 0.14880853060855204,
+    "aire_bbox": 0.12589245166321697,
+    "aspect_ratio": 0.1892980249481963,
+    "centroide_x": -0.0028665189158933097,
+    "dispersion": 0.3668250011289058
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7449931058977048,
+    "hauteur_max": 0.22141967692444114,
+    "aire_bbox": 0.16495613281880578,
+    "aspect_ratio": 0.31985568654192387,
+    "centroide_x": -0.003456913822144583,
+    "dispersion": 0.33733341975212894
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.7952311523850205,
+    "hauteur_max": 0.0420217311819199,
+    "aire_bbox": 0.03341698971301171,
+    "aspect_ratio": 0.05686835590292494,
+    "centroide_x": -0.0011464665543259077,
+    "dispersion": 0.3612909047399247
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6420132435838338,
+    "hauteur_max": 0.16289344116973692,
+    "aire_bbox": 0.10457974652391522,
+    "aspect_ratio": 0.2730547453400156,
+    "centroide_x": -0.004287127967567191,
+    "dispersion": 0.28521500547874246
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6182178816833285,
+    "hauteur_max": 0.18354659872324097,
+    "aire_bbox": 0.11347178945286196,
+    "aspect_ratio": 0.31951768112524426,
+    "centroide_x": 0.005944442759247936,
+    "dispersion": 0.23357610609011023
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6728168724500541,
+    "hauteur_max": 0.18858440304353227,
+    "aire_bbox": 0.12688276824860983,
+    "aspect_ratio": 0.3016470030282436,
+    "centroide_x": -0.007581542856403724,
+    "dispersion": 0.22915225836396855
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9485517520358401,
+    "hauteur_max": 0.2863425842186479,
+    "aire_bbox": 0.27161075994306855,
+    "aspect_ratio": 0.3248740532398439,
+    "centroide_x": -0.02377806302265814,
+    "dispersion": 0.42119934205312803
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18408318006967642,
+    "hauteur_max": 0.07339645390204395,
+    "aire_bbox": 0.013511052640125662,
+    "aspect_ratio": 0.4290926612260483,
+    "centroide_x": -0.004358038811731452,
+    "dispersion": 0.06339649727125153
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.466108048523541,
+    "hauteur_max": 0.11134996349628155,
+    "aire_bbox": 0.05190111418841932,
+    "aspect_ratio": 0.2570949784411912,
+    "centroide_x": -0.023312392875758457,
+    "dispersion": 0.1970565220584469
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14508092575168374,
+    "hauteur_max": 0.033117345307619055,
+    "aire_bbox": 0.004804695115667552,
+    "aspect_ratio": 0.24566049101850132,
+    "centroide_x": -0.006415760752950388,
+    "dispersion": 0.07092996422981966
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.25544871830376953,
+    "hauteur_max": 0.054533002834214715,
+    "aire_bbox": 0.01393038567925598,
+    "aspect_ratio": 0.22974485896269337,
+    "centroide_x": -0.014389670877863966,
+    "dispersion": 0.10860220623777356
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12872486275795095,
+    "hauteur_max": 0.03159502352812129,
+    "aire_bbox": 0.004067065067491644,
+    "aspect_ratio": 0.26414741378002776,
+    "centroide_x": -0.0020803303537154025,
+    "dispersion": 0.049806169666850586
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.20787342834706748,
+    "hauteur_max": 0.03245013623304547,
+    "aire_bbox": 0.0067455210690925554,
+    "aspect_ratio": 0.16799937382592361,
+    "centroide_x": -0.007757273289520184,
+    "dispersion": 0.09307267663051737
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14860049307884995,
+    "hauteur_max": 0.07118895341343792,
+    "aire_bbox": 0.010578713579004154,
+    "aspect_ratio": 0.515563870023181,
+    "centroide_x": -0.008234897310272233,
+    "dispersion": 0.07403287390585778
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.22541984982685784,
+    "hauteur_max": 0.027312116643233842,
+    "aire_bbox": 0.006156693232171397,
+    "aspect_ratio": 0.1303927124604355,
+    "centroide_x": -0.00767980964725148,
+    "dispersion": 0.10020799162933511
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.0803285573664968,
+    "hauteur_max": 0.08436570629083184,
+    "aire_bbox": 0.006776975477548105,
+    "aspect_ratio": 1.130280139424443,
+    "centroide_x": -0.008863579823932839,
+    "dispersion": 0.047132876472701375
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05687697040172502,
+    "hauteur_max": 0.0283264506772321,
+    "aire_bbox": 0.0016111226967548539,
+    "aspect_ratio": 0.5359765915536703,
+    "centroide_x": 0.0010848737387047969,
+    "dispersion": 0.020665352343114732
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.12949441654917945,
+    "hauteur_max": 0.040901479975135525,
+    "aire_bbox": 0.005296513285378121,
+    "aspect_ratio": 0.3399210791592116,
+    "centroide_x": -0.006459273036905316,
+    "dispersion": 0.04476531611224873
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.22852632938134937,
+    "hauteur_max": 0.20922550884695176,
+    "aire_bbox": 0.047813537549738924,
+    "aspect_ratio": 0.9853000528085782,
+    "centroide_x": 0.0004476822078347592,
+    "dispersion": 0.11039715556824434
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5398335703123947,
+    "hauteur_max": 0.09115874649978191,
+    "aire_bbox": 0.049210551588179774,
+    "aspect_ratio": 0.18173081477207653,
+    "centroide_x": 0.034870728349123956,
+    "dispersion": 0.19446983151057518
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9182585557313988,
+    "hauteur_max": 0.16888018042141711,
+    "aire_bbox": 0.15507567056542854,
+    "aspect_ratio": 0.19792644217307176,
+    "centroide_x": -0.07005445640380202,
+    "dispersion": 0.40979945110785326
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7005881228094581,
+    "hauteur_max": 0.05030443681529992,
+    "aire_bbox": 0.035242690957417964,
+    "aspect_ratio": 0.0772740435134463,
+    "centroide_x": 0.041283335701153875,
+    "dispersion": 0.3254468079884576
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3189800929516956,
+    "hauteur_max": 0.055768328816,
+    "aire_bbox": 0.017788986709488405,
+    "aspect_ratio": 0.18815430843440498,
+    "centroide_x": 0.02159261838255464,
+    "dispersion": 0.13933785123464884
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5245498805732263,
+    "hauteur_max": 0.026169921748123465,
+    "aire_bbox": 0.01372742932758884,
+    "aspect_ratio": 0.053691526168767635,
+    "centroide_x": 0.0004947616313075174,
+    "dispersion": 0.23861009532265728
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6251543719755108,
+    "hauteur_max": 0.03133217442681478,
+    "aire_bbox": 0.019587445826422557,
+    "aspect_ratio": 0.05393781882538408,
+    "centroide_x": 0.0009325621498694756,
+    "dispersion": 0.2950054674857384
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.37594938749437623,
+    "hauteur_max": 0.027099634354108667,
+    "aire_bbox": 0.01018809093674871,
+    "aspect_ratio": 0.07757542558466497,
+    "centroide_x": 0.0014671836985620688,
+    "dispersion": 0.175011975956587
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5381509093828726,
+    "hauteur_max": 0.043909493125271905,
+    "aire_bbox": 0.023629933655906068,
+    "aspect_ratio": 0.08781009815437706,
+    "centroide_x": 0.0004471049882558834,
+    "dispersion": 0.23213839288919433
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6504785212372788,
+    "hauteur_max": 0.06321561922846501,
+    "aire_bbox": 0.04112040251483081,
+    "aspect_ratio": 0.10458792649117903,
+    "centroide_x": 0.0006953907602427002,
+    "dispersion": 0.3000983719912525
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.3992982836095151,
+    "hauteur_max": 0.049073084887305954,
+    "aire_bbox": 0.019594798566925302,
+    "aspect_ratio": 0.13226228879131094,
+    "centroide_x": 0.0011670566352750787,
+    "dispersion": 0.17955162784265472
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.632911645265031,
+    "hauteur_max": 0.025051614371997887,
+    "aire_bbox": 0.01585545846872628,
+    "aspect_ratio": 0.04259736631109918,
+    "centroide_x": 5.617237511929926e-06,
+    "dispersion": 0.25992550139916487
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7253739470197326,
+    "hauteur_max": 0.05501978122741488,
+    "aire_bbox": 0.03990991587309212,
+    "aspect_ratio": 0.08162947876264769,
+    "centroide_x": -0.06107107110515834,
+    "dispersion": 0.33225111530508505
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3045427543254368,
+    "hauteur_max": 0.04369333915601344,
+    "aire_bbox": 0.013306489852247791,
+    "aspect_ratio": 0.15440347912631067,
+    "centroide_x": 0.0020539274004306657,
+    "dispersion": 0.12269661366317278
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.5867575706342585,
+    "hauteur_max": 0.2039731488181659,
+    "aire_bbox": 0.1196827892751671,
+    "aspect_ratio": 0.3741143921963834,
+    "centroide_x": -0.015171819936045203,
+    "dispersion": 0.23456793971077136
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.38189569440168686,
+    "hauteur_max": 0.08168823074516504,
+    "aire_bbox": 0.03119638360487003,
+    "aspect_ratio": 0.23019974870426396,
+    "centroide_x": -0.0057175296986571,
+    "dispersion": 0.12488648948123034
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.38947882558042163,
+    "hauteur_max": 0.1080400950429521,
+    "aire_bbox": 0.042079329332926116,
+    "aspect_ratio": 0.2985322286176986,
+    "centroide_x": -0.014333121437605373,
+    "dispersion": 0.14839807140897046
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2453249532118887,
+    "hauteur_max": 0.23392740648531324,
+    "aire_bbox": 0.05738823005098794,
+    "aspect_ratio": 1.0261940648363364,
+    "centroide_x": 0.0009993414189947468,
+    "dispersion": 0.12776700304676042
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6653493556411868,
+    "hauteur_max": 0.16362056342483838,
+    "aire_bbox": 0.10886483644436415,
+    "aspect_ratio": 0.2646538770011349,
+    "centroide_x": 0.0010696915078970348,
+    "dispersion": 0.25128907478778384
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7414629394244471,
+    "hauteur_max": 0.1364971711404555,
+    "aire_bbox": 0.10120759373692395,
+    "aspect_ratio": 0.1981181753951618,
+    "centroide_x": -0.017392950803049097,
+    "dispersion": 0.3083989057486746
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9495360779978718,
+    "hauteur_max": 0.30231396083607887,
+    "aire_bbox": 0.28705801269629255,
+    "aspect_ratio": 0.34263904431045916,
+    "centroide_x": -0.027672588880711824,
+    "dispersion": 0.4208199142899822
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6818153615318783,
+    "hauteur_max": 0.17666422869645984,
+    "aire_bbox": 0.1204523849584272,
+    "aspect_ratio": 0.27885084004220734,
+    "centroide_x": 0.0383611602333721,
+    "dispersion": 0.27274024144859643
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.47700527235521034,
+    "hauteur_max": 0.1880312320342749,
+    "aire_bbox": 0.08969188904779506,
+    "aspect_ratio": 0.4242256557391428,
+    "centroide_x": -0.003156827822800761,
+    "dispersion": 0.16397647213093353
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.92047182479026,
+    "hauteur_max": 0.20640129568466406,
+    "aire_bbox": 0.18998657727793675,
+    "aspect_ratio": 0.241319288986907,
+    "centroide_x": 0.06216990569907223,
+    "dispersion": 0.3637053385905823
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.004264071529528,
+    "hauteur_max": 0.24755080845186234,
+    "aire_bbox": 0.24860638280629355,
+    "aspect_ratio": 0.2652812410486522,
+    "centroide_x": -0.10732738914354127,
+    "dispersion": 0.46346501571458043
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6927439179269939,
+    "hauteur_max": 0.1110095771498074,
+    "aire_bbox": 0.07690120940217647,
+    "aspect_ratio": 0.1724558155328274,
+    "centroide_x": -0.02672274842728719,
+    "dispersion": 0.2760557687538566
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.34051286257402763,
+    "hauteur_max": 0.14522609390062208,
+    "aire_bbox": 0.049451352954545356,
+    "aspect_ratio": 0.45898791630494035,
+    "centroide_x": -0.003943800473856053,
+    "dispersion": 0.12351316985934442
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.25283221681859946,
+    "hauteur_max": 0.16741479128210374,
+    "aire_bbox": 0.04232785280807743,
+    "aspect_ratio": 0.7126093732417725,
+    "centroide_x": -0.002623666026645795,
+    "dispersion": 0.08636200670647234
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.7952311523850205,
+    "hauteur_max": 0.07188424004197194,
+    "aire_bbox": 0.05716458704689878,
+    "aspect_ratio": 0.09728153580395583,
+    "centroide_x": 0.008458110017601064,
+    "dispersion": 0.300135138459701
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6792404198563832,
+    "hauteur_max": 0.054303198854107795,
+    "aire_bbox": 0.036884927589208846,
+    "aspect_ratio": 0.08603833729808544,
+    "centroide_x": 0.01871640988487244,
+    "dispersion": 0.2647933356635629
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8062312530162543,
+    "hauteur_max": 0.07500128049394852,
+    "aire_bbox": 0.06046837635045967,
+    "aspect_ratio": 0.10011500333708605,
+    "centroide_x": 0.016545357234680955,
+    "dispersion": 0.31930837420668207
    }
   },
   "notes": "visage asiatique"
@@ -1937,9 +4016,7 @@ window.PRESETS_DB = [
     "height": 0.21372316221155097,
     "projection": 0.10656113677745942,
     "narine": 0.14524299398833868,
-    "evasement": 1.9340669365330239,
-    "compacite_narines": 0.21506856517344777,
-    "ratio_pointe_base": 0.5553916959642567
+    "compacite_narines": 0.21506856517344777
    },
    "joues": {
     "width": 1.0800039172905465,
@@ -1963,6 +4040,701 @@ window.PRESETS_DB = [
     "width": 0.8655681105114572,
     "height": 0.17822102075740967,
     "angle": 0.3071764388680789
+   },
+   "philtrum": {
+    "largeur_sup": 0.11097396131743996,
+    "largeur_milieu": 0.11526126567355323,
+    "largeur_inf": 0.10903166493464941,
+    "hauteur": 0.10828763384831327,
+    "profondeur_z": 0.006759770214557648
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.46522205778934717,
+    "hauteur_max": 0.22187842044660458,
+    "aire_bbox": 0.10322273533921934,
+    "aspect_ratio": 0.5607795896620613,
+    "centroide_x": 0.029827342482046475,
+    "dispersion": 0.18338977086782837
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6371004833985796,
+    "hauteur_max": 0.16361532176203405,
+    "aire_bbox": 0.10423940058600605,
+    "aspect_ratio": 0.30196281623915816,
+    "centroide_x": 0.027026985281588225,
+    "dispersion": 0.25147763975593723
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.26015792114090397,
+    "hauteur_max": 0.08441355430954983,
+    "aire_bbox": 0.02196085480528728,
+    "aspect_ratio": 0.3815158316164883,
+    "centroide_x": 0.00806426683575318,
+    "dispersion": 0.11200366314346459
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6914112391134654,
+    "hauteur_max": 0.10634375076176347,
+    "aire_bbox": 0.07352726448616441,
+    "aspect_ratio": 0.18084769174776516,
+    "centroide_x": 0.005093365579475095,
+    "dispersion": 0.2564939140516284
+   },
+   "joues__joues": {
+    "largeur_max": 1.0040844178588881,
+    "hauteur_max": 0.24883517535353092,
+    "aire_bbox": 0.24985152218766443,
+    "aspect_ratio": 0.2913929068108172,
+    "centroide_x": 0.04710639199907305,
+    "dispersion": 0.38327257586531416
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9960797530739421,
+    "hauteur_max": 0.48324150925980275,
+    "aire_bbox": 0.48134708321858344,
+    "aspect_ratio": 0.5704368205386526,
+    "centroide_x": -0.008367173847964432,
+    "dispersion": 0.4498393004744788
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5753799897912069,
+    "hauteur_max": 0.08112055326244698,
+    "aire_bbox": 0.046675143108003796,
+    "aspect_ratio": 0.16577291747505138,
+    "centroide_x": 0.023060457233291816,
+    "dispersion": 0.2370147419484738
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6597545667409676,
+    "hauteur_max": 0.1400073735971198,
+    "aire_bbox": 0.09237050410810854,
+    "aspect_ratio": 0.2495203291747772,
+    "centroide_x": 0.020783136691008657,
+    "dispersion": 0.278373229381217
+   },
+   "menton__menton": {
+    "largeur_max": 0.45936651172262943,
+    "hauteur_max": 0.15269144999304143,
+    "aire_bbox": 0.07014133875317376,
+    "aspect_ratio": 0.3908344331193041,
+    "centroide_x": 0.025471686754209313,
+    "dispersion": 0.16913057322547562
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.175778204197771,
+    "hauteur_max": 0.10306205036787974,
+    "aire_bbox": 0.018116062134606124,
+    "aspect_ratio": 0.6893998522378193,
+    "centroide_x": 0.025969281857277232,
+    "dispersion": 0.07588257090999126
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.25898425286703036,
+    "hauteur_max": 0.1283308225180388,
+    "aire_bbox": 0.03323566218964575,
+    "aspect_ratio": 0.5826329615517956,
+    "centroide_x": 0.011141762978552534,
+    "dispersion": 0.10790764504577251
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11850216443406429,
+    "hauteur_max": 0.08950582397001818,
+    "aire_bbox": 0.010606633869901507,
+    "aspect_ratio": 0.8881011719007753,
+    "centroide_x": 0.02059062206690197,
+    "dispersion": 0.05562444960644764
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1855516828721722,
+    "hauteur_max": 0.06572548271258014,
+    "aire_bbox": 0.012195473924905106,
+    "aspect_ratio": 0.4164916681450432,
+    "centroide_x": 0.013171005180061037,
+    "dispersion": 0.07063911461045468
+   },
+   "nez__nez": {
+    "largeur_max": 0.2769795337059692,
+    "hauteur_max": 0.17699799244872785,
+    "aire_bbox": 0.049024821415341306,
+    "aspect_ratio": 0.7513773369123924,
+    "centroide_x": 0.021908474445640667,
+    "dispersion": 0.11962599244968619
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8470069859308015,
+    "hauteur_max": 0.13140543727906348,
+    "aire_bbox": 0.11130132336465853,
+    "aspect_ratio": 0.18241635539657733,
+    "centroide_x": -0.018685070784807998,
+    "dispersion": 0.3116783802150618
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4297004384855255,
+    "hauteur_max": 0.09275041357678726,
+    "aire_bbox": 0.03985489338365933,
+    "aspect_ratio": 0.2537975871509841,
+    "centroide_x": 0.010345658362148763,
+    "dispersion": 0.1415557362246578
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8931642904568456,
+    "hauteur_max": 0.19520287973727504,
+    "aire_bbox": 0.17434824157567624,
+    "aspect_ratio": 0.25697584337701235,
+    "centroide_x": 0.04525121968964708,
+    "dispersion": 0.3681262792942141
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9906208067086036,
+    "hauteur_max": 0.24463249497466166,
+    "aire_bbox": 0.24233803951893776,
+    "aspect_ratio": 0.29036490899009654,
+    "centroide_x": 0.06937211193265311,
+    "dispersion": 0.4549425125680299
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7421133367154975,
+    "hauteur_max": 0.17690191364399246,
+    "aire_bbox": 0.13128126940570004,
+    "aspect_ratio": 0.28028491556720064,
+    "centroide_x": 0.010743843806164213,
+    "dispersion": 0.27020871629061477
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6828261378429076,
+    "hauteur_max": 0.06950496990505431,
+    "aire_bbox": 0.047459810161155754,
+    "aspect_ratio": 0.11968594509484606,
+    "centroide_x": 0.019790332635907633,
+    "dispersion": 0.25169315495309924
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3734212293513714,
+    "hauteur_max": 0.04207479668631456,
+    "aire_bbox": 0.01571162230331259,
+    "aspect_ratio": 0.13248309114229037,
+    "centroide_x": -0.0036542111088274866,
+    "dispersion": 0.17235691483421758
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3199121485602306,
+    "hauteur_max": 0.045316921541558496,
+    "aire_bbox": 0.014497433736495376,
+    "aspect_ratio": 0.16655861398116859,
+    "centroide_x": 0.020710434492199736,
+    "dispersion": 0.120181540649493
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.36171281657618326,
+    "hauteur_max": 0.09667648372788971,
+    "aire_bbox": 0.034969123225896535,
+    "aspect_ratio": 0.3142638159694875,
+    "centroide_x": 0.016548691675842195,
+    "dispersion": 0.12863868211467946
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.0867185779698939,
+    "hauteur_max": 0.004083302696509241,
+    "aire_bbox": 0.0003540982032619147,
+    "aspect_ratio": 0.05536519818955222,
+    "centroide_x": 0.017483660115658092,
+    "dispersion": 0.03504430692231949
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.23985308817358272,
+    "hauteur_max": 0.027159701617412952,
+    "aire_bbox": 0.006514338306809546,
+    "aspect_ratio": 0.13314262369529256,
+    "centroide_x": -0.0007994456303837164,
+    "dispersion": 0.08013420620558982
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3035147494907259,
+    "hauteur_max": 0.030696666560760713,
+    "aire_bbox": 0.00931689106138963,
+    "aspect_ratio": 0.11891834241152323,
+    "centroide_x": 0.0015060423606676504,
+    "dispersion": 0.12243191297684942
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.19647252836499912,
+    "hauteur_max": 0.011437377171649159,
+    "aire_bbox": 0.0022471304107780326,
+    "aspect_ratio": 0.06844820129348565,
+    "centroide_x": 0.02045944287434593,
+    "dispersion": 0.07841788770687134
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.31678304089286113,
+    "hauteur_max": 0.023421557143917374,
+    "aire_bbox": 0.007419552094496061,
+    "aspect_ratio": 0.08693432224308151,
+    "centroide_x": 0.019367389571223526,
+    "dispersion": 0.10668383036841772
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10194794088592236,
+    "hauteur_max": 0.004108043221252338,
+    "aire_bbox": 0.00041880654747704745,
+    "aspect_ratio": 0.047379882215380656,
+    "centroide_x": 0.02020489472739,
+    "dispersion": 0.041678171517124184
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.0996054709276447,
+    "hauteur_max": 0.023244467072072048,
+    "aire_bbox": 0.002315276089175867,
+    "aspect_ratio": 0.2743935076178331,
+    "centroide_x": 0.018967122351776902,
+    "dispersion": 0.041290893539352495
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10546637571085701,
+    "hauteur_max": 0.024569852326166545,
+    "aire_bbox": 0.002591293276591755,
+    "aspect_ratio": 0.27392139529699056,
+    "centroide_x": 0.015873511624452406,
+    "dispersion": 0.04285171155472688
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10898202181598327,
+    "hauteur_max": 0.010640750876819729,
+    "aire_bbox": 0.0011596505441960107,
+    "aspect_ratio": 0.11480342528746013,
+    "centroide_x": 0.014637935593524873,
+    "dispersion": 0.04480589446438734
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3437382050722949,
+    "hauteur_max": 0.05716121523858754,
+    "aire_bbox": 0.019648493525863193,
+    "aspect_ratio": 0.1955289550832282,
+    "centroide_x": 0.017170539739262414,
+    "dispersion": 0.14165343167578623
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3152284663016281,
+    "hauteur_max": 0.05704792967792178,
+    "aire_bbox": 0.017983131378054414,
+    "aspect_ratio": 0.21279033097965858,
+    "centroide_x": 0.038012438219750186,
+    "dispersion": 0.1173088794678663
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.22069731712888446,
+    "hauteur_max": 0.04180981264498718,
+    "aire_bbox": 0.009227313480409978,
+    "aspect_ratio": 0.22275045439859825,
+    "centroide_x": 0.0153404537568274,
+    "dispersion": 0.08501026077079271
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11523362077627473,
+    "hauteur_max": 0.058095216552385226,
+    "aire_bbox": 0.006694522153113118,
+    "aspect_ratio": 0.5927869001816467,
+    "centroide_x": 0.016159100227837675,
+    "dispersion": 0.050040501627947584
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4394052927803278,
+    "hauteur_max": 0.09566342434630394,
+    "aire_bbox": 0.04203501498325642,
+    "aspect_ratio": 0.25598709379880874,
+    "centroide_x": -0.05782225519415309,
+    "dispersion": 0.20022145690352422
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8638605320717119,
+    "hauteur_max": 0.1607155648450583,
+    "aire_bbox": 0.13883583335925778,
+    "aspect_ratio": 0.21875185147112516,
+    "centroide_x": 0.015436958499412784,
+    "dispersion": 0.3765868218789382
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7624919340557901,
+    "hauteur_max": 0.2320119905661908,
+    "aire_bbox": 0.17690727141094853,
+    "aspect_ratio": 0.35777715578478936,
+    "centroide_x": 0.019049672103491056,
+    "dispersion": 0.34655970664521835
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8062524159276832,
+    "hauteur_max": 0.04724565936711341,
+    "aire_bbox": 0.03809192700683156,
+    "aspect_ratio": 0.06890144284259721,
+    "centroide_x": 0.008738863625483833,
+    "dispersion": 0.3676998806679556
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6597545667409676,
+    "hauteur_max": 0.17439372668629657,
+    "aire_bbox": 0.1150570575922603,
+    "aspect_ratio": 0.3108034882076813,
+    "centroide_x": 0.019481634321329617,
+    "dispersion": 0.2951990450203473
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6371004833985796,
+    "hauteur_max": 0.18940276134162873,
+    "aire_bbox": 0.12066859080777748,
+    "aspect_ratio": 0.3495552287051307,
+    "centroide_x": 0.027118925826430988,
+    "dispersion": 0.2430913705327292
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6894476522836666,
+    "hauteur_max": 0.19179338430204915,
+    "aire_bbox": 0.1322314985305868,
+    "aspect_ratio": 0.3270918751276907,
+    "centroide_x": 0.005904603840340783,
+    "dispersion": 0.2370857720224932
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9509710071958573,
+    "hauteur_max": 0.2896816886948931,
+    "aire_bbox": 0.27547888726437925,
+    "aspect_ratio": 0.3581716420506527,
+    "centroide_x": -0.0067061889313747465,
+    "dispersion": 0.42839649084607734
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18984100734139822,
+    "hauteur_max": 0.07789517011567582,
+    "aire_bbox": 0.014787697561789477,
+    "aspect_ratio": 0.4824562439422721,
+    "centroide_x": 0.027345683378015153,
+    "dispersion": 0.06672878507307704
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.47733434280972875,
+    "hauteur_max": 0.11412152997550182,
+    "aire_bbox": 0.05447412551129692,
+    "aspect_ratio": 0.2811139092948577,
+    "centroide_x": 0.0040646411419176754,
+    "dispersion": 0.20316349402315928
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1500002078621665,
+    "hauteur_max": 0.034535261285092926,
+    "aire_bbox": 0.00518029637133817,
+    "aspect_ratio": 0.270712504164847,
+    "centroide_x": 0.013445552822505659,
+    "dispersion": 0.07410968355185484
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.26875089644386196,
+    "hauteur_max": 0.058097913827639174,
+    "aire_bbox": 0.015613866422696271,
+    "aspect_ratio": 0.2541839050431483,
+    "centroide_x": 0.00506971641804966,
+    "dispersion": 0.11470731206094639
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12851317641920473,
+    "hauteur_max": 0.036772418584512925,
+    "aire_bbox": 0.004725740316912352,
+    "aspect_ratio": 0.33644336502933314,
+    "centroide_x": 0.02065020589078222,
+    "dispersion": 0.04954665657111305
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.2140624605776696,
+    "hauteur_max": 0.036273515672024303,
+    "aire_bbox": 0.0077647980185561825,
+    "aspect_ratio": 0.19924460363659027,
+    "centroide_x": 0.014002702130697629,
+    "dispersion": 0.0958163358340417
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.1511713608201345,
+    "hauteur_max": 0.07248183169049631,
+    "aire_bbox": 0.010957177131388277,
+    "aspect_ratio": 0.5637636474649644,
+    "centroide_x": 0.0136105179023483,
+    "dispersion": 0.07604321524710905
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2335942166694772,
+    "hauteur_max": 0.03167280117421487,
+    "aire_bbox": 0.00739858318001882,
+    "aspect_ratio": 0.15942697992163787,
+    "centroide_x": 0.014219645849191262,
+    "dispersion": 0.10386952790591644
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08203281784163023,
+    "hauteur_max": 0.08619831344223891,
+    "aire_bbox": 0.007071090544862931,
+    "aspect_ratio": 1.2355165566489559,
+    "centroide_x": 0.013147307137331943,
+    "dispersion": 0.05050504760605938
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05548168994973153,
+    "hauteur_max": 0.03239009037278166,
+    "aire_bbox": 0.0017970569515064563,
+    "aspect_ratio": 0.6864357752006363,
+    "centroide_x": 0.024319971598600713,
+    "dispersion": 0.02137265345774078
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.1363265678337628,
+    "hauteur_max": 0.042306948377137006,
+    "aire_bbox": 0.005767561067775269,
+    "aspect_ratio": 0.3648956033267352,
+    "centroide_x": 0.013163379489539271,
+    "dispersion": 0.04705160937675296
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23555047627468137,
+    "hauteur_max": 0.19490715605900183,
+    "aire_bbox": 0.04591047343904153,
+    "aspect_ratio": 0.9729291800011979,
+    "centroide_x": 0.011089954920162697,
+    "dispersion": 0.11336785390824049
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5449673598571595,
+    "hauteur_max": 0.08368277873471332,
+    "aire_bbox": 0.04560438299256757,
+    "aspect_ratio": 0.1805523029412396,
+    "centroide_x": 0.044461094561884115,
+    "dispersion": 0.1973528328797566
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.925782141589973,
+    "hauteur_max": 0.15548038610087656,
+    "aire_bbox": 0.14394096481970536,
+    "aspect_ratio": 0.19747141695767703,
+    "centroide_x": -0.07553734806813296,
+    "dispersion": 0.41539131849897537
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7157203456409694,
+    "hauteur_max": 0.05608769968751676,
+    "aire_bbox": 0.04014310780655639,
+    "aspect_ratio": 0.09214286183597821,
+    "centroide_x": 0.05017881468338719,
+    "dispersion": 0.33461583701186426
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3324318053957611,
+    "hauteur_max": 0.05161822158223556,
+    "aire_bbox": 0.017159538591901006,
+    "aspect_ratio": 0.18257356690517312,
+    "centroide_x": 0.033576469010534,
+    "dispersion": 0.1469804825247047
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5394608958935171,
+    "hauteur_max": 0.02849703859116718,
+    "aire_bbox": 0.015373037968703178,
+    "aspect_ratio": 0.06211224005741138,
+    "centroide_x": 0.01131103113864688,
+    "dispersion": 0.24625937837975378
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6437625709785118,
+    "hauteur_max": 0.032891225513066655,
+    "aire_bbox": 0.02117413989892581,
+    "aspect_ratio": 0.06007472115469963,
+    "centroide_x": 0.0100555836563919,
+    "dispersion": 0.3040221228812274
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3918038141589949,
+    "hauteur_max": 0.028561540673533115,
+    "aire_bbox": 0.011190520574147543,
+    "aspect_ratio": 0.08571373145522451,
+    "centroide_x": 0.01215585648902192,
+    "dispersion": 0.18310681425801717
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5484561576990322,
+    "hauteur_max": 0.04997795269461566,
+    "aire_bbox": 0.0274107159045529,
+    "aspect_ratio": 0.10714550986052544,
+    "centroide_x": 0.010872261619302126,
+    "dispersion": 0.2374175537253439
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6629045077857292,
+    "hauteur_max": 0.07087058176422922,
+    "aire_bbox": 0.046980428120904645,
+    "aspect_ratio": 0.1257049722630348,
+    "centroide_x": 0.009836821801944751,
+    "dispersion": 0.30702022316619665
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4070446600389403,
+    "hauteur_max": 0.05259324008179153,
+    "aire_bbox": 0.021407797529439204,
+    "aspect_ratio": 0.15192361865911913,
+    "centroide_x": 0.011873213812689154,
+    "dispersion": 0.18474677625780106
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6425920195091299,
+    "hauteur_max": 0.027726594468199337,
+    "aire_bbox": 0.017816888333430883,
+    "aspect_ratio": 0.05073394500096922,
+    "centroide_x": 0.009861437266658652,
+    "dispersion": 0.2631193884771367
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7406355339401663,
+    "hauteur_max": 0.05965112583120065,
+    "aire_bbox": 0.04417974343012334,
+    "aspect_ratio": 0.09470033844937589,
+    "centroide_x": -0.05416161935399482,
+    "dispersion": 0.33881579186322536
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.31172747464569106,
+    "hauteur_max": 0.04392615061492867,
+    "aire_bbox": 0.013692988002097983,
+    "aspect_ratio": 0.16568587897264622,
+    "centroide_x": 0.013103627066585704,
+    "dispersion": 0.12769714832696666
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6066068165477468,
+    "hauteur_max": 0.20919918054424175,
+    "aire_bbox": 0.12690164893433983,
+    "aspect_ratio": 0.4054993139288754,
+    "centroide_x": 0.010198252647962461,
+    "dispersion": 0.24507283374477157
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.3980352359112609,
+    "hauteur_max": 0.08481191396171031,
+    "aire_bbox": 0.033758130181834926,
+    "aspect_ratio": 0.25053752081429237,
+    "centroide_x": 0.021402823040904097,
+    "dispersion": 0.1316611232554906
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4055587645080867,
+    "hauteur_max": 0.11398973552602448,
+    "aire_bbox": 0.04622953630653805,
+    "aspect_ratio": 0.33048319884889027,
+    "centroide_x": 0.008597304198085475,
+    "dispersion": 0.15538872102254625
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.26015792114090397,
+    "hauteur_max": 0.2261769006017347,
+    "aire_bbox": 0.058841712270640174,
+    "aspect_ratio": 1.022230008335859,
+    "centroide_x": 0.01026820759322154,
+    "dispersion": 0.13442846316088428
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6914112391134654,
+    "hauteur_max": 0.15092515324441816,
+    "aire_bbox": 0.1043513472181128,
+    "aspect_ratio": 0.25666261905767424,
+    "centroide_x": 0.006141253145127614,
+    "dispersion": 0.25800279140856436
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7571231016168094,
+    "hauteur_max": 0.150677980520716,
+    "aire_bbox": 0.11408177995720167,
+    "aspect_ratio": 0.23400262222850712,
+    "centroide_x": 0.006198845677249184,
+    "dispersion": 0.3174531792399716
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9592139708224704,
+    "hauteur_max": 0.2975208076682858,
+    "aire_bbox": 0.28538611532580493,
+    "aspect_ratio": 0.36470295292436444,
+    "centroide_x": -0.011880911338746258,
+    "dispersion": 0.42871277185315004
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6989784576539562,
+    "hauteur_max": 0.1749459240374235,
+    "aire_bbox": 0.12228343215652446,
+    "aspect_ratio": 0.2942913304979288,
+    "centroide_x": 0.06087621738459393,
+    "dispersion": 0.2823253991700249
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4906219365274006,
+    "hauteur_max": 0.18826032575734503,
+    "aire_bbox": 0.09236464559434789,
+    "aspect_ratio": 0.45117941259240063,
+    "centroide_x": 0.013571058884078916,
+    "dispersion": 0.17181886393517204
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9318428499453402,
+    "hauteur_max": 0.2130320086801,
+    "aire_bbox": 0.19851235409804482,
+    "aspect_ratio": 0.26880640713326626,
+    "centroide_x": 0.07650054845533498,
+    "dispersion": 0.37137079055410877
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0040844178588881,
+    "hauteur_max": 0.2532335011978028,
+    "aire_bbox": 0.25426781263256387,
+    "aspect_ratio": 0.296543468627661,
+    "centroide_x": -0.1064031395029678,
+    "dispersion": 0.466246452560547
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7035032375642603,
+    "hauteur_max": 0.11362346414843683,
+    "aire_bbox": 0.07993447489169196,
+    "aspect_ratio": 0.18990629304099912,
+    "centroide_x": -0.0026509008067789426,
+    "dispersion": 0.2814723588801822
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3499923740292725,
+    "hauteur_max": 0.15269144999304143,
+    "aire_bbox": 0.05344084307703652,
+    "aspect_ratio": 0.5129718917478187,
+    "centroide_x": 0.02624175223762468,
+    "dispersion": 0.12981351648534512
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2624946496172232,
+    "hauteur_max": 0.17699799244872785,
+    "aire_bbox": 0.04646102601078073,
+    "aspect_ratio": 0.7928395672776873,
+    "centroide_x": 0.01956443107470687,
+    "dispersion": 0.09183355266213555
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8062524159276832,
+    "hauteur_max": 0.0759000235131789,
+    "aire_bbox": 0.06119457732646844,
+    "aspect_ratio": 0.1106899808765352,
+    "centroide_x": 0.019953235548340297,
+    "dispersion": 0.30685282636157635
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6917714760957743,
+    "hauteur_max": 0.056665567658301955,
+    "aire_bbox": 0.03919962338278851,
+    "aspect_ratio": 0.09631502107723525,
+    "centroide_x": 0.029754025833661765,
+    "dispersion": 0.27224846990244084
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.816283987886313,
+    "hauteur_max": 0.08789889898510655,
+    "aire_bbox": 0.07175046379437897,
+    "aspect_ratio": 0.12661337591948646,
+    "centroide_x": 0.024731449940369632,
+    "dispersion": 0.32443513361840404
    }
   },
   "notes": "joue creuse"
@@ -2429,9 +5201,7 @@ window.PRESETS_DB = [
     "height": 0.2239137627878946,
     "projection": 0.08944849917244196,
     "narine": 0.12776421647756095,
-    "evasement": 2.0576588063393735,
-    "compacite_narines": 0.15405837701709407,
-    "ratio_pointe_base": 0.5528079565250553
+    "compacite_narines": 0.15405837701709407
    },
    "joues": {
     "width": 1.0486571682362633,
@@ -2455,6 +5225,701 @@ window.PRESETS_DB = [
     "width": 0.8545151927728338,
     "height": 0.2061212408677539,
     "angle": 0.3093627381086227
+   },
+   "philtrum": {
+    "largeur_sup": 0.12034515853583445,
+    "largeur_milieu": 0.12194441110478704,
+    "largeur_inf": 0.11315872829867037,
+    "hauteur": 0.0930146156694417,
+    "profondeur_z": 0.006599355489015579
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.48080886559208835,
+    "hauteur_max": 0.21366921723449747,
+    "aire_bbox": 0.10273405395046822,
+    "aspect_ratio": 0.4637120161689436,
+    "centroide_x": 0.019950335397288764,
+    "dispersion": 0.18121191169759915
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6572202671737849,
+    "hauteur_max": 0.1496798069543623,
+    "aire_bbox": 0.09837260271706655,
+    "aspect_ratio": 0.23764633702028234,
+    "centroide_x": 0.015353540105539194,
+    "dispersion": 0.25698642459307347
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.272645399728671,
+    "hauteur_max": 0.09163800518454027,
+    "aire_bbox": 0.02498468055387701,
+    "aspect_ratio": 0.350716590318002,
+    "centroide_x": -0.007110513230684043,
+    "dispersion": 0.11469719190989405
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7236265534487706,
+    "hauteur_max": 0.11417332718038453,
+    "aire_bbox": 0.0826188512433205,
+    "aspect_ratio": 0.1646375976029596,
+    "centroide_x": -0.0076761302285332945,
+    "dispersion": 0.2651836647258085
+   },
+   "joues__joues": {
+    "largeur_max": 1.0057412804924646,
+    "hauteur_max": 0.23802407778861864,
+    "aire_bbox": 0.2393906407831633,
+    "aspect_ratio": 0.24695252614590138,
+    "centroide_x": 0.03881358488693699,
+    "dispersion": 0.3854599022373276
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9942362689711779,
+    "hauteur_max": 0.4785715968657054,
+    "aire_bbox": 0.4758132389033376,
+    "aspect_ratio": 0.5022687703839919,
+    "centroide_x": -0.014747681113424869,
+    "dispersion": 0.4476410340897723
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5800865226215042,
+    "hauteur_max": 0.07964665913757349,
+    "aire_bbox": 0.046201953537535256,
+    "aspect_ratio": 0.14326946727361387,
+    "centroide_x": 0.01227303759442614,
+    "dispersion": 0.239032874568183
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6768078582413161,
+    "hauteur_max": 0.13792119662788432,
+    "aire_bbox": 0.09334614969579781,
+    "aspect_ratio": 0.212639764134742,
+    "centroide_x": 0.01051137750561584,
+    "dispersion": 0.28330758884824664
+   },
+   "menton__menton": {
+    "largeur_max": 0.4625781704913318,
+    "hauteur_max": 0.1528098480508371,
+    "aire_bbox": 0.07068649994441464,
+    "aspect_ratio": 0.34470300355522865,
+    "centroide_x": 0.013601974591289324,
+    "dispersion": 0.1691582196873022
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.179104505944252,
+    "hauteur_max": 0.10236502192984177,
+    "aire_bbox": 0.018334036678716834,
+    "aspect_ratio": 0.5963811795805374,
+    "centroide_x": 0.014314894298419355,
+    "dispersion": 0.07379572648245254
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2587440779006193,
+    "hauteur_max": 0.1332163090401812,
+    "aire_bbox": 0.03446893104392562,
+    "aspect_ratio": 0.5372369020429246,
+    "centroide_x": -0.0032895693641341274,
+    "dispersion": 0.10671704393548573
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11938343545635384,
+    "hauteur_max": 0.09452774545397573,
+    "aire_bbox": 0.011285046998239356,
+    "aspect_ratio": 0.8262169216059733,
+    "centroide_x": 0.005238578407631944,
+    "dispersion": 0.05419287166161641
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1788449585897461,
+    "hauteur_max": 0.061922049265892246,
+    "aire_bbox": 0.011074446336750718,
+    "aspect_ratio": 0.3612829579872861,
+    "centroide_x": -0.002618081672716691,
+    "dispersion": 0.06607672438594314
+   },
+   "nez__nez": {
+    "largeur_max": 0.2962864844215114,
+    "hauteur_max": 0.17049419764282983,
+    "aire_bbox": 0.050515126433860386,
+    "aspect_ratio": 0.6004496837452984,
+    "centroide_x": 0.009189672085104402,
+    "dispersion": 0.11720160923337078
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8581576461505833,
+    "hauteur_max": 0.11433245528368903,
+    "aire_bbox": 0.0981152707048674,
+    "aspect_ratio": 0.1390212891936328,
+    "centroide_x": -0.03177130261376212,
+    "dispersion": 0.3124405098211715
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4268024643863057,
+    "hauteur_max": 0.10157651174363126,
+    "aire_bbox": 0.043353105535946346,
+    "aspect_ratio": 0.24833917501818195,
+    "centroide_x": -0.006117725318519822,
+    "dispersion": 0.14108443408337454
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9090683519740788,
+    "hauteur_max": 0.19020425668541363,
+    "aire_bbox": 0.17290867016346362,
+    "aspect_ratio": 0.21832453874248706,
+    "centroide_x": 0.035953009779086914,
+    "dispersion": 0.3721628494627223
+   },
+   "tete__tempes": {
+    "largeur_max": 1.0028133540521391,
+    "hauteur_max": 0.23407648345319906,
+    "aire_bbox": 0.2347350234764326,
+    "aspect_ratio": 0.24356592694259058,
+    "centroide_x": 0.06657718881361888,
+    "dispersion": 0.4627932161672051
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7508947681875379,
+    "hauteur_max": 0.1597320944550784,
+    "aire_bbox": 0.11994199403795601,
+    "aspect_ratio": 0.22196881615004133,
+    "centroide_x": -0.0012224883254675512,
+    "dispersion": 0.2692053200804719
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6946684000707191,
+    "hauteur_max": 0.07005919091347718,
+    "aire_bbox": 0.04866790606211425,
+    "aspect_ratio": 0.1052365087486091,
+    "centroide_x": 0.008575476987708514,
+    "dispersion": 0.2548962437462262
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3863457416691628,
+    "hauteur_max": 0.04042097298627956,
+    "aire_bbox": 0.01561647078737337,
+    "aspect_ratio": 0.10917155378903366,
+    "centroide_x": -0.006940427306695356,
+    "dispersion": 0.1781775758751588
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3321728418108654,
+    "hauteur_max": 0.04053436262928998,
+    "aire_bbox": 0.013464414425563394,
+    "aspect_ratio": 0.12733215357314506,
+    "centroide_x": 0.015172660398011214,
+    "dispersion": 0.12610358527615745
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3765273115936219,
+    "hauteur_max": 0.085337706189526,
+    "aire_bbox": 0.032131977089108615,
+    "aspect_ratio": 0.23649574950195784,
+    "centroide_x": 0.008336686583743808,
+    "dispersion": 0.13130993965482302
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.09235925239384722,
+    "hauteur_max": 0.004917232302604556,
+    "aire_bbox": 0.0004541518993154327,
+    "aspect_ratio": 0.055554491274450425,
+    "centroide_x": 0.013113613829730773,
+    "dispersion": 0.03740501473195005
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.250729413472308,
+    "hauteur_max": 0.015509077115344936,
+    "aire_bbox": 0.00388858180862723,
+    "aspect_ratio": 0.06454454276229306,
+    "centroide_x": -0.006028669827242136,
+    "dispersion": 0.08378185770563858
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3172277049972392,
+    "hauteur_max": 0.03783570651669148,
+    "aire_bbox": 0.012002534345239124,
+    "aspect_ratio": 0.12445421123467855,
+    "centroide_x": -0.003039532962154291,
+    "dispersion": 0.1290981232775568
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.21059693213650646,
+    "hauteur_max": 0.016594278606733022,
+    "aire_bbox": 0.0034947041655964354,
+    "aspect_ratio": 0.08222146201743033,
+    "centroide_x": 0.015507943089858204,
+    "dispersion": 0.08444310735408123
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.32965168019845453,
+    "hauteur_max": 0.03672633146644074,
+    "aire_bbox": 0.012106896875437562,
+    "aspect_ratio": 0.11625218217637559,
+    "centroide_x": 0.015163211810115696,
+    "dispersion": 0.11219156127959215
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.11109479681481736,
+    "hauteur_max": 0.005797654185641765,
+    "aire_bbox": 0.0006440892137564474,
+    "aspect_ratio": 0.05445496035570424,
+    "centroide_x": 0.01525889074578331,
+    "dispersion": 0.045422416060172825
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.10709733202761591,
+    "hauteur_max": 0.02742403297720079,
+    "aire_bbox": 0.002937040765295561,
+    "aspect_ratio": 0.26719696966487805,
+    "centroide_x": 0.014252314900246617,
+    "dispersion": 0.04388052760955446
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.1098955528419089,
+    "hauteur_max": 0.02300948896159259,
+    "aire_bbox": 0.002528640510044018,
+    "aspect_ratio": 0.21847699457797454,
+    "centroide_x": 0.011087071170737265,
+    "dispersion": 0.04410183469526446
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.113076040044782,
+    "hauteur_max": 0.011232096301609809,
+    "aire_bbox": 0.0012700809711876785,
+    "aspect_ratio": 0.1036499472205427,
+    "centroide_x": 0.009250013354251482,
+    "dispersion": 0.04641772437951345
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.35082082699495454,
+    "hauteur_max": 0.044537782233737694,
+    "aire_bbox": 0.01562478159576105,
+    "aspect_ratio": 0.13247138513902343,
+    "centroide_x": 0.013176096191904041,
+    "dispersion": 0.14440400665954511
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.32452501882784945,
+    "hauteur_max": 0.04035375657980175,
+    "aire_bbox": 0.013095803613834618,
+    "aspect_ratio": 0.12975217425584895,
+    "centroide_x": 0.03475191261334874,
+    "dispersion": 0.12053259452341382
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.22615203472208376,
+    "hauteur_max": 0.03623494736164635,
+    "aire_bbox": 0.008194607073883923,
+    "aspect_ratio": 0.16718834285911452,
+    "centroide_x": 0.010313196473269082,
+    "dispersion": 0.08704858522940252
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.12190554978584994,
+    "hauteur_max": 0.05813488736249279,
+    "aire_bbox": 0.0070869654056631435,
+    "aspect_ratio": 0.4976135707717219,
+    "centroide_x": 0.006209390312363415,
+    "dispersion": 0.05021158578575729
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.45362272062509196,
+    "hauteur_max": 0.09710727287721511,
+    "aire_bbox": 0.044050065315045524,
+    "aspect_ratio": 0.22337564352387654,
+    "centroide_x": -0.0689154028213904,
+    "dispersion": 0.20461739576785948
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8775338701276332,
+    "hauteur_max": 0.142466347425549,
+    "aire_bbox": 0.12501904521929,
+    "aspect_ratio": 0.1694054039243036,
+    "centroide_x": 0.005047158642091658,
+    "dispersion": 0.3837996102661856
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7835755955249212,
+    "hauteur_max": 0.22263352067589887,
+    "aire_bbox": 0.1744501935474273,
+    "aspect_ratio": 0.29647529554915875,
+    "centroide_x": 0.009476563428122751,
+    "dispersion": 0.34968960277651906
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8164513215574553,
+    "hauteur_max": 0.04894189161962101,
+    "aire_bbox": 0.039958672092361314,
+    "aspect_ratio": 0.06255028783534484,
+    "centroide_x": -0.0006350842335156915,
+    "dispersion": 0.3722069318644743
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6768078582413161,
+    "hauteur_max": 0.16385255582294025,
+    "aire_bbox": 0.11089669737388988,
+    "aspect_ratio": 0.2526193919058598,
+    "centroide_x": 0.009189642470221452,
+    "dispersion": 0.3004092138154558
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6572202671737849,
+    "hauteur_max": 0.17821764969944692,
+    "aire_bbox": 0.11712825135055452,
+    "aspect_ratio": 0.28295581418240895,
+    "centroide_x": 0.015001935386648948,
+    "dispersion": 0.24765695135334553
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7024005611995183,
+    "hauteur_max": 0.17927267771988054,
+    "aire_bbox": 0.12592122943818448,
+    "aspect_ratio": 0.2663226560519938,
+    "centroide_x": -0.0064818661385325676,
+    "dispersion": 0.23600126982750766
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.955919394194951,
+    "hauteur_max": 0.27564335269376644,
+    "aire_bbox": 0.2634928267208904,
+    "aspect_ratio": 0.3008881670400624,
+    "centroide_x": -0.01440587193893122,
+    "dispersion": 0.4319286737675926
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19231370149362126,
+    "hauteur_max": 0.07268719588731343,
+    "aire_bbox": 0.01397874369228117,
+    "aspect_ratio": 0.39439059160122114,
+    "centroide_x": 0.015069439172761148,
+    "dispersion": 0.06546727750838088
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.48454673765730366,
+    "hauteur_max": 0.11509144416330289,
+    "aire_bbox": 0.055767183801596135,
+    "aspect_ratio": 0.24784845933040875,
+    "centroide_x": -0.00794060201680442,
+    "dispersion": 0.20471492263108665
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15671864869494764,
+    "hauteur_max": 0.0384487410130285,
+    "aire_bbox": 0.00602563473558384,
+    "aspect_ratio": 0.256000199164724,
+    "centroide_x": -0.001631800213344854,
+    "dispersion": 0.07662846003897127
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.28503766306119216,
+    "hauteur_max": 0.05684168891858865,
+    "aire_bbox": 0.016202022173805772,
+    "aspect_ratio": 0.20808634534924603,
+    "centroide_x": -0.009198758183232106,
+    "dispersion": 0.1194496391791888
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.14469118527111063,
+    "hauteur_max": 0.028436626836753215,
+    "aire_bbox": 0.004114529242122096,
+    "aspect_ratio": 0.20507601162005007,
+    "centroide_x": 0.00842128937316188,
+    "dispersion": 0.054613741229849806
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.22867324170197487,
+    "hauteur_max": 0.03298821232274824,
+    "aire_bbox": 0.007543521449795874,
+    "aspect_ratio": 0.15052973276677195,
+    "centroide_x": -0.000213062700055533,
+    "dispersion": 0.10354370015361655
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.16110709042693705,
+    "hauteur_max": 0.07407578423795257,
+    "aire_bbox": 0.011934134069670102,
+    "aspect_ratio": 0.4797781456077144,
+    "centroide_x": -0.0011462264013021879,
+    "dispersion": 0.07985955977550126
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2529209349732279,
+    "hauteur_max": 0.027526727124743203,
+    "aire_bbox": 0.0069620855611429635,
+    "aspect_ratio": 0.11356608565582511,
+    "centroide_x": 0.0011289621847557023,
+    "dispersion": 0.11351614528715412
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08556356679235279,
+    "hauteur_max": 0.08901130453941963,
+    "aire_bbox": 0.0076161247012330865,
+    "aspect_ratio": 1.0855132870380926,
+    "centroide_x": -0.002022378932472845,
+    "dispersion": 0.049066928419912274
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06641068692056988,
+    "hauteur_max": 0.02440903367344285,
+    "aire_bbox": 0.0016210206933206608,
+    "aspect_ratio": 0.3835230513738191,
+    "centroide_x": 0.012423893539750886,
+    "dispersion": 0.022695623564732526
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13991172122685303,
+    "hauteur_max": 0.04595645710008357,
+    "aire_bbox": 0.006429847014360723,
+    "aspect_ratio": 0.34274513491560377,
+    "centroide_x": -0.0022263977513614793,
+    "dispersion": 0.04802030883918055
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.24030968281354365,
+    "hauteur_max": 0.1997455951506012,
+    "aire_bbox": 0.04800080061404347,
+    "aspect_ratio": 0.8673308590834854,
+    "centroide_x": -0.00476598234137692,
+    "dispersion": 0.10864844098075709
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5602470059361491,
+    "hauteur_max": 0.09591198604222949,
+    "aire_bbox": 0.053734403013548794,
+    "aspect_ratio": 0.17863732123376236,
+    "centroide_x": 0.029748548139369425,
+    "dispersion": 0.20027897934766745
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9534771266306935,
+    "hauteur_max": 0.17262242733046793,
+    "aire_bbox": 0.16459153600307025,
+    "aspect_ratio": 0.18891471960487902,
+    "centroide_x": -0.083442505525008,
+    "dispersion": 0.4275054535136926
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7275331925405131,
+    "hauteur_max": 0.047988949059995845,
+    "aire_bbox": 0.03491355331628283,
+    "aspect_ratio": 0.06882833834701664,
+    "centroide_x": 0.04051486114308228,
+    "dispersion": 0.3405079151624428
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3271863659542305,
+    "hauteur_max": 0.055723661821191026,
+    "aire_bbox": 0.018232022408937988,
+    "aspect_ratio": 0.1777146815671956,
+    "centroide_x": 0.02043817839347742,
+    "dispersion": 0.14261056442845188
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.547056411053682,
+    "hauteur_max": 0.024568857418729013,
+    "aire_bbox": 0.013440550963179523,
+    "aspect_ratio": 0.04686317467631111,
+    "centroide_x": 0.000568858298097235,
+    "dispersion": 0.24779186089166502
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6562576599778565,
+    "hauteur_max": 0.030893199539734368,
+    "aire_bbox": 0.020273898839175068,
+    "aspect_ratio": 0.049121018354448584,
+    "centroide_x": -0.0003306892344717547,
+    "dispersion": 0.310679216851861
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3859405193355766,
+    "hauteur_max": 0.025316324728021637,
+    "aire_bbox": 0.00977059551320077,
+    "aspect_ratio": 0.06844774400710192,
+    "centroide_x": 0.00038092048666607883,
+    "dispersion": 0.17907783532962918
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5635336530428053,
+    "hauteur_max": 0.037161672914087736,
+    "aire_bbox": 0.020941853290457734,
+    "aspect_ratio": 0.06881042782722552,
+    "centroide_x": -0.0010514934316067396,
+    "dispersion": 0.2392049685489752
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6722562750503503,
+    "hauteur_max": 0.05728524763714399,
+    "aire_bbox": 0.0385103671918833,
+    "aspect_ratio": 0.08891740671713179,
+    "centroide_x": -0.0019628391554768914,
+    "dispersion": 0.3130978625582197
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.40678002602058555,
+    "hauteur_max": 0.0465141880588787,
+    "aire_bbox": 0.018921042628917088,
+    "aspect_ratio": 0.11931764762302546,
+    "centroide_x": -0.0009264833397799539,
+    "dispersion": 0.18303536533577072
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6502701960370023,
+    "hauteur_max": 0.021042169959837,
+    "aire_bbox": 0.013683095984827127,
+    "aspect_ratio": 0.0337656825153615,
+    "centroide_x": -0.0029392040397908867,
+    "dispersion": 0.26563051333977505
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7497985537622754,
+    "hauteur_max": 0.04948705754512241,
+    "aire_bbox": 0.03710532417728329,
+    "aspect_ratio": 0.06886933529373504,
+    "centroide_x": -0.06599367811561486,
+    "dispersion": 0.34311170216132914
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.30758117230436266,
+    "hauteur_max": 0.04205881855447189,
+    "aire_bbox": 0.012936500716720943,
+    "aspect_ratio": 0.14268429675806207,
+    "centroide_x": -0.00028468093856399236,
+    "dispersion": 0.12427307293362194
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6230138222105801,
+    "hauteur_max": 0.2017222618414853,
+    "aire_bbox": 0.12567575737482722,
+    "aspect_ratio": 0.33785862088250096,
+    "centroide_x": 0.0006132481091470719,
+    "dispersion": 0.24901666159229416
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.41048831848867834,
+    "hauteur_max": 0.09818334406759394,
+    "aire_bbox": 0.040303115809901986,
+    "aspect_ratio": 0.24958350252219422,
+    "centroide_x": 0.014883118133787862,
+    "dispersion": 0.13697279004774954
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.42217861079930297,
+    "hauteur_max": 0.10595001288232157,
+    "aire_bbox": 0.04472982925282677,
+    "aspect_ratio": 0.261868731969489,
+    "centroide_x": -0.003129709650604133,
+    "dispersion": 0.1612831167727994
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.272645399728671,
+    "hauteur_max": 0.24196715045115744,
+    "aire_bbox": 0.0659712304559633,
+    "aspect_ratio": 0.9260556665795854,
+    "centroide_x": -0.005749825298685275,
+    "dispersion": 0.1323893184687685
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7236265534487706,
+    "hauteur_max": 0.17559264468165656,
+    "aire_bbox": 0.12706350028194174,
+    "aspect_ratio": 0.2532040704346291,
+    "centroide_x": -0.007473081626433437,
+    "dispersion": 0.26487216697704197
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7723680132041485,
+    "hauteur_max": 0.14067211284435496,
+    "aire_bbox": 0.10865064031082422,
+    "aspect_ratio": 0.1900476871671088,
+    "centroide_x": -0.003903584348072318,
+    "dispersion": 0.3225405703579955
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.964014812738106,
+    "hauteur_max": 0.29588688218103504,
+    "aire_bbox": 0.2852393373174125,
+    "aspect_ratio": 0.3202733941652952,
+    "centroide_x": -0.02002142560344048,
+    "dispersion": 0.43332021803849374
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7213684324868449,
+    "hauteur_max": 0.16585800470081552,
+    "aire_bbox": 0.11964472886642305,
+    "aspect_ratio": 0.23991541934178176,
+    "centroide_x": 0.050139873153055146,
+    "dispersion": 0.28911018053234755
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.49732993256713254,
+    "hauteur_max": 0.1839824348014553,
+    "aire_bbox": 0.09149997189334462,
+    "aspect_ratio": 0.3860207242012958,
+    "centroide_x": -0.00022766308938671146,
+    "dispersion": 0.17212129426755796
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9391236271269977,
+    "hauteur_max": 0.19864300260967163,
+    "aire_bbox": 0.1865503371141925,
+    "aspect_ratio": 0.2207137360346699,
+    "centroide_x": 0.0672231828459564,
+    "dispersion": 0.37448994230134586
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0082775948432787,
+    "hauteur_max": 0.2321866850547746,
+    "aire_bbox": 0.234108632361662,
+    "aspect_ratio": 0.2402901963434609,
+    "centroide_x": -0.11099050831959442,
+    "dispersion": 0.4675933526846644
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7128027346434263,
+    "hauteur_max": 0.1279547339566554,
+    "aire_bbox": 0.09120648427487604,
+    "aspect_ratio": 0.18731211121863853,
+    "centroide_x": -0.012513592177379101,
+    "dispersion": 0.2845706078381212
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3553932338593546,
+    "hauteur_max": 0.1528098480508371,
+    "aire_bbox": 0.0543075860643436,
+    "aspect_ratio": 0.4486638167415061,
+    "centroide_x": 0.014042441912114952,
+    "dispersion": 0.12850266497745585
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2819239114217657,
+    "hauteur_max": 0.17049419764282983,
+    "aire_bbox": 0.048066391074182174,
+    "aspect_ratio": 0.6310395062685974,
+    "centroide_x": 0.005929961993975932,
+    "dispersion": 0.09258505167592757
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8164513215574553,
+    "hauteur_max": 0.0756353266055844,
+    "aire_bbox": 0.061752562363559145,
+    "aspect_ratio": 0.09666588873330222,
+    "centroide_x": 0.009212875694103562,
+    "dispersion": 0.309735793596809
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7017291678593098,
+    "hauteur_max": 0.05643465140407041,
+    "aire_bbox": 0.03960184096820856,
+    "aspect_ratio": 0.0839180098824199,
+    "centroide_x": 0.01907461499894763,
+    "dispersion": 0.2748998874142091
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8234789710854641,
+    "hauteur_max": 0.0698667154726769,
+    "aire_bbox": 0.057533770970560845,
+    "aspect_ratio": 0.08853126538284713,
+    "centroide_x": 0.013347663450537194,
+    "dispersion": 0.3270900539162161
    }
   },
   "notes": ""
@@ -2921,9 +6386,7 @@ window.PRESETS_DB = [
     "height": 0.20791817417722297,
     "projection": 0.1168857356172922,
     "narine": 0.15614483848358898,
-    "evasement": 2.0526044350897026,
-    "compacite_narines": 0.22131291161631997,
-    "ratio_pointe_base": 0.5382706753916566
+    "compacite_narines": 0.22131291161631997
    },
    "joues": {
     "width": 1.0482103351940688,
@@ -2947,6 +6410,701 @@ window.PRESETS_DB = [
     "width": 0.8482490447146367,
     "height": 0.17268305143152715,
     "angle": 0.26935141115315914
+   },
+   "philtrum": {
+    "largeur_sup": 0.12214073462795326,
+    "largeur_milieu": 0.12655954395671254,
+    "largeur_inf": 0.11770735479537076,
+    "hauteur": 0.10029308653185647,
+    "profondeur_z": 0.008925508707761765
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4910384805004777,
+    "hauteur_max": 0.23722503723847269,
+    "aire_bbox": 0.11648662182224886,
+    "aspect_ratio": 0.5092842986172065,
+    "centroide_x": 0.023392623538458213,
+    "dispersion": 0.1898592900602632
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6638592099508555,
+    "hauteur_max": 0.16021815647422982,
+    "aire_bbox": 0.10636229877676474,
+    "aspect_ratio": 0.2544198757528425,
+    "centroide_x": 0.02189341501766757,
+    "dispersion": 0.2626087923552024
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2724662947451594,
+    "hauteur_max": 0.08385727417898552,
+    "aire_bbox": 0.02284828078297711,
+    "aspect_ratio": 0.3244466140359549,
+    "centroide_x": 0.0053871694396061655,
+    "dispersion": 0.11404424943396123
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7251606865616698,
+    "hauteur_max": 0.10853792774892729,
+    "aire_bbox": 0.07870743820439302,
+    "aspect_ratio": 0.15778385578923998,
+    "centroide_x": 0.0041414836142820936,
+    "dispersion": 0.26688391913672266
+   },
+   "joues__joues": {
+    "largeur_max": 1.003186047386821,
+    "hauteur_max": 0.24555817603482769,
+    "aire_bbox": 0.246340536019896,
+    "aspect_ratio": 0.25804069698511634,
+    "centroide_x": 0.04388158283857994,
+    "dispersion": 0.3905488479768942
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9925277923466915,
+    "hauteur_max": 0.4723979812092004,
+    "aire_bbox": 0.46886812539860157,
+    "aspect_ratio": 0.5017422200661582,
+    "centroide_x": -0.015696246047194665,
+    "dispersion": 0.4470707239938023
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5827183187649029,
+    "hauteur_max": 0.0745766270607552,
+    "aire_bbox": 0.04345716674000043,
+    "aspect_ratio": 0.13491472635252816,
+    "centroide_x": 0.013612330352192316,
+    "dispersion": 0.2409447487902031
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6819623651010597,
+    "hauteur_max": 0.13206333499119685,
+    "aire_bbox": 0.09006222427373013,
+    "aspect_ratio": 0.20414424565578565,
+    "centroide_x": 0.012458065160543107,
+    "dispersion": 0.28737984082900847
+   },
+   "menton__menton": {
+    "largeur_max": 0.4685712363369771,
+    "hauteur_max": 0.14867543914790657,
+    "aire_bbox": 0.06966503433447759,
+    "aspect_ratio": 0.3344867317697762,
+    "centroide_x": 0.01513308777880373,
+    "dispersion": 0.17200560124579145
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.18445598618893125,
+    "hauteur_max": 0.09560013469390302,
+    "aire_bbox": 0.017634017124758542,
+    "aspect_ratio": 0.5463626977844628,
+    "centroide_x": 0.01530860448664069,
+    "dispersion": 0.07475410458315668
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.27322208152631444,
+    "hauteur_max": 0.11468964188170518,
+    "aire_bbox": 0.031335742684427056,
+    "aspect_ratio": 0.4425106135606955,
+    "centroide_x": 0.006946801342403925,
+    "dispersion": 0.11023302629232903
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12443015141485422,
+    "hauteur_max": 0.08452399376775077,
+    "aire_bbox": 0.010517333342709424,
+    "aspect_ratio": 0.7160933989913266,
+    "centroide_x": 0.01817848854818147,
+    "dispersion": 0.05274258748801494
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.18931026524484548,
+    "hauteur_max": 0.0642603629609635,
+    "aire_bbox": 0.012165146356870046,
+    "aspect_ratio": 0.3578362227992625,
+    "centroide_x": 0.010088032710845298,
+    "dispersion": 0.06999967883131647
+   },
+   "nez__nez": {
+    "largeur_max": 0.3115665867237242,
+    "hauteur_max": 0.17576566920224676,
+    "aire_bbox": 0.05476270961655524,
+    "aspect_ratio": 0.5947007225153194,
+    "centroide_x": 0.02128434084449787,
+    "dispersion": 0.12326531436266479
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8679594047481798,
+    "hauteur_max": 0.13712705863418945,
+    "aire_bbox": 0.11902072018699981,
+    "aspect_ratio": 0.1665478527653158,
+    "centroide_x": -0.021717472830603327,
+    "dispersion": 0.31995347378487343
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.43848887690321015,
+    "hauteur_max": 0.0941596656646961,
+    "aire_bbox": 0.041287966046894345,
+    "aspect_ratio": 0.22637143155074638,
+    "centroide_x": 0.006747627682690151,
+    "dispersion": 0.14374426407120916
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.913589377965708,
+    "hauteur_max": 0.20170570150682401,
+    "aire_bbox": 0.18427618637175613,
+    "aspect_ratio": 0.2327461059055894,
+    "centroide_x": 0.046248002034163516,
+    "dispersion": 0.37815671812773116
+   },
+   "tete__tempes": {
+    "largeur_max": 0.999046829353234,
+    "hauteur_max": 0.2528801066262957,
+    "aire_bbox": 0.25263906873150843,
+    "aspect_ratio": 0.26683580893439907,
+    "centroide_x": 0.07373372190471379,
+    "dispersion": 0.4648785932008061
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7697498852447914,
+    "hauteur_max": 0.17608912939385948,
+    "aire_bbox": 0.13554458714377857,
+    "aspect_ratio": 0.24115607350670493,
+    "centroide_x": 0.007169769841630419,
+    "dispersion": 0.2774442078829302
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.7140021988770296,
+    "hauteur_max": 0.07146793228761729,
+    "aire_bbox": 0.051028260802553405,
+    "aspect_ratio": 0.10551809906079944,
+    "centroide_x": 0.01596862944895014,
+    "dispersion": 0.26296965107740955
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3892622175506609,
+    "hauteur_max": 0.037247793205071066,
+    "aire_bbox": 0.014499158581874403,
+    "aspect_ratio": 0.1008726861239185,
+    "centroide_x": -0.007151641589892457,
+    "dispersion": 0.18063086348815394
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.34558698819832323,
+    "hauteur_max": 0.033434404757154736,
+    "aire_bbox": 0.011554495242228796,
+    "aspect_ratio": 0.10198857035725166,
+    "centroide_x": 0.014968810506239261,
+    "dispersion": 0.13281826207011402
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3865318793761581,
+    "hauteur_max": 0.09424729141692995,
+    "aire_bbox": 0.036429582677498386,
+    "aspect_ratio": 0.25703889772226585,
+    "centroide_x": 0.012553811573811515,
+    "dispersion": 0.13663114756364433
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.09399481997815598,
+    "hauteur_max": 0.006686160980320409,
+    "aire_bbox": 0.0006284644976901878,
+    "aspect_ratio": 0.07498738327995333,
+    "centroide_x": 0.01300354967662412,
+    "dispersion": 0.03830901246252535
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2544522734716622,
+    "hauteur_max": 0.034141469068516644,
+    "aire_bbox": 0.008687374424146493,
+    "aspect_ratio": 0.14144615929130144,
+    "centroide_x": -0.0056685574961968695,
+    "dispersion": 0.08517604489387497
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.32992872067665613,
+    "hauteur_max": 0.03592243175219537,
+    "aire_bbox": 0.01185184195159631,
+    "aspect_ratio": 0.11477859281180942,
+    "centroide_x": -0.003902723243545593,
+    "dispersion": 0.13569058899780181
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.22702125349612637,
+    "hauteur_max": 0.013606400372920817,
+    "aire_bbox": 0.003088942068230645,
+    "aspect_ratio": 0.06318180363403006,
+    "centroide_x": 0.01460222082770001,
+    "dispersion": 0.09128665189923806
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.33664111247908773,
+    "hauteur_max": 0.034799979230594656,
+    "aire_bbox": 0.011715103722436533,
+    "aspect_ratio": 0.10897506132354375,
+    "centroide_x": 0.01515084175611666,
+    "dispersion": 0.11602586741513887
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.12135031218277485,
+    "hauteur_max": 0.0038107544072680122,
+    "aire_bbox": 0.00046243623697385844,
+    "aspect_ratio": 0.03310437197836416,
+    "centroide_x": 0.013403718823166568,
+    "dispersion": 0.04958096554787784
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.11529781651116743,
+    "hauteur_max": 0.030886409436687533,
+    "aire_bbox": 0.0035611355679199892,
+    "aspect_ratio": 0.2823980100740603,
+    "centroide_x": 0.01319332554219202,
+    "dispersion": 0.04733902338467804
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.11406558463099875,
+    "hauteur_max": 0.025667935905606606,
+    "aire_bbox": 0.002927828115344022,
+    "aspect_ratio": 0.23722016632294987,
+    "centroide_x": 0.0121820617565117,
+    "dispersion": 0.04617757686374195
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.11769434230109661,
+    "hauteur_max": 0.010886665602183664,
+    "aire_bbox": 0.0012812989479009784,
+    "aspect_ratio": 0.09751121942894847,
+    "centroide_x": 0.011630374275421356,
+    "dispersion": 0.04831336406447602
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.36192023889328945,
+    "hauteur_max": 0.05170288147487803,
+    "aire_bbox": 0.018712319214859288,
+    "aspect_ratio": 0.15059729400961824,
+    "centroide_x": 0.014341772658105656,
+    "dispersion": 0.1495486375757586
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3289003489869833,
+    "hauteur_max": 0.058693098547368594,
+    "aire_bbox": 0.01930418059535693,
+    "aspect_ratio": 0.18812130981596517,
+    "centroide_x": 0.03576283918226411,
+    "dispersion": 0.12286295214021652
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.23738359887495486,
+    "hauteur_max": 0.04189652374392209,
+    "aire_bbox": 0.009945547586682223,
+    "aspect_ratio": 0.18605552492585836,
+    "centroide_x": 0.012165524630199785,
+    "dispersion": 0.09111467762393319
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.12655867394413378,
+    "hauteur_max": 0.06096390499027843,
+    "aire_bbox": 0.007715510974025798,
+    "aspect_ratio": 0.5078040409218945,
+    "centroide_x": 0.01260251665034899,
+    "dispersion": 0.052381268774842955
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4648940705489999,
+    "hauteur_max": 0.10108701696704694,
+    "aire_bbox": 0.04699475479746627,
+    "aspect_ratio": 0.22922219370725286,
+    "centroide_x": -0.06904133765712664,
+    "dispersion": 0.21071467374384822
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8875341481702088,
+    "hauteur_max": 0.15376774213193337,
+    "aire_bbox": 0.13647412202912182,
+    "aspect_ratio": 0.1826398140765959,
+    "centroide_x": 0.007013137647593355,
+    "dispersion": 0.3877651461914471
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7854375401037944,
+    "hauteur_max": 0.22091628676309358,
+    "aire_bbox": 0.17351594484406865,
+    "aspect_ratio": 0.29650455593938424,
+    "centroide_x": 0.010196746575958609,
+    "dispersion": 0.35133212658672824
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8311822859143828,
+    "hauteur_max": 0.036391378788949866,
+    "aire_bbox": 0.030247869409375534,
+    "aspect_ratio": 0.04615486893143718,
+    "centroide_x": 0.005069670498199376,
+    "dispersion": 0.3802060165865822
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6819623651010597,
+    "hauteur_max": 0.16632438950514686,
+    "aire_bbox": 0.11342697404091982,
+    "aspect_ratio": 0.25710517633036156,
+    "centroide_x": 0.011465203555811876,
+    "dispersion": 0.3046997417276972
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6638592099508555,
+    "hauteur_max": 0.17967335630537265,
+    "aire_bbox": 0.11927781236610324,
+    "aspect_ratio": 0.28531393690490814,
+    "centroide_x": 0.02193620649330681,
+    "dispersion": 0.2537478087251476
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7161057305997558,
+    "hauteur_max": 0.17865161193789242,
+    "aire_bbox": 0.1279334430896085,
+    "aspect_ratio": 0.26299353982473606,
+    "centroide_x": 0.0007643304488687784,
+    "dispersion": 0.24409608794612375
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9540133959439899,
+    "hauteur_max": 0.2860919349486681,
+    "aire_bbox": 0.2729355384125659,
+    "aspect_ratio": 0.31613052511682443,
+    "centroide_x": -0.01596468147568735,
+    "dispersion": 0.43195500670566317
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19650669194679954,
+    "hauteur_max": 0.07506524160101709,
+    "aire_bbox": 0.014750822307203147,
+    "aspect_ratio": 0.4026955521129242,
+    "centroide_x": 0.015558392226069175,
+    "dispersion": 0.06703381937189978
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4898743254285314,
+    "hauteur_max": 0.11479605712389698,
+    "aire_bbox": 0.05623564104542419,
+    "aspect_ratio": 0.24703448539079834,
+    "centroide_x": -0.006587279999421227,
+    "dispersion": 0.20799754025464928
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1643376927243656,
+    "hauteur_max": 0.030307271699478652,
+    "aire_bbox": 0.004980627103862784,
+    "aspect_ratio": 0.1944128414531118,
+    "centroide_x": 0.011410941110101,
+    "dispersion": 0.07955884130984674
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.302926616988411,
+    "hauteur_max": 0.0525666712048145,
+    "aire_bbox": 0.015923843874416577,
+    "aspect_ratio": 0.18293143111533175,
+    "centroide_x": 0.0021463117669897197,
+    "dispersion": 0.12725558812797425
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.14543793247563566,
+    "hauteur_max": 0.03611015104906508,
+    "aire_bbox": 0.005251785709958931,
+    "aspect_ratio": 0.26173807481985545,
+    "centroide_x": 0.020157129486478086,
+    "dispersion": 0.054689620962551234
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.24025656976389764,
+    "hauteur_max": 0.03346460842325538,
+    "aire_bbox": 0.008040092028263373,
+    "aspect_ratio": 0.14683370795563708,
+    "centroide_x": 0.012780639781040201,
+    "dispersion": 0.10866225972808695
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.16754433716006784,
+    "hauteur_max": 0.06817950814090956,
+    "aire_bbox": 0.011423090499368141,
+    "aspect_ratio": 0.4289823271015104,
+    "centroide_x": 0.012712516693546462,
+    "dispersion": 0.08125531997589085
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2671560260281882,
+    "hauteur_max": 0.03202229556559464,
+    "aire_bbox": 0.008554949227604337,
+    "aspect_ratio": 0.12635801003102018,
+    "centroide_x": 0.012974027358079959,
+    "dispersion": 0.11898845360591521
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.0883848004203581,
+    "hauteur_max": 0.08458062564168949,
+    "aire_bbox": 0.007475641716769748,
+    "aspect_ratio": 1.0088081876036095,
+    "centroide_x": 0.012870813013050807,
+    "dispersion": 0.04848136797335302
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06012399310870626,
+    "hauteur_max": 0.033681828975386185,
+    "aire_bbox": 0.002025086053204742,
+    "aspect_ratio": 0.5905587935552005,
+    "centroide_x": 0.02422148771329855,
+    "dispersion": 0.022599289337011094
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.1470719147107861,
+    "hauteur_max": 0.04028413966173533,
+    "aire_bbox": 0.0059246655525281335,
+    "aspect_ratio": 0.2887484337249309,
+    "centroide_x": 0.011752297015912018,
+    "dispersion": 0.04911230649179209
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.24513454380676622,
+    "hauteur_max": 0.19485311305820774,
+    "aire_bbox": 0.04776522897885199,
+    "aspect_ratio": 0.8379500360025026,
+    "centroide_x": 0.008133736211944928,
+    "dispersion": 0.10811393038285298
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5702396685844431,
+    "hauteur_max": 0.09072527176539441,
+    "aire_bbox": 0.05173514890373204,
+    "aspect_ratio": 0.16772049784007217,
+    "centroide_x": 0.04287649283625719,
+    "dispersion": 0.2037750525020115
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9539895621192214,
+    "hauteur_max": 0.1594365488125207,
+    "aire_bbox": 0.1521008033874565,
+    "aspect_ratio": 0.17618119551726505,
+    "centroide_x": -0.07501929593422496,
+    "dispersion": 0.4295334947825471
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7449267484916465,
+    "hauteur_max": 0.054265846926363145,
+    "aire_bbox": 0.04042408090500111,
+    "aspect_ratio": 0.07679417994292739,
+    "centroide_x": 0.04749045906223988,
+    "dispersion": 0.3498034714656507
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.34191060915795973,
+    "hauteur_max": 0.05152034245795,
+    "aire_bbox": 0.01761535167382438,
+    "aspect_ratio": 0.1588478916987661,
+    "centroide_x": 0.029804564250611423,
+    "dispersion": 0.15086972967814238
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5661336790677179,
+    "hauteur_max": 0.024430858715126843,
+    "aire_bbox": 0.01383113192717838,
+    "aspect_ratio": 0.04549200007259062,
+    "centroide_x": 0.007384121542951546,
+    "dispersion": 0.25839264598681594
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6754197719453771,
+    "hauteur_max": 0.02917340500173525,
+    "aire_bbox": 0.019704294553142144,
+    "aspect_ratio": 0.04553324918253082,
+    "centroide_x": 0.005651115550796834,
+    "dispersion": 0.31971791671328054
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.4073992954067979,
+    "hauteur_max": 0.02691576876206698,
+    "aire_bbox": 0.010965465228998389,
+    "aspect_ratio": 0.06964690240736689,
+    "centroide_x": 0.008011381531587881,
+    "dispersion": 0.19010117540843977
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5725470604976651,
+    "hauteur_max": 0.05059162362603264,
+    "aire_bbox": 0.028966085392889213,
+    "aspect_ratio": 0.0931499698583025,
+    "centroide_x": 0.0071081567049795765,
+    "dispersion": 0.24556191458236162
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6887297829571802,
+    "hauteur_max": 0.0723171469926331,
+    "aire_bbox": 0.049806972952318694,
+    "aspect_ratio": 0.110689827655302,
+    "centroide_x": 0.005413629613026372,
+    "dispersion": 0.32004429511267063
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4206616850483354,
+    "hauteur_max": 0.055781869021499154,
+    "aire_bbox": 0.023465295017729374,
+    "aspect_ratio": 0.13978977153648084,
+    "centroide_x": 0.007737818973461913,
+    "dispersion": 0.18957053027832815
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6626473409501006,
+    "hauteur_max": 0.03088636553601006,
+    "aire_bbox": 0.020466767994049895,
+    "aspect_ratio": 0.04913598177679592,
+    "centroide_x": 0.006167881465013519,
+    "dispersion": 0.2706739595457906
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7676954095497441,
+    "hauteur_max": 0.05990085008529715,
+    "aire_bbox": 0.045985607638610024,
+    "aspect_ratio": 0.08225443672087127,
+    "centroide_x": -0.0593388328739967,
+    "dispersion": 0.3514046709205493
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3190483714131011,
+    "hauteur_max": 0.04608508738151299,
+    "aire_bbox": 0.014703372075502177,
+    "aspect_ratio": 0.1522716921139893,
+    "centroide_x": 0.009310677860917129,
+    "dispersion": 0.12995673319318485
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6307637922736323,
+    "hauteur_max": 0.21240596483246213,
+    "aire_bbox": 0.1339779918792636,
+    "aspect_ratio": 0.3549892842809463,
+    "centroide_x": 0.0028194512255378546,
+    "dispersion": 0.25447833244848794
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.42431765493001367,
+    "hauteur_max": 0.08870377726984731,
+    "aire_bbox": 0.03763857875457586,
+    "aspect_ratio": 0.2203770180352949,
+    "centroide_x": 0.015064053927348069,
+    "dispersion": 0.14247298896052793
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4335957695385953,
+    "hauteur_max": 0.11085105444492001,
+    "aire_bbox": 0.048064548256209816,
+    "aspect_ratio": 0.2695070206211601,
+    "centroide_x": 0.00468940143835695,
+    "dispersion": 0.1667580007035373
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2724662947451594,
+    "hauteur_max": 0.2276239590753752,
+    "aire_bbox": 0.06201985672449127,
+    "aspect_ratio": 0.8806847529748514,
+    "centroide_x": 0.007156437554862622,
+    "dispersion": 0.13090220516693274
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7251606865616698,
+    "hauteur_max": 0.15674346175300896,
+    "aire_bbox": 0.1136641963388648,
+    "aspect_ratio": 0.2278612488562778,
+    "centroide_x": 0.004427598635922771,
+    "dispersion": 0.2662586648345003
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7724356564809406,
+    "hauteur_max": 0.14176134585015224,
+    "aire_bbox": 0.10950151824538401,
+    "aspect_ratio": 0.19346874088566912,
+    "centroide_x": -0.0020648885311111646,
+    "dispersion": 0.325538190924532
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9628686105705623,
+    "hauteur_max": 0.2873766443742048,
+    "aire_bbox": 0.2767059502790212,
+    "aspect_ratio": 0.31462971074200025,
+    "centroide_x": -0.022084540451008022,
+    "dispersion": 0.4338253453279214
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7233118759487028,
+    "hauteur_max": 0.17482505328673453,
+    "aire_bbox": 0.1264530372556599,
+    "aspect_ratio": 0.2547964449299149,
+    "centroide_x": 0.05420018536562625,
+    "dispersion": 0.29326082943880777
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.5135466818191631,
+    "hauteur_max": 0.17537767501475038,
+    "aire_bbox": 0.09006462306898459,
+    "aspect_ratio": 0.3600059441154024,
+    "centroide_x": 0.009013126442463474,
+    "dispersion": 0.1785677759928048
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9448636137549872,
+    "hauteur_max": 0.20126028523319442,
+    "aire_bbox": 0.19016352041079557,
+    "aspect_ratio": 0.22454544501664875,
+    "centroide_x": 0.07230300484085553,
+    "dispersion": 0.38000285100561754
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0074241179441081,
+    "hauteur_max": 0.2519606069366474,
+    "aire_bbox": 0.25383119219981415,
+    "aspect_ratio": 0.2636547456065375,
+    "centroide_x": -0.10948860518437566,
+    "dispersion": 0.47058591294712154
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7105364830800571,
+    "hauteur_max": 0.10322489215857196,
+    "aire_bbox": 0.07334505184066989,
+    "aspect_ratio": 0.1531487112096383,
+    "centroide_x": -0.01204313248567065,
+    "dispersion": 0.2842424937506455
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3616815766907044,
+    "hauteur_max": 0.14867543914790657,
+    "aire_bbox": 0.053773167246197726,
+    "aspect_ratio": 0.43333935578838967,
+    "centroide_x": 0.015476774103036613,
+    "dispersion": 0.13099893997927764
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2944435802623989,
+    "hauteur_max": 0.17576566920224676,
+    "aire_bbox": 0.051753072927126005,
+    "aspect_ratio": 0.629284816028616,
+    "centroide_x": 0.019074258283258087,
+    "dispersion": 0.09620083684552605
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8311822859143828,
+    "hauteur_max": 0.06546152939727129,
+    "aire_bbox": 0.05441046364387552,
+    "aspect_ratio": 0.0830242878926013,
+    "centroide_x": 0.016419772228590656,
+    "dispersion": 0.3184775775169312
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7207622120497269,
+    "hauteur_max": 0.04941627078807832,
+    "aire_bbox": 0.03561738064446363,
+    "aspect_ratio": 0.07227585689683656,
+    "centroide_x": 0.02645448472345238,
+    "dispersion": 0.2845615986943815
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8403744599159836,
+    "hauteur_max": 0.09068773668615596,
+    "aire_bbox": 0.07621165773863124,
+    "aspect_ratio": 0.11376037336457774,
+    "centroide_x": 0.022457159910263532,
+    "dispersion": 0.33438027894094874
    }
   },
   "notes": "enorme narrine"
@@ -3413,9 +7571,7 @@ window.PRESETS_DB = [
     "height": 0.2123421060391583,
     "projection": 0.11073921364290507,
     "narine": 0.15126877863301857,
-    "evasement": 2.040547590919451,
-    "compacite_narines": 0.21682142129844859,
-    "ratio_pointe_base": 0.5543265470611453
+    "compacite_narines": 0.21682142129844859
    },
    "joues": {
     "width": 1.0763576191671556,
@@ -3439,6 +7595,701 @@ window.PRESETS_DB = [
     "width": 0.8822508596728144,
     "height": 0.16643056307280882,
     "angle": 0.2724118890480806
+   },
+   "philtrum": {
+    "largeur_sup": 0.11984276747964907,
+    "largeur_milieu": 0.12467441368810005,
+    "largeur_inf": 0.12467441068272649,
+    "hauteur": 0.08602832831672592,
+    "profondeur_z": 0.007574122399091721
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.49767578611887336,
+    "hauteur_max": 0.22492972999499206,
+    "aire_bbox": 0.1119420801967636,
+    "aspect_ratio": 0.5072257513817514,
+    "centroide_x": 0.01695977574115621,
+    "dispersion": 0.19156544926195468
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6633076817560783,
+    "hauteur_max": 0.16717748221148745,
+    "aire_bbox": 0.11089010816751976,
+    "aspect_ratio": 0.28285489356107774,
+    "centroide_x": 0.014353317571487745,
+    "dispersion": 0.2614408252946052
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.26169968361760204,
+    "hauteur_max": 0.08544827333911727,
+    "aire_bbox": 0.02236178609851737,
+    "aspect_ratio": 0.36643844969111433,
+    "centroide_x": -0.011160957992027907,
+    "dispersion": 0.11111985749656163
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.697872010163105,
+    "hauteur_max": 0.11756565885781542,
+    "aire_bbox": 0.08204578267325349,
+    "aspect_ratio": 0.1890626083280366,
+    "centroide_x": -0.011680458542849827,
+    "dispersion": 0.258056581353082
+   },
+   "joues__joues": {
+    "largeur_max": 1.004064342536163,
+    "hauteur_max": 0.24787507860482758,
+    "aire_bbox": 0.24888252783045595,
+    "aspect_ratio": 0.2770590011038079,
+    "centroide_x": 0.0379826258779176,
+    "dispersion": 0.38631053894514705
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9970377423803012,
+    "hauteur_max": 0.47369737307628024,
+    "aire_bbox": 0.4722941594234537,
+    "aspect_ratio": 0.5332002213788154,
+    "centroide_x": -0.013222389727050511,
+    "dispersion": 0.45233819936363606
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.596976317142901,
+    "hauteur_max": 0.08234610552956874,
+    "aire_bbox": 0.04915867481010262,
+    "aspect_ratio": 0.15480568500280523,
+    "centroide_x": 0.015137334855452217,
+    "dispersion": 0.24638230980022466
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6882260721536069,
+    "hauteur_max": 0.1446849673602669,
+    "aire_bbox": 0.0995759667860293,
+    "aspect_ratio": 0.23593546801809195,
+    "centroide_x": 0.009723716553580666,
+    "dispersion": 0.2906408320716162
+   },
+   "menton__menton": {
+    "largeur_max": 0.47839105706730445,
+    "hauteur_max": 0.15993296674054963,
+    "aire_bbox": 0.07651050101892158,
+    "aspect_ratio": 0.3751939997437699,
+    "centroide_x": 0.015303733938908638,
+    "dispersion": 0.17602050282652779
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.18492629109076208,
+    "hauteur_max": 0.10885071648655917,
+    "aire_bbox": 0.020129359282431456,
+    "aspect_ratio": 0.6605924045959012,
+    "centroide_x": 0.01240027984976722,
+    "dispersion": 0.07915969148010787
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2609071929056672,
+    "hauteur_max": 0.12296333280269824,
+    "aire_bbox": 0.03208201799187735,
+    "aspect_ratio": 0.5289206425907321,
+    "centroide_x": -0.004122380648441902,
+    "dispersion": 0.107457431989712
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11946737067404944,
+    "hauteur_max": 0.08309357444618176,
+    "aire_bbox": 0.00992697085899372,
+    "aspect_ratio": 0.7805829830712142,
+    "centroide_x": 0.003927891030863213,
+    "dispersion": 0.05229945897122731
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.18089591563201152,
+    "hauteur_max": 0.06187920166273135,
+    "aire_bbox": 0.011193694843357678,
+    "aspect_ratio": 0.3838989145048192,
+    "centroide_x": -0.0037945855201826913,
+    "dispersion": 0.06699134200334253
+   },
+   "nez__nez": {
+    "largeur_max": 0.29718283438382387,
+    "hauteur_max": 0.17923136342269713,
+    "aire_bbox": 0.053264484592434345,
+    "aspect_ratio": 0.6768481269070558,
+    "centroide_x": 0.008493373823503843,
+    "dispersion": 0.12253046166567125
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8541006561811532,
+    "hauteur_max": 0.14200342548534442,
+    "aire_bbox": 0.12128521888700415,
+    "aspect_ratio": 0.18659100705305565,
+    "centroide_x": -0.03246751518741906,
+    "dispersion": 0.3130442949234027
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4269289838954059,
+    "hauteur_max": 0.09843476118634134,
+    "aire_bbox": 0.04202465257327165,
+    "aspect_ratio": 0.2587580058916618,
+    "centroide_x": -0.0077367464912857925,
+    "dispersion": 0.14142807429648233
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8976832748898608,
+    "hauteur_max": 0.21410267824434404,
+    "aire_bbox": 0.1921963933690729,
+    "aspect_ratio": 0.26767012985376487,
+    "centroide_x": 0.032804083460584124,
+    "dispersion": 0.37059903903789293
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9910480695057984,
+    "hauteur_max": 0.25404010510161673,
+    "aire_bbox": 0.25176595573800736,
+    "aspect_ratio": 0.2876792297303243,
+    "centroide_x": 0.061970766940002406,
+    "dispersion": 0.4564337598710905
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7434373210370574,
+    "hauteur_max": 0.17497626546993275,
+    "aire_bbox": 0.13008388604603577,
+    "aspect_ratio": 0.26414094503273744,
+    "centroide_x": -0.0027612635521283625,
+    "dispersion": 0.2684787070881986
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.680216275514671,
+    "hauteur_max": 0.07592726488640901,
+    "aire_bbox": 0.051646961331049,
+    "aspect_ratio": 0.12527132757988346,
+    "centroide_x": 0.0063826935487832455,
+    "dispersion": 0.24869603177535712
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.42452390081349695,
+    "hauteur_max": 0.04138480889917513,
+    "aire_bbox": 0.01756884050829895,
+    "aspect_ratio": 0.10940565015326137,
+    "centroide_x": -0.018963739867007244,
+    "dispersion": 0.1970320405420235
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3433064828066571,
+    "hauteur_max": 0.04635086135074436,
+    "aire_bbox": 0.015912551185383064,
+    "aspect_ratio": 0.1515223677088566,
+    "centroide_x": 0.007358220729920378,
+    "dispersion": 0.13319841947203542
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3883378792218583,
+    "hauteur_max": 0.09325296671035711,
+    "aire_bbox": 0.03621365932344663,
+    "aspect_ratio": 0.26949694473863617,
+    "centroide_x": 0.002785971884363189,
+    "dispersion": 0.14095312763386328
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.10010001445229434,
+    "hauteur_max": 0.0031177906658504053,
+    "aire_bbox": 0.000312090890710854,
+    "aspect_ratio": 0.034955358105963244,
+    "centroide_x": 0.003520627004969883,
+    "dispersion": 0.04039608334216215
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2762583647694629,
+    "hauteur_max": 0.03322344709300839,
+    "aire_bbox": 0.009178255165919264,
+    "aspect_ratio": 0.1349678087943634,
+    "centroide_x": -0.017496159912503213,
+    "dispersion": 0.09250537236261523
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3457625201671314,
+    "hauteur_max": 0.02826298405043866,
+    "aire_bbox": 0.00977228059272311,
+    "aspect_ratio": 0.09173626240934683,
+    "centroide_x": -0.01435112773328501,
+    "dispersion": 0.13922542756742728
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.22310318015571,
+    "hauteur_max": 0.008734322043443024,
+    "aire_bbox": 0.0019486550243962583,
+    "aspect_ratio": 0.04393639128564024,
+    "centroide_x": 0.006365749899726204,
+    "dispersion": 0.08887870337422533
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.36301745905227906,
+    "hauteur_max": 0.02665158492478048,
+    "aire_bbox": 0.009674990639109836,
+    "aspect_ratio": 0.08239416780437313,
+    "centroide_x": 0.005770930130423737,
+    "dispersion": 0.12176430699535375
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.11537364943205722,
+    "hauteur_max": 0.0032009903932527497,
+    "aire_bbox": 0.00036930994346652573,
+    "aspect_ratio": 0.031137137458331104,
+    "centroide_x": 0.0056435676940964005,
+    "dispersion": 0.04712758699294039
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.11255918394254265,
+    "hauteur_max": 0.024225506530031724,
+    "aire_bbox": 0.002726803245615109,
+    "aspect_ratio": 0.24154212015483692,
+    "centroide_x": 0.004383053449728788,
+    "dispersion": 0.04630348406558606
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.12140949480116305,
+    "hauteur_max": 0.026229080582211968,
+    "aire_bbox": 0.0031844594225853506,
+    "aspect_ratio": 0.2424551194907825,
+    "centroide_x": 0.001782217158053892,
+    "dispersion": 0.04906042116740629
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.12462115686173428,
+    "hauteur_max": 0.010832549529991794,
+    "aire_bbox": 0.0013499648541896133,
+    "aspect_ratio": 0.09755282450665977,
+    "centroide_x": 0.0005887421537159099,
+    "dispersion": 0.05113125069811395
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3971930746985046,
+    "hauteur_max": 0.06535989158009826,
+    "aire_bbox": 0.025960496298660134,
+    "aspect_ratio": 0.18467605928440536,
+    "centroide_x": 0.00446197002411623,
+    "dispersion": 0.16417492496088693
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.36424781720746546,
+    "hauteur_max": 0.06489972744902495,
+    "aire_bbox": 0.02363958406066677,
+    "aspect_ratio": 0.19996171754948275,
+    "centroide_x": 0.028104806695460376,
+    "dispersion": 0.13573626746808676
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.25688648384890483,
+    "hauteur_max": 0.046268944438522225,
+    "aire_bbox": 0.011885866448212315,
+    "aspect_ratio": 0.20213861271990996,
+    "centroide_x": 0.0017062356392346047,
+    "dispersion": 0.0984571117721623
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.12462115686173428,
+    "hauteur_max": 0.04768553891609959,
+    "aire_bbox": 0.005942627025299582,
+    "aspect_ratio": 0.4294334400695126,
+    "centroide_x": 0.0014492018970064756,
+    "dispersion": 0.04953878056625825
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.46616429256102715,
+    "hauteur_max": 0.09912367875294324,
+    "aire_bbox": 0.0462079195819123,
+    "aspect_ratio": 0.23863786268769976,
+    "centroide_x": -0.07438523421791557,
+    "dispersion": 0.21214372255207098
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.882399870674046,
+    "hauteur_max": 0.17214289325546658,
+    "aire_bbox": 0.15189886674607983,
+    "aspect_ratio": 0.21893974382147705,
+    "centroide_x": 0.004258131486091581,
+    "dispersion": 0.38784434820647085
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7903412743352765,
+    "hauteur_max": 0.24091214106594636,
+    "aire_bbox": 0.19040280857289993,
+    "aspect_ratio": 0.34209361457625026,
+    "centroide_x": 0.010625462459547234,
+    "dispersion": 0.35868875735395456
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8118614616806746,
+    "hauteur_max": 0.047991490336580234,
+    "aire_bbox": 0.03896244149289,
+    "aspect_ratio": 0.06634118944848863,
+    "centroide_x": -0.0019324148775989453,
+    "dispersion": 0.37039238310114664
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6882260721536069,
+    "hauteur_max": 0.18107614328149824,
+    "aire_bbox": 0.12462132285134926,
+    "aspect_ratio": 0.2952779780200142,
+    "centroide_x": 0.00796483887171023,
+    "dispersion": 0.30854908060142666
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6633076817560783,
+    "hauteur_max": 0.18934562808142574,
+    "aire_bbox": 0.12559440961333912,
+    "aspect_ratio": 0.3203621490690625,
+    "centroide_x": 0.014150673292906837,
+    "dispersion": 0.2524640536285178
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7071304694205666,
+    "hauteur_max": 0.19249677194196166,
+    "aire_bbox": 0.13612033270526308,
+    "aspect_ratio": 0.30550958728903,
+    "centroide_x": -0.007375061950228202,
+    "dispersion": 0.23845537935491035
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9571744260876396,
+    "hauteur_max": 0.2930213765013525,
+    "aire_bbox": 0.28047256788409225,
+    "aspect_ratio": 0.3435651949607384,
+    "centroide_x": -0.013210612271754584,
+    "dispersion": 0.4362900864339466
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19818957154214378,
+    "hauteur_max": 0.08419720783461516,
+    "aire_bbox": 0.01668700854578721,
+    "aspect_ratio": 0.47677978576493085,
+    "centroide_x": 0.015921952334384697,
+    "dispersion": 0.06950574472139623
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.49929372586016013,
+    "hauteur_max": 0.11943275053778664,
+    "aire_bbox": 0.059632023005738534,
+    "aspect_ratio": 0.2684530044688996,
+    "centroide_x": -0.006328057709671964,
+    "dispersion": 0.2123058517081779
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15638197160703085,
+    "hauteur_max": 0.03462006630563673,
+    "aire_bbox": 0.0054139542260416085,
+    "aspect_ratio": 0.24845180396279004,
+    "centroide_x": -0.002162638922468849,
+    "dispersion": 0.07638152167946152
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.28744342021041874,
+    "hauteur_max": 0.05910717550277604,
+    "aire_bbox": 0.016989968685495422,
+    "aspect_ratio": 0.2307750098740133,
+    "centroide_x": -0.009345571135425895,
+    "dispersion": 0.12133684664952392
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.14069900563669424,
+    "hauteur_max": 0.0366828331154182,
+    "aire_bbox": 0.0051612381432761395,
+    "aspect_ratio": 0.29259896478182507,
+    "centroide_x": 0.007426131917115293,
+    "dispersion": 0.053448510486376576
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.22794013459312285,
+    "hauteur_max": 0.039568892381928816,
+    "aire_bbox": 0.009019338655237647,
+    "aspect_ratio": 0.19482022320852557,
+    "centroide_x": 1.1395299684198656e-05,
+    "dispersion": 0.10295300024375023
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.1599981828742136,
+    "hauteur_max": 0.07603694558431717,
+    "aire_bbox": 0.012165773124796208,
+    "aspect_ratio": 0.5333478588097978,
+    "centroide_x": -0.0012355191397585609,
+    "dispersion": 0.07958308755301632
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.25286577479214245,
+    "hauteur_max": 0.033736573165093334,
+    "aire_bbox": 0.008530824712223127,
+    "aspect_ratio": 0.14973104581635638,
+    "centroide_x": 0.001432234276495317,
+    "dispersion": 0.11293966288594375
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.0848286932389648,
+    "hauteur_max": 0.08768133386407193,
+    "aire_bbox": 0.007437892973138614,
+    "aspect_ratio": 1.1600195658063894,
+    "centroide_x": -0.002649051185043114,
+    "dispersion": 0.05008379304889934
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.059958789102472765,
+    "hauteur_max": 0.03305988815753131,
+    "aire_bbox": 0.001982230861788757,
+    "aspect_ratio": 0.6187988100781476,
+    "centroide_x": 0.010642322961242097,
+    "dispersion": 0.022676503322650088
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.14069900563669424,
+    "hauteur_max": 0.04197994351313794,
+    "aire_bbox": 0.005906536308983101,
+    "aspect_ratio": 0.3348511270897681,
+    "centroide_x": -0.0029599306997528463,
+    "dispersion": 0.04780283254219319
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23557448406547538,
+    "hauteur_max": 0.19366450027457782,
+    "aire_bbox": 0.045622414733981785,
+    "aspect_ratio": 0.9226196803199201,
+    "centroide_x": -0.007456377986102134,
+    "dispersion": 0.1099273803772728
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5493014168690932,
+    "hauteur_max": 0.09616610254013579,
+    "aire_bbox": 0.05282417638007509,
+    "aspect_ratio": 0.19647723568971187,
+    "centroide_x": 0.027384334106139652,
+    "dispersion": 0.19799058962267743
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9286193604442513,
+    "hauteur_max": 0.16266847848269675,
+    "aire_bbox": 0.1510570984530413,
+    "aspect_ratio": 0.19659234995188404,
+    "centroide_x": -0.08627227268353828,
+    "dispersion": 0.4182952659992511
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7166955284389616,
+    "hauteur_max": 0.06152070063468986,
+    "aire_bbox": 0.044091611051314206,
+    "aspect_ratio": 0.0963357585411849,
+    "centroide_x": 0.03826334966050884,
+    "dispersion": 0.3332479367187235
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3268387386791634,
+    "hauteur_max": 0.054828849432284235,
+    "aire_bbox": 0.017920191991677544,
+    "aspect_ratio": 0.18826801774023444,
+    "centroide_x": 0.019396265447913893,
+    "dispersion": 0.14394295725296646
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5382965267077466,
+    "hauteur_max": 0.037820232031987915,
+    "aire_bbox": 0.02035849954210016,
+    "aspect_ratio": 0.07885033716914698,
+    "centroide_x": -0.0017714298647713048,
+    "dispersion": 0.2440765957873892
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6416227542406263,
+    "hauteur_max": 0.041784039309188364,
+    "aire_bbox": 0.026809590384860034,
+    "aspect_ratio": 0.07308556481161087,
+    "centroide_x": -0.002528657490836265,
+    "dispersion": 0.30210678358708676
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3879406826508016,
+    "hauteur_max": 0.03295817923967162,
+    "aire_bbox": 0.012785818553165686,
+    "aspect_ratio": 0.09534519887649862,
+    "centroide_x": -0.0010424374732727433,
+    "dispersion": 0.1811364237192072
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5435378761006755,
+    "hauteur_max": 0.05457608902695454,
+    "aire_bbox": 0.029664171515592253,
+    "aspect_ratio": 0.11268692832690894,
+    "centroide_x": -0.0034722050152232657,
+    "dispersion": 0.23493045754858052
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6609122136591257,
+    "hauteur_max": 0.07507584212537093,
+    "aire_bbox": 0.04961854101140194,
+    "aspect_ratio": 0.12748449796191133,
+    "centroide_x": -0.0036961261889387094,
+    "dispersion": 0.30422881711581046
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.40389518196634866,
+    "hauteur_max": 0.05607556252813919,
+    "aire_bbox": 0.02264864953116814,
+    "aspect_ratio": 0.15581379658013464,
+    "centroide_x": -0.0027888469533943103,
+    "dispersion": 0.18275917709873973
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6444299185116179,
+    "hauteur_max": 0.03817909957865232,
+    "aire_bbox": 0.02460375403031786,
+    "aspect_ratio": 0.06648917284496123,
+    "centroide_x": -0.004552733939592966,
+    "dispersion": 0.26293147928698857
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7429192430241166,
+    "hauteur_max": 0.058139245634477955,
+    "aire_bbox": 0.04319276435675954,
+    "aspect_ratio": 0.08782713749578341,
+    "centroide_x": -0.06663510044543665,
+    "dispersion": 0.3391215468451033
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.308743336991363,
+    "hauteur_max": 0.04625739910190032,
+    "aire_bbox": 0.014281663759261983,
+    "aspect_ratio": 0.1681452331427601,
+    "centroide_x": -0.0022026606546366465,
+    "dispersion": 0.1252885507581363
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6342473409406805,
+    "hauteur_max": 0.21886989434298035,
+    "aire_bbox": 0.13881764849900297,
+    "aspect_ratio": 0.3872828953848511,
+    "centroide_x": -0.0014886901774688087,
+    "dispersion": 0.2582131924849526
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4273286999010233,
+    "hauteur_max": 0.08280315425234726,
+    "aire_bbox": 0.03538416425435944,
+    "aspect_ratio": 0.21746319411038387,
+    "centroide_x": 0.008211532875672679,
+    "dispersion": 0.1442415226342518
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.42926660783152504,
+    "hauteur_max": 0.11349707306928833,
+    "aire_bbox": 0.048720503555260135,
+    "aspect_ratio": 0.2967279790300889,
+    "centroide_x": -0.004790811936078357,
+    "dispersion": 0.1642558480807148
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.26169968361760204,
+    "hauteur_max": 0.22778605543821848,
+    "aire_bbox": 0.05961153864068333,
+    "aspect_ratio": 0.9768432497725329,
+    "centroide_x": -0.00817145607183118,
+    "dispersion": 0.13261127194237515
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.697872010163105,
+    "hauteur_max": 0.168933381304231,
+    "aire_bbox": 0.11789387839443398,
+    "aspect_ratio": 0.2716693464175612,
+    "centroide_x": -0.010391931656816348,
+    "dispersion": 0.2592707206060045
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7824479372734854,
+    "hauteur_max": 0.16084651440817227,
+    "aire_bbox": 0.12585402341630433,
+    "aspect_ratio": 0.23070507462372714,
+    "centroide_x": -0.0037391193970723506,
+    "dispersion": 0.330188603014574
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9685299289891848,
+    "hauteur_max": 0.2868995992020677,
+    "aire_bbox": 0.2778708484422042,
+    "aspect_ratio": 0.33244349490594266,
+    "centroide_x": -0.019554922529419896,
+    "dispersion": 0.43760111031555604
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7290581367433918,
+    "hauteur_max": 0.17533462905349065,
+    "aire_bbox": 0.12782913796433165,
+    "aspect_ratio": 0.2699022350308675,
+    "centroide_x": 0.049579676938694486,
+    "dispersion": 0.29412131732830255
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.5017060073265284,
+    "hauteur_max": 0.1854707931999386,
+    "aire_bbox": 0.09305181113202542,
+    "aspect_ratio": 0.41488446320318634,
+    "centroide_x": -0.0009093899047019615,
+    "dispersion": 0.17497372163788505
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.941085316982704,
+    "hauteur_max": 0.21956609646721273,
+    "aire_bbox": 0.20663042949250188,
+    "aspect_ratio": 0.2618407442544354,
+    "centroide_x": 0.06649677320464518,
+    "dispersion": 0.37768648886837836
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.004064342536163,
+    "hauteur_max": 0.2512246006700178,
+    "aire_bbox": 0.25224566350065153,
+    "aspect_ratio": 0.28080288388048763,
+    "centroide_x": -0.11216700374565604,
+    "dispersion": 0.46758330167477785
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7252064868873588,
+    "hauteur_max": 0.10855740995856919,
+    "aire_bbox": 0.07872653790164474,
+    "aspect_ratio": 0.16799592070617386,
+    "centroide_x": -0.010346377543837418,
+    "dispersion": 0.29072996481302094
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.36702834745595775,
+    "hauteur_max": 0.15993296674054963,
+    "aire_bbox": 0.058699932486512583,
+    "aspect_ratio": 0.4890343086218162,
+    "centroide_x": 0.014924086572123412,
+    "dispersion": 0.13540423924817702
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.28179762444494216,
+    "hauteur_max": 0.17923136342269713,
+    "aire_bbox": 0.05050697243854415,
+    "aspect_ratio": 0.7138017760008525,
+    "centroide_x": 0.005703056947904901,
+    "dispersion": 0.09542481024136132
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8118614616806746,
+    "hauteur_max": 0.07803483859784219,
+    "aire_bbox": 0.06335347812605968,
+    "aspect_ratio": 0.10787170756094876,
+    "centroide_x": 0.008040803815302163,
+    "dispersion": 0.3084502553153412
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6957901859604495,
+    "hauteur_max": 0.062235870097658255,
+    "aire_bbox": 0.04330310762866001,
+    "aspect_ratio": 0.10038374879639736,
+    "centroide_x": 0.01729959051807177,
+    "dispersion": 0.2722996018362675
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8218606346989961,
+    "hauteur_max": 0.09716019267514463,
+    "aire_bbox": 0.07985213761947112,
+    "aspect_ratio": 0.13267562175421868,
+    "centroide_x": 0.011833679241087547,
+    "dispersion": 0.3253881856412097
    }
   },
   "notes": ""
@@ -3905,9 +8756,7 @@ window.PRESETS_DB = [
     "height": 0.22077985330082545,
     "projection": 0.1022017035548484,
     "narine": 0.13174436461811853,
-    "evasement": 1.91379357034384,
-    "compacite_narines": 0.20091191495465738,
-    "ratio_pointe_base": 0.5582159169899612
+    "compacite_narines": 0.20091191495465738
    },
    "joues": {
     "width": 1.057044857332912,
@@ -3931,6 +8780,701 @@ window.PRESETS_DB = [
     "width": 0.8282565539924331,
     "height": 0.1803093779424592,
     "angle": 0.2860947108340697
+   },
+   "philtrum": {
+    "largeur_sup": 0.10676959894225584,
+    "largeur_milieu": 0.11218770551827063,
+    "largeur_inf": 0.10290111899621908,
+    "hauteur": 0.10114536365919342,
+    "profondeur_z": 0.007414232939481735
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.45503515608831013,
+    "hauteur_max": 0.2097752430844985,
+    "aire_bbox": 0.09545511048041797,
+    "aspect_ratio": 0.4823708940440926,
+    "centroide_x": 0.02356535495013224,
+    "dispersion": 0.17289611804305235
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6306173824936953,
+    "hauteur_max": 0.16325634663098404,
+    "aire_bbox": 0.10295228998791456,
+    "aspect_ratio": 0.2708793817041574,
+    "centroide_x": 0.016083018051948925,
+    "dispersion": 0.24646126794944556
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2667791416253984,
+    "hauteur_max": 0.09080600127563777,
+    "aire_bbox": 0.024225147074749476,
+    "aspect_ratio": 0.3561512673932343,
+    "centroide_x": -0.020945130110731024,
+    "dispersion": 0.11180237429070283
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7083297377816825,
+    "hauteur_max": 0.1250690174674347,
+    "aire_bbox": 0.08859010434732069,
+    "aspect_ratio": 0.1847506931188209,
+    "centroide_x": -0.021176908830124658,
+    "dispersion": 0.2599293899828166
+   },
+   "joues__joues": {
+    "largeur_max": 1.0102661210474582,
+    "hauteur_max": 0.2411376265688471,
+    "aire_bbox": 0.24361317463229964,
+    "aspect_ratio": 0.24974741751552257,
+    "centroide_x": 0.03706300136836278,
+    "dispersion": 0.3808549921507041
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9919604030240928,
+    "hauteur_max": 0.4690820573433381,
+    "aire_bbox": 0.46531082665366824,
+    "aspect_ratio": 0.49479613474125944,
+    "centroide_x": -0.00833356873702509,
+    "dispersion": 0.43693750572185736
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5672002598716277,
+    "hauteur_max": 0.08616206116510446,
+    "aire_bbox": 0.04887114348392233,
+    "aspect_ratio": 0.1589466839824721,
+    "centroide_x": 0.025650735695113693,
+    "dispersion": 0.23454459343024076
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6499519817243918,
+    "hauteur_max": 0.13953034882801124,
+    "aire_bbox": 0.09068802673146158,
+    "aspect_ratio": 0.2246255850013892,
+    "centroide_x": 0.017852888349194265,
+    "dispersion": 0.2735694585203648
+   },
+   "menton__menton": {
+    "largeur_max": 0.45583343624647465,
+    "hauteur_max": 0.15707409099554254,
+    "aire_bbox": 0.07159962264378959,
+    "aspect_ratio": 0.3605538939086286,
+    "centroide_x": 0.025773960583399435,
+    "dispersion": 0.16645988057303415
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17553250739156004,
+    "hauteur_max": 0.10595109685570246,
+    "aire_bbox": 0.018597861691967487,
+    "aspect_ratio": 0.6315674135758506,
+    "centroide_x": 0.022410373186823408,
+    "dispersion": 0.07303060868674752
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.249348537729718,
+    "hauteur_max": 0.13077468001425635,
+    "aire_bbox": 0.032608475233626595,
+    "aspect_ratio": 0.5487678422329132,
+    "centroide_x": -0.007030352393334861,
+    "dispersion": 0.10302054126596237
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11778082426010263,
+    "hauteur_max": 0.088480312278278,
+    "aire_bbox": 0.010421284110926863,
+    "aspect_ratio": 0.7860385953748176,
+    "centroide_x": -0.0007982900722251082,
+    "dispersion": 0.051868364904802296
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17371099704059662,
+    "hauteur_max": 0.060004443733941475,
+    "aire_bbox": 0.010423431747889353,
+    "aspect_ratio": 0.3614330931737139,
+    "centroide_x": -0.009700445624564997,
+    "dispersion": 0.06421460402771614
+   },
+   "nez__nez": {
+    "largeur_max": 0.27009470090626,
+    "hauteur_max": 0.18050579493504545,
+    "aire_bbox": 0.0487536586948278,
+    "aspect_ratio": 0.6992732238030216,
+    "centroide_x": 0.007376311679370071,
+    "dispersion": 0.11332069073084095
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8525257833410501,
+    "hauteur_max": 0.13511144024540483,
+    "aire_bbox": 0.11518598643355124,
+    "aspect_ratio": 0.16582744695309432,
+    "centroide_x": -0.03716835564608981,
+    "dispersion": 0.3080270191854393
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.416957727903132,
+    "hauteur_max": 0.10060984325894687,
+    "aire_bbox": 0.04195005164994073,
+    "aspect_ratio": 0.25247609149537026,
+    "centroide_x": -0.01591365968212279,
+    "dispersion": 0.13795743873435679
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9024429296668847,
+    "hauteur_max": 0.21401820069979535,
+    "aire_bbox": 0.19313921204155862,
+    "aspect_ratio": 0.24814342669398617,
+    "centroide_x": 0.027924524112932926,
+    "dispersion": 0.3683097777144859
+   },
+   "tete__tempes": {
+    "largeur_max": 1.0067913419536292,
+    "hauteur_max": 0.24326628269785994,
+    "aire_bbox": 0.24491838720944933,
+    "aspect_ratio": 0.2528216493119058,
+    "centroide_x": 0.058517969199825375,
+    "dispersion": 0.46063051042330616
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7327455904831203,
+    "hauteur_max": 0.16755752819319084,
+    "aire_bbox": 0.1227770399358117,
+    "aspect_ratio": 0.23926685706558143,
+    "centroide_x": -0.006922136368182476,
+    "dispersion": 0.2622361500538325
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6695846471865243,
+    "hauteur_max": 0.0726802565142998,
+    "aire_bbox": 0.04866558391555351,
+    "aspect_ratio": 0.11357500841367099,
+    "centroide_x": 0.0021885603575969434,
+    "dispersion": 0.2437159908484253
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.36070757881731313,
+    "hauteur_max": 0.03372147189795858,
+    "aire_bbox": 0.012163590482468704,
+    "aspect_ratio": 0.09781896624109296,
+    "centroide_x": -0.0023879820690116587,
+    "dispersion": 0.16608802499720232
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3115978335853798,
+    "hauteur_max": 0.048216913300662974,
+    "aire_bbox": 0.015024285726660667,
+    "aspect_ratio": 0.16191116163626407,
+    "centroide_x": 0.019109450914850654,
+    "dispersion": 0.11520099464815016
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.35415864781782525,
+    "hauteur_max": 0.09629302792743148,
+    "aire_bbox": 0.034103008565063216,
+    "aspect_ratio": 0.28449117952885355,
+    "centroide_x": 0.010999782404607904,
+    "dispersion": 0.12343008572047931
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08391181565191502,
+    "hauteur_max": 0.0029820704330286133,
+    "aire_bbox": 0.0002502309444373234,
+    "aspect_ratio": 0.0371848977778618,
+    "centroide_x": 0.016156085313964445,
+    "dispersion": 0.033963700461444916
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.23339795436821043,
+    "hauteur_max": 0.02123388022506416,
+    "aire_bbox": 0.00495594420782957,
+    "aspect_ratio": 0.09519280659363018,
+    "centroide_x": -0.0016691026415469894,
+    "dispersion": 0.0776831538015165
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2885455607765643,
+    "hauteur_max": 0.023463350478588236,
+    "aire_bbox": 0.006770245621541311,
+    "aspect_ratio": 0.08508391090367597,
+    "centroide_x": 0.001681779928759415,
+    "dispersion": 0.1159321439426787
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.18440162598934962,
+    "hauteur_max": 0.0079216782837286,
+    "aire_bbox": 0.0014607703560840742,
+    "aspect_ratio": 0.044949438199226775,
+    "centroide_x": 0.019266291353277915,
+    "dispersion": 0.07348466297195619
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.3050738364482588,
+    "hauteur_max": 0.01949189932361749,
+    "aire_bbox": 0.005946468506319209,
+    "aspect_ratio": 0.0668530167277967,
+    "centroide_x": 0.018350090525947202,
+    "dispersion": 0.10207495136331876
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.09548767107014783,
+    "hauteur_max": 0.003326297608168986,
+    "aire_bbox": 0.0003176204118902596,
+    "aspect_ratio": 0.03644899984841469,
+    "centroide_x": 0.01881904329521534,
+    "dispersion": 0.03901434075886069
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09355423097519934,
+    "hauteur_max": 0.01797504470021473,
+    "aire_bbox": 0.0016816414836734216,
+    "aspect_ratio": 0.2010380945518051,
+    "centroide_x": 0.01743190924699049,
+    "dispersion": 0.03815499752393663
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.09937943555210882,
+    "hauteur_max": 0.020053578017323003,
+    "aire_bbox": 0.0019929132641617374,
+    "aspect_ratio": 0.21113836767227748,
+    "centroide_x": 0.014522562075093982,
+    "dispersion": 0.04000580771666802
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10283478308719445,
+    "hauteur_max": 0.010123671003316341,
+    "aire_bbox": 0.0010410655116721561,
+    "aspect_ratio": 0.10300772610970034,
+    "centroide_x": 0.012333033533562517,
+    "dispersion": 0.04221230132209075
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.327863783214041,
+    "hauteur_max": 0.04863087656193143,
+    "aire_bbox": 0.015944303170609873,
+    "aspect_ratio": 0.15519955271429278,
+    "centroide_x": 0.01649590213303161,
+    "dispersion": 0.13444840435669675
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.30473685752903357,
+    "hauteur_max": 0.04665173611757907,
+    "aire_bbox": 0.014216503462744763,
+    "aspect_ratio": 0.1601823419956734,
+    "centroide_x": 0.03681073795599681,
+    "dispersion": 0.11301867450535052
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.20646784633255347,
+    "hauteur_max": 0.03547956031929896,
+    "aire_bbox": 0.00732538840795158,
+    "aspect_ratio": 0.17980328208910504,
+    "centroide_x": 0.013601211247363906,
+    "dispersion": 0.07948092284670337
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11214021949125355,
+    "hauteur_max": 0.06303725285463528,
+    "aire_bbox": 0.00706901137124445,
+    "aspect_ratio": 0.5881765289893318,
+    "centroide_x": 0.00788068675763798,
+    "dispersion": 0.048670387102578615
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.43250158692921115,
+    "hauteur_max": 0.09272180126676102,
+    "aire_bbox": 0.040102326190809084,
+    "aspect_ratio": 0.22431895238219676,
+    "centroide_x": -0.05953535481786133,
+    "dispersion": 0.19574428711928515
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8542680803479533,
+    "hauteur_max": 0.16345323737415546,
+    "aire_bbox": 0.1396328833182781,
+    "aspect_ratio": 0.20020326730579138,
+    "centroide_x": 0.008457280259443504,
+    "dispersion": 0.371156859940055
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7512648573714492,
+    "hauteur_max": 0.23515652543184296,
+    "aire_bbox": 0.17666483353851906,
+    "aspect_ratio": 0.32751845314945166,
+    "centroide_x": 0.01913256306858539,
+    "dispersion": 0.33898283080418096
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8047523543351351,
+    "hauteur_max": 0.05407682903799617,
+    "aire_bbox": 0.04351845548330602,
+    "aspect_ratio": 0.07031059530633588,
+    "centroide_x": -0.002492626158713266,
+    "dispersion": 0.36528726199249706
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6499519817243918,
+    "hauteur_max": 0.17343393045088581,
+    "aire_bbox": 0.11272372679480358,
+    "aspect_ratio": 0.279205910497943,
+    "centroide_x": 0.015044301905864074,
+    "dispersion": 0.289684681922216
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6306173824936953,
+    "hauteur_max": 0.19051984005296754,
+    "aire_bbox": 0.12014512284731987,
+    "aspect_ratio": 0.3161157133607464,
+    "centroide_x": 0.01585303065771177,
+    "dispersion": 0.23763030687212497
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6835816153397964,
+    "hauteur_max": 0.1945962743375985,
+    "aire_bbox": 0.13302243555080176,
+    "aspect_ratio": 0.2978625893971811,
+    "centroide_x": -0.009130422941801532,
+    "dispersion": 0.23102071012672207
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9352797358574456,
+    "hauteur_max": 0.2806143153248297,
+    "aire_bbox": 0.2624528827148247,
+    "aspect_ratio": 0.31393527037123625,
+    "centroide_x": -0.006665330332452549,
+    "dispersion": 0.41884223714289
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19138692436540994,
+    "hauteur_max": 0.0802671826345902,
+    "aire_bbox": 0.015362089211910861,
+    "aspect_ratio": 0.4388312730725509,
+    "centroide_x": 0.02709049275074274,
+    "dispersion": 0.06619321525322665
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.47362114460436433,
+    "hauteur_max": 0.11627592235745618,
+    "aire_bbox": 0.055070735436866594,
+    "aspect_ratio": 0.2568801366974046,
+    "centroide_x": 0.005056389457437463,
+    "dispersion": 0.20160160342031813
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14926252707983984,
+    "hauteur_max": 0.03843860647389127,
+    "aire_bbox": 0.005737443539720502,
+    "aspect_ratio": 0.2694564960373654,
+    "centroide_x": -0.004497464013295612,
+    "dispersion": 0.07327391053893181
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.26218853501292305,
+    "hauteur_max": 0.06151708197713676,
+    "aire_bbox": 0.01612907360185538,
+    "aspect_ratio": 0.2455013266591369,
+    "centroide_x": -0.009797215117574885,
+    "dispersion": 0.11185983177222791
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12680960880358572,
+    "hauteur_max": 0.036370779920006466,
+    "aire_bbox": 0.004612164373537331,
+    "aspect_ratio": 0.3001043321083725,
+    "centroide_x": 0.007983755809976758,
+    "dispersion": 0.04856941331609251
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.21306634763495766,
+    "hauteur_max": 0.03910147829257611,
+    "aire_bbox": 0.008331209166926772,
+    "aspect_ratio": 0.19202161988113345,
+    "centroide_x": -0.00019547429326267877,
+    "dispersion": 0.09532678988838195
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15234361882790717,
+    "hauteur_max": 0.07609448223106505,
+    "aire_bbox": 0.011592508795916329,
+    "aspect_ratio": 0.522637673576539,
+    "centroide_x": -0.002232850920850987,
+    "dispersion": 0.0754568405392747
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23047980020582903,
+    "hauteur_max": 0.0330745180989334,
+    "aire_bbox": 0.007623008323346246,
+    "aspect_ratio": 0.15015246623654657,
+    "centroide_x": 0.0020278260825597927,
+    "dispersion": 0.10219331111794384
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08277660614482818,
+    "hauteur_max": 0.08966885774620006,
+    "aire_bbox": 0.007422483721113828,
+    "aspect_ratio": 1.133459050723913,
+    "centroide_x": -0.003976664641328061,
+    "dispersion": 0.04822068129314451
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05823955405275991,
+    "hauteur_max": 0.03163696932347793,
+    "aire_bbox": 0.0018425229849802004,
+    "aspect_ratio": 0.5683929021319479,
+    "centroide_x": 0.010956216717718148,
+    "dispersion": 0.021136111639048005
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13453092703734768,
+    "hauteur_max": 0.04496148878002633,
+    "aire_bbox": 0.006048710766556248,
+    "aspect_ratio": 0.34969575620997057,
+    "centroide_x": -0.005798145387805032,
+    "dispersion": 0.04625628763290853
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2343405336781644,
+    "hauteur_max": 0.1966645746420684,
+    "aire_bbox": 0.04608648137721151,
+    "aspect_ratio": 0.8781132613479014,
+    "centroide_x": -0.015172643550973057,
+    "dispersion": 0.10622111463825375
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5495460939097946,
+    "hauteur_max": 0.09543677111990505,
+    "aire_bbox": 0.052446904784306914,
+    "aspect_ratio": 0.1817119235488891,
+    "centroide_x": 0.01903787415134521,
+    "dispersion": 0.19571925449927263
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.945489681578819,
+    "hauteur_max": 0.1736533243468499,
+    "aire_bbox": 0.1641874263418065,
+    "aspect_ratio": 0.19217554506432727,
+    "centroide_x": -0.09218769669252316,
+    "dispersion": 0.42269000183233624
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7080487733047527,
+    "hauteur_max": 0.05772271879087985,
+    "aire_bbox": 0.04087050023169767,
+    "aspect_ratio": 0.0853012543153122,
+    "centroide_x": 0.03465840191260164,
+    "dispersion": 0.327698746421484
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3188316774602626,
+    "hauteur_max": 0.051595418223311,
+    "aire_bbox": 0.016450253741402045,
+    "aspect_ratio": 0.1693251568080332,
+    "centroide_x": 0.014043130497862977,
+    "dispersion": 0.14015190630397034
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5272204721714296,
+    "hauteur_max": 0.03455276204964976,
+    "aire_bbox": 0.0182169235226434,
+    "aspect_ratio": 0.06857444748229402,
+    "centroide_x": -0.00485634804937956,
+    "dispersion": 0.23879355253277762
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6305164077866546,
+    "hauteur_max": 0.03949090127353591,
+    "aire_bbox": 0.024899661211247287,
+    "aspect_ratio": 0.06553487362849891,
+    "centroide_x": -0.00498697075459436,
+    "dispersion": 0.29630745526719793
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3776086231669384,
+    "hauteur_max": 0.03042625232817276,
+    "aire_bbox": 0.01148921524977117,
+    "aspect_ratio": 0.08430986087813572,
+    "centroide_x": -0.004892250167438377,
+    "dispersion": 0.17608371512814028
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5331202800542282,
+    "hauteur_max": 0.049854858573619654,
+    "aire_bbox": 0.02657863616483205,
+    "aspect_ratio": 0.09784848336078146,
+    "centroide_x": -0.008575162570637142,
+    "dispersion": 0.23043321406820833
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6486536859207103,
+    "hauteur_max": 0.06798723584314917,
+    "aire_bbox": 0.044100171125219335,
+    "aspect_ratio": 0.10966961215938521,
+    "centroide_x": -0.007618604435260742,
+    "dispersion": 0.2982389876260165
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.3961448430988646,
+    "hauteur_max": 0.04910571677338642,
+    "aire_bbox": 0.019452976466450448,
+    "aspect_ratio": 0.12970295220867573,
+    "centroide_x": -0.008255376284806782,
+    "dispersion": 0.17863405465724053
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6316020965611281,
+    "hauteur_max": 0.03529361321464359,
+    "aire_bbox": 0.022291520101586425,
+    "aspect_ratio": 0.05846882582971512,
+    "centroide_x": -0.009914424098820545,
+    "dispersion": 0.2576914759830756
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7321290846257499,
+    "hauteur_max": 0.053264631034884886,
+    "aire_bbox": 0.03899658556249858,
+    "aspect_ratio": 0.07612425869240076,
+    "centroide_x": -0.06958739103460788,
+    "dispersion": 0.33314731312458823
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.30215429431739577,
+    "hauteur_max": 0.04170037925236837,
+    "aire_bbox": 0.012599948665767137,
+    "aspect_ratio": 0.14440527145568757,
+    "centroide_x": -0.007468410548282872,
+    "dispersion": 0.12206363090293564
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.597014169849745,
+    "hauteur_max": 0.2022005397293039,
+    "aire_bbox": 0.12071658736966075,
+    "aspect_ratio": 0.35438022940790964,
+    "centroide_x": 0.005698867224381763,
+    "dispersion": 0.23868531207257196
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.38893598265665164,
+    "hauteur_max": 0.08300754551909609,
+    "aire_bbox": 0.032284621284386375,
+    "aspect_ratio": 0.22331158890813824,
+    "centroide_x": 0.01920184850153669,
+    "dispersion": 0.12673481711072784
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.400055345155328,
+    "hauteur_max": 0.1141955887881245,
+    "aire_bbox": 0.04568455568784905,
+    "aspect_ratio": 0.29867650732349466,
+    "centroide_x": -0.0015065984782531084,
+    "dispersion": 0.15106926013413907
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2667791416253984,
+    "hauteur_max": 0.23594849428497008,
+    "aire_bbox": 0.06294613677314954,
+    "aspect_ratio": 0.9254163171885272,
+    "centroide_x": -0.01664638518010976,
+    "dispersion": 0.12915984256830662
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7083297377816825,
+    "hauteur_max": 0.18475102655315084,
+    "aire_bbox": 0.13086464619329,
+    "aspect_ratio": 0.2729123559237664,
+    "centroide_x": -0.019237769840237433,
+    "dispersion": 0.2594587202419203
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7447649514015455,
+    "hauteur_max": 0.15092575590199483,
+    "aire_bbox": 0.11240421325959071,
+    "aspect_ratio": 0.21203909529141163,
+    "centroide_x": 0.004701788671058112,
+    "dispersion": 0.311758581516631
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9505620619653381,
+    "hauteur_max": 0.28578691371328646,
+    "aire_bbox": 0.27165819798201174,
+    "aspect_ratio": 0.3145818591628855,
+    "centroide_x": -0.01383668549469238,
+    "dispersion": 0.42076292920454506
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6945474090400381,
+    "hauteur_max": 0.17351342579906714,
+    "aire_bbox": 0.12051330032240298,
+    "aspect_ratio": 0.26139844658916433,
+    "centroide_x": 0.05149717043974993,
+    "dispersion": 0.2780833816013827
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.48448566617574784,
+    "hauteur_max": 0.19083422094124602,
+    "aire_bbox": 0.09245644466184944,
+    "aspect_ratio": 0.4121422493898938,
+    "centroide_x": -0.0018047531100625226,
+    "dispersion": 0.16654137084773174
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9318782216713271,
+    "hauteur_max": 0.21620129077103722,
+    "aire_bbox": 0.20147327436675966,
+    "aspect_ratio": 0.24275653710016154,
+    "centroide_x": 0.06615890564667264,
+    "dispersion": 0.3676576668308556
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0108280500013176,
+    "hauteur_max": 0.2411094857840916,
+    "aire_bbox": 0.24372023135195373,
+    "aspect_ratio": 0.24957945119821898,
+    "centroide_x": -0.11158551850718804,
+    "dispersion": 0.4656647425928682
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6890076798376237,
+    "hauteur_max": 0.11995014239532939,
+    "aire_bbox": 0.08264656930799848,
+    "aspect_ratio": 0.18215811297097198,
+    "centroide_x": 0.0010766138683038528,
+    "dispersion": 0.27685645384072294
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3506287465471535,
+    "hauteur_max": 0.15707409099554254,
+    "aire_bbox": 0.05507469164080061,
+    "aspect_ratio": 0.46873658258455,
+    "centroide_x": 0.025421554835125412,
+    "dispersion": 0.1274283854721573
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.25733689118529024,
+    "hauteur_max": 0.18050579493504545,
+    "aire_bbox": 0.04645080010951411,
+    "aspect_ratio": 0.7339405996742274,
+    "centroide_x": 0.005012711592333755,
+    "dispersion": 0.08821708603383428
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8047523543351351,
+    "hauteur_max": 0.08191024441386606,
+    "aire_bbox": 0.06591746203622506,
+    "aspect_ratio": 0.10649955163568893,
+    "centroide_x": 0.0063958409458207965,
+    "dispersion": 0.30295782344032046
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6847929152618599,
+    "hauteur_max": 0.06191853822295833,
+    "aire_bbox": 0.04240137629845254,
+    "aspect_ratio": 0.09460917378595658,
+    "centroide_x": 0.014816677031594698,
+    "dispersion": 0.26676784947806553
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.815014150593359,
+    "hauteur_max": 0.08870510693091234,
+    "aire_bbox": 0.0722959173785906,
+    "aspect_ratio": 0.11388205307020048,
+    "centroide_x": 0.007047823381940805,
+    "dispersion": 0.31994912122503416
    }
   },
   "notes": ""
@@ -4397,9 +9941,7 @@ window.PRESETS_DB = [
     "height": 0.208640915943877,
     "projection": 0.10978194334003119,
     "narine": 0.1435486857262763,
-    "evasement": 2.0276068098676205,
-    "compacite_narines": 0.1982598480477388,
-    "ratio_pointe_base": 0.5541402111217647
+    "compacite_narines": 0.1982598480477388
    },
    "joues": {
     "width": 1.0680433582799538,
@@ -4423,6 +9965,701 @@ window.PRESETS_DB = [
     "width": 0.8658432955613534,
     "height": 0.1617413881283316,
     "angle": 0.2739071901145632
+   },
+   "philtrum": {
+    "largeur_sup": 0.12023190057092573,
+    "largeur_milieu": 0.11823466262766744,
+    "largeur_inf": 0.11144421696999565,
+    "hauteur": 0.11928438103991004,
+    "profondeur_z": 0.006647329777479172
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.477163008290018,
+    "hauteur_max": 0.22095558086847364,
+    "aire_bbox": 0.10543182966566923,
+    "aspect_ratio": 0.5325290783808682,
+    "centroide_x": 0.017030772148906505,
+    "dispersion": 0.18499013882359214
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6416750868515622,
+    "hauteur_max": 0.16731800379212644,
+    "aire_bbox": 0.10736379461514274,
+    "aspect_ratio": 0.29986972137863777,
+    "centroide_x": 0.01603918178023526,
+    "dispersion": 0.2526666967728718
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.25195274568636544,
+    "hauteur_max": 0.08462238123838789,
+    "aire_bbox": 0.021320841299530206,
+    "aspect_ratio": 0.3862524669185029,
+    "centroide_x": -0.004678206481298874,
+    "dispersion": 0.10942479811194213
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6856029888689569,
+    "hauteur_max": 0.11636396989106453,
+    "aire_bbox": 0.07977948555397114,
+    "aspect_ratio": 0.1951870259151101,
+    "centroide_x": -0.006608684081155515,
+    "dispersion": 0.25539506088900593
+   },
+   "joues__joues": {
+    "largeur_max": 1.0046583196213752,
+    "hauteur_max": 0.251356339589075,
+    "aire_bbox": 0.25252723775773983,
+    "aspect_ratio": 0.2877243236999413,
+    "centroide_x": 0.04071218386793,
+    "dispersion": 0.38145909341783857
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9942937482007637,
+    "hauteur_max": 0.4804253124219184,
+    "aire_bbox": 0.47768388461851213,
+    "aspect_ratio": 0.5556691578859011,
+    "centroide_x": -0.014256766096563574,
+    "dispersion": 0.4493052410003186
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5797398028767037,
+    "hauteur_max": 0.0801824533392481,
+    "aire_bbox": 0.04648495969306619,
+    "aspect_ratio": 0.15905647058312464,
+    "centroide_x": 0.012249101339847412,
+    "dispersion": 0.23842723206377134
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6680135644556469,
+    "hauteur_max": 0.1385076356279214,
+    "aire_bbox": 0.09252497938013172,
+    "aspect_ratio": 0.2384479286953814,
+    "centroide_x": 0.009191545215496932,
+    "dispersion": 0.2817415942678367
+   },
+   "menton__menton": {
+    "largeur_max": 0.461969511143556,
+    "hauteur_max": 0.1501950265508462,
+    "aire_bbox": 0.06938552299188784,
+    "aspect_ratio": 0.37389301990885104,
+    "centroide_x": 0.012012023258907593,
+    "dispersion": 0.1694570955941602
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17689179163393962,
+    "hauteur_max": 0.10141910767402271,
+    "aire_bbox": 0.017940207662373312,
+    "aspect_ratio": 0.6593518424922871,
+    "centroide_x": 0.010188189441817267,
+    "dispersion": 0.07558054923450097
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2511974705146873,
+    "hauteur_max": 0.1286319900166261,
+    "aire_bbox": 0.032312030519446984,
+    "aspect_ratio": 0.5888963279373163,
+    "centroide_x": 0.002631061508176761,
+    "dispersion": 0.10404374555514194
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.10639638659027816,
+    "hauteur_max": 0.08543877471633533,
+    "aire_bbox": 0.009090376904518896,
+    "aspect_ratio": 0.9234922439867049,
+    "centroide_x": 0.011656431951337474,
+    "dispersion": 0.05138723322534823
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17770871780996148,
+    "hauteur_max": 0.06990789615085272,
+    "aire_bbox": 0.012423242589759978,
+    "aspect_ratio": 0.45240002335485724,
+    "centroide_x": 0.004169535326995599,
+    "dispersion": 0.06782398122372618
+   },
+   "nez__nez": {
+    "largeur_max": 0.2759331731112381,
+    "hauteur_max": 0.17296749921704277,
+    "aire_bbox": 0.047727470904074205,
+    "aspect_ratio": 0.7208845384656386,
+    "centroide_x": 0.013738273766517277,
+    "dispersion": 0.11788393908333164
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8533246469229768,
+    "hauteur_max": 0.13422971628430347,
+    "aire_bbox": 0.11454152525487461,
+    "aspect_ratio": 0.18090038959619267,
+    "centroide_x": -0.028948296434099473,
+    "dispersion": 0.3133792549187262
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.43090299585422587,
+    "hauteur_max": 0.09779842011849917,
+    "aire_bbox": 0.04214163221887149,
+    "aspect_ratio": 0.26101017940938737,
+    "centroide_x": -0.002281855279848482,
+    "dispersion": 0.14226182207611046
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8989707181071794,
+    "hauteur_max": 0.20985718455345856,
+    "aire_bbox": 0.18865546389797352,
+    "aspect_ratio": 0.2684623675620537,
+    "centroide_x": 0.03680441276749519,
+    "dispersion": 0.37103053276092174
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9972356696564074,
+    "hauteur_max": 0.25563206903602465,
+    "aire_bbox": 0.254925417550793,
+    "aspect_ratio": 0.2947967223685021,
+    "centroide_x": 0.06603426267273876,
+    "dispersion": 0.4585858064407206
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7436089279493201,
+    "hauteur_max": 0.17278061343536885,
+    "aire_bbox": 0.12848120672710053,
+    "aspect_ratio": 0.2672117405076967,
+    "centroide_x": 0.0027540482707408332,
+    "dispersion": 0.2696696566336134
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6813567759447833,
+    "hauteur_max": 0.0736569992470062,
+    "aire_bbox": 0.05018669553270747,
+    "aspect_ratio": 0.12432101933202917,
+    "centroide_x": 0.012231988482816118,
+    "dispersion": 0.2508829811783747
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3785429086757349,
+    "hauteur_max": 0.036436376726074804,
+    "aire_bbox": 0.013792732027493208,
+    "aspect_ratio": 0.11069428222358298,
+    "centroide_x": -0.013554665511621183,
+    "dispersion": 0.17504942431831266
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.32740843741938097,
+    "hauteur_max": 0.040384585227311386,
+    "aire_bbox": 0.013222253945103837,
+    "aspect_ratio": 0.14185050273327277,
+    "centroide_x": 0.00765128503152607,
+    "dispersion": 0.12370502207872187
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.36857760809779705,
+    "hauteur_max": 0.09963407910174665,
+    "aire_bbox": 0.03672289056034849,
+    "aspect_ratio": 0.3108737724502455,
+    "centroide_x": 0.005147237651600101,
+    "dispersion": 0.13086052303001
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08907240400122579,
+    "hauteur_max": 0.0016909506114052984,
+    "aire_bbox": 0.0001506170360052125,
+    "aspect_ratio": 0.02183196713895373,
+    "centroide_x": 0.005064599785755871,
+    "dispersion": 0.03612672960007871
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2465977716848894,
+    "hauteur_max": 0.02313021418593232,
+    "aire_bbox": 0.005703859276845128,
+    "aspect_ratio": 0.10786874504174533,
+    "centroide_x": -0.012785460137653392,
+    "dispersion": 0.08218807056479287
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3108374130524971,
+    "hauteur_max": 0.028471196968216574,
+    "aire_bbox": 0.008849913212108538,
+    "aspect_ratio": 0.1053361787768158,
+    "centroide_x": -0.010908139528217826,
+    "dispersion": 0.1261469868712459
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.20479098657511124,
+    "hauteur_max": 0.010970593945452288,
+    "aire_bbox": 0.002246678757404116,
+    "aspect_ratio": 0.061606200119679565,
+    "centroide_x": 0.006602537983370249,
+    "dispersion": 0.0818200434329432
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.3250306931693369,
+    "hauteur_max": 0.022748296206978366,
+    "aire_bbox": 0.0073938944845755765,
+    "aspect_ratio": 0.08048771908020677,
+    "centroide_x": 0.007205835298431388,
+    "dispersion": 0.1100698331951095
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10698796424225279,
+    "hauteur_max": 0.003369550205601306,
+    "aire_bbox": 0.0003605013169093481,
+    "aspect_ratio": 0.03621947303948108,
+    "centroide_x": 0.005465860182899849,
+    "dispersion": 0.04371869170700566
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.1037931930792517,
+    "hauteur_max": 0.02287609857654117,
+    "aire_bbox": 0.0023743833164549324,
+    "aspect_ratio": 0.2534651216735463,
+    "centroide_x": 0.005001152306067652,
+    "dispersion": 0.042750874356757194
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10702463248666638,
+    "hauteur_max": 0.021881535105659707,
+    "aire_bbox": 0.002341863252927319,
+    "aspect_ratio": 0.23512519095609352,
+    "centroide_x": 0.0040002553021328555,
+    "dispersion": 0.04337823306056489
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.11141741765155909,
+    "hauteur_max": 0.01035663451552379,
+    "aire_bbox": 0.0011539094732806664,
+    "aspect_ratio": 0.10689827114884991,
+    "centroide_x": 0.0033150762478662697,
+    "dispersion": 0.04577556322140639
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3482109671178989,
+    "hauteur_max": 0.04903502745061841,
+    "aire_bbox": 0.017074534331232558,
+    "aspect_ratio": 0.16194557917790892,
+    "centroide_x": 0.0065138894803923545,
+    "dispersion": 0.1431955228715037
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3207294275100754,
+    "hauteur_max": 0.048183420434244485,
+    "aire_bbox": 0.015453840851352502,
+    "aspect_ratio": 0.17276825108363933,
+    "centroide_x": 0.02784894323683627,
+    "dispersion": 0.11930966530199667
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.22245379784571603,
+    "hauteur_max": 0.03684895325838515,
+    "aire_bbox": 0.00819718959896705,
+    "aspect_ratio": 0.19049801325882837,
+    "centroide_x": 0.0039301759742106195,
+    "dispersion": 0.08573320569956487
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11820623082023501,
+    "hauteur_max": 0.06714608606864189,
+    "aire_bbox": 0.00793708574850525,
+    "aspect_ratio": 0.6532590771380969,
+    "centroide_x": 0.0049453524387103225,
+    "dispersion": 0.053264812118703986
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4482781528063609,
+    "hauteur_max": 0.0961866561706201,
+    "aire_bbox": 0.043118376552786136,
+    "aspect_ratio": 0.24675864294465513,
+    "centroide_x": -0.0718618176222327,
+    "dispersion": 0.20362620309109106
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.862276785775119,
+    "hauteur_max": 0.17018816996148545,
+    "aire_bbox": 0.14674930817133933,
+    "aspect_ratio": 0.22698010564286306,
+    "centroide_x": 0.005642556964616664,
+    "dispersion": 0.37817071415802395
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7702276557071371,
+    "hauteur_max": 0.23538752548786296,
+    "aire_bbox": 0.18130198193922067,
+    "aspect_ratio": 0.35145478032694777,
+    "centroide_x": 0.009881071907991939,
+    "dispersion": 0.34989695824979783
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8014865281742358,
+    "hauteur_max": 0.047520013137545454,
+    "aire_bbox": 0.03808665034840538,
+    "aspect_ratio": 0.0681844661914753,
+    "centroide_x": 0.001868099305367199,
+    "dispersion": 0.36498161321532113
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6680135644556469,
+    "hauteur_max": 0.17646835562687618,
+    "aire_bbox": 0.11788325525593626,
+    "aspect_ratio": 0.30379923596808606,
+    "centroide_x": 0.008077597445243133,
+    "dispersion": 0.2990606835880548
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6416750868515622,
+    "hauteur_max": 0.19240896385900033,
+    "aire_bbox": 0.12346403859524312,
+    "aspect_ratio": 0.34483809916136426,
+    "centroide_x": 0.016289617417345647,
+    "dispersion": 0.24398549521417925
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.687599796398534,
+    "hauteur_max": 0.19698330761564126,
+    "aire_bbox": 0.13544568221042472,
+    "aspect_ratio": 0.32945705032028233,
+    "centroide_x": -0.002383889203091363,
+    "dispersion": 0.23473243321244747
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9547252874227098,
+    "hauteur_max": 0.2934550007366091,
+    "aire_bbox": 0.2801689099238906,
+    "aspect_ratio": 0.353482736661032,
+    "centroide_x": -0.013443589848819238,
+    "dispersion": 0.43075705726635843
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19007019749708534,
+    "hauteur_max": 0.07769604466204444,
+    "aire_bbox": 0.01476770255365715,
+    "aspect_ratio": 0.4700997324832156,
+    "centroide_x": 0.011479845140774934,
+    "dispersion": 0.06647369397457087
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4823361521234542,
+    "hauteur_max": 0.11446248261396752,
+    "aire_bbox": 0.05520939342651887,
+    "aspect_ratio": 0.2729093822957925,
+    "centroide_x": -0.008398028471635316,
+    "dispersion": 0.20453178835828711
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1501630591428818,
+    "hauteur_max": 0.03329221068557637,
+    "aire_bbox": 0.004999260202175486,
+    "aspect_ratio": 0.25496739499767046,
+    "centroide_x": 0.004582775024683971,
+    "dispersion": 0.0734206812602975
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.267189610083432,
+    "hauteur_max": 0.05754076130208325,
+    "aire_bbox": 0.015374293576207457,
+    "aspect_ratio": 0.247663015816163,
+    "centroide_x": -0.003507724443447505,
+    "dispersion": 0.11366032679746178
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.1349787794259908,
+    "hauteur_max": 0.035133738591894934,
+    "aire_bbox": 0.004742309151805807,
+    "aspect_ratio": 0.29933947228683044,
+    "centroide_x": 0.012072859973025032,
+    "dispersion": 0.052072988036131196
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.21726231989007305,
+    "hauteur_max": 0.0368582384202588,
+    "aire_bbox": 0.00800790638624685,
+    "aspect_ratio": 0.19509910723621113,
+    "centroide_x": 0.005213545640510705,
+    "dispersion": 0.09785964369572087
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15455589467624212,
+    "hauteur_max": 0.07271674521349891,
+    "aire_bbox": 0.011238801614416672,
+    "aspect_ratio": 0.5410706516691353,
+    "centroide_x": 0.004845522135924988,
+    "dispersion": 0.07711745750657356
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23764729499217804,
+    "hauteur_max": 0.03212849959603433,
+    "aire_bbox": 0.0076352510211548435,
+    "aspect_ratio": 0.1554757601242514,
+    "centroide_x": 0.005788344296715744,
+    "dispersion": 0.10566269620155164
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.0826828616752236,
+    "hauteur_max": 0.0857175485622117,
+    "aire_bbox": 0.007087372210908611,
+    "aspect_ratio": 1.1922281244669704,
+    "centroide_x": 0.004639599050882648,
+    "dispersion": 0.0498552133542559
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.056881110461896006,
+    "hauteur_max": 0.031846440905155496,
+    "aire_bbox": 0.0018114609229443932,
+    "aspect_ratio": 0.6438696537678208,
+    "centroide_x": 0.015729221204713897,
+    "dispersion": 0.021650475720061273
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13456112409264265,
+    "hauteur_max": 0.04030049319524813,
+    "aire_bbox": 0.0054228796658404846,
+    "aspect_ratio": 0.34442595736159176,
+    "centroide_x": 0.004647567762194306,
+    "dispersion": 0.04626820977557471
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2336125288949938,
+    "hauteur_max": 0.20538055398615782,
+    "aire_bbox": 0.04797947060256112,
+    "aspect_ratio": 1.0110399344900067,
+    "centroide_x": -0.00025765150126864553,
+    "dispersion": 0.11463360675028743
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5497092158605249,
+    "hauteur_max": 0.09405899636561962,
+    "aire_bbox": 0.051705097136772724,
+    "aspect_ratio": 0.1967761422578861,
+    "centroide_x": 0.03183099389933837,
+    "dispersion": 0.19878763205917158
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9359698833529024,
+    "hauteur_max": 0.17128421324397658,
+    "aire_bbox": 0.1603168650901584,
+    "aspect_ratio": 0.21045564641963116,
+    "centroide_x": -0.08118090922928678,
+    "dispersion": 0.41934156926270716
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7179886039562916,
+    "hauteur_max": 0.05859848139287889,
+    "aire_bbox": 0.04207304184923184,
+    "aspect_ratio": 0.09385856927149204,
+    "centroide_x": 0.04296039930747941,
+    "dispersion": 0.33448472230473675
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3279634979323448,
+    "hauteur_max": 0.053403783708038007,
+    "aire_bbox": 0.017514491707710512,
+    "aspect_ratio": 0.1872628540660017,
+    "centroide_x": 0.025860690715165516,
+    "dispersion": 0.1431955794399035
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5371656037945556,
+    "hauteur_max": 0.0333977637049891,
+    "aire_bbox": 0.017940129905978364,
+    "aspect_ratio": 0.07150136149847347,
+    "centroide_x": 0.0039003225834634988,
+    "dispersion": 0.24490155301667096
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6418216087238137,
+    "hauteur_max": 0.038081865082645903,
+    "aire_bbox": 0.02444176391054702,
+    "aspect_ratio": 0.06823528266918463,
+    "centroide_x": 0.002826779138707631,
+    "dispersion": 0.3030211574060586
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.38583193109615715,
+    "hauteur_max": 0.03145541295606136,
+    "aire_bbox": 0.012136502724264234,
+    "aspect_ratio": 0.09375670675445563,
+    "centroide_x": 0.0051561360808761655,
+    "dispersion": 0.17977672094693994
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5512067711392401,
+    "hauteur_max": 0.05006962223259665,
+    "aire_bbox": 0.02759871480299111,
+    "aspect_ratio": 0.10446357646999051,
+    "centroide_x": 0.0023610261161727117,
+    "dispersion": 0.2387917989405657
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6689496624260128,
+    "hauteur_max": 0.07334489517383809,
+    "aire_bbox": 0.04906404286721029,
+    "aspect_ratio": 0.12609026949534377,
+    "centroide_x": 0.0017622079969804101,
+    "dispersion": 0.3085112214544822
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4109998455131928,
+    "hauteur_max": 0.04920277353541126,
+    "aire_bbox": 0.02022233232187464,
+    "aspect_ratio": 0.13767435339608602,
+    "centroide_x": 0.0035005329455734344,
+    "dispersion": 0.184897841121894
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6493633801146581,
+    "hauteur_max": 0.033292692462843394,
+    "aire_bbox": 0.021619055310789788,
+    "aspect_ratio": 0.05896119066788911,
+    "centroide_x": 0.00040227196386823723,
+    "dispersion": 0.2667689215282475
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7436089279493201,
+    "hauteur_max": 0.05735019649400657,
+    "aire_bbox": 0.04264611813259108,
+    "aspect_ratio": 0.08869424363604492,
+    "centroide_x": -0.06292294918235448,
+    "dispersion": 0.3412773172332081
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3147484238247855,
+    "hauteur_max": 0.04115831951816007,
+    "aire_bbox": 0.012954516195617787,
+    "aspect_ratio": 0.1503831543316779,
+    "centroide_x": 0.00509587860413614,
+    "dispersion": 0.12632564113599995
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6141897192402009,
+    "hauteur_max": 0.20976880032392542,
+    "aire_bbox": 0.1288378405763055,
+    "aspect_ratio": 0.39277466917359644,
+    "centroide_x": -0.001953394947351795,
+    "dispersion": 0.24857077091123536
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.40769517035388614,
+    "hauteur_max": 0.08141151094537262,
+    "aire_bbox": 0.03319107982364096,
+    "aspect_ratio": 0.22964414015176693,
+    "centroide_x": 0.00819277050175873,
+    "dispersion": 0.13460350935543608
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.40866980020196697,
+    "hauteur_max": 0.11732818139412315,
+    "aire_bbox": 0.04794848444839645,
+    "aspect_ratio": 0.33016795002566063,
+    "centroide_x": -0.0018928638019376032,
+    "dispersion": 0.15673427193382922
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.25195274568636544,
+    "hauteur_max": 0.23092972803190973,
+    "aire_bbox": 0.05818337903824529,
+    "aspect_ratio": 1.0540612995262877,
+    "centroide_x": -0.0016793476704044011,
+    "dispersion": 0.1334264463567056
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6856029888689569,
+    "hauteur_max": 0.17312850042009723,
+    "aire_bbox": 0.11869741734641912,
+    "aspect_ratio": 0.29040292394438627,
+    "centroide_x": -0.005849875675948909,
+    "dispersion": 0.258603958123739
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7649024494700133,
+    "hauteur_max": 0.15254285856687896,
+    "aire_bbox": 0.11668040616696353,
+    "aspect_ratio": 0.22934588302476133,
+    "centroide_x": -0.004220193413285382,
+    "dispersion": 0.3210519958533272
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9581236479317544,
+    "hauteur_max": 0.29286924717576845,
+    "aire_bbox": 0.28060495147107395,
+    "aspect_ratio": 0.3515259019010907,
+    "centroide_x": -0.018243356746749286,
+    "dispersion": 0.430959092347093
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7070616182264464,
+    "hauteur_max": 0.1800716992007867,
+    "aire_bbox": 0.12732178703369415,
+    "aspect_ratio": 0.2928824302242028,
+    "centroide_x": 0.050400829341510474,
+    "dispersion": 0.2845842507179677
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.48717409380500526,
+    "hauteur_max": 0.18924964373355718,
+    "aire_bbox": 0.09219752368881581,
+    "aspect_ratio": 0.4467411977663002,
+    "centroide_x": 0.004273482412532724,
+    "dispersion": 0.1691433484407868
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9252013568221302,
+    "hauteur_max": 0.22046123359456846,
+    "aire_bbox": 0.20397103244837533,
+    "aspect_ratio": 0.27403188103738857,
+    "centroide_x": 0.06807812154655057,
+    "dispersion": 0.36972562380915486
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.005279161353026,
+    "hauteur_max": 0.25426215727619417,
+    "aire_bbox": 0.25560444823042366,
+    "aspect_ratio": 0.2908708278807698,
+    "centroide_x": -0.10882873970328942,
+    "dispersion": 0.46564247537972775
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7102709458765842,
+    "hauteur_max": 0.10626964119847138,
+    "aire_bbox": 0.07548023857200349,
+    "aspect_ratio": 0.17206410665532035,
+    "centroide_x": -0.011865843172686198,
+    "dispersion": 0.28324152114141415
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3525488506531064,
+    "hauteur_max": 0.1501950265508462,
+    "aire_bbox": 0.052951083984313634,
+    "aspect_ratio": 0.48993827467398615,
+    "centroide_x": 0.011702179112036153,
+    "dispersion": 0.12979359686472697
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.26312296074625624,
+    "hauteur_max": 0.17296749921704277,
+    "aire_bbox": 0.04551172050686405,
+    "aspect_ratio": 0.7559809967989813,
+    "centroide_x": 0.010876500229628258,
+    "dispersion": 0.0917055150158737
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8014865281742358,
+    "hauteur_max": 0.07727803718599667,
+    "aire_bbox": 0.06193730572832396,
+    "aspect_ratio": 0.11088300204380641,
+    "centroide_x": 0.012500328320982228,
+    "dispersion": 0.30455404255661706
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.689312525770841,
+    "hauteur_max": 0.05913150224194651,
+    "aire_bbox": 0.04076008516302029,
+    "aspect_ratio": 0.09865244693650853,
+    "centroide_x": 0.022418926725565873,
+    "dispersion": 0.27053506500507124
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.820050532067159,
+    "hauteur_max": 0.08916777456107369,
+    "aire_bbox": 0.07312208097205297,
+    "aspect_ratio": 0.12504675686980493,
+    "centroide_x": 0.01620367806634505,
+    "dispersion": 0.3272078485934358
    }
   },
   "notes": ""
@@ -4889,9 +11126,7 @@ window.PRESETS_DB = [
     "height": 0.21296508045743606,
     "projection": 0.10208924244804803,
     "narine": 0.13446436303718212,
-    "evasement": 1.9499541654537813,
-    "compacite_narines": 0.1792775216703015,
-    "ratio_pointe_base": 0.5678400606469053
+    "compacite_narines": 0.1792775216703015
    },
    "joues": {
     "width": 1.0629108095384112,
@@ -4915,6 +11150,701 @@ window.PRESETS_DB = [
     "width": 0.8777967658403998,
     "height": 0.1815795038379044,
     "angle": 0.29371257114538196
+   },
+   "philtrum": {
+    "largeur_sup": 0.11515376360354426,
+    "largeur_milieu": 0.11595760855089259,
+    "largeur_inf": 0.10464989985546568,
+    "hauteur": 0.10244096884305467,
+    "profondeur_z": 0.0074973031878471375
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.47220772456298654,
+    "hauteur_max": 0.22122135389226602,
+    "aire_bbox": 0.10446243214621012,
+    "aspect_ratio": 0.5298321398101364,
+    "centroide_x": 0.012898086511181251,
+    "dispersion": 0.18351206040416157
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.658095069936576,
+    "hauteur_max": 0.1638642745879106,
+    "aire_bbox": 0.10783827124503732,
+    "aspect_ratio": 0.2816047544333913,
+    "centroide_x": 0.008285632111153865,
+    "dispersion": 0.25750772699955726
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2673040979917293,
+    "hauteur_max": 0.08970226587965664,
+    "aire_bbox": 0.023977783268775893,
+    "aspect_ratio": 0.37952652764399547,
+    "centroide_x": -0.023859952761290184,
+    "dispersion": 0.11529070598910249
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7102907565306523,
+    "hauteur_max": 0.11490219742872787,
+    "aire_bbox": 0.0816139687386855,
+    "aspect_ratio": 0.18295172634636397,
+    "centroide_x": -0.02325777133814733,
+    "dispersion": 0.2654694073026912
+   },
+   "joues__joues": {
+    "largeur_max": 1.0046024033470842,
+    "hauteur_max": 0.2472312039927383,
+    "aire_bbox": 0.24836906171349812,
+    "aspect_ratio": 0.27832576504568285,
+    "centroide_x": 0.03417891446954303,
+    "dispersion": 0.3897787857246157
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.997180261838342,
+    "hauteur_max": 0.47973057245143125,
+    "aire_bbox": 0.4783778578489759,
+    "aspect_ratio": 0.5440866415349997,
+    "centroide_x": -0.012413547718514462,
+    "dispersion": 0.45510422982372806
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5962882722438732,
+    "hauteur_max": 0.0854272114515423,
+    "aire_bbox": 0.050939244319052175,
+    "aspect_ratio": 0.16202584792011762,
+    "centroide_x": 0.014431143762453602,
+    "dispersion": 0.24580163247578407
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.683064719043914,
+    "hauteur_max": 0.14663514616016182,
+    "aire_bbox": 0.1001612949138542,
+    "aspect_ratio": 0.24278427968760216,
+    "centroide_x": 0.008390507358362978,
+    "dispersion": 0.28696256840226636
+   },
+   "menton__menton": {
+    "largeur_max": 0.47680733911271467,
+    "hauteur_max": 0.15475528847078368,
+    "aire_bbox": 0.07378845730937493,
+    "aspect_ratio": 0.36706832333551553,
+    "centroide_x": 0.012943359182298775,
+    "dispersion": 0.17420148021916526
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.18249897858882932,
+    "hauteur_max": 0.10326752107795109,
+    "aire_bbox": 0.018846217118126476,
+    "aspect_ratio": 0.6399523737287202,
+    "centroide_x": 0.00907387972196861,
+    "dispersion": 0.07616269242058539
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2689666134741151,
+    "hauteur_max": 0.13105684976129608,
+    "aire_bbox": 0.0352499170528817,
+    "aspect_ratio": 0.5510686312079189,
+    "centroide_x": -0.011996459399440877,
+    "dispersion": 0.10962457848293211
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12098456134814872,
+    "hauteur_max": 0.0889188955390892,
+    "aire_bbox": 0.010757813572358565,
+    "aspect_ratio": 0.8312055721825479,
+    "centroide_x": -0.005993734536450527,
+    "dispersion": 0.054787119249209176
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.2020851327894594,
+    "hauteur_max": 0.06578963638127112,
+    "aire_bbox": 0.013295107404279423,
+    "aspect_ratio": 0.36818616253396214,
+    "centroide_x": -0.013560023126696383,
+    "dispersion": 0.074028202308273
+   },
+   "nez__nez": {
+    "largeur_max": 0.2801767050658937,
+    "hauteur_max": 0.17273956600668808,
+    "aire_bbox": 0.048397602438266324,
+    "aspect_ratio": 0.6972750749212667,
+    "centroide_x": -0.0012685144554555367,
+    "dispersion": 0.1175626586161384
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8812623171277137,
+    "hauteur_max": 0.13255336756302866,
+    "aire_bbox": 0.11681428784167616,
+    "aspect_ratio": 0.17011002407343384,
+    "centroide_x": -0.04436340212874037,
+    "dispersion": 0.32862272709901375
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.46588210933395025,
+    "hauteur_max": 0.10226727430858384,
+    "aire_bbox": 0.04764449347071674,
+    "aspect_ratio": 0.24825899237824542,
+    "centroide_x": -0.02034075045451973,
+    "dispersion": 0.152888159253358
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9156020825469297,
+    "hauteur_max": 0.20265486484713532,
+    "aire_bbox": 0.18555121629230367,
+    "aspect_ratio": 0.2503194537128062,
+    "centroide_x": 0.024922650697938874,
+    "dispersion": 0.3839333807794357
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9960203499463364,
+    "hauteur_max": 0.24506627004361659,
+    "aire_bbox": 0.24409099204888637,
+    "aspect_ratio": 0.27826569524318673,
+    "centroide_x": 0.058478227917234414,
+    "dispersion": 0.46276730384701487
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7703952546842313,
+    "hauteur_max": 0.1749811507602232,
+    "aire_bbox": 0.13480464820486202,
+    "aspect_ratio": 0.2568751008665687,
+    "centroide_x": -0.009687619356019377,
+    "dispersion": 0.28077822897644195
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.7066488970890045,
+    "hauteur_max": 0.07383937970495615,
+    "aire_bbox": 0.05217851623024348,
+    "aspect_ratio": 0.11817583911079595,
+    "centroide_x": 0.00010868719542635858,
+    "dispersion": 0.2615609827966555
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3436224166854206,
+    "hauteur_max": 0.04335520950102486,
+    "aire_bbox": 0.01489782186464487,
+    "aspect_ratio": 0.142693483979543,
+    "centroide_x": -0.012094264333521175,
+    "dispersion": 0.1592748730434643
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.32694956082732585,
+    "hauteur_max": 0.05029463884624812,
+    "aire_bbox": 0.016443810082749786,
+    "aspect_ratio": 0.17397437143119088,
+    "centroide_x": 0.006258457849154697,
+    "dispersion": 0.11992591564616645
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.36856836465257425,
+    "hauteur_max": 0.09544015754352062,
+    "aire_bbox": 0.035176222787999444,
+    "aspect_ratio": 0.2928582294193253,
+    "centroide_x": -0.0013384048799802372,
+    "dispersion": 0.12644119613325921
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.0835463697729406,
+    "hauteur_max": 0.006144479934259088,
+    "aire_bbox": 0.0005133489926500235,
+    "aspect_ratio": 0.08317673850063502,
+    "centroide_x": 0.0011707251222788345,
+    "dispersion": 0.03386938679519723
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.22589108578913206,
+    "hauteur_max": 0.02281710855282605,
+    "aire_bbox": 0.0051541814255663685,
+    "aspect_ratio": 0.11423675448005209,
+    "centroide_x": -0.014484322908478965,
+    "dispersion": 0.07562963224801487
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.28561571839971417,
+    "hauteur_max": 0.03913127028481402,
+    "aire_bbox": 0.011176505874290544,
+    "aspect_ratio": 0.15494807397516902,
+    "centroide_x": -0.01061072494308272,
+    "dispersion": 0.11762928974914555
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.19522922944495363,
+    "hauteur_max": 0.017797515495512835,
+    "aire_bbox": 0.0034745952362235932,
+    "aspect_ratio": 0.10310005098356972,
+    "centroide_x": 0.005109537609871074,
+    "dispersion": 0.07849507218975715
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.2948626983257183,
+    "hauteur_max": 0.03468208953191219,
+    "aire_bbox": 0.010226454502953777,
+    "aspect_ratio": 0.13302392562326787,
+    "centroide_x": 0.005054684265773884,
+    "dispersion": 0.10188468306205735
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10367102782040653,
+    "hauteur_max": 0.005813309715535533,
+    "aire_bbox": 0.0006026717932479238,
+    "aspect_ratio": 0.06341768692584156,
+    "centroide_x": 0.0038724808302064624,
+    "dispersion": 0.04243719949888435
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.10006880305856275,
+    "hauteur_max": 0.02790238972052687,
+    "aire_bbox": 0.002792158741806669,
+    "aspect_ratio": 0.31534578877497604,
+    "centroide_x": 0.0020664058155905407,
+    "dispersion": 0.04141809856765295
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10047261870330051,
+    "hauteur_max": 0.023386376158262848,
+    "aire_bbox": 0.002349690454601101,
+    "aspect_ratio": 0.2632446474784348,
+    "centroide_x": -0.0007700297957166716,
+    "dispersion": 0.04066515607488275
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10451017764294233,
+    "hauteur_max": 0.0111633685614341,
+    "aire_bbox": 0.0011666856314491154,
+    "aspect_ratio": 0.12080391743952372,
+    "centroide_x": -0.002845298642720692,
+    "dispersion": 0.04297939757878784
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.31710103998836525,
+    "hauteur_max": 0.053380571174189026,
+    "aire_bbox": 0.01692703463450829,
+    "aspect_ratio": 0.19038375598298746,
+    "centroide_x": 0.0037061994065810937,
+    "dispersion": 0.13163743959096794
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.2905479455890044,
+    "hauteur_max": 0.05094429954120755,
+    "aire_bbox": 0.014801761571168711,
+    "aspect_ratio": 0.19829973178283442,
+    "centroide_x": 0.02318329109357246,
+    "dispersion": 0.10923035486857152
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2074053416684902,
+    "hauteur_max": 0.03917151085645897,
+    "aire_bbox": 0.008124380592854847,
+    "aspect_ratio": 0.2135967920557141,
+    "centroide_x": -0.0010380825543038154,
+    "dispersion": 0.08010558274945921
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11584709025163178,
+    "hauteur_max": 0.060003006957220106,
+    "aire_bbox": 0.006951173762342368,
+    "aspect_ratio": 0.5857768784229045,
+    "centroide_x": -0.004074753796191657,
+    "dispersion": 0.04991453726880142
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4511881493043157,
+    "hauteur_max": 0.09614335492898361,
+    "aire_bbox": 0.04337874237831608,
+    "aspect_ratio": 0.24099383296315516,
+    "centroide_x": -0.07310035779567693,
+    "dispersion": 0.2042809142383879
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8823829428860944,
+    "hauteur_max": 0.16896170717549547,
+    "aire_bbox": 0.14908892841257224,
+    "aspect_ratio": 0.21655864486905538,
+    "centroide_x": 0.0023616493255131706,
+    "dispersion": 0.3868032658951154
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7880736164769542,
+    "hauteur_max": 0.24091008820132434,
+    "aire_bbox": 0.1898548844545997,
+    "aspect_ratio": 0.34572639595784854,
+    "centroide_x": 0.011469575923460821,
+    "dispersion": 0.3573349928152446
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8233154194078927,
+    "hauteur_max": 0.059171339125302,
+    "aire_bbox": 0.04871667588887466,
+    "aspect_ratio": 0.0812810844590118,
+    "centroide_x": -0.00658190455407609,
+    "dispersion": 0.3777404691616014
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.683064719043914,
+    "hauteur_max": 0.18029827749716068,
+    "aire_bbox": 0.1231553922626997,
+    "aspect_ratio": 0.29852043372502246,
+    "centroide_x": 0.006192427020316491,
+    "dispersion": 0.30381519661978024
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.658095069936576,
+    "hauteur_max": 0.192402940830771,
+    "aire_bbox": 0.12661942680202912,
+    "aspect_ratio": 0.33064914876148926,
+    "centroide_x": 0.008038484016107987,
+    "dispersion": 0.2484000657431969
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7094040052585026,
+    "hauteur_max": 0.19446859415728945,
+    "aire_bbox": 0.13795679959217136,
+    "aspect_ratio": 0.3100274719489923,
+    "centroide_x": -0.013613989693439727,
+    "dispersion": 0.24359529304574373
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9609456500121599,
+    "hauteur_max": 0.2908745254202889,
+    "aire_bbox": 0.2795146099019781,
+    "aspect_ratio": 0.3423349209912992,
+    "centroide_x": -0.01201094401372835,
+    "dispersion": 0.43788548401520433
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.1970343003146248,
+    "hauteur_max": 0.07559028484034795,
+    "aire_bbox": 0.014893878884101147,
+    "aspect_ratio": 0.4338788559263889,
+    "centroide_x": 0.012731396079284474,
+    "dispersion": 0.06803430483268864
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4965598992177484,
+    "hauteur_max": 0.11361084490474747,
+    "aire_bbox": 0.05641458969594465,
+    "aspect_ratio": 0.25875722553206165,
+    "centroide_x": -0.008033586565075917,
+    "dispersion": 0.21059118746404046
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15386371910734775,
+    "hauteur_max": 0.03727773848366251,
+    "aire_bbox": 0.005735691483007416,
+    "aspect_ratio": 0.27400448527722315,
+    "centroide_x": -0.013244879289686215,
+    "dispersion": 0.07552472433246687
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.27216507238353244,
+    "hauteur_max": 0.06108791742382285,
+    "aire_bbox": 0.016625997467414,
+    "aspect_ratio": 0.2538442145873971,
+    "centroide_x": -0.018833145076663473,
+    "dispersion": 0.11627712497626928
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.1319657576848275,
+    "hauteur_max": 0.03488117909972233,
+    "aire_bbox": 0.004603121228835026,
+    "aspect_ratio": 0.2989332624992265,
+    "centroide_x": -0.0016892747003565392,
+    "dispersion": 0.05055231043402093
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.21925685781458593,
+    "hauteur_max": 0.03922416700928979,
+    "aire_bbox": 0.008600167608851423,
+    "aspect_ratio": 0.20232282667049398,
+    "centroide_x": -0.009593938975262868,
+    "dispersion": 0.09781191352154645
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15623881235691509,
+    "hauteur_max": 0.07618544025336377,
+    "aire_bbox": 0.011903122704074266,
+    "aspect_ratio": 0.5514769855408709,
+    "centroide_x": -0.012212217873276459,
+    "dispersion": 0.07780497731234094
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23823350433244966,
+    "hauteur_max": 0.03294690199397909,
+    "aire_bbox": 0.007849055918923412,
+    "aspect_ratio": 0.15640696375662969,
+    "centroide_x": -0.007180167473204586,
+    "dispersion": 0.10542395250911182
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08402930540035262,
+    "hauteur_max": 0.087316581135975,
+    "aire_bbox": 0.007337151662789512,
+    "aspect_ratio": 1.175195959222468,
+    "centroide_x": -0.015002345943503874,
+    "dispersion": 0.05007401029962841
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.059574160245798216,
+    "hauteur_max": 0.030034699748872955,
+    "aire_bbox": 0.001789292015773793,
+    "aspect_ratio": 0.5701770148931884,
+    "centroide_x": 0.0007408299246197773,
+    "dispersion": 0.021496611899517428
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13847341360401935,
+    "hauteur_max": 0.042601997575749326,
+    "aire_bbox": 0.005899244030664166,
+    "aspect_ratio": 0.34794284111584955,
+    "centroide_x": -0.014916189339057457,
+    "dispersion": 0.047635246068997314
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.24678364086164678,
+    "hauteur_max": 0.20562786821854526,
+    "aire_bbox": 0.0507455939815915,
+    "aspect_ratio": 0.9423450343605864,
+    "centroide_x": -0.018970331193045684,
+    "dispersion": 0.11615253033955214
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5751422245144706,
+    "hauteur_max": 0.09922999168706272,
+    "aire_bbox": 0.057071358157449674,
+    "aspect_ratio": 0.19512460756046496,
+    "centroide_x": 0.016017998444681637,
+    "dispersion": 0.21085274567023135
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.940255152138948,
+    "hauteur_max": 0.16142672617530363,
+    "aire_bbox": 0.1517823109792524,
+    "aspect_ratio": 0.19416639072089287,
+    "centroide_x": -0.09417782491496611,
+    "dispersion": 0.4272978533903537
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7443248469507259,
+    "hauteur_max": 0.06263458184601887,
+    "aire_bbox": 0.046620475546360715,
+    "aspect_ratio": 0.09516910959495177,
+    "centroide_x": 0.03379414127186253,
+    "dispersion": 0.34666639755109463
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3507474972648773,
+    "hauteur_max": 0.05479700407458443,
+    "aire_bbox": 0.019219912036773774,
+    "aspect_ratio": 0.17668780459412767,
+    "centroide_x": 0.014595773741087071,
+    "dispersion": 0.15449977709449803
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5586831768411483,
+    "hauteur_max": 0.036752321654328964,
+    "aire_bbox": 0.020532903818128233,
+    "aspect_ratio": 0.07439838791758131,
+    "centroide_x": -0.008001425258542368,
+    "dispersion": 0.25510170054690895
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6645946595013353,
+    "hauteur_max": 0.04145967605288288,
+    "aire_bbox": 0.027553879289401364,
+    "aspect_ratio": 0.07055266088698606,
+    "centroide_x": -0.008138540835816917,
+    "dispersion": 0.31462736253799817
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.4072420528483592,
+    "hauteur_max": 0.03219122456321983,
+    "aire_bbox": 0.013109620374828167,
+    "aspect_ratio": 0.08939829173276223,
+    "centroide_x": -0.00763217377657344,
+    "dispersion": 0.19009682410663953
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5750235196443036,
+    "hauteur_max": 0.051769671528765444,
+    "aire_bbox": 0.029768778733300204,
+    "aspect_ratio": 0.10182024585138771,
+    "centroide_x": -0.011012760512691084,
+    "dispersion": 0.2493301625469478
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6956999661700556,
+    "hauteur_max": 0.07322916709773619,
+    "aire_bbox": 0.050945529072556416,
+    "aspect_ratio": 0.11904370987878932,
+    "centroide_x": -0.010587397245233195,
+    "dispersion": 0.3204212336427055
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4339692709603771,
+    "hauteur_max": 0.0530287083201557,
+    "aire_bbox": 0.023012829889668452,
+    "aspect_ratio": 0.13819629840235678,
+    "centroide_x": -0.01040024454444971,
+    "dispersion": 0.19599152831898675
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6819563421941159,
+    "hauteur_max": 0.03471924822170249,
+    "aire_bbox": 0.023677011521001795,
+    "aspect_ratio": 0.057578199559769824,
+    "centroide_x": -0.013391525945217645,
+    "dispersion": 0.2801663101854435
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7703952546842313,
+    "hauteur_max": 0.053732698189524176,
+    "aire_bbox": 0.04139541570658941,
+    "aspect_ratio": 0.078880452021833,
+    "centroide_x": -0.07730005875813034,
+    "dispersion": 0.3552358446937945
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3366001074365112,
+    "hauteur_max": 0.0431569124171202,
+    "aire_bbox": 0.014526621356230764,
+    "aspect_ratio": 0.14500415823358356,
+    "centroide_x": -0.00962345336779287,
+    "dispersion": 0.13721355501544133
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6243852768400755,
+    "hauteur_max": 0.20778082685531746,
+    "aire_bbox": 0.12973528909811718,
+    "aspect_ratio": 0.3763545379098363,
+    "centroide_x": -0.005572812743161697,
+    "dispersion": 0.24927384602384323
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.40322824484121306,
+    "hauteur_max": 0.09701596776268487,
+    "aire_bbox": 0.039119578402519124,
+    "aspect_ratio": 0.27210505836912213,
+    "centroide_x": 0.006727635421607368,
+    "dispersion": 0.131071489983626
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.41485768727885863,
+    "hauteur_max": 0.11372786836145675,
+    "aire_bbox": 0.047180880447588426,
+    "aspect_ratio": 0.3100359803844613,
+    "centroide_x": -0.011590932234205315,
+    "dispersion": 0.157400919852324
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2673040979917293,
+    "hauteur_max": 0.2377549456123048,
+    "aire_bbox": 0.0635528712799698,
+    "aspect_ratio": 1.005931210918152,
+    "centroide_x": -0.02027926317408871,
+    "dispersion": 0.14011522334139664
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7102907565306523,
+    "hauteur_max": 0.17097311938137214,
+    "aire_bbox": 0.12144062631180035,
+    "aspect_ratio": 0.27223001865606117,
+    "centroide_x": -0.022320477192174996,
+    "dispersion": 0.270435706648028
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7817357523393351,
+    "hauteur_max": 0.15783813891686993,
+    "aire_bbox": 0.1233877162740198,
+    "aspect_ratio": 0.22834752946971926,
+    "centroide_x": -0.004515917823772485,
+    "dispersion": 0.3271585704162719
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9729426592919084,
+    "hauteur_max": 0.29566086404808906,
+    "aire_bbox": 0.2876610673154911,
+    "aspect_ratio": 0.34367737020508377,
+    "centroide_x": -0.0185592287852594,
+    "dispersion": 0.4390380171019708
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.72876001939625,
+    "hauteur_max": 0.17381258921470863,
+    "aire_bbox": 0.1266676658874235,
+    "aspect_ratio": 0.26973731543362783,
+    "centroide_x": 0.04552710192472512,
+    "dispersion": 0.29083682811187483
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.5043263047668997,
+    "hauteur_max": 0.1909998921030015,
+    "aire_bbox": 0.09632626979518329,
+    "aspect_ratio": 0.42831752232638715,
+    "centroide_x": -0.007873279766150636,
+    "dispersion": 0.17463233781606555
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9463303618343979,
+    "hauteur_max": 0.2189343333948167,
+    "aire_bbox": 0.20718420693948958,
+    "aspect_ratio": 0.261646807206652,
+    "centroide_x": 0.06313519609640632,
+    "dispersion": 0.3789556754534896
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0046024033470842,
+    "hauteur_max": 0.25193195435874655,
+    "aire_bbox": 0.2530914468287247,
+    "aspect_ratio": 0.28361773434720533,
+    "centroide_x": -0.11516712333633998,
+    "dispersion": 0.4703198607567859
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7278186957509026,
+    "hauteur_max": 0.12246676449472431,
+    "aire_bbox": 0.0891336008073832,
+    "aspect_ratio": 0.19030025812251275,
+    "centroide_x": -0.009548977407296875,
+    "dispersion": 0.2917548999155059
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.36415870777050025,
+    "hauteur_max": 0.15475528847078368,
+    "aire_bbox": 0.05635548587017158,
+    "aspect_ratio": 0.4806170133722966,
+    "centroide_x": 0.01210901708404408,
+    "dispersion": 0.13293068218796059
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.26776333247895695,
+    "hauteur_max": 0.17273956600668808,
+    "aire_bbox": 0.04625332184491955,
+    "aspect_ratio": 0.7296003945251454,
+    "centroide_x": -0.0044973367488546695,
+    "dispersion": 0.09135459510277184
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8233154194078927,
+    "hauteur_max": 0.08649820942291551,
+    "aire_bbox": 0.07121530956905942,
+    "aspect_ratio": 0.11881881278314575,
+    "centroide_x": 0.003008404277788617,
+    "dispersion": 0.3159273592553471
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7142096106001271,
+    "hauteur_max": 0.06538952006277077,
+    "aire_bbox": 0.046701823661360706,
+    "aspect_ratio": 0.10354444398973688,
+    "centroide_x": 0.012067014648804691,
+    "dispersion": 0.2814141437154809
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8474108151132201,
+    "hauteur_max": 0.09127195636199524,
+    "aire_bbox": 0.07734484293769664,
+    "aspect_ratio": 0.1218113334996973,
+    "centroide_x": 0.004475185555452628,
+    "dispersion": 0.34155750711076394
    }
   },
   "notes": "visage avec une jawline remarquable"
@@ -5381,9 +12311,7 @@ window.PRESETS_DB = [
     "height": 0.20683746289092508,
     "projection": 0.11814813291131664,
     "narine": 0.16925828845928617,
-    "evasement": 2.160666230688093,
-    "compacite_narines": 0.21803136005974477,
-    "ratio_pointe_base": 0.528798175789076
+    "compacite_narines": 0.21803136005974477
    },
    "joues": {
     "width": 1.057852326436796,
@@ -5407,6 +12335,701 @@ window.PRESETS_DB = [
     "width": 0.8511372686903297,
     "height": 0.16793061761781977,
     "angle": 0.27605850169172186
+   },
+   "philtrum": {
+    "largeur_sup": 0.13325741426975535,
+    "largeur_milieu": 0.13588053450020718,
+    "largeur_inf": 0.13849329504013702,
+    "hauteur": 0.06745565207743491,
+    "profondeur_z": 0.00844964012503624
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.5064330097209024,
+    "hauteur_max": 0.2514884538366154,
+    "aire_bbox": 0.12736205458653335,
+    "aspect_ratio": 0.5500056321075819,
+    "centroide_x": 0.027586212722549155,
+    "dispersion": 0.2005487292808118
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6545656932831597,
+    "hauteur_max": 0.17213635785377643,
+    "aire_bbox": 0.11267455441779524,
+    "aspect_ratio": 0.2912664493643996,
+    "centroide_x": 0.026741686906498013,
+    "dispersion": 0.26303263549231426
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.26981610657651023,
+    "hauteur_max": 0.08424401816961952,
+    "aire_bbox": 0.022730392984887524,
+    "aspect_ratio": 0.3458137787340337,
+    "centroide_x": 0.002183311288222771,
+    "dispersion": 0.1133961654371491
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7154107208211496,
+    "hauteur_max": 0.11482731114809377,
+    "aire_bbox": 0.0821486894384122,
+    "aspect_ratio": 0.17777097027479427,
+    "centroide_x": 0.0006133206475452917,
+    "dispersion": 0.26344574080619393
+   },
+   "joues__joues": {
+    "largeur_max": 1.0035359053552098,
+    "hauteur_max": 0.24472505265686534,
+    "aire_bbox": 0.24559037728110875,
+    "aspect_ratio": 0.2700950384857047,
+    "centroide_x": 0.04596799633379085,
+    "dispersion": 0.38742236444670597
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.994046272731291,
+    "hauteur_max": 0.4691232537784191,
+    "aire_bbox": 0.46633022187001305,
+    "aspect_ratio": 0.5226987375129165,
+    "centroide_x": -0.015425325290177894,
+    "dispersion": 0.44693636016251115
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5801809377414558,
+    "hauteur_max": 0.08297322414403356,
+    "aire_bbox": 0.048139482991317394,
+    "aspect_ratio": 0.1583965076419398,
+    "centroide_x": 0.011385616902053971,
+    "dispersion": 0.24064314634786255
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6772942674721754,
+    "hauteur_max": 0.13767463536583918,
+    "aire_bbox": 0.09324624130960489,
+    "aspect_ratio": 0.2251373897811629,
+    "centroide_x": 0.013702403003498637,
+    "dispersion": 0.2879572968020956
+   },
+   "menton__menton": {
+    "largeur_max": 0.467937332090482,
+    "hauteur_max": 0.1521318646130584,
+    "aire_bbox": 0.07118817885298495,
+    "aspect_ratio": 0.3600838016807224,
+    "centroide_x": 0.014751348059277986,
+    "dispersion": 0.17304127639731473
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.1839750877158242,
+    "hauteur_max": 0.0927523862183436,
+    "aire_bbox": 0.017064128390371767,
+    "aspect_ratio": 0.5583893985397297,
+    "centroide_x": 0.018425992285476634,
+    "dispersion": 0.07585910301626408
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2780862376847093,
+    "hauteur_max": 0.11502212181020355,
+    "aire_bbox": 0.03198606910471185,
+    "aspect_ratio": 0.45811337319393597,
+    "centroide_x": 0.009021898828263306,
+    "dispersion": 0.11202573103432864
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.1275081683549146,
+    "hauteur_max": 0.08144094171411814,
+    "aire_bbox": 0.010384385307066564,
+    "aspect_ratio": 0.7074176173349013,
+    "centroide_x": 0.01822594780638633,
+    "dispersion": 0.05308965279492169
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.18813264244164393,
+    "hauteur_max": 0.06325849319158418,
+    "aire_bbox": 0.011900987481009474,
+    "aspect_ratio": 0.37241381138296714,
+    "centroide_x": 0.008535463442396989,
+    "dispersion": 0.07016977724974231
+   },
+   "nez__nez": {
+    "largeur_max": 0.32943864069123446,
+    "hauteur_max": 0.1797064651679575,
+    "aire_bbox": 0.05920225360835859,
+    "aspect_ratio": 0.6041715292327635,
+    "centroide_x": 0.02686281142797043,
+    "dispersion": 0.1300724595768297
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8533678270894586,
+    "hauteur_max": 0.1418981593345283,
+    "aire_bbox": 0.12109132389930018,
+    "aspect_ratio": 0.18416690429555113,
+    "centroide_x": -0.02269870405525384,
+    "dispersion": 0.31371316755691575
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.42848344620335266,
+    "hauteur_max": 0.09537033176499464,
+    "aire_bbox": 0.04086460842022198,
+    "aspect_ratio": 0.24651896553971395,
+    "centroide_x": 0.004580641618517383,
+    "dispersion": 0.14184437815472306
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9030187821397411,
+    "hauteur_max": 0.21297375112578792,
+    "aire_bbox": 0.1923192973693413,
+    "aspect_ratio": 0.26121636900529976,
+    "centroide_x": 0.04374979694495482,
+    "dispersion": 0.3722532584897886
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9969944485619214,
+    "hauteur_max": 0.2541420568929477,
+    "aire_bbox": 0.2533782198683769,
+    "aspect_ratio": 0.28232861130803305,
+    "centroide_x": 0.07109230375919949,
+    "dispersion": 0.46167698298381393
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7578401086278288,
+    "hauteur_max": 0.17845836228489598,
+    "aire_bbox": 0.13524290465952998,
+    "aspect_ratio": 0.2608137047222236,
+    "centroide_x": 0.007524022976668756,
+    "dispersion": 0.27419765070212465
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.705431661987843,
+    "hauteur_max": 0.07373558798695401,
+    "aire_bbox": 0.0520154183812878,
+    "aspect_ratio": 0.11576926899479839,
+    "centroide_x": 0.016496601255672153,
+    "dispersion": 0.2589294399718399
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.443915406134488,
+    "hauteur_max": 0.04944021770370443,
+    "aire_bbox": 0.021947274321317455,
+    "aspect_ratio": 0.1233534352048825,
+    "centroide_x": -0.009780770160700331,
+    "dispersion": 0.20841127275403568
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.36219853236535887,
+    "hauteur_max": 0.02769210825725788,
+    "aire_bbox": 0.01003004096888144,
+    "aspect_ratio": 0.08467991746200626,
+    "centroide_x": 0.019685118569328874,
+    "dispersion": 0.1474553472644358
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.40194407937309024,
+    "hauteur_max": 0.09207660437451007,
+    "aire_bbox": 0.037009645977112704,
+    "aspect_ratio": 0.25372002791346826,
+    "centroide_x": 0.018950567867959546,
+    "dispersion": 0.15160171457182992
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.10658735457027367,
+    "hauteur_max": 0.009942772415448683,
+    "aire_bbox": 0.001059773808856965,
+    "aspect_ratio": 0.1033172663745203,
+    "centroide_x": 0.020559732098118982,
+    "dispersion": 0.0434800142892372
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.29570822407433717,
+    "hauteur_max": 0.05788996696757366,
+    "aire_bbox": 0.01711853932370325,
+    "aspect_ratio": 0.2168258163648508,
+    "centroide_x": -0.003078103251591135,
+    "dispersion": 0.09961955576356167
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3860164102267206,
+    "hauteur_max": 0.037811367336785674,
+    "aire_bbox": 0.014595808285109884,
+    "aspect_ratio": 0.10848949970353472,
+    "centroide_x": -0.0030662536781581942,
+    "dispersion": 0.15793844142944524
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.2616479995156273,
+    "hauteur_max": 0.011835411799264405,
+    "aire_bbox": 0.0030967118207211827,
+    "aspect_ratio": 0.050099921594994885,
+    "centroide_x": 0.02108075617553359,
+    "dispersion": 0.10455844681434956
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.39202655410497816,
+    "hauteur_max": 0.034944359487663806,
+    "aire_bbox": 0.013699116835354443,
+    "aspect_ratio": 0.09872626129235036,
+    "centroide_x": 0.019904313195912328,
+    "dispersion": 0.13460328249057285
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.13699017161459126,
+    "hauteur_max": 0.0020657043676728906,
+    "aire_bbox": 0.00028298119583252003,
+    "aspect_ratio": 0.01670128355490326,
+    "centroide_x": 0.021095483009342924,
+    "dispersion": 0.055935941909811764
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.12991745177139785,
+    "hauteur_max": 0.03620074643863106,
+    "aire_bbox": 0.0047031087295294535,
+    "aspect_ratio": 0.30861790827200825,
+    "centroide_x": 0.020921960682533533,
+    "dispersion": 0.05434577440653364
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.13402234892440928,
+    "hauteur_max": 0.03499010194957819,
+    "aire_bbox": 0.0046894556523870215,
+    "aspect_ratio": 0.2891605712995178,
+    "centroide_x": 0.02112974866159814,
+    "dispersion": 0.05510685404564444
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.13848288415437987,
+    "hauteur_max": 0.009837600770732152,
+    "aire_bbox": 0.0013623393278903387,
+    "aspect_ratio": 0.07867996999800875,
+    "centroide_x": 0.020726530943804396,
+    "dispersion": 0.05673767277545798
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.4293440185438127,
+    "hauteur_max": 0.08029044676159834,
+    "aire_bbox": 0.034472223063302686,
+    "aspect_ratio": 0.207123582450669,
+    "centroide_x": 0.01968576266053674,
+    "dispersion": 0.18010258101211268
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3854148373494863,
+    "hauteur_max": 0.09683418059047122,
+    "aire_bbox": 0.037321329962147244,
+    "aspect_ratio": 0.2782731753288138,
+    "centroide_x": 0.044380823237963864,
+    "dispersion": 0.14581254667497315
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.28967130262354357,
+    "hauteur_max": 0.05720932273605632,
+    "aire_bbox": 0.01657189903916414,
+    "aspect_ratio": 0.21874212442004745,
+    "centroide_x": 0.02049758976284743,
+    "dispersion": 0.11076754064077145
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.13587064967603127,
+    "hauteur_max": 0.03368563138707101,
+    "aire_bbox": 0.004576888621308648,
+    "aspect_ratio": 0.27459342335461834,
+    "centroide_x": 0.01982730897544904,
+    "dispersion": 0.05050045097761326
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4794982623084458,
+    "hauteur_max": 0.09694934714320447,
+    "aire_bbox": 0.04648704348710482,
+    "aspect_ratio": 0.22393859173302894,
+    "centroide_x": -0.06888005288905913,
+    "dispersion": 0.21630582882550498
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8786570752167814,
+    "hauteur_max": 0.16623431964779206,
+    "aire_bbox": 0.1460629611023805,
+    "aspect_ratio": 0.2095426207614204,
+    "centroide_x": 0.009955618068769777,
+    "dispersion": 0.3836085953273026
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7750659165932502,
+    "hauteur_max": 0.2335140974981053,
+    "aire_bbox": 0.1809888180148146,
+    "aspect_ratio": 0.3336918170117104,
+    "centroide_x": 0.009357253181292964,
+    "dispersion": 0.3497184202810498
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8205471498270261,
+    "hauteur_max": 0.04189703361021708,
+    "aire_bbox": 0.03437849151507074,
+    "aspect_ratio": 0.056552371994218774,
+    "centroide_x": 0.007747877024349024,
+    "dispersion": 0.37507436571543395
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6772942674721754,
+    "hauteur_max": 0.17673248478979176,
+    "aire_bbox": 0.11969989882423938,
+    "aspect_ratio": 0.28900814016599563,
+    "centroide_x": 0.013535726327371312,
+    "dispersion": 0.3052713764668712
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6545656932831597,
+    "hauteur_max": 0.18895652742689567,
+    "aire_bbox": 0.12368446037556435,
+    "aspect_ratio": 0.31972732265318615,
+    "centroide_x": 0.026407684668311966,
+    "dispersion": 0.25479138391073247
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7031047058939985,
+    "hauteur_max": 0.18542526339363521,
+    "aire_bbox": 0.1303733752836991,
+    "aspect_ratio": 0.2920922212839329,
+    "centroide_x": 0.003267204594423367,
+    "dispersion": 0.24212342296719666
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9559216913668169,
+    "hauteur_max": 0.2885627192182217,
+    "aire_bbox": 0.27584336262049036,
+    "aspect_ratio": 0.33434050707493346,
+    "centroide_x": -0.015133193030111668,
+    "dispersion": 0.4303479703129949
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19666296977608708,
+    "hauteur_max": 0.07973757527310563,
+    "aire_bbox": 0.01568142835595324,
+    "aspect_ratio": 0.44906739474499596,
+    "centroide_x": 0.01638417938623962,
+    "dispersion": 0.06823264646768303
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.48766886262561704,
+    "hauteur_max": 0.11672927010830347,
+    "aire_bbox": 0.05692523038883479,
+    "aspect_ratio": 0.2651098319610772,
+    "centroide_x": -0.007650645317831838,
+    "dispersion": 0.20790410886965888
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.16906566443758494,
+    "hauteur_max": 0.03238467254900214,
+    "aire_bbox": 0.005475136182090664,
+    "aspect_ratio": 0.2121559352288289,
+    "centroide_x": 0.015629637755950998,
+    "dispersion": 0.0815625042830488
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.3187349917154301,
+    "hauteur_max": 0.05636056595258199,
+    "aire_bbox": 0.01796408452197317,
+    "aspect_ratio": 0.19584689598247293,
+    "centroide_x": 0.006890332605136739,
+    "dispersion": 0.13296517399901145
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.1589811408632844,
+    "hauteur_max": 0.03632716851841018,
+    "aire_bbox": 0.00577533469538964,
+    "aspect_ratio": 0.25307953678271566,
+    "centroide_x": 0.026701686125483324,
+    "dispersion": 0.05948993203564509
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.250435177740632,
+    "hauteur_max": 0.037399325002690775,
+    "aire_bbox": 0.009366106604428527,
+    "aspect_ratio": 0.16540153011070136,
+    "centroide_x": 0.019404409076973023,
+    "dispersion": 0.11428106113389176
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.17293838956503246,
+    "hauteur_max": 0.07244759551604198,
+    "aire_bbox": 0.012528970496403167,
+    "aspect_ratio": 0.4639846971978791,
+    "centroide_x": 0.018853573965205032,
+    "dispersion": 0.08460115936798111
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.28328338055248703,
+    "hauteur_max": 0.03430990793914268,
+    "aire_bbox": 0.009719426707444951,
+    "aspect_ratio": 0.13414347353419967,
+    "centroide_x": 0.019196332295721628,
+    "dispersion": 0.12739019449446404
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.09034334106604808,
+    "hauteur_max": 0.08528880121212458,
+    "aire_bbox": 0.007705275257021345,
+    "aspect_ratio": 1.045603321422224,
+    "centroide_x": 0.01812794842877657,
+    "dispersion": 0.05025638519154324
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06481399235816472,
+    "hauteur_max": 0.032828860668340024,
+    "aire_bbox": 0.0021277695244850446,
+    "aspect_ratio": 0.5609938866859622,
+    "centroide_x": 0.031591726305380215,
+    "dispersion": 0.02418028139770349
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.15000736296540915,
+    "hauteur_max": 0.04069215195101168,
+    "aire_bbox": 0.006104122407558991,
+    "aspect_ratio": 0.3004478998172367,
+    "centroide_x": 0.015089317952578797,
+    "dispersion": 0.05008527816932157
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.24109713509904018,
+    "hauteur_max": 0.19366692047348055,
+    "aire_bbox": 0.04669253968960981,
+    "aspect_ratio": 0.8896813537167126,
+    "centroide_x": 0.005637003142154732,
+    "dispersion": 0.11003102918174983
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5585636078801232,
+    "hauteur_max": 0.09145142738027473,
+    "aire_bbox": 0.05108143922331333,
+    "aspect_ratio": 0.18133805080182205,
+    "centroide_x": 0.040013419693058556,
+    "dispersion": 0.20021277940771676
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.945108488709706,
+    "hauteur_max": 0.1602262543770357,
+    "aire_bbox": 0.15143119312589712,
+    "aspect_ratio": 0.18776866039553225,
+    "centroide_x": -0.07690811041988813,
+    "dispersion": 0.4242974185523117
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7349262854965946,
+    "hauteur_max": 0.06169172382680025,
+    "aire_bbox": 0.045338869437912065,
+    "aspect_ratio": 0.09297243735735278,
+    "centroide_x": 0.04806845481098358,
+    "dispersion": 0.34478484333890513
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.33925957721073885,
+    "hauteur_max": 0.0519762230134616,
+    "aire_bbox": 0.01763343144455806,
+    "aspect_ratio": 0.16968509353360542,
+    "centroide_x": 0.030426220410010113,
+    "dispersion": 0.1503962764155309
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5561178730567053,
+    "hauteur_max": 0.03165414382161754,
+    "aire_bbox": 0.017603435135508997,
+    "aspect_ratio": 0.06304270069664569,
+    "centroide_x": 0.00825908598284201,
+    "dispersion": 0.2544500818220767
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6651112698102876,
+    "hauteur_max": 0.037042074574255124,
+    "aire_bbox": 0.02463710125649019,
+    "aspect_ratio": 0.06168393723143407,
+    "centroide_x": 0.0068120374319731196,
+    "dispersion": 0.31399719677420124
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.40235242488798345,
+    "hauteur_max": 0.03067275190743477,
+    "aire_bbox": 0.0123412561079439,
+    "aspect_ratio": 0.084433970097712,
+    "centroide_x": 0.008918078552395249,
+    "dispersion": 0.1882771548830275
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5595115439209243,
+    "hauteur_max": 0.057323949023491375,
+    "aire_bbox": 0.032073411221778016,
+    "aspect_ratio": 0.1134744643241325,
+    "centroide_x": 0.007183532618925685,
+    "dispersion": 0.2425353768185398
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6770614970651022,
+    "hauteur_max": 0.07842720681442641,
+    "aire_bbox": 0.05310004205640993,
+    "aspect_ratio": 0.1282949973839758,
+    "centroide_x": 0.006198197733800492,
+    "dispersion": 0.3141502361672851
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.41504030694824634,
+    "hauteur_max": 0.058826741972546635,
+    "aire_bbox": 0.02441546904505104,
+    "aspect_ratio": 0.15698408003212203,
+    "centroide_x": 0.007818540062985744,
+    "dispersion": 0.18828264214093807
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6501930702699136,
+    "hauteur_max": 0.03611187279707694,
+    "aire_bbox": 0.02347968944712803,
+    "aspect_ratio": 0.06151467969176244,
+    "centroide_x": 0.0058534302542582045,
+    "dispersion": 0.26649408806985425
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.75561482752542,
+    "hauteur_max": 0.061981035893987076,
+    "aire_bbox": 0.04683378974688191,
+    "aspect_ratio": 0.09085094526743312,
+    "centroide_x": -0.057871126288977066,
+    "dispersion": 0.3457167234999235
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.31984568752672965,
+    "hauteur_max": 0.04822281989842404,
+    "aire_bbox": 0.015423860984889095,
+    "aspect_ratio": 0.16698720467162315,
+    "centroide_x": 0.008371189018703451,
+    "dispersion": 0.13040344969531092
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6314682168937313,
+    "hauteur_max": 0.21846455739562468,
+    "aire_bbox": 0.13795342451309334,
+    "aspect_ratio": 0.38317801585088007,
+    "centroide_x": 0.006836720669227015,
+    "dispersion": 0.2605439209187764
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.44562308723145144,
+    "hauteur_max": 0.0781256037117055,
+    "aire_bbox": 0.03481457271783115,
+    "aspect_ratio": 0.19417655636929076,
+    "centroide_x": 0.019025312758239245,
+    "dispersion": 0.15550287107073746
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4400657186951441,
+    "hauteur_max": 0.11591527039234677,
+    "aire_bbox": 0.05101033677295004,
+    "aspect_ratio": 0.2917388092173251,
+    "centroide_x": 0.010733115109704596,
+    "dispersion": 0.17339871711930957
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.26981610657651023,
+    "hauteur_max": 0.22667857090104537,
+    "aire_bbox": 0.06116152944484749,
+    "aspect_ratio": 0.9304942340652732,
+    "centroide_x": 0.004597585372709828,
+    "dispersion": 0.13280200169665551
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7154107208211496,
+    "hauteur_max": 0.16085107119440556,
+    "aire_bbox": 0.11507458078804374,
+    "aspect_ratio": 0.24902308266271878,
+    "centroide_x": 0.0015029411237112336,
+    "dispersion": 0.2625792971801825
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7641326387132961,
+    "hauteur_max": 0.15081910998264547,
+    "aire_bbox": 0.1152458044794297,
+    "aspect_ratio": 0.21860430727273428,
+    "centroide_x": -0.0009402942102775553,
+    "dispersion": 0.32474787200343047
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9606915898370364,
+    "hauteur_max": 0.28463814204787063,
+    "aire_bbox": 0.273449469212229,
+    "aspect_ratio": 0.32815588617364,
+    "centroide_x": -0.020218283093809047,
+    "dispersion": 0.4306292234084354
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7112807913750039,
+    "hauteur_max": 0.17819606348261924,
+    "aire_bbox": 0.12674743705382785,
+    "aspect_ratio": 0.2774777197540706,
+    "centroide_x": 0.057132648255634355,
+    "dispersion": 0.29184997471396523
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.5053221643142256,
+    "hauteur_max": 0.17981505849289595,
+    "aire_bbox": 0.09086453453391925,
+    "aspect_ratio": 0.39412029806452265,
+    "centroide_x": 0.011939184622713943,
+    "dispersion": 0.17968395348187077
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9385006115688981,
+    "hauteur_max": 0.21122590284189016,
+    "aire_bbox": 0.19823563899630656,
+    "aspect_ratio": 0.249277859404453,
+    "centroide_x": 0.07502041479419355,
+    "dispersion": 0.37630947245823815
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0055714995192069,
+    "hauteur_max": 0.2524024926769557,
+    "aire_bbox": 0.253808753043552,
+    "aspect_ratio": 0.27800446765709136,
+    "centroide_x": -0.10697382487780767,
+    "dispersion": 0.4684930258791471
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7053458441064007,
+    "hauteur_max": 0.11036647564716973,
+    "aire_bbox": 0.07784653492640144,
+    "aspect_ratio": 0.17330302925972882,
+    "centroide_x": -0.014869370896865474,
+    "dispersion": 0.28318757232351843
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.36080699616574835,
+    "hauteur_max": 0.1521318646130584,
+    "aire_bbox": 0.054890241092131906,
+    "aspect_ratio": 0.46699940765580683,
+    "centroide_x": 0.016122429861328006,
+    "dispersion": 0.13259770919723887
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.30872077796845887,
+    "hauteur_max": 0.1797064651679575,
+    "aire_bbox": 0.055479119732613595,
+    "aspect_ratio": 0.6447167198934731,
+    "centroide_x": 0.025220424720727684,
+    "dispersion": 0.10189811251989328
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8205471498270261,
+    "hauteur_max": 0.07114375526304936,
+    "aire_bbox": 0.058376805609086646,
+    "aspect_ratio": 0.09602942657306619,
+    "centroide_x": 0.01865203585792312,
+    "dispersion": 0.3143699473495221
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7091500046859207,
+    "hauteur_max": 0.05596121985299481,
+    "aire_bbox": 0.03968489932098111,
+    "aspect_ratio": 0.0874017551905366,
+    "centroide_x": 0.02773665080797334,
+    "dispersion": 0.2804649221180487
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8229475572511231,
+    "hauteur_max": 0.09537249282618744,
+    "aire_bbox": 0.07848656000026122,
+    "aspect_ratio": 0.12835774103008282,
+    "centroide_x": 0.021688739713336257,
+    "dispersion": 0.3285192634092235
    }
   },
   "notes": ""
@@ -5873,9 +13496,7 @@ window.PRESETS_DB = [
     "height": 0.21669408924992242,
     "projection": 0.09931725555186137,
     "narine": 0.1264450748424886,
-    "evasement": 1.9361238344880518,
-    "compacite_narines": 0.18680113987056193,
-    "ratio_pointe_base": 0.5550821287194058
+    "compacite_narines": 0.18680113987056193
    },
    "joues": {
     "width": 1.096870922743879,
@@ -5899,6 +13520,701 @@ window.PRESETS_DB = [
     "width": 0.9028112148486784,
     "height": 0.20781176749528432,
     "angle": 0.3119744991212178
+   },
+   "philtrum": {
+    "largeur_sup": 0.10634313012354332,
+    "largeur_milieu": 0.1114191584010947,
+    "largeur_inf": 0.09619195373418801,
+    "hauteur": 0.11021209518735255,
+    "profondeur_z": 0.007375024259090424
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4470596979110832,
+    "hauteur_max": 0.2322261485561226,
+    "aire_bbox": 0.1038189518205545,
+    "aspect_ratio": 0.5480314060659552,
+    "centroide_x": 0.024211753201623262,
+    "dispersion": 0.1759386686863177
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6241574006796659,
+    "hauteur_max": 0.15402840811878127,
+    "aire_bbox": 0.09613797084224526,
+    "aspect_ratio": 0.26035537665631525,
+    "centroide_x": 0.019665314628060482,
+    "dispersion": 0.2441035868468584
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2584576764511579,
+    "hauteur_max": 0.08961256653786874,
+    "aire_bbox": 0.02316105572820234,
+    "aspect_ratio": 0.3657963168603022,
+    "centroide_x": -0.0016987140759481985,
+    "dispersion": 0.10954799249327517
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6819066803102988,
+    "hauteur_max": 0.11013063004965865,
+    "aire_bbox": 0.07509881233764436,
+    "aspect_ratio": 0.17038957783927125,
+    "centroide_x": -0.0038892591198616154,
+    "dispersion": 0.250161461960295
+   },
+   "joues__joues": {
+    "largeur_max": 0.9989082865898017,
+    "hauteur_max": 0.24053934110549657,
+    "aire_bbox": 0.24027674108113142,
+    "aspect_ratio": 0.2540506727169726,
+    "centroide_x": 0.04289224287335156,
+    "dispersion": 0.37875289946016644
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.999969484273147,
+    "hauteur_max": 0.48612708279586886,
+    "aire_bbox": 0.4861122482745944,
+    "aspect_ratio": 0.5128884487735504,
+    "centroide_x": -0.01216743686749631,
+    "dispersion": 0.4514915813889628
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.589767489111492,
+    "hauteur_max": 0.08179613267205921,
+    "aire_bbox": 0.04824069978503084,
+    "aspect_ratio": 0.14632272833195795,
+    "centroide_x": 0.020744433712434885,
+    "dispersion": 0.2426554690799534
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6554468745738762,
+    "hauteur_max": 0.13565186257026196,
+    "aire_bbox": 0.08891258935180318,
+    "aspect_ratio": 0.21834744403106696,
+    "centroide_x": 0.016535630070955522,
+    "dispersion": 0.27551140885713876
+   },
+   "menton__menton": {
+    "largeur_max": 0.4724197383147519,
+    "hauteur_max": 0.1546744541990314,
+    "aire_bbox": 0.0730712651766835,
+    "aspect_ratio": 0.3454223270584252,
+    "centroide_x": 0.022374867903568497,
+    "dispersion": 0.17036287213818022
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17831703760324652,
+    "hauteur_max": 0.09679093363735913,
+    "aire_bbox": 0.017259472553066306,
+    "aspect_ratio": 0.5726663790159932,
+    "centroide_x": 0.0206191833404229,
+    "dispersion": 0.07170433153337659
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2494277563429352,
+    "hauteur_max": 0.1299492046344048,
+    "aire_bbox": 0.032412938550508544,
+    "aspect_ratio": 0.5496531151740821,
+    "centroide_x": 0.00305996334755936,
+    "dispersion": 0.10352129326497193
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11732298527567317,
+    "hauteur_max": 0.08801563675038848,
+    "aire_bbox": 0.010326257254494826,
+    "aspect_ratio": 0.7914738642526387,
+    "centroide_x": 0.012260875993706235,
+    "dispersion": 0.05209854775050932
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.16875314153684204,
+    "hauteur_max": 0.05177804644638011,
+    "aire_bbox": 0.008737708000467163,
+    "aspect_ratio": 0.323708156438321,
+    "centroide_x": 0.0044427354416190475,
+    "dispersion": 0.06187566966611556
+   },
+   "nez__nez": {
+    "largeur_max": 0.27350449247313674,
+    "hauteur_max": 0.17068262803356757,
+    "aire_bbox": 0.046682465554302076,
+    "aspect_ratio": 0.6583922422887174,
+    "centroide_x": 0.014852332722208185,
+    "dispersion": 0.11236285764025711
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8203937121426301,
+    "hauteur_max": 0.10461822308142363,
+    "aire_bbox": 0.08582813239153492,
+    "aspect_ratio": 0.13453796812334007,
+    "centroide_x": -0.02521144546453694,
+    "dispersion": 0.2945534152068157
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.3973337618940839,
+    "hauteur_max": 0.10167728920153159,
+    "aire_bbox": 0.04039981981763726,
+    "aspect_ratio": 0.2699779765826737,
+    "centroide_x": -0.00010584690710934157,
+    "dispersion": 0.13387639489310954
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8765101314692427,
+    "hauteur_max": 0.17790019583231198,
+    "aire_bbox": 0.1559313240373838,
+    "aspect_ratio": 0.21413089582105335,
+    "centroide_x": 0.03765690743196546,
+    "dispersion": 0.35305593574789224
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9806266823892572,
+    "hauteur_max": 0.22786517514467403,
+    "aire_bbox": 0.22345067073416872,
+    "aspect_ratio": 0.24515124250323284,
+    "centroide_x": 0.06720582114862929,
+    "dispersion": 0.44555071896284293
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7102596779842493,
+    "hauteur_max": 0.1487557516993566,
+    "aire_bbox": 0.10565521230028996,
+    "aspect_ratio": 0.22096142136820857,
+    "centroide_x": 0.002855695779813654,
+    "dispersion": 0.2536493786338073
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6472776297383048,
+    "hauteur_max": 0.06574268087010067,
+    "aire_bbox": 0.042553766646240554,
+    "aspect_ratio": 0.10715604110960672,
+    "centroide_x": 0.01214132382051794,
+    "dispersion": 0.23593420767404888
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.322754304006067,
+    "hauteur_max": 0.03519285687536893,
+    "aire_bbox": 0.01135864602679483,
+    "aspect_ratio": 0.1150382665769137,
+    "centroide_x": -0.0017894802000955998,
+    "dispersion": 0.14884072337745685
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.31567709139588096,
+    "hauteur_max": 0.03951291310724113,
+    "aire_bbox": 0.012473321482272062,
+    "aspect_ratio": 0.1320552984760143,
+    "centroide_x": 0.01652352139524027,
+    "dispersion": 0.114953446515755
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.34923799427664115,
+    "hauteur_max": 0.0948662488910273,
+    "aire_bbox": 0.033130898487251,
+    "aspect_ratio": 0.28658278002024246,
+    "centroide_x": 0.011282069348711355,
+    "dispersion": 0.11954000443881271
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.07705229027217612,
+    "hauteur_max": 0.005773404759954632,
+    "aire_bbox": 0.00044485405942278766,
+    "aspect_ratio": 0.07905080594345183,
+    "centroide_x": 0.0129255953045087,
+    "dispersion": 0.031214914979084962
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.20858627970567867,
+    "hauteur_max": 0.019844832094542332,
+    "aire_bbox": 0.004139359697984436,
+    "aspect_ratio": 0.10037407098197504,
+    "centroide_x": -0.0019496541630434283,
+    "dispersion": 0.06951697925501822
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.27146030916704866,
+    "hauteur_max": 0.0393884914795497,
+    "aire_bbox": 0.010692412074662224,
+    "aspect_ratio": 0.1530815521555783,
+    "centroide_x": 0.00022783300507206984,
+    "dispersion": 0.11176541025782664
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.18751424733796468,
+    "hauteur_max": 0.018645151523289404,
+    "aire_bbox": 0.003496231554391918,
+    "aspect_ratio": 0.1049038661815995,
+    "centroide_x": 0.015888868210112553,
+    "dispersion": 0.0756033393514935
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.27701547004968774,
+    "hauteur_max": 0.038070791288294166,
+    "aire_bbox": 0.010546198143890366,
+    "aspect_ratio": 0.14499323130286554,
+    "centroide_x": 0.015543000438272876,
+    "dispersion": 0.09570796021535226
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10060322404502227,
+    "hauteur_max": 0.0061315460596480815,
+    "aire_bbox": 0.0006168533019811494,
+    "aspect_ratio": 0.06430103216365164,
+    "centroide_x": 0.015099104226866425,
+    "dispersion": 0.041162730576301446
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09547862104543774,
+    "hauteur_max": 0.02953997686886036,
+    "aire_bbox": 0.002820436257152915,
+    "aspect_ratio": 0.3264103047800269,
+    "centroide_x": 0.013661039918589829,
+    "dispersion": 0.039558541897747504
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.09269710063485755,
+    "hauteur_max": 0.020850875128888464,
+    "aire_bbox": 0.0019328156701474222,
+    "aspect_ratio": 0.23731106315732228,
+    "centroide_x": 0.011693257755555981,
+    "dispersion": 0.037544588146374194
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.09618786445607133,
+    "hauteur_max": 0.01033673728400202,
+    "aire_bbox": 0.0009942686847916051,
+    "aspect_ratio": 0.11337649947208406,
+    "centroide_x": 0.010496844895265721,
+    "dispersion": 0.039580584252968405
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.29373611226725405,
+    "hauteur_max": 0.04098481817934913,
+    "aire_bbox": 0.012038721153982291,
+    "aspect_ratio": 0.14720600222477417,
+    "centroide_x": 0.014099396167303267,
+    "dispersion": 0.12097006480808324
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.269013710615482,
+    "hauteur_max": 0.040577687603428184,
+    "aire_bbox": 0.010915954310394061,
+    "aspect_ratio": 0.15913757195860773,
+    "centroide_x": 0.03209413530687051,
+    "dispersion": 0.10020818095136451
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.1900564819135723,
+    "hauteur_max": 0.03330593469612912,
+    "aire_bbox": 0.0063300087751894845,
+    "aspect_ratio": 0.18488377003907122,
+    "centroide_x": 0.011216927300009151,
+    "dispersion": 0.0734177592647079
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11141821941876344,
+    "hauteur_max": 0.06963027684345702,
+    "aire_bbox": 0.007758081463533537,
+    "aspect_ratio": 0.6593283595202367,
+    "centroide_x": 0.01030818317878493,
+    "dispersion": 0.05031406493013502
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4365469299930499,
+    "hauteur_max": 0.09638148349343499,
+    "aire_bbox": 0.04207504072723486,
+    "aspect_ratio": 0.23292843908412325,
+    "centroide_x": -0.059915479624507155,
+    "dispersion": 0.19605813898517668
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8693252426805049,
+    "hauteur_max": 0.14624477294453694,
+    "aire_bbox": 0.1271342727307649,
+    "aspect_ratio": 0.17748346965918246,
+    "centroide_x": 0.008999008071963504,
+    "dispersion": 0.37437076933331415
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7633742812277082,
+    "hauteur_max": 0.22571475004027117,
+    "aire_bbox": 0.17230483507448383,
+    "aspect_ratio": 0.3119480422558672,
+    "centroide_x": 0.015418951420882747,
+    "dispersion": 0.3474940531400448
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.7946797597175488,
+    "hauteur_max": 0.044569200223327714,
+    "aire_bbox": 0.035418241324277386,
+    "aspect_ratio": 0.059170131882258135,
+    "centroide_x": 0.003068028775676671,
+    "dispersion": 0.3609948793397796
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6554468745738762,
+    "hauteur_max": 0.1647398020266595,
+    "aire_bbox": 0.10797818835629308,
+    "aspect_ratio": 0.26516786442260515,
+    "centroide_x": 0.014475930382819602,
+    "dispersion": 0.2895310131401738
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6241574006796659,
+    "hauteur_max": 0.18403814389964887,
+    "aire_bbox": 0.11486876952231515,
+    "aspect_ratio": 0.31108105874321335,
+    "centroide_x": 0.01962830037694814,
+    "dispersion": 0.23553797402669494
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6765589918462419,
+    "hauteur_max": 0.1869200679695396,
+    "aire_bbox": 0.12646245274130274,
+    "aspect_ratio": 0.29148090413770933,
+    "centroide_x": -0.0011083196069387672,
+    "dispersion": 0.2283702637799805
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9726660846214887,
+    "hauteur_max": 0.2826748969712312,
+    "aire_bbox": 0.2749482852577902,
+    "aspect_ratio": 0.3066078838513563,
+    "centroide_x": -0.01136416252958097,
+    "dispersion": 0.43396107311939525
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19432838746646175,
+    "hauteur_max": 0.07515715791603199,
+    "aire_bbox": 0.014605169304384717,
+    "aspect_ratio": 0.40803174252968055,
+    "centroide_x": 0.023556865751409972,
+    "dispersion": 0.06647166879138207
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.48613577465726576,
+    "hauteur_max": 0.11684053719522361,
+    "aire_bbox": 0.0568003650607711,
+    "aspect_ratio": 0.25356879761052226,
+    "centroide_x": 0.0010389505390164058,
+    "dispersion": 0.2065102914256404
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1497251945877811,
+    "hauteur_max": 0.035090146404187415,
+    "aire_bbox": 0.005253878998480688,
+    "aspect_ratio": 0.24725788050851058,
+    "centroide_x": 0.005600543944712798,
+    "dispersion": 0.07349503387664234
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.26543915514986793,
+    "hauteur_max": 0.05428902520119975,
+    "aire_bbox": 0.014410432983316351,
+    "aspect_ratio": 0.21577787181550903,
+    "centroide_x": -0.0021534528745548293,
+    "dispersion": 0.11279064781453081
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12669644133719357,
+    "hauteur_max": 0.030961964837539584,
+    "aire_bbox": 0.003922770761723584,
+    "aspect_ratio": 0.25782435781296176,
+    "centroide_x": 0.014345856335536108,
+    "dispersion": 0.048302746397570664
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.2134520193832812,
+    "hauteur_max": 0.03108610811707063,
+    "aire_bbox": 0.006635392552355735,
+    "aspect_ratio": 0.15364765396832458,
+    "centroide_x": 0.007088824507168545,
+    "dispersion": 0.0954167378010298
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15131116681041382,
+    "hauteur_max": 0.07006709788981888,
+    "aire_bbox": 0.01060193433672798,
+    "aspect_ratio": 0.4885432280544222,
+    "centroide_x": 0.006327492745160528,
+    "dispersion": 0.07508438136933016
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2321970227013386,
+    "hauteur_max": 0.0273015937457763,
+    "aire_bbox": 0.006339348782770744,
+    "aspect_ratio": 0.12404840979359061,
+    "centroide_x": 0.007560360517719691,
+    "dispersion": 0.10289004563375874
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08169073532559935,
+    "hauteur_max": 0.08577567632106226,
+    "aire_bbox": 0.0070070780717181765,
+    "aspect_ratio": 1.107774066473945,
+    "centroide_x": 0.005784793928877785,
+    "dispersion": 0.04740319619876208
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.057334922118078606,
+    "hauteur_max": 0.027839269608917114,
+    "aire_bbox": 0.0015961623548514554,
+    "aspect_ratio": 0.512269451600842,
+    "centroide_x": 0.017964585953401096,
+    "dispersion": 0.020649418742306264
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.1349092950250783,
+    "hauteur_max": 0.043640630760288325,
+    "aire_bbox": 0.005887526730320245,
+    "aspect_ratio": 0.341278551104568,
+    "centroide_x": 0.0053851181720329456,
+    "dispersion": 0.04627287616995314
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2275108085796124,
+    "hauteur_max": 0.18907425077410767,
+    "aire_bbox": 0.04301643567520164,
+    "aspect_ratio": 0.8767791271738314,
+    "centroide_x": 0.0018283007253780802,
+    "dispersion": 0.10479502206350888
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5259846237594274,
+    "hauteur_max": 0.10049574765206365,
+    "aire_bbox": 0.052859218018193065,
+    "aspect_ratio": 0.20157398664002166,
+    "centroide_x": 0.03266319352851588,
+    "dispersion": 0.18882697449049626
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.911643106556859,
+    "hauteur_max": 0.1638438920811051,
+    "aire_bbox": 0.1493671547671854,
+    "aspect_ratio": 0.18961175229336324,
+    "centroide_x": -0.07720998693003696,
+    "dispersion": 0.40626595260537884
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.6843767718462767,
+    "hauteur_max": 0.04257349030473801,
+    "aire_bbox": 0.029136307860985356,
+    "aspect_ratio": 0.06563021752087222,
+    "centroide_x": 0.04238084356442512,
+    "dispersion": 0.31698931451336043
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3130229714820145,
+    "hauteur_max": 0.0468650158501709,
+    "aire_bbox": 0.014669826519972205,
+    "aspect_ratio": 0.15795464673203483,
+    "centroide_x": 0.024416168968513577,
+    "dispersion": 0.13796472861296477
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5124760598354958,
+    "hauteur_max": 0.02742211849922236,
+    "aire_bbox": 0.014053179240823535,
+    "aspect_ratio": 0.05645303160565241,
+    "centroide_x": 0.0044895876309472135,
+    "dispersion": 0.23128840553369603
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6113497107906714,
+    "hauteur_max": 0.030956026743451402,
+    "aire_bbox": 0.018924957996837303,
+    "aspect_ratio": 0.05342141045076757,
+    "centroide_x": 0.0036865386913079363,
+    "dispersion": 0.28692673782217204
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.36737722120290967,
+    "hauteur_max": 0.025863925497395475,
+    "aire_bbox": 0.009501817078632234,
+    "aspect_ratio": 0.0742748979632076,
+    "centroide_x": 0.004728215988647712,
+    "dispersion": 0.17165910871761791
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5154686255560376,
+    "hauteur_max": 0.0375734295170489,
+    "aire_bbox": 0.01936792407057985,
+    "aspect_ratio": 0.07690214411217766,
+    "centroide_x": 0.003042741188289631,
+    "dispersion": 0.2223627500797119
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6230175014985426,
+    "hauteur_max": 0.049424612750337535,
+    "aire_bbox": 0.030792398748248306,
+    "aspect_ratio": 0.08369564807517543,
+    "centroide_x": 0.002388359606356678,
+    "dispersion": 0.2876485171222801
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.38430078407332857,
+    "hauteur_max": 0.04243779557655105,
+    "aire_bbox": 0.016308878114412204,
+    "aspect_ratio": 0.116504149573122,
+    "centroide_x": 0.0036503754020227324,
+    "dispersion": 0.17371985946797433
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6049817415911188,
+    "hauteur_max": 0.021862717083242583,
+    "aire_bbox": 0.013226544656934004,
+    "aspect_ratio": 0.03812604140002997,
+    "centroide_x": 0.0011887368539253787,
+    "dispersion": 0.2472675131598316
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7063420270587952,
+    "hauteur_max": 0.045755288126081914,
+    "aire_bbox": 0.03231888296363592,
+    "aspect_ratio": 0.06834174997851954,
+    "centroide_x": -0.05776589112836039,
+    "dispersion": 0.32020414396379315
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.2950350785303288,
+    "hauteur_max": 0.0359080260821143,
+    "aire_bbox": 0.010594127295005687,
+    "aspect_ratio": 0.12840375524547915,
+    "centroide_x": 0.004337184236136471,
+    "dispersion": 0.11961777778594743
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.5978171155014357,
+    "hauteur_max": 0.20422710710314534,
+    "aire_bbox": 0.12209046007560512,
+    "aspect_ratio": 0.3604166859403986,
+    "centroide_x": 0.004368703990221629,
+    "dispersion": 0.23730650903752967
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.38528558061361967,
+    "hauteur_max": 0.0982780550755681,
+    "aire_bbox": 0.03786511751136755,
+    "aspect_ratio": 0.2691123604597706,
+    "centroide_x": 0.017130375988335635,
+    "dispersion": 0.12579576224480013
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.3955830940619845,
+    "hauteur_max": 0.11069776442644005,
+    "aire_bbox": 0.043790164157555836,
+    "aspect_ratio": 0.2952303323464987,
+    "centroide_x": 0.002237804652611209,
+    "dispersion": 0.15114311922705717
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2584576764511579,
+    "hauteur_max": 0.23794768777552577,
+    "aire_bbox": 0.06149940649938798,
+    "aspect_ratio": 0.9712966736303741,
+    "centroide_x": 0.0004013466409793271,
+    "dispersion": 0.12974862259984907
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6819066803102988,
+    "hauteur_max": 0.17778240816910967,
+    "aire_bbox": 0.12123101177216812,
+    "aspect_ratio": 0.2750576244004471,
+    "centroide_x": -0.003452988448232648,
+    "dispersion": 0.24987097463192043
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.769685720433521,
+    "hauteur_max": 0.13838839611771236,
+    "aire_bbox": 0.10651557236550092,
+    "aspect_ratio": 0.18969072427172057,
+    "centroide_x": 0.001334601368074903,
+    "dispersion": 0.31706455800146377
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9757808138609692,
+    "hauteur_max": 0.3003656854352857,
+    "aire_bbox": 0.2930910729899509,
+    "aspect_ratio": 0.32475652805561417,
+    "centroide_x": -0.01569118885359831,
+    "dispersion": 0.4333031141071835
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6943785184096467,
+    "hauteur_max": 0.17398699182820035,
+    "aire_bbox": 0.12081282960821707,
+    "aspect_ratio": 0.2643506305575288,
+    "centroide_x": 0.05378097640697075,
+    "dispersion": 0.27573234191926366
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4763010730018035,
+    "hauteur_max": 0.1843662235980209,
+    "aire_bbox": 0.08781383012502779,
+    "aspect_ratio": 0.40837547093964327,
+    "centroide_x": 0.005789322310386997,
+    "dispersion": 0.16540878391034047
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9361229431445843,
+    "hauteur_max": 0.20361038036245563,
+    "aire_bbox": 0.19060434851969024,
+    "aspect_ratio": 0.22947050636867064,
+    "centroide_x": 0.07112617796246654,
+    "dispersion": 0.36779114115924666
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 0.9999667434249657,
+    "hauteur_max": 0.23405489596984225,
+    "aire_bbox": 0.23404711210563228,
+    "aspect_ratio": 0.24694032857597628,
+    "centroide_x": -0.10692577653369527,
+    "dispersion": 0.4632911702961071
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7207835561261604,
+    "hauteur_max": 0.12587080099710554,
+    "aire_bbox": 0.09072560355514199,
+    "aspect_ratio": 0.1842383238594387,
+    "centroide_x": -0.00556229967343794,
+    "dispersion": 0.2886285501500011
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.35707236619691635,
+    "hauteur_max": 0.1546744541990314,
+    "aire_bbox": 0.0552299733510647,
+    "aspect_ratio": 0.4570063124599843,
+    "centroide_x": 0.02250575047387447,
+    "dispersion": 0.12895507151007302
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2590634038992292,
+    "hauteur_max": 0.17068262803356757,
+    "aire_bbox": 0.04421762260484202,
+    "aspect_ratio": 0.6950932990345144,
+    "centroide_x": 0.012533928963111021,
+    "dispersion": 0.08723498442783505
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.7946797597175488,
+    "hauteur_max": 0.07383537528509083,
+    "aire_bbox": 0.058675478290211025,
+    "aspect_ratio": 0.09802394638681833,
+    "centroide_x": 0.013154966172705033,
+    "dispersion": 0.29838132090845965
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6710121024518643,
+    "hauteur_max": 0.05598602115233788,
+    "aire_bbox": 0.037567297761344785,
+    "aspect_ratio": 0.08802562124577093,
+    "centroide_x": 0.022632419906007492,
+    "dispersion": 0.26020639478127566
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.7854553862196051,
+    "hauteur_max": 0.06393754665865355,
+    "aire_bbox": 0.05022009040470674,
+    "aspect_ratio": 0.08588044654409999,
+    "centroide_x": 0.016317968549259206,
+    "dispersion": 0.30706974435043727
    }
   },
   "notes": "visage rond asiatique"
@@ -6365,9 +14681,7 @@ window.PRESETS_DB = [
     "height": 0.2245765847710848,
     "projection": 0.09068251181522526,
     "narine": 0.11690914108578246,
-    "evasement": 1.9823270616604478,
-    "compacite_narines": 0.16190364382460634,
-    "ratio_pointe_base": 0.5634169575971337
+    "compacite_narines": 0.16190364382460634
    },
    "joues": {
     "width": 1.0637084214405996,
@@ -6391,6 +14705,701 @@ window.PRESETS_DB = [
     "width": 0.8642991564565442,
     "height": 0.19579287395788936,
     "angle": 0.29889565413538677
+   },
+   "philtrum": {
+    "largeur_sup": 0.11219128764365846,
+    "largeur_milieu": 0.11371241463788405,
+    "largeur_inf": 0.10458580437327036,
+    "hauteur": 0.08319722563637896,
+    "profondeur_z": 0.0057525634765625
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4572127121359829,
+    "hauteur_max": 0.2122427749559543,
+    "aire_bbox": 0.09704009476887894,
+    "aspect_ratio": 0.48831368682577064,
+    "centroide_x": 0.022742871455553957,
+    "dispersion": 0.1735969542167053
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.630252549677182,
+    "hauteur_max": 0.15842136763458095,
+    "aire_bbox": 0.09984547087504085,
+    "aspect_ratio": 0.26441337875191745,
+    "centroide_x": 0.015981910513658576,
+    "dispersion": 0.2444459627936778
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.261166862581394,
+    "hauteur_max": 0.09076150497301763,
+    "aire_bbox": 0.023703897496968603,
+    "aspect_ratio": 0.3655677666620982,
+    "centroide_x": -0.020116925258591642,
+    "dispersion": 0.11082742996981694
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6972362962058077,
+    "hauteur_max": 0.11554321193843503,
+    "aire_bbox": 0.0805609211436771,
+    "aspect_ratio": 0.17432060631332522,
+    "centroide_x": -0.021069357102604137,
+    "dispersion": 0.2567325088237133
+   },
+   "joues__joues": {
+    "largeur_max": 1.007657923001179,
+    "hauteur_max": 0.24030093482135095,
+    "aire_bbox": 0.24214114087732422,
+    "aspect_ratio": 0.2508572257916741,
+    "centroide_x": 0.03670917782261718,
+    "dispersion": 0.3785550863568822
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9980386926845356,
+    "hauteur_max": 0.4853385569880657,
+    "aire_bbox": 0.4843866589257681,
+    "aspect_ratio": 0.5115424683318152,
+    "centroide_x": -0.011049450875345191,
+    "dispersion": 0.4468290240785817
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5853688550855854,
+    "hauteur_max": 0.0873147786955376,
+    "aire_bbox": 0.05111135203705811,
+    "aspect_ratio": 0.15690703818392493,
+    "centroide_x": 0.017774419299315714,
+    "dispersion": 0.2399766998643847
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6591199936691662,
+    "hauteur_max": 0.14384192409238372,
+    "aire_bbox": 0.09480908809713263,
+    "aspect_ratio": 0.22956478943442135,
+    "centroide_x": 0.014491879385757907,
+    "dispersion": 0.2756659809254983
+   },
+   "menton__menton": {
+    "largeur_max": 0.46640012651570245,
+    "hauteur_max": 0.16096438870623453,
+    "aire_bbox": 0.07507381125711049,
+    "aspect_ratio": 0.3630407902471279,
+    "centroide_x": 0.019093186362720033,
+    "dispersion": 0.16730316055631508
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.1684000228450308,
+    "hauteur_max": 0.1058370731234407,
+    "aire_bbox": 0.01782296553183861,
+    "aspect_ratio": 0.6611194799613817,
+    "centroide_x": 0.01865869917594477,
+    "dispersion": 0.07110454019084717
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2448511935907355,
+    "hauteur_max": 0.13687902707254582,
+    "aire_bbox": 0.03351499315625144,
+    "aspect_ratio": 0.5880563757736971,
+    "centroide_x": -0.006777485393367312,
+    "dispersion": 0.10073058417968532
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.1118703670328384,
+    "hauteur_max": 0.09287752139447798,
+    "aire_bbox": 0.010390242407500553,
+    "aspect_ratio": 0.8733329235796258,
+    "centroide_x": -0.00010058312269904732,
+    "dispersion": 0.051721543925327434
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1715573263838387,
+    "hauteur_max": 0.059177253727423454,
+    "aire_bbox": 0.01015229143221482,
+    "aspect_ratio": 0.36285224644381636,
+    "centroide_x": -0.010504375775754844,
+    "dispersion": 0.06322164345869007
+   },
+   "nez__nez": {
+    "largeur_max": 0.2661337943080406,
+    "hauteur_max": 0.1708415426286616,
+    "aire_bbox": 0.045466707965204585,
+    "aspect_ratio": 0.6752704375595058,
+    "centroide_x": 0.009699167332986413,
+    "dispersion": 0.11018722706747852
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8409983305106166,
+    "hauteur_max": 0.11473797138107353,
+    "aire_bbox": 0.09649444237765774,
+    "aspect_ratio": 0.1435146751392667,
+    "centroide_x": -0.04138562789097025,
+    "dispersion": 0.30412072302211746
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.41499540171142535,
+    "hauteur_max": 0.10149150924281257,
+    "aire_bbox": 0.04211850964851984,
+    "aspect_ratio": 0.2572590757468416,
+    "centroide_x": -0.017485845071902973,
+    "dispersion": 0.1374306562747879
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8949431375873383,
+    "hauteur_max": 0.19500529584453216,
+    "aire_bbox": 0.17451865130925276,
+    "aspect_ratio": 0.22921088735327141,
+    "centroide_x": 0.02486472780372023,
+    "dispersion": 0.3639260890475142
+   },
+   "tete__tempes": {
+    "largeur_max": 1.0020388541176173,
+    "hauteur_max": 0.23480286170085152,
+    "aire_bbox": 0.2352815904822586,
+    "aspect_ratio": 0.24649215562681986,
+    "centroide_x": 0.057966564531493577,
+    "dispersion": 0.457248104595539
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7239092082053071,
+    "hauteur_max": 0.15788778566479217,
+    "aire_bbox": 0.11429642190588894,
+    "aspect_ratio": 0.22942921111436554,
+    "centroide_x": -0.01024848265702574,
+    "dispersion": 0.2598822266380958
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6636565724151969,
+    "hauteur_max": 0.06760803428256905,
+    "aire_bbox": 0.0448685162996989,
+    "aspect_ratio": 0.10716159968586007,
+    "centroide_x": -0.0018379719778231546,
+    "dispersion": 0.24209365388084547
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3484334254864083,
+    "hauteur_max": 0.0417220305228564,
+    "aire_bbox": 0.014537350013327338,
+    "aspect_ratio": 0.12595920322155407,
+    "centroide_x": -0.001958825348654011,
+    "dispersion": 0.16160080665246868
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3124184646254293,
+    "hauteur_max": 0.047064154925165615,
+    "aire_bbox": 0.01470371102061358,
+    "aspect_ratio": 0.1584666401834987,
+    "centroide_x": 0.01787482077160644,
+    "dispersion": 0.11509393019199075
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.356921839342145,
+    "hauteur_max": 0.08813151606684416,
+    "aire_bbox": 0.03145606281858982,
+    "aspect_ratio": 0.2597421299351431,
+    "centroide_x": 0.010641381634003058,
+    "dispersion": 0.12383957047636722
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.0836219486199974,
+    "hauteur_max": 0.002736427151406751,
+    "aire_bbox": 0.00022882537065730118,
+    "aspect_ratio": 0.03442293416033595,
+    "centroide_x": 0.013951173985319264,
+    "dispersion": 0.03362573977747342
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.22782511301689143,
+    "hauteur_max": 0.024990921164345006,
+    "aire_bbox": 0.005693559438663125,
+    "aspect_ratio": 0.11538914329526584,
+    "centroide_x": -0.002905388089317946,
+    "dispersion": 0.07632226780617969
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.28435764597648966,
+    "hauteur_max": 0.03092133011892351,
+    "aire_bbox": 0.008792716643079018,
+    "aspect_ratio": 0.11438722806001826,
+    "centroide_x": 0.0009903699461563916,
+    "dispersion": 0.11500781111500552
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.1857833085840887,
+    "hauteur_max": 0.01280337122016877,
+    "aire_bbox": 0.0023786526663132548,
+    "aspect_ratio": 0.07249397664046811,
+    "centroide_x": 0.018081103706691772,
+    "dispersion": 0.07412279180596178
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.29751206144630854,
+    "hauteur_max": 0.024267456331979794,
+    "aire_bbox": 0.007219860959385582,
+    "aspect_ratio": 0.08580329354253498,
+    "centroide_x": 0.017031831385426438,
+    "dispersion": 0.10044127756196611
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.09612364175037781,
+    "hauteur_max": 0.004895046685832853,
+    "aire_bbox": 0.0004705297139803714,
+    "aspect_ratio": 0.05356867456188057,
+    "centroide_x": 0.01745709188479865,
+    "dispersion": 0.03930405994912039
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09349275865641403,
+    "hauteur_max": 0.022925388736377277,
+    "aire_bbox": 0.002143357836234593,
+    "aspect_ratio": 0.2579425642159772,
+    "centroide_x": 0.015466187155323335,
+    "dispersion": 0.03856129291221263
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.1015085400942323,
+    "hauteur_max": 0.02237623043801778,
+    "aire_bbox": 0.002271378484575309,
+    "aspect_ratio": 0.23188284651492594,
+    "centroide_x": 0.012284533521521474,
+    "dispersion": 0.04095644883935552
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10453505533910114,
+    "hauteur_max": 0.010609426797734063,
+    "aire_bbox": 0.0011090570174172728,
+    "aspect_ratio": 0.10676139650314419,
+    "centroide_x": 0.010395434296015917,
+    "dispersion": 0.04293316766871875
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.32492020652102,
+    "hauteur_max": 0.05489784288510015,
+    "aire_bbox": 0.017837418447785247,
+    "aspect_ratio": 0.1777308582938701,
+    "centroide_x": 0.015329884328856364,
+    "dispersion": 0.13471250256584233
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.2983802772499217,
+    "hauteur_max": 0.052926788307213174,
+    "aire_bbox": 0.015792309769054182,
+    "aspect_ratio": 0.1865905765788617,
+    "centroide_x": 0.03509690479587132,
+    "dispersion": 0.11144520565142049
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.21247704332837253,
+    "hauteur_max": 0.03877337589467354,
+    "aire_bbox": 0.008238452269959826,
+    "aspect_ratio": 0.19195785128974394,
+    "centroide_x": 0.011889110654643873,
+    "dispersion": 0.08144099098360498
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11366087925825208,
+    "hauteur_max": 0.05209864683820304,
+    "aire_bbox": 0.005921578007795312,
+    "aspect_ratio": 0.48216947302574503,
+    "centroide_x": 0.008339460520972754,
+    "dispersion": 0.04633169855164945
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4339981800834867,
+    "hauteur_max": 0.0932512142058131,
+    "aire_bbox": 0.04047085725589827,
+    "aspect_ratio": 0.22602207927188966,
+    "centroide_x": -0.06181569894729847,
+    "dispersion": 0.19583102867610902
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.858555610519911,
+    "hauteur_max": 0.15763995515128298,
+    "aire_bbox": 0.13534266793724115,
+    "aspect_ratio": 0.19314441337405908,
+    "centroide_x": 0.0074053751095899435,
+    "dispersion": 0.37321927220071394
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7629253751670259,
+    "hauteur_max": 0.2395134030661145,
+    "aire_bbox": 0.18273085289174648,
+    "aspect_ratio": 0.33024179811017923,
+    "centroide_x": 0.013941477836010838,
+    "dispersion": 0.3468005031545497
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.7950193692963986,
+    "hauteur_max": 0.05395482599288093,
+    "aire_bbox": 0.04289513173135713,
+    "aspect_ratio": 0.071389915097237,
+    "centroide_x": -0.004190296987916947,
+    "dispersion": 0.36068550152639295
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6591199936691662,
+    "hauteur_max": 0.17299144683638742,
+    "aire_bbox": 0.11402212134361958,
+    "aspect_ratio": 0.27608602511076896,
+    "centroide_x": 0.012714912916626377,
+    "dispersion": 0.2915727804325546
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.630252549677182,
+    "hauteur_max": 0.18662611187777708,
+    "aire_bbox": 0.11762158284730803,
+    "aspect_ratio": 0.3114885418661467,
+    "centroide_x": 0.01591683946746683,
+    "dispersion": 0.23527831198126428
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.675128490600346,
+    "hauteur_max": 0.19063655290353093,
+    "aire_bbox": 0.12870416821501385,
+    "aspect_ratio": 0.29703253356755444,
+    "centroide_x": -0.010736595707051516,
+    "dispersion": 0.22749958111554874
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9601411996463669,
+    "hauteur_max": 0.2848786255821733,
+    "aire_bbox": 0.2735237053200761,
+    "aspect_ratio": 0.3121109737026057,
+    "centroide_x": -0.009565770874348945,
+    "dispersion": 0.4291895508623986
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18666683666372608,
+    "hauteur_max": 0.08156544456059375,
+    "aire_bbox": 0.01522556351719656,
+    "aspect_ratio": 0.4596458238252145,
+    "centroide_x": 0.020278695716120947,
+    "dispersion": 0.06504216454917172
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4804689872084687,
+    "hauteur_max": 0.11952143407027027,
+    "aire_bbox": 0.057426342377446524,
+    "aspect_ratio": 0.26167649476793164,
+    "centroide_x": -0.0018915249252831547,
+    "dispersion": 0.20308673598457855
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14369980989650674,
+    "hauteur_max": 0.03957416607244341,
+    "aire_bbox": 0.005686800141422905,
+    "aspect_ratio": 0.2896942379942235,
+    "centroide_x": -0.0021105948743108927,
+    "dispersion": 0.07090431711628435
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.25394614913178676,
+    "hauteur_max": 0.05940255419424999,
+    "aire_bbox": 0.015085049886222052,
+    "aspect_ratio": 0.24606382261676224,
+    "centroide_x": -0.007552774730571093,
+    "dispersion": 0.10770255386717367
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13036062304498205,
+    "hauteur_max": 0.0269214587446998,
+    "aire_bbox": 0.0035094981352388464,
+    "aspect_ratio": 0.21723832217953562,
+    "centroide_x": 0.011170858032023834,
+    "dispersion": 0.04977697284806507
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.207184359997135,
+    "hauteur_max": 0.03673797624519084,
+    "aire_bbox": 0.007611534095949813,
+    "aspect_ratio": 0.1865273583595576,
+    "centroide_x": 0.0028925450209598105,
+    "dispersion": 0.09349559943263579
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14787474584318924,
+    "hauteur_max": 0.07801228003788042,
+    "aire_bbox": 0.011536046083249273,
+    "aspect_ratio": 0.5549492115439282,
+    "centroide_x": 0.0009937252635406916,
+    "dispersion": 0.0745510171859005
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.22733716832294887,
+    "hauteur_max": 0.028926540183214482,
+    "aire_bbox": 0.006576077734631975,
+    "aspect_ratio": 0.13384751876499398,
+    "centroide_x": 0.004960685715964864,
+    "dispersion": 0.1015296836038691
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.07947007861777171,
+    "hauteur_max": 0.08990508505035232,
+    "aire_bbox": 0.007144764177088951,
+    "aspect_ratio": 1.1900491333399197,
+    "centroide_x": -0.0006138916861733991,
+    "dispersion": 0.04808578272286451
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05975913186219708,
+    "hauteur_max": 0.0238585777069983,
+    "aire_bbox": 0.0014257678912369869,
+    "aspect_ratio": 0.4199760740171333,
+    "centroide_x": 0.014248916478639136,
+    "dispersion": 0.02085669896779744
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.12924302195605783,
+    "hauteur_max": 0.04597019599179676,
+    "aire_bbox": 0.00594132704989207,
+    "aspect_ratio": 0.37415670305986615,
+    "centroide_x": -0.0032295370065174877,
+    "dispersion": 0.045112756598841876
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23269900072234656,
+    "hauteur_max": 0.1987249323788451,
+    "aire_bbox": 0.04624309318317314,
+    "aspect_ratio": 0.8983428558974513,
+    "centroide_x": -0.014856654537112194,
+    "dispersion": 0.10701611087743972
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5457100114177434,
+    "hauteur_max": 0.09607150319764973,
+    "aire_bbox": 0.052427181106909214,
+    "aspect_ratio": 0.18518974921719736,
+    "centroide_x": 0.01689443347036862,
+    "dispersion": 0.19516342811594126
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.939759926310447,
+    "hauteur_max": 0.1704561212127777,
+    "aire_bbox": 0.1601878319100846,
+    "aspect_ratio": 0.19080069787351162,
+    "centroide_x": -0.09190169126447587,
+    "dispersion": 0.41864473516900935
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7028843316242689,
+    "hauteur_max": 0.04969539550059923,
+    "aire_bbox": 0.03493011485124239,
+    "aspect_ratio": 0.07437321709716274,
+    "centroide_x": 0.0299713772761417,
+    "dispersion": 0.3249738551442755
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.31797267577933463,
+    "hauteur_max": 0.05108655634607198,
+    "aire_bbox": 0.016244129017712258,
+    "aspect_ratio": 0.16900560418692973,
+    "centroide_x": 0.010298375272512195,
+    "dispersion": 0.13734665854573033
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5205941725821044,
+    "hauteur_max": 0.030515881994877238,
+    "aire_bbox": 0.015886390337736252,
+    "aspect_ratio": 0.06166104820709503,
+    "centroide_x": -0.008396569458717794,
+    "dispersion": 0.23623465902662238
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6233204775071516,
+    "hauteur_max": 0.03494572493902196,
+    "aire_bbox": 0.021782385955824744,
+    "aspect_ratio": 0.058974862684636524,
+    "centroide_x": -0.009357818311350118,
+    "dispersion": 0.2930292357271131
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3700732313689272,
+    "hauteur_max": 0.027318191542045785,
+    "aire_bbox": 0.010109731419120182,
+    "aspect_ratio": 0.07765126807941833,
+    "centroide_x": -0.00814068539638489,
+    "dispersion": 0.17200535418142884
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5332575223845236,
+    "hauteur_max": 0.04032595571658456,
+    "aire_bbox": 0.021504119233213898,
+    "aspect_ratio": 0.07954849310538697,
+    "centroide_x": -0.012189660804944893,
+    "dispersion": 0.23071811863824812
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6469338114492204,
+    "hauteur_max": 0.057636587942544205,
+    "aire_bbox": 0.0372870575165983,
+    "aspect_ratio": 0.09371793095556877,
+    "centroide_x": -0.012095669925920783,
+    "dispersion": 0.29754479768399567
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.3963035015548231,
+    "hauteur_max": 0.04400901569362873,
+    "aire_bbox": 0.017440927019366226,
+    "aspect_ratio": 0.11681484162152059,
+    "centroide_x": -0.011441318015705798,
+    "dispersion": 0.17819042632980145
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6283097924653114,
+    "hauteur_max": 0.023222173425394455,
+    "aire_bbox": 0.014590718965503058,
+    "aspect_ratio": 0.03887884141316474,
+    "centroide_x": -0.013832954924326834,
+    "dispersion": 0.2575388233485657
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7239092082053071,
+    "hauteur_max": 0.04901805699837649,
+    "aire_bbox": 0.03548462282945734,
+    "aspect_ratio": 0.07122890539090218,
+    "centroide_x": -0.0738985460611792,
+    "dispersion": 0.3307634277050191
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.30009369167790156,
+    "hauteur_max": 0.03669324065867076,
+    "aire_bbox": 0.011011410048886184,
+    "aspect_ratio": 0.12862147391355783,
+    "centroide_x": -0.010228252932030495,
+    "dispersion": 0.12064655468265179
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6041499955769783,
+    "hauteur_max": 0.2025390931213595,
+    "aire_bbox": 0.12236399221343455,
+    "aspect_ratio": 0.35265363382141596,
+    "centroide_x": 0.0035363725860454464,
+    "dispersion": 0.23945273856498167
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.3899411533363549,
+    "hauteur_max": 0.09044079949369542,
+    "aire_bbox": 0.035266589663233615,
+    "aspect_ratio": 0.24397740054210085,
+    "centroide_x": 0.017741318478575442,
+    "dispersion": 0.1265210357791331
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.3991422219749495,
+    "hauteur_max": 0.10946181458458616,
+    "aire_bbox": 0.04369083189470165,
+    "aspect_ratio": 0.28848235285637264,
+    "centroide_x": -0.00023871383179743477,
+    "dispersion": 0.15060053929370376
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.261166862581394,
+    "hauteur_max": 0.23791497506278547,
+    "aire_bbox": 0.062135507598278274,
+    "aspect_ratio": 0.9582702062402741,
+    "centroide_x": -0.01710294673652917,
+    "dispersion": 0.12952751803187593
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6972362962058077,
+    "hauteur_max": 0.17583537846980463,
+    "aire_bbox": 0.122598808026233,
+    "aspect_ratio": 0.26528369146013986,
+    "centroide_x": -0.02033040817378462,
+    "dispersion": 0.25709878850013396
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7630161272233348,
+    "hauteur_max": 0.15361514310809782,
+    "aire_bbox": 0.11721083157719915,
+    "aspect_ratio": 0.21177982800368972,
+    "centroide_x": 5.441384712354481e-06,
+    "dispersion": 0.3168246349584829
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9668944985555544,
+    "hauteur_max": 0.2981724657198369,
+    "aire_bbox": 0.28830131672525494,
+    "aspect_ratio": 0.32439393536679045,
+    "centroide_x": -0.014537481455004641,
+    "dispersion": 0.42911840198328066
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6988987509890574,
+    "hauteur_max": 0.16961870811961832,
+    "aire_bbox": 0.11854630324917874,
+    "aspect_ratio": 0.2552958561777482,
+    "centroide_x": 0.05204460194401085,
+    "dispersion": 0.27707808976780235
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4744312689947552,
+    "hauteur_max": 0.1908635222627043,
+    "aire_bbox": 0.09055162307190351,
+    "aspect_ratio": 0.42318854940050704,
+    "centroide_x": -0.0018502739905972294,
+    "dispersion": 0.16270469577707528
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9325782737942646,
+    "hauteur_max": 0.2115410057240983,
+    "aire_bbox": 0.19727854595488226,
+    "aspect_ratio": 0.23861269732173093,
+    "centroide_x": 0.065991785520728,
+    "dispersion": 0.3658605914258387
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.007657923001179,
+    "hauteur_max": 0.2393583815103392,
+    "aire_bbox": 0.24119136956563222,
+    "aspect_ratio": 0.24987326662007556,
+    "centroide_x": -0.11085787325899578,
+    "dispersion": 0.4644957761247956
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7134788661462743,
+    "hauteur_max": 0.1288011245325203,
+    "aire_bbox": 0.09189688028982766,
+    "aspect_ratio": 0.18989906225174544,
+    "centroide_x": -0.0071951360968216145,
+    "dispersion": 0.285784392393616
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3485565576423353,
+    "hauteur_max": 0.16096438870623453,
+    "aire_bbox": 0.0561051932304479,
+    "aspect_ratio": 0.4857813367418205,
+    "centroide_x": 0.019432853390978805,
+    "dispersion": 0.12685621221686688
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.25212510988474524,
+    "hauteur_max": 0.1708415426286616,
+    "aire_bbox": 0.043073442708130696,
+    "aspect_ratio": 0.7127901057293126,
+    "centroide_x": 0.007825942777057166,
+    "dispersion": 0.08651730202440742
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.7950193692963986,
+    "hauteur_max": 0.08096955727652208,
+    "aire_bbox": 0.0643723663581892,
+    "aspect_ratio": 0.10713425005196896,
+    "centroide_x": 0.004168751748043565,
+    "dispersion": 0.29897803249673177
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6764647548921123,
+    "hauteur_max": 0.06036657131516724,
+    "aire_bbox": 0.04083585786839183,
+    "aspect_ratio": 0.09387190135549117,
+    "centroide_x": 0.011604314447731892,
+    "dispersion": 0.2630617652049796
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8008994295853153,
+    "hauteur_max": 0.07188489542825131,
+    "aire_bbox": 0.05757257174428652,
+    "aspect_ratio": 0.09441563965765812,
+    "centroide_x": 0.002572521865619065,
+    "dispersion": 0.3172076731887499
    }
   },
   "notes": ""
@@ -6857,9 +15866,7 @@ window.PRESETS_DB = [
     "height": 0.2288610244989483,
     "projection": 0.09744151548477041,
     "narine": 0.12335048554326257,
-    "evasement": 1.9287973575715083,
-    "compacite_narines": 0.1760593327184387,
-    "ratio_pointe_base": 0.5631457104648748
+    "compacite_narines": 0.1760593327184387
    },
    "joues": {
     "width": 1.0769658117924812,
@@ -6883,6 +15890,701 @@ window.PRESETS_DB = [
     "width": 0.8370608610927591,
     "height": 0.1638219321483033,
     "angle": 0.2692100431370463
+   },
+   "philtrum": {
+    "largeur_sup": 0.10759337702319378,
+    "largeur_milieu": 0.1091587504675832,
+    "largeur_inf": 0.09789560547484912,
+    "hauteur": 0.10418877787054968,
+    "profondeur_z": 0.007244318723678589
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4439645982720742,
+    "hauteur_max": 0.1974426197779976,
+    "aire_bbox": 0.0876575333715246,
+    "aspect_ratio": 0.4748365989562034,
+    "centroide_x": 0.00928712657579676,
+    "dispersion": 0.16771264536578026
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6350296817400637,
+    "hauteur_max": 0.14917528273927458,
+    "aire_bbox": 0.09473073232140555,
+    "aspect_ratio": 0.2508155546545422,
+    "centroide_x": 0.010914677779217922,
+    "dispersion": 0.2470817887795896
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.259445120400922,
+    "hauteur_max": 0.08973011967612084,
+    "aire_bbox": 0.02328004170296031,
+    "aspect_ratio": 0.36927028508377363,
+    "centroide_x": -0.0033131686438214493,
+    "dispersion": 0.1106266347198863
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6932771789939177,
+    "hauteur_max": 0.11845340394768894,
+    "aire_bbox": 0.08212104173108078,
+    "aspect_ratio": 0.1824283216208278,
+    "centroide_x": -0.004151245161399865,
+    "dispersion": 0.2559815997690474
+   },
+   "joues__joues": {
+    "largeur_max": 1.0038649164902316,
+    "hauteur_max": 0.24911674406304413,
+    "aire_bbox": 0.2500795594751662,
+    "aspect_ratio": 0.26495935882588467,
+    "centroide_x": 0.03914327223070526,
+    "dispersion": 0.38219563308362264
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.991649567979826,
+    "hauteur_max": 0.4721154455368033,
+    "aire_bbox": 0.46817307760317406,
+    "aspect_ratio": 0.5083251570838346,
+    "centroide_x": -0.018457667644437188,
+    "dispersion": 0.4363416444209587
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.546845812181532,
+    "hauteur_max": 0.07216339978515347,
+    "aire_bbox": 0.03946225296529285,
+    "aspect_ratio": 0.14089763931502558,
+    "centroide_x": 0.004420152203028182,
+    "dispersion": 0.2245662848918504
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6443591794088944,
+    "hauteur_max": 0.12680324725923678,
+    "aire_bbox": 0.08170683635034495,
+    "aspect_ratio": 0.21011350974271878,
+    "centroide_x": 0.0021326973801249934,
+    "dispersion": 0.2679701014073304
+   },
+   "menton__menton": {
+    "largeur_max": 0.4346039970364266,
+    "hauteur_max": 0.14284106167115787,
+    "aire_bbox": 0.06207929634321192,
+    "aspect_ratio": 0.35092230629939636,
+    "centroide_x": 0.003096835884202661,
+    "dispersion": 0.15908495068272416
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.16856084211956227,
+    "hauteur_max": 0.10262912639154942,
+    "aire_bbox": 0.017299251970554562,
+    "aspect_ratio": 0.6500781385960939,
+    "centroide_x": 0.0008845189418590608,
+    "dispersion": 0.07152084232752808
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2598286327848162,
+    "hauteur_max": 0.13405922041451918,
+    "aire_bbox": 0.03483242395250284,
+    "aspect_ratio": 0.5508854515440725,
+    "centroide_x": 0.0001609111271966857,
+    "dispersion": 0.10513820051061239
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11423838896890726,
+    "hauteur_max": 0.09534880819387297,
+    "aire_bbox": 0.010892494238173392,
+    "aspect_ratio": 0.8911582269742403,
+    "centroide_x": 0.009090815874498212,
+    "dispersion": 0.05375669077432251
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.177140709432379,
+    "hauteur_max": 0.07011956674590464,
+    "aire_bbox": 0.012421029798460598,
+    "aspect_ratio": 0.42264181822468727,
+    "centroide_x": 0.0012295408665540352,
+    "dispersion": 0.06801213261785273
+   },
+   "nez__nez": {
+    "largeur_max": 0.2647070773729223,
+    "hauteur_max": 0.18048871384642404,
+    "aire_bbox": 0.0477766399410846,
+    "aspect_ratio": 0.7280079448316829,
+    "centroide_x": 0.009630681417335576,
+    "dispersion": 0.11266196953370271
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8440626520666024,
+    "hauteur_max": 0.13500416702222665,
+    "aire_bbox": 0.11395197525682316,
+    "aspect_ratio": 0.1707749280962562,
+    "centroide_x": -0.028841857424898462,
+    "dispersion": 0.30800782531748616
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.41719371408978395,
+    "hauteur_max": 0.09821609273322943,
+    "aire_bbox": 0.04097513651076262,
+    "aspect_ratio": 0.2513602029383328,
+    "centroide_x": -0.0027903904080307505,
+    "dispersion": 0.13791142810237006
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8955418559435028,
+    "hauteur_max": 0.2120898214375154,
+    "aire_bbox": 0.18993531231687863,
+    "aspect_ratio": 0.2528631590752692,
+    "centroide_x": 0.037663157280467756,
+    "dispersion": 0.36579320470770155
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9926710720091375,
+    "hauteur_max": 0.2555115746223385,
+    "aire_bbox": 0.2536389486910995,
+    "aspect_ratio": 0.27482537801557355,
+    "centroide_x": 0.06785103061326507,
+    "dispersion": 0.45496857897630316
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7456673783349308,
+    "hauteur_max": 0.17345782878632,
+    "aire_bbox": 0.12934184444276453,
+    "aspect_ratio": 0.2483707128166023,
+    "centroide_x": 0.0013287737160762691,
+    "dispersion": 0.2696208744665146
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6909680462624989,
+    "hauteur_max": 0.07433949681653941,
+    "aire_bbox": 0.05136621687546149,
+    "aspect_ratio": 0.11487175993529293,
+    "centroide_x": 0.011001971423347821,
+    "dispersion": 0.2553650549793003
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.33214231275332223,
+    "hauteur_max": 0.021762535023578538,
+    "aire_bbox": 0.007228258714106551,
+    "aspect_ratio": 0.06995792174892142,
+    "centroide_x": -0.020362184118157,
+    "dispersion": 0.15283954090282767
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.30178439621527786,
+    "hauteur_max": 0.04119981936284268,
+    "aire_bbox": 0.012433462610593991,
+    "aspect_ratio": 0.14576395813292814,
+    "centroide_x": -0.001273305337609538,
+    "dispersion": 0.10950424047729215
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.34880488167745133,
+    "hauteur_max": 0.08423384668345035,
+    "aire_bbox": 0.029381176925657476,
+    "aspect_ratio": 0.25784321114351944,
+    "centroide_x": -0.0006986632554126466,
+    "dispersion": 0.11863369306421101
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08041574146184968,
+    "hauteur_max": 0.0017059938025478897,
+    "aire_bbox": 0.00013718875656120895,
+    "aspect_ratio": 0.02265103234203242,
+    "centroide_x": -0.002182924972542209,
+    "dispersion": 0.032364112626198906
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.21799728362162174,
+    "hauteur_max": 0.01837760769244818,
+    "aire_bbox": 0.0040062685564175235,
+    "aspect_ratio": 0.09000974182144562,
+    "centroide_x": -0.018808036569273774,
+    "dispersion": 0.07286089125678694
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2669054558553601,
+    "hauteur_max": 0.018129555181098485,
+    "aire_bbox": 0.004838877190065996,
+    "aspect_ratio": 0.07252392813551084,
+    "centroide_x": -0.01767899821842991,
+    "dispersion": 0.10780727135969384
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.17321389640594861,
+    "hauteur_max": 0.007287313370538259,
+    "aire_bbox": 0.0012622639432420982,
+    "aspect_ratio": 0.044919647140155325,
+    "centroide_x": -0.0021550030107039156,
+    "dispersion": 0.06909527368825885
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.2820145170883682,
+    "hauteur_max": 0.014731005671237234,
+    "aire_bbox": 0.004154357450599982,
+    "aspect_ratio": 0.05577152932895191,
+    "centroide_x": -0.0016775815108614359,
+    "dispersion": 0.09523554851077344
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.09010265989691324,
+    "hauteur_max": 0.002448402543381517,
+    "aire_bbox": 0.0002206075816570422,
+    "aspect_ratio": 0.029013280166132957,
+    "centroide_x": -0.002702005667411955,
+    "dispersion": 0.036803909263608756
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.08933362052211143,
+    "hauteur_max": 0.016052080882889237,
+    "aire_bbox": 0.0014339905021822665,
+    "aspect_ratio": 0.19185274861514548,
+    "centroide_x": -0.002830219843842642,
+    "dispersion": 0.036562731111306805
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.09400996563104305,
+    "hauteur_max": 0.014567355442970163,
+    "aire_bbox": 0.001369476584528813,
+    "aspect_ratio": 0.16544682790525556,
+    "centroide_x": -0.002413400928551916,
+    "dispersion": 0.03767133735947838
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.09789412795289686,
+    "hauteur_max": 0.008427710630509575,
+    "aire_bbox": 0.0008250233828130933,
+    "aspect_ratio": 0.0919188527309679,
+    "centroide_x": -0.0025234918313212897,
+    "dispersion": 0.04017725053614281
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.2999045221879845,
+    "hauteur_max": 0.030588418256722164,
+    "aire_bbox": 0.009173604961768483,
+    "aspect_ratio": 0.10889943517339164,
+    "centroide_x": -0.0010546181084120088,
+    "dispersion": 0.123288166848465
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.2808958205548488,
+    "hauteur_max": 0.034494209840812785,
+    "aire_bbox": 0.009689279377626248,
+    "aspect_ratio": 0.1311150501179632,
+    "centroide_x": 0.01750977817793572,
+    "dispersion": 0.10451211675984391
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.19073881540532991,
+    "hauteur_max": 0.024673723476817663,
+    "aire_bbox": 0.004706236787606879,
+    "aspect_ratio": 0.13811703090966937,
+    "centroide_x": -0.002178441243518462,
+    "dispersion": 0.07379711272753631
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.10915789403838308,
+    "hauteur_max": 0.06493683396841514,
+    "aire_bbox": 0.007088368041512335,
+    "aspect_ratio": 0.6351664992131485,
+    "centroide_x": -0.0001666104568467996,
+    "dispersion": 0.048860759499341176
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4175763420120625,
+    "hauteur_max": 0.0957028007573798,
+    "aire_bbox": 0.0399632254605759,
+    "aspect_ratio": 0.2447036142037747,
+    "centroide_x": -0.07467893506522115,
+    "dispersion": 0.18965351578777268
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8593191235688844,
+    "hauteur_max": 0.15015295018846064,
+    "aire_bbox": 0.12902930155723036,
+    "aspect_ratio": 0.1865653616963463,
+    "centroide_x": 0.0014918574407268995,
+    "dispersion": 0.37328270078165093
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7531054057019521,
+    "hauteur_max": 0.21750413125343004,
+    "aire_bbox": 0.16380353700946507,
+    "aspect_ratio": 0.3083637845065631,
+    "centroide_x": 0.003760579284716146,
+    "dispersion": 0.33387702820354476
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8103914931796019,
+    "hauteur_max": 0.04313131544843574,
+    "aire_bbox": 0.034953251129058276,
+    "aspect_ratio": 0.05682630944403335,
+    "centroide_x": 0.0005741302409841654,
+    "dispersion": 0.3689261900481034
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6443591794088944,
+    "hauteur_max": 0.15920028586772944,
+    "aire_bbox": 0.10258216556339156,
+    "aspect_ratio": 0.2637955378802506,
+    "centroide_x": 0.0017397298558757444,
+    "dispersion": 0.2859455615794336
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6350296817400637,
+    "hauteur_max": 0.17900463269874223,
+    "aire_bbox": 0.11367325493267927,
+    "aspect_ratio": 0.30096907082480895,
+    "centroide_x": 0.01163914633619215,
+    "dispersion": 0.2379284281764321
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6901795978689094,
+    "hauteur_max": 0.18775264861292412,
+    "aire_bbox": 0.12958304751849062,
+    "aspect_ratio": 0.29045280624594905,
+    "centroide_x": -0.004961753228804245,
+    "dispersion": 0.2359586214098238
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9410710899849454,
+    "hauteur_max": 0.280459766592234,
+    "aire_bbox": 0.263932578243877,
+    "aspect_ratio": 0.31819969423686617,
+    "centroide_x": -0.01749630151845504,
+    "dispersion": 0.4183930078868444
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18099760085441716,
+    "hauteur_max": 0.07353500591655722,
+    "aire_bbox": 0.013309659649712228,
+    "aspect_ratio": 0.43378340665032733,
+    "centroide_x": 0.0018696978050378084,
+    "dispersion": 0.062437561945748225
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4559663984390583,
+    "hauteur_max": 0.10983084093627869,
+    "aire_bbox": 0.050079172979248084,
+    "aspect_ratio": 0.2571834934023655,
+    "centroide_x": -0.015751888381955424,
+    "dispersion": 0.19275964848437369
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14487967718125244,
+    "hauteur_max": 0.03662985452387287,
+    "aire_bbox": 0.005306921498614941,
+    "aspect_ratio": 0.26994752245125403,
+    "centroide_x": 0.001489568486823422,
+    "dispersion": 0.07144196207038254
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.25441425359438674,
+    "hauteur_max": 0.05709506110683029,
+    "aire_bbox": 0.014525797355420129,
+    "aspect_ratio": 0.23961208858721778,
+    "centroide_x": -0.00649514487780897,
+    "dispersion": 0.10861275585577619
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12545537686227723,
+    "hauteur_max": 0.030112194251630028,
+    "aire_bbox": 0.0037777366779883433,
+    "aspect_ratio": 0.25627411690795976,
+    "centroide_x": 0.008166189055207551,
+    "dispersion": 0.048260341742084656
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.20780160321053762,
+    "hauteur_max": 0.03477070325235063,
+    "aire_bbox": 0.007225407880596314,
+    "aspect_ratio": 0.17865542252318845,
+    "centroide_x": 0.0016591762858121236,
+    "dispersion": 0.09338731654617481
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14798305644351895,
+    "hauteur_max": 0.07779515823114741,
+    "aire_bbox": 0.011512365291552374,
+    "aspect_ratio": 0.5612963229212358,
+    "centroide_x": 0.0013858039414437187,
+    "dispersion": 0.07512140262765261
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.22567603195836727,
+    "hauteur_max": 0.026033088055713253,
+    "aire_bbox": 0.005875044012036134,
+    "aspect_ratio": 0.12316629343877339,
+    "centroide_x": 0.001779798833375206,
+    "dispersion": 0.10012550996737243
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.07963510581253165,
+    "hauteur_max": 0.09262796207587361,
+    "aire_bbox": 0.0073764375611113635,
+    "aspect_ratio": 1.2419072699596405,
+    "centroide_x": 0.0008228905300233848,
+    "dispersion": 0.049526695397786376
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05791916544742475,
+    "hauteur_max": 0.027854502210481,
+    "aire_bbox": 0.0016133095219845075,
+    "aspect_ratio": 0.5134814131093189,
+    "centroide_x": 0.01186531791233908,
+    "dispersion": 0.020827490264271144
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13049307367795557,
+    "hauteur_max": 0.04529595328217306,
+    "aire_bbox": 0.005910808168963843,
+    "aspect_ratio": 0.37061548842645586,
+    "centroide_x": 0.0014230066081517133,
+    "dispersion": 0.04542865385693152
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23265762799496023,
+    "hauteur_max": 0.20904130669598917,
+    "aire_bbox": 0.048635054568855834,
+    "aspect_ratio": 0.9593264905277831,
+    "centroide_x": -0.0009179073678495939,
+    "dispersion": 0.11083802909609818
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5444144272001287,
+    "hauteur_max": 0.091715368142652,
+    "aire_bbox": 0.04993116961283082,
+    "aspect_ratio": 0.17987222615739087,
+    "centroide_x": 0.03192204595801252,
+    "dispersion": 0.1951414825660667
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9284322809076724,
+    "hauteur_max": 0.1791692033444911,
+    "aire_bbox": 0.16634647212953643,
+    "aspect_ratio": 0.20604626770778914,
+    "centroide_x": -0.07869416149537828,
+    "dispersion": 0.4160940347387025
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7225029355271823,
+    "hauteur_max": 0.056326328426016696,
+    "aire_bbox": 0.04069593763526523,
+    "aspect_ratio": 0.08323834732506706,
+    "centroide_x": 0.043079436425478894,
+    "dispersion": 0.3383149159444894
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.34100569915070905,
+    "hauteur_max": 0.05527350888944027,
+    "aire_bbox": 0.018848581543356512,
+    "aspect_ratio": 0.1730641125970849,
+    "centroide_x": 0.024145052771525594,
+    "dispersion": 0.15074541787403925
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5429850389557364,
+    "hauteur_max": 0.03128770543853266,
+    "aire_bbox": 0.01698875595637726,
+    "aspect_ratio": 0.06152299545920424,
+    "centroide_x": 0.0026607553603934814,
+    "dispersion": 0.24897680869606542
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6521351202498479,
+    "hauteur_max": 0.034655559025375315,
+    "aire_bbox": 0.022600107152338834,
+    "aspect_ratio": 0.0567396876951265,
+    "centroide_x": 0.002155432957322631,
+    "dispersion": 0.3075981915049157
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3973207951846519,
+    "hauteur_max": 0.030698362124925212,
+    "aire_bbox": 0.012197097650341686,
+    "aspect_ratio": 0.08249460179420778,
+    "centroide_x": 0.0025833158322682713,
+    "dispersion": 0.18570005382004529
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5558141546906419,
+    "hauteur_max": 0.05031936179356003,
+    "aire_bbox": 0.02796821353986015,
+    "aspect_ratio": 0.09666230417406027,
+    "centroide_x": 0.0012868670823827347,
+    "dispersion": 0.24054183528644268
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6672752850496728,
+    "hauteur_max": 0.0725621706591507,
+    "aire_bbox": 0.04841894311040779,
+    "aspect_ratio": 0.11610658409795256,
+    "centroide_x": 0.001103713917539675,
+    "dispersion": 0.3101259030434361
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4140339749678984,
+    "hauteur_max": 0.056070406345197464,
+    "aire_bbox": 0.023215053217167377,
+    "aspect_ratio": 0.14459369135819464,
+    "centroide_x": 0.0011964124558995518,
+    "dispersion": 0.18771388059003358
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6401061965933175,
+    "hauteur_max": 0.029867823410207602,
+    "aire_bbox": 0.019118578843628838,
+    "aspect_ratio": 0.049819935988498994,
+    "centroide_x": -0.0005426008222783029,
+    "dispersion": 0.2636073049964719
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7433991765216136,
+    "hauteur_max": 0.059693031491007076,
+    "aire_bbox": 0.04437575045449341,
+    "aspect_ratio": 0.08573401862241507,
+    "centroide_x": -0.06225772483799091,
+    "dispersion": 0.34026594345518213
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.31770907846817836,
+    "hauteur_max": 0.04714866163132259,
+    "aire_bbox": 0.01497955783789546,
+    "aspect_ratio": 0.15844967987784367,
+    "centroide_x": 0.0021722930068708308,
+    "dispersion": 0.1298114386416705
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.5883121243812479,
+    "hauteur_max": 0.1964725917939106,
+    "aire_bbox": 0.11558720786096528,
+    "aspect_ratio": 0.3565708178616572,
+    "centroide_x": -0.009640400667756403,
+    "dispersion": 0.2333428289365289
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.37482819924749733,
+    "hauteur_max": 0.07665457688767974,
+    "aire_bbox": 0.028732297018887826,
+    "aspect_ratio": 0.21835214167310654,
+    "centroide_x": -0.0006752589847679711,
+    "dispersion": 0.12062481915695633
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.3968973346177845,
+    "hauteur_max": 0.10277593297989925,
+    "aire_bbox": 0.04079149386257806,
+    "aspect_ratio": 0.27648072981882044,
+    "centroide_x": -0.0068731634993529,
+    "dispersion": 0.14945131439139542
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.259445120400922,
+    "hauteur_max": 0.24091030179516337,
+    "aire_bbox": 0.06250300225506862,
+    "aspect_ratio": 0.9914286991326996,
+    "centroide_x": -0.0020951093993520293,
+    "dispersion": 0.13097096476432807
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6932771789939177,
+    "hauteur_max": 0.17514997030576654,
+    "aire_bbox": 0.12142747731445028,
+    "aspect_ratio": 0.26974585828643227,
+    "centroide_x": -0.004239199955399945,
+    "dispersion": 0.2566144448623822
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7348114964645254,
+    "hauteur_max": 0.13830947824117984,
+    "aire_bbox": 0.10163139468162907,
+    "aspect_ratio": 0.2009683293550213,
+    "centroide_x": -0.01075359142771844,
+    "dispersion": 0.3061344348942582
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9513291249399324,
+    "hauteur_max": 0.2885691048157831,
+    "aire_bbox": 0.27452419396909855,
+    "aspect_ratio": 0.3238699550561972,
+    "centroide_x": -0.023949889523599915,
+    "dispersion": 0.4206144542445417
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6957145586596049,
+    "hauteur_max": 0.17108351985022474,
+    "aire_bbox": 0.11902529550653085,
+    "aspect_ratio": 0.2625600865613748,
+    "centroide_x": 0.04377120800263766,
+    "dispersion": 0.2778628761676057
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4878312901598895,
+    "hauteur_max": 0.18693853935025695,
+    "aire_bbox": 0.09119446883184112,
+    "aspect_ratio": 0.40914835890939916,
+    "centroide_x": 0.001539068855245608,
+    "dispersion": 0.1675012541712371
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9282654616196108,
+    "hauteur_max": 0.2064541512172237,
+    "aire_bbox": 0.1916442579829411,
+    "aspect_ratio": 0.23746688187492893,
+    "centroide_x": 0.065620355242783,
+    "dispersion": 0.3694719742840602
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.004369747525738,
+    "hauteur_max": 0.2472916942592232,
+    "aire_bbox": 0.24837229652834802,
+    "aspect_ratio": 0.2628860426371558,
+    "centroide_x": -0.10927615392690805,
+    "dispersion": 0.46528169880403397
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6754084009730769,
+    "hauteur_max": 0.09969787283720669,
+    "aire_bbox": 0.06733678087339492,
+    "aspect_ratio": 0.157605386264374,
+    "centroide_x": -0.017741124237417947,
+    "dispersion": 0.26793431190869504
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.33400661042882895,
+    "hauteur_max": 0.14284106167115787,
+    "aire_bbox": 0.047709858838838756,
+    "aspect_ratio": 0.45661442679577313,
+    "centroide_x": 0.00240019296842494,
+    "dispersion": 0.12162005983984764
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.25120208555339607,
+    "hauteur_max": 0.18048871384642404,
+    "aire_bbox": 0.045339141337071835,
+    "aspect_ratio": 0.7671467175765139,
+    "centroide_x": 0.006918802152279718,
+    "dispersion": 0.08769260979372337
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8103914931796019,
+    "hauteur_max": 0.07272236932186096,
+    "aire_bbox": 0.05893358946230138,
+    "aspect_ratio": 0.09581307269721182,
+    "centroide_x": 0.011040360650111474,
+    "dispersion": 0.30782314391062165
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6974000476784824,
+    "hauteur_max": 0.05548175334470137,
+    "aire_bbox": 0.03869297742788054,
+    "aspect_ratio": 0.08494148048036496,
+    "centroide_x": 0.021068960572481497,
+    "dispersion": 0.274185521642654
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8120382132976603,
+    "hauteur_max": 0.08457237623326266,
+    "aire_bbox": 0.06867600129079612,
+    "aspect_ratio": 0.11119971850562307,
+    "centroide_x": 0.015626430986019183,
+    "dispersion": 0.3237357202316686
    }
   },
   "notes": ""
@@ -7349,9 +17051,7 @@ window.PRESETS_DB = [
     "height": 0.22458425725363879,
     "projection": 0.09231235929189692,
     "narine": 0.1271678928767575,
-    "evasement": 1.9618005832071739,
-    "compacite_narines": 0.17338637914981336,
-    "ratio_pointe_base": 0.5616880469680434
+    "compacite_narines": 0.17338637914981336
    },
    "joues": {
     "width": 1.0616454811158305,
@@ -7375,6 +17075,701 @@ window.PRESETS_DB = [
     "width": 0.8476749119330798,
     "height": 0.19363827220674812,
     "angle": 0.30476330177334704
+   },
+   "philtrum": {
+    "largeur_sup": 0.11046339730261774,
+    "largeur_milieu": 0.11494534073381438,
+    "largeur_inf": 0.1015186060888269,
+    "hauteur": 0.1083454254151592,
+    "profondeur_z": 0.00747637078166008
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4555584489171883,
+    "hauteur_max": 0.21479686993830174,
+    "aire_bbox": 0.09785252890135977,
+    "aspect_ratio": 0.5043916753517053,
+    "centroide_x": 0.012454067615959146,
+    "dispersion": 0.17560511640025697
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6422077982354641,
+    "hauteur_max": 0.15680121741284483,
+    "aire_bbox": 0.1006989645953434,
+    "aspect_ratio": 0.261190828378493,
+    "centroide_x": 0.009582194788335996,
+    "dispersion": 0.25151764966597956
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2693559949859343,
+    "hauteur_max": 0.0942068673102789,
+    "aire_bbox": 0.025375184478868062,
+    "aspect_ratio": 0.3741450326805388,
+    "centroide_x": -0.012446385150306246,
+    "dispersion": 0.11449450408624694
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7135293999637087,
+    "hauteur_max": 0.11872868899887494,
+    "aire_bbox": 0.08471641021984501,
+    "aspect_ratio": 0.17800322362292856,
+    "centroide_x": -0.012061455779299525,
+    "dispersion": 0.26225378176522224
+   },
+   "joues__joues": {
+    "largeur_max": 1.004737948086995,
+    "hauteur_max": 0.2434705682391107,
+    "aire_bbox": 0.24462411915213875,
+    "aspect_ratio": 0.2592255062054163,
+    "centroide_x": 0.03623261855201845,
+    "dispersion": 0.38460084538914213
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9921190658399587,
+    "hauteur_max": 0.47362846122488217,
+    "aire_bbox": 0.4698958265056472,
+    "aspect_ratio": 0.5106908347721372,
+    "centroide_x": -0.01611173259787778,
+    "dispersion": 0.44330814274041586
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5676476889492749,
+    "hauteur_max": 0.0774473818401523,
+    "aire_bbox": 0.043962827316734496,
+    "aspect_ratio": 0.14595263297585837,
+    "centroide_x": 0.010801791517201986,
+    "dispersion": 0.23384398092432077
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6585127429821183,
+    "hauteur_max": 0.13474245996096035,
+    "aire_bbox": 0.08872962690505024,
+    "aspect_ratio": 0.21888921098501032,
+    "centroide_x": 0.006200760650365996,
+    "dispersion": 0.2758111332811844
+   },
+   "menton__menton": {
+    "largeur_max": 0.4527348012346509,
+    "hauteur_max": 0.1439171309265438,
+    "aire_bbox": 0.06515629366429003,
+    "aspect_ratio": 0.34005775264179317,
+    "centroide_x": 0.010228085625105535,
+    "dispersion": 0.1654906676408532
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17766918296913306,
+    "hauteur_max": 0.09721249357020356,
+    "aire_bbox": 0.017271664307010166,
+    "aspect_ratio": 0.5853209184667826,
+    "centroide_x": 0.00779612965222318,
+    "dispersion": 0.0723338869845042
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.25861382838694863,
+    "hauteur_max": 0.13356401700810647,
+    "aire_bbox": 0.03454150177320593,
+    "aspect_ratio": 0.5524866598706027,
+    "centroide_x": -0.007662447847394911,
+    "dispersion": 0.1069507989537159
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11893772574956482,
+    "hauteur_max": 0.09259199662609045,
+    "aire_bbox": 0.011012681501318577,
+    "aspect_ratio": 0.8327945734515027,
+    "centroide_x": 0.00021450601688679702,
+    "dispersion": 0.05422660989967947
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17972129304327292,
+    "hauteur_max": 0.05396025939955886,
+    "aire_bbox": 0.00969780759223914,
+    "aspect_ratio": 0.3211874456727457,
+    "centroide_x": -0.006195628687034802,
+    "dispersion": 0.06567279325536644
+   },
+   "nez__nez": {
+    "largeur_max": 0.2828902448663078,
+    "hauteur_max": 0.1755758892157806,
+    "aire_bbox": 0.04966870629287191,
+    "aspect_ratio": 0.6639432689499021,
+    "centroide_x": 0.0023362760547378132,
+    "dispersion": 0.11606444727520464
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8568411091699174,
+    "hauteur_max": 0.12677807223579432,
+    "aire_bbox": 0.10862866403294191,
+    "aspect_ratio": 0.15828068325334332,
+    "centroide_x": -0.0328855100535284,
+    "dispersion": 0.31165834545864435
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.42463136600457024,
+    "hauteur_max": 0.10834038781935423,
+    "aire_bbox": 0.04600472687319729,
+    "aspect_ratio": 0.27293698037169933,
+    "centroide_x": -0.010083035947517794,
+    "dispersion": 0.142116970195539
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9054114674379308,
+    "hauteur_max": 0.20020309653112575,
+    "aire_bbox": 0.1812661794158643,
+    "aspect_ratio": 0.23654232817199694,
+    "centroide_x": 0.03376744193025831,
+    "dispersion": 0.3712237204588961
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9974240523412233,
+    "hauteur_max": 0.23804248181596493,
+    "aire_bbox": 0.2374292968422417,
+    "aspect_ratio": 0.2553046354281452,
+    "centroide_x": 0.0652611391203612,
+    "dispersion": 0.45997196863686174
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7398396474311689,
+    "hauteur_max": 0.16555963056646317,
+    "aire_bbox": 0.12248757870712669,
+    "aspect_ratio": 0.23938719441625836,
+    "centroide_x": -0.0031459702457189583,
+    "dispersion": 0.2656412034710334
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6744281264853309,
+    "hauteur_max": 0.06988564383724581,
+    "aire_bbox": 0.047132843841374804,
+    "aspect_ratio": 0.11085017013824881,
+    "centroide_x": 0.007396393554536422,
+    "dispersion": 0.24603271938962334
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3422538381077041,
+    "hauteur_max": 0.03913853948003293,
+    "aire_bbox": 0.013395315354971175,
+    "aspect_ratio": 0.12233207870464176,
+    "centroide_x": -0.013763993628740707,
+    "dispersion": 0.15815810235391778
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.31742711749427327,
+    "hauteur_max": 0.0404740699926921,
+    "aire_bbox": 0.012847567371041714,
+    "aspect_ratio": 0.13640080090842047,
+    "centroide_x": 0.005141705503004693,
+    "dispersion": 0.11695232625143061
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.35736513026939337,
+    "hauteur_max": 0.09560541781118627,
+    "aire_bbox": 0.03416604259055436,
+    "aspect_ratio": 0.28618996199505087,
+    "centroide_x": 0.00010658874268788055,
+    "dispersion": 0.12326476991177585
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08191018631566664,
+    "hauteur_max": 0.0052314076897309976,
+    "aire_bbox": 0.0004285055785590772,
+    "aspect_ratio": 0.0683226527065065,
+    "centroide_x": 0.0025022718270519555,
+    "dispersion": 0.033325711946027105
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.22332360301453152,
+    "hauteur_max": 0.017796210517891205,
+    "aire_bbox": 0.003974313852860566,
+    "aspect_ratio": 0.08524658222592939,
+    "centroide_x": -0.014041037903193302,
+    "dispersion": 0.07455844007243985
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2828267862866833,
+    "hauteur_max": 0.03669383955855514,
+    "aire_bbox": 0.01037800071886532,
+    "aspect_ratio": 0.13878952401528,
+    "centroide_x": -0.011595195848692754,
+    "dispersion": 0.11596327657933625
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.19190741321723476,
+    "hauteur_max": 0.017435530082005213,
+    "aire_bbox": 0.0033460074761089012,
+    "aspect_ratio": 0.09719131795855762,
+    "centroide_x": 0.0044421005737194505,
+    "dispersion": 0.07712239106834935
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.2929570746138324,
+    "hauteur_max": 0.034378790821845154,
+    "aire_bbox": 0.010071509987928627,
+    "aspect_ratio": 0.12553669032909717,
+    "centroide_x": 0.004749617929695203,
+    "dispersion": 0.10055330509324889
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10186105495032731,
+    "hauteur_max": 0.0058217081247268244,
+    "aire_bbox": 0.000593005331197566,
+    "aspect_ratio": 0.06114012546782181,
+    "centroide_x": 0.003898878800303765,
+    "dispersion": 0.04167273788875811
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09819694619837478,
+    "hauteur_max": 0.026184254628066166,
+    "aire_bbox": 0.0025712138429567592,
+    "aspect_ratio": 0.28525042554783886,
+    "centroide_x": 0.0031876040722103997,
+    "dispersion": 0.040394673467638066
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.09820052663790817,
+    "hauteur_max": 0.021445116280500442,
+    "aire_bbox": 0.002105921712556322,
+    "aspect_ratio": 0.23361388722577872,
+    "centroide_x": 0.001173363427608979,
+    "dispersion": 0.039588995031954295
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10146084661037878,
+    "hauteur_max": 0.010737443364588374,
+    "aire_bbox": 0.0010894300942021304,
+    "aspect_ratio": 0.1132104382646601,
+    "centroide_x": -0.0001923858101906484,
+    "dispersion": 0.04170031329105879
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.31170350223388166,
+    "hauteur_max": 0.045216291079026076,
+    "aire_bbox": 0.014094076287359049,
+    "aspect_ratio": 0.15518056235478225,
+    "centroide_x": 0.003508084817812472,
+    "dispersion": 0.12851120314785636
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.28726620153075266,
+    "hauteur_max": 0.04213742775379269,
+    "aire_bbox": 0.012104658813108543,
+    "aspect_ratio": 0.15691611836710595,
+    "centroide_x": 0.02265979877757905,
+    "dispersion": 0.10714890448334195
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.20088037157626437,
+    "hauteur_max": 0.03498168644666557,
+    "aire_bbox": 0.007027134171770551,
+    "aspect_ratio": 0.18628904102649735,
+    "centroide_x": 0.0007261107818177374,
+    "dispersion": 0.07761125761215579
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11491298193671695,
+    "hauteur_max": 0.06698897037321638,
+    "aire_bbox": 0.0076979023424566815,
+    "aspect_ratio": 0.623617473640883,
+    "centroide_x": -0.0019107887124258204,
+    "dispersion": 0.050887067520473186
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.43418397867963593,
+    "hauteur_max": 0.09334946958057629,
+    "aire_bbox": 0.04053084411012826,
+    "aspect_ratio": 0.22999697705622568,
+    "centroide_x": -0.0717824027258226,
+    "dispersion": 0.19640399413799814
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8675582598032159,
+    "hauteur_max": 0.14875253880192962,
+    "aire_bbox": 0.1290514937043124,
+    "aspect_ratio": 0.18342131601558867,
+    "centroide_x": 0.0015071765993682539,
+    "dispersion": 0.37746890479749
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7660937385312108,
+    "hauteur_max": 0.2211412344016238,
+    "aire_bbox": 0.16941491500614678,
+    "aspect_ratio": 0.3087961550282798,
+    "centroide_x": 0.007690819450991443,
+    "dispersion": 0.3423498979246063
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8133709456840685,
+    "hauteur_max": 0.053405278343022194,
+    "aire_bbox": 0.043438301750384864,
+    "aspect_ratio": 0.07023920628199071,
+    "centroide_x": -0.0030693553455157785,
+    "dispersion": 0.3708099245230336
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6585127429821183,
+    "hauteur_max": 0.16512064856586345,
+    "aire_bbox": 0.10873405121009311,
+    "aspect_ratio": 0.2682385974872878,
+    "centroide_x": 0.00452532812622817,
+    "dispersion": 0.29231798334145365
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6422077982354641,
+    "hauteur_max": 0.18681696401685152,
+    "aire_bbox": 0.11997531113429614,
+    "aspect_ratio": 0.311189405234295,
+    "centroide_x": 0.009368458735065366,
+    "dispersion": 0.24271636619082285
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6951850651254676,
+    "hauteur_max": 0.18913509549232976,
+    "aire_bbox": 0.1314838936773468,
+    "aspect_ratio": 0.291042060862518,
+    "centroide_x": -0.009695712478784795,
+    "dispersion": 0.23567896978851452
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9470303081297883,
+    "hauteur_max": 0.2723740626955305,
+    "aire_bbox": 0.2579464925211105,
+    "aspect_ratio": 0.30767055717501157,
+    "centroide_x": -0.015521097694823113,
+    "dispersion": 0.4257359054684025
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18989506486633406,
+    "hauteur_max": 0.06816974739970907,
+    "aire_bbox": 0.012945098604389362,
+    "aspect_ratio": 0.3840272779800124,
+    "centroide_x": 0.010526473383727255,
+    "dispersion": 0.06440935650627055
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4739190841775155,
+    "hauteur_max": 0.10801670024868731,
+    "aire_bbox": 0.0511911756577351,
+    "aspect_ratio": 0.24382081345641687,
+    "centroide_x": -0.01011039461706232,
+    "dispersion": 0.2005220339644963
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1544434841596823,
+    "hauteur_max": 0.03852128710037749,
+    "aire_bbox": 0.0059493617940977244,
+    "aspect_ratio": 0.26681808725657247,
+    "centroide_x": -0.00795766819608308,
+    "dispersion": 0.07571985751449258
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.27465622327150335,
+    "hauteur_max": 0.0581903935373602,
+    "aire_bbox": 0.015982353719653848,
+    "aspect_ratio": 0.22664488269675256,
+    "centroide_x": -0.015226274522493715,
+    "dispersion": 0.11630213314108855
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13365578200618633,
+    "hauteur_max": 0.03199821186674709,
+    "aire_bbox": 0.0042767460298497135,
+    "aspect_ratio": 0.25610734015805925,
+    "centroide_x": 0.0012089361936308315,
+    "dispersion": 0.05075941847708815
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.22168074660126663,
+    "hauteur_max": 0.03419779001702324,
+    "aire_bbox": 0.0075809916230870555,
+    "aspect_ratio": 0.16502666882584485,
+    "centroide_x": -0.006968277330945466,
+    "dispersion": 0.09946956637338086
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15770008235948005,
+    "hauteur_max": 0.07470392049290521,
+    "aire_bbox": 0.0117808144143072,
+    "aspect_ratio": 0.5067520819068582,
+    "centroide_x": -0.007998472251225859,
+    "dispersion": 0.07837863571595498
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.24124045221690524,
+    "hauteur_max": 0.029680344626020413,
+    "aire_bbox": 0.007160099759534758,
+    "aspect_ratio": 0.13161423772676933,
+    "centroide_x": -0.005306478351070288,
+    "dispersion": 0.10743359103678952
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.084762948624936,
+    "hauteur_max": 0.0901083661178821,
+    "aire_bbox": 0.007637850807926964,
+    "aspect_ratio": 1.137216432045958,
+    "centroide_x": -0.009143856297459282,
+    "dispersion": 0.04984184472726291
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06236315357153436,
+    "hauteur_max": 0.028239824838739488,
+    "aire_bbox": 0.0017611245332515412,
+    "aspect_ratio": 0.48441546276179454,
+    "centroide_x": 0.004542357591758805,
+    "dispersion": 0.021970326960889623
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13814042385488795,
+    "hauteur_max": 0.04619836357234202,
+    "aire_bbox": 0.0063818615252855425,
+    "aspect_ratio": 0.3577584295911303,
+    "centroide_x": -0.008764621533680884,
+    "dispersion": 0.04771122377314737
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23798380690606097,
+    "hauteur_max": 0.20182109399320772,
+    "aire_bbox": 0.04803015226244953,
+    "aspect_ratio": 0.9072003642446378,
+    "centroide_x": -0.009505957035356552,
+    "dispersion": 0.11127234592006781
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5555159349229646,
+    "hauteur_max": 0.10418093647759648,
+    "aire_bbox": 0.05787417032850199,
+    "aspect_ratio": 0.20062072853722998,
+    "centroide_x": 0.025690072416880323,
+    "dispersion": 0.19991928613300475
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9417289491791033,
+    "hauteur_max": 0.17419041833507568,
+    "aire_bbox": 0.16404015961575924,
+    "aspect_ratio": 0.19787111840447488,
+    "centroide_x": -0.08467312670369459,
+    "dispersion": 0.4238158624372294
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7125080324757647,
+    "hauteur_max": 0.056302744511306325,
+    "aire_bbox": 0.040116157714736526,
+    "aspect_ratio": 0.08453253012494304,
+    "centroide_x": 0.03939495850764743,
+    "dispersion": 0.330154080335278
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.324800608713857,
+    "hauteur_max": 0.05179556023648926,
+    "aire_bbox": 0.01682322949348696,
+    "aspect_ratio": 0.1705924348039746,
+    "centroide_x": 0.01921166490783868,
+    "dispersion": 0.14292429851328706
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5354671695336938,
+    "hauteur_max": 0.031547603537078535,
+    "aire_bbox": 0.01689270597157059,
+    "aspect_ratio": 0.06302568769628607,
+    "centroide_x": -0.0012344978622732471,
+    "dispersion": 0.2414679381632335
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.635306925034287,
+    "hauteur_max": 0.036379047891190903,
+    "aire_bbox": 0.023111861051427554,
+    "aspect_ratio": 0.061256447480209385,
+    "centroide_x": -0.001442004355427548,
+    "dispersion": 0.29943748961111916
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.38224452103280215,
+    "hauteur_max": 0.030480359375508193,
+    "aire_bbox": 0.011650950370398809,
+    "aspect_ratio": 0.08530272038918904,
+    "centroide_x": -0.0017696557948977682,
+    "dispersion": 0.1783577915058608
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5387419525974374,
+    "hauteur_max": 0.04698349309749165,
+    "aire_bbox": 0.025311978811190874,
+    "aspect_ratio": 0.09329289578417388,
+    "centroide_x": -0.0020415257923613603,
+    "dispersion": 0.2323639297383445
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6532347511104933,
+    "hauteur_max": 0.06558883446379962,
+    "aire_bbox": 0.04284490595658749,
+    "aspect_ratio": 0.10740999596779166,
+    "centroide_x": -0.0024933992466292885,
+    "dispersion": 0.30081926205784587
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.401585113171207,
+    "hauteur_max": 0.04742362011534813,
+    "aire_bbox": 0.019044619851010407,
+    "aspect_ratio": 0.12632844936970217,
+    "centroide_x": -0.002310184386822364,
+    "dispersion": 0.18123007241274922
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6393786385604873,
+    "hauteur_max": 0.030630752988273842,
+    "aire_bbox": 0.019584649143725107,
+    "aspect_ratio": 0.05124879022468387,
+    "centroide_x": -0.004896730024207154,
+    "dispersion": 0.2606761723384945
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7388055128496256,
+    "hauteur_max": 0.05043928729583226,
+    "aire_bbox": 0.037264823518366956,
+    "aspect_ratio": 0.0730336290526325,
+    "centroide_x": -0.0654967589622558,
+    "dispersion": 0.3361293965156255
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3076788526431268,
+    "hauteur_max": 0.03887760766286266,
+    "aire_bbox": 0.011961817719219217,
+    "aspect_ratio": 0.13517175507064233,
+    "centroide_x": -0.0022798330951199694,
+    "dispersion": 0.12475305369363579
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6030557861600147,
+    "hauteur_max": 0.19872963547814976,
+    "aire_bbox": 0.11984505655656874,
+    "aspect_ratio": 0.3525244263413102,
+    "centroide_x": -0.0059857222786538055,
+    "dispersion": 0.23982887819240203
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.38914534712293286,
+    "hauteur_max": 0.09219088827321503,
+    "aire_bbox": 0.035875655218651784,
+    "aspect_ratio": 0.2534312844817275,
+    "centroide_x": 0.00561728285722138,
+    "dispersion": 0.12743496476768465
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4072885649037001,
+    "hauteur_max": 0.11224586552573292,
+    "aire_bbox": 0.04571645748634946,
+    "aspect_ratio": 0.29481678343162193,
+    "centroide_x": -0.009566235619342913,
+    "dispersion": 0.1550361400802207
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2693559949859343,
+    "hauteur_max": 0.24978234374973976,
+    "aire_bbox": 0.06728037173062983,
+    "aspect_ratio": 0.9920170984718766,
+    "centroide_x": -0.010164212206543875,
+    "dispersion": 0.1371131547956523
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7135293999637087,
+    "hauteur_max": 0.18266966747366578,
+    "aire_bbox": 0.13034017822405494,
+    "aspect_ratio": 0.2738663244967612,
+    "centroide_x": -0.01131481020241573,
+    "dispersion": 0.2629804656989406
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7557733571314669,
+    "hauteur_max": 0.1385320266896526,
+    "aire_bbox": 0.10469881488146471,
+    "aspect_ratio": 0.19608423462826371,
+    "centroide_x": -0.007134783472929966,
+    "dispersion": 0.3145146546422341
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9581733897344198,
+    "hauteur_max": 0.29329097370765284,
+    "aire_bbox": 0.2810236064559703,
+    "aspect_ratio": 0.3274452231602409,
+    "centroide_x": -0.021914321261778877,
+    "dispersion": 0.427420190038075
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7069528863176281,
+    "hauteur_max": 0.1708319946426867,
+    "aire_bbox": 0.12077017168804494,
+    "aspect_ratio": 0.2585013450533703,
+    "centroide_x": 0.04399240228467863,
+    "dispersion": 0.2827785241142973
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4934769995733874,
+    "hauteur_max": 0.1888816943655791,
+    "aire_bbox": 0.09320877180986357,
+    "aspect_ratio": 0.40945579479514665,
+    "centroide_x": -0.0048050040315034005,
+    "dispersion": 0.17108762062355598
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9383447271543591,
+    "hauteur_max": 0.2070125141572019,
+    "aire_bbox": 0.19424910111437751,
+    "aspect_ratio": 0.23600339436407436,
+    "centroide_x": 0.06362760059907738,
+    "dispersion": 0.37268066626014384
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0059131802527814,
+    "hauteur_max": 0.23668845487069623,
+    "aire_bbox": 0.23808803636809897,
+    "aspect_ratio": 0.25171010061839755,
+    "centroide_x": -0.11144783785630166,
+    "dispersion": 0.46757065663839104
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6976393150924621,
+    "hauteur_max": 0.12075616224763187,
+    "aire_bbox": 0.08424424632363213,
+    "aspect_ratio": 0.18516650209793062,
+    "centroide_x": -0.01277807720328187,
+    "dispersion": 0.27848292886035075
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3488178202154179,
+    "hauteur_max": 0.1439171309265438,
+    "aire_bbox": 0.05020085990145391,
+    "aspect_ratio": 0.4413650052497501,
+    "centroide_x": 0.00978142160566751,
+    "dispersion": 0.12574100862775348
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2705301435976515,
+    "hauteur_max": 0.1755758892157806,
+    "aire_bbox": 0.04749857052183047,
+    "aspect_ratio": 0.6942778036961246,
+    "centroide_x": -0.001027151754519876,
+    "dispersion": 0.09079543392622867
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8133709456840685,
+    "hauteur_max": 0.08064057073456272,
+    "aire_bbox": 0.0655906972788743,
+    "aspect_ratio": 0.1060593607647113,
+    "centroide_x": 0.006521500341421908,
+    "dispersion": 0.3077958355478822
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6938971904475191,
+    "hauteur_max": 0.061035497185709234,
+    "aire_bbox": 0.0423523600147311,
+    "aspect_ratio": 0.09409605695442383,
+    "centroide_x": 0.01669015193758805,
+    "dispersion": 0.27037450204055347
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8224343572523626,
+    "hauteur_max": 0.08428643779752898,
+    "aire_bbox": 0.06932006229510199,
+    "aspect_ratio": 0.10963280409514453,
+    "centroide_x": 0.011988125636649548,
+    "dispersion": 0.3233383095677812
    }
   },
   "notes": "Mono sourcils"
@@ -7841,9 +18236,7 @@ window.PRESETS_DB = [
     "height": 0.21169631612494097,
     "projection": 0.10255117830958234,
     "narine": 0.12888460551695674,
-    "evasement": 2.002944098538057,
-    "compacite_narines": 0.18705867578432056,
-    "ratio_pointe_base": 0.5473038104655952
+    "compacite_narines": 0.18705867578432056
    },
    "joues": {
     "width": 1.0773535932303662,
@@ -7867,6 +18260,701 @@ window.PRESETS_DB = [
     "width": 0.879271459684075,
     "height": 0.16506542040262207,
     "angle": 0.26499213545523703
+   },
+   "philtrum": {
+    "largeur_sup": 0.11212649153764766,
+    "largeur_milieu": 0.11296219940255653,
+    "largeur_inf": 0.10737886928516673,
+    "hauteur": 0.10562228068569983,
+    "profondeur_z": 0.007265839725732803
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.46242817323324453,
+    "hauteur_max": 0.21934360533416283,
+    "aire_bbox": 0.10143066272507067,
+    "aspect_ratio": 0.5175382573189352,
+    "centroide_x": 0.023884674778371227,
+    "dispersion": 0.17831955274374703
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.633496741002271,
+    "hauteur_max": 0.16445631080550277,
+    "aire_bbox": 0.10418253693254258,
+    "aspect_ratio": 0.2832487001333943,
+    "centroide_x": 0.021970575839761412,
+    "dispersion": 0.24764276047485662
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2513517093391434,
+    "hauteur_max": 0.09090235172615321,
+    "aire_bbox": 0.022848461489316643,
+    "aspect_ratio": 0.39459814817158845,
+    "centroide_x": 0.006655074225862826,
+    "dispersion": 0.10818301027718467
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6798954690121359,
+    "hauteur_max": 0.1223223652174701,
+    "aire_bbox": 0.08316642187020562,
+    "aspect_ratio": 0.19630234602004273,
+    "centroide_x": 0.004397441677719764,
+    "dispersion": 0.2502851921600309
+   },
+   "joues__joues": {
+    "largeur_max": 1.0027244954810037,
+    "hauteur_max": 0.24844199502184358,
+    "aire_bbox": 0.24911887411457215,
+    "aspect_ratio": 0.27033678865647937,
+    "centroide_x": 0.04418297824335976,
+    "dispersion": 0.3771969364345372
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9929885161269045,
+    "hauteur_max": 0.4870668874263413,
+    "aire_bbox": 0.4836518258000327,
+    "aspect_ratio": 0.5351877282764157,
+    "centroide_x": -0.014881792084109197,
+    "dispersion": 0.44825234271029846
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.586292534927803,
+    "hauteur_max": 0.07840323508053111,
+    "aire_bbox": 0.04596723144190504,
+    "aspect_ratio": 0.14590876627954724,
+    "centroide_x": 0.015199346968906,
+    "dispersion": 0.24035905728179105
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6625689662264298,
+    "hauteur_max": 0.13853099530300989,
+    "aire_bbox": 0.09178633834823366,
+    "aspect_ratio": 0.22812749470297652,
+    "centroide_x": 0.013027468055097967,
+    "dispersion": 0.2785365654402065
+   },
+   "menton__menton": {
+    "largeur_max": 0.46668652393940846,
+    "hauteur_max": 0.15080175849655914,
+    "aire_bbox": 0.07037714847670934,
+    "aspect_ratio": 0.35256801650811453,
+    "centroide_x": 0.017145281682470356,
+    "dispersion": 0.16918310988300672
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17674558989453537,
+    "hauteur_max": 0.10247793994529551,
+    "aire_bbox": 0.018112523946808026,
+    "aspect_ratio": 0.6326209457967635,
+    "centroide_x": 0.016623820153507697,
+    "dispersion": 0.0743983195488426
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.24498473905226767,
+    "hauteur_max": 0.12663365287825337,
+    "aire_bbox": 0.03102331240561435,
+    "aspect_ratio": 0.5639906057367992,
+    "centroide_x": 0.009395116211752281,
+    "dispersion": 0.1006912273596685
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.10818003396199688,
+    "hauteur_max": 0.08341612186511123,
+    "aire_bbox": 0.009023958896345803,
+    "aspect_ratio": 0.8413266548721365,
+    "centroide_x": 0.02007343502413102,
+    "dispersion": 0.04912890424170078
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.16401940434010612,
+    "hauteur_max": 0.055837066288817815,
+    "aire_bbox": 0.009158362352790918,
+    "aspect_ratio": 0.3714403917058024,
+    "centroide_x": 0.01116480852311193,
+    "dispersion": 0.06067947871275956
+   },
+   "nez__nez": {
+    "largeur_max": 0.2700044198522756,
+    "hauteur_max": 0.17008987976837267,
+    "aire_bbox": 0.04592501930960277,
+    "aspect_ratio": 0.6873364374996548,
+    "centroide_x": 0.024098661785132248,
+    "dispersion": 0.11266300758253082
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8311353471841414,
+    "hauteur_max": 0.11680561553854168,
+    "aire_bbox": 0.09708127582368319,
+    "aspect_ratio": 0.15333939186519482,
+    "centroide_x": -0.021251824939525328,
+    "dispersion": 0.30020251641289436
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4022662246812514,
+    "hauteur_max": 0.10830787829731826,
+    "aire_bbox": 0.04356860130589866,
+    "aspect_ratio": 0.2937705426935207,
+    "centroide_x": 0.006882442941408024,
+    "dispersion": 0.13628471278932086
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8867753737963394,
+    "hauteur_max": 0.20477992198318773,
+    "aire_bbox": 0.18159379186262653,
+    "aspect_ratio": 0.2519622721282323,
+    "centroide_x": 0.04307856893614985,
+    "dispersion": 0.35913455714405235
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9921985481009458,
+    "hauteur_max": 0.24615399548948236,
+    "aire_bbox": 0.24423363693391115,
+    "aspect_ratio": 0.27068866435159555,
+    "centroide_x": 0.07141145627881372,
+    "dispersion": 0.4521421483441477
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7230771067948334,
+    "hauteur_max": 0.1566140190474238,
+    "aire_bbox": 0.11324401177632214,
+    "aspect_ratio": 0.23632397877490252,
+    "centroide_x": 0.005901395713399147,
+    "dispersion": 0.25933340246744824
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6624249018290207,
+    "hauteur_max": 0.073162678264026,
+    "aire_bbox": 0.04846477996659565,
+    "aspect_ratio": 0.12050767627577588,
+    "centroide_x": 0.013469977492103748,
+    "dispersion": 0.24286061443838622
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3624849640247027,
+    "hauteur_max": 0.030893415486716327,
+    "aire_bbox": 0.011198398601302562,
+    "aspect_ratio": 0.09299031000655672,
+    "centroide_x": -0.008952867986707977,
+    "dispersion": 0.16774938376032444
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3191723360117869,
+    "hauteur_max": 0.03864385557692241,
+    "aire_bbox": 0.012334049656988444,
+    "aspect_ratio": 0.13210430635006273,
+    "centroide_x": 0.013066138757218168,
+    "dispersion": 0.12120682700347235
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3575416860350664,
+    "hauteur_max": 0.09112177515496064,
+    "aire_bbox": 0.03257983312341285,
+    "aspect_ratio": 0.2780719963405359,
+    "centroide_x": 0.013168370790783339,
+    "dispersion": 0.12527764996641633
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.0861800383780759,
+    "hauteur_max": 0.0021670797275325495,
+    "aire_bbox": 0.0001867590140871054,
+    "aspect_ratio": 0.02743657987607277,
+    "centroide_x": 0.01217903414308227,
+    "dispersion": 0.03497632084186547
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.23788685819427172,
+    "hauteur_max": 0.026799455432953718,
+    "aire_bbox": 0.0063752382542627654,
+    "aspect_ratio": 0.1229185095373718,
+    "centroide_x": -0.006001350570432554,
+    "dispersion": 0.07914219973552598
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3033669603814713,
+    "hauteur_max": 0.029667177496076117,
+    "aire_bbox": 0.0090000414600822,
+    "aspect_ratio": 0.10670130147638741,
+    "centroide_x": -0.005476918875867743,
+    "dispersion": 0.12367280731525213
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.20269209492687443,
+    "hauteur_max": 0.011370288806724057,
+    "aire_bbox": 0.00230466765815849,
+    "aspect_ratio": 0.061206345780536645,
+    "centroide_x": 0.012468107459484639,
+    "dispersion": 0.08110313689516226
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.313351100353882,
+    "hauteur_max": 0.024492229013765923,
+    "aire_bbox": 0.007674666911582826,
+    "aspect_ratio": 0.08528229017738442,
+    "centroide_x": 0.012479768395132141,
+    "dispersion": 0.10683452167293836
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10651305278935362,
+    "hauteur_max": 0.003197312819765457,
+    "aire_bbox": 0.0003405555491557552,
+    "aspect_ratio": 0.03275247046018957,
+    "centroide_x": 0.012067497743385773,
+    "dispersion": 0.043510478359934344
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.10219107115541755,
+    "hauteur_max": 0.026088060620370817,
+    "aire_bbox": 0.002665966859163161,
+    "aspect_ratio": 0.2785419492176783,
+    "centroide_x": 0.011572220451671793,
+    "dispersion": 0.04217958651478109
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10341894921477068,
+    "hauteur_max": 0.018987143038694382,
+    "aire_bbox": 0.001963630381652321,
+    "aspect_ratio": 0.20031859625375412,
+    "centroide_x": 0.012178976146142833,
+    "dispersion": 0.04153769305712196
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10737410849243278,
+    "hauteur_max": 0.009954606751096032,
+    "aire_bbox": 0.0010688670252916891,
+    "aspect_ratio": 0.10115475536797816,
+    "centroide_x": 0.012262350889133924,
+    "dispersion": 0.04410927120416243
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.33218481102952846,
+    "hauteur_max": 0.04423714831241156,
+    "aire_bbox": 0.014694908752643657,
+    "aspect_ratio": 0.1453011726173489,
+    "centroide_x": 0.01203020571136735,
+    "dispersion": 0.13661583427496377
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.305935015145363,
+    "hauteur_max": 0.04836673733654946,
+    "aire_bbox": 0.014797078519589052,
+    "aspect_ratio": 0.1724961367783575,
+    "centroide_x": 0.03239079051185161,
+    "dispersion": 0.11385765244515372
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2128183108302013,
+    "hauteur_max": 0.03434213579820924,
+    "aire_bbox": 0.007308635330876277,
+    "aspect_ratio": 0.17606785618681756,
+    "centroide_x": 0.011676362241597895,
+    "dispersion": 0.08203467491955431
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.1129556345146211,
+    "hauteur_max": 0.06195349436682501,
+    "aire_bbox": 0.006997996266602723,
+    "aspect_ratio": 0.5984387047710253,
+    "centroide_x": 0.015038026410713355,
+    "dispersion": 0.04928353178447859
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4390519102779393,
+    "hauteur_max": 0.09859228635260175,
+    "aire_bbox": 0.0432871316617794,
+    "aspect_ratio": 0.2450128340562751,
+    "centroide_x": -0.06487734828154545,
+    "dispersion": 0.1994006976535594
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.858021104364392,
+    "hauteur_max": 0.16658274981490903,
+    "aire_bbox": 0.14293151496424547,
+    "aspect_ratio": 0.21183310084915627,
+    "centroide_x": 0.007985756002897835,
+    "dispersion": 0.374827662731426
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7672561593703591,
+    "hauteur_max": 0.23687369661761182,
+    "aire_bbox": 0.18174280272268845,
+    "aspect_ratio": 0.3368512947411088,
+    "centroide_x": 0.010919605748708719,
+    "dispersion": 0.3498107315328011
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.7933616920104662,
+    "hauteur_max": 0.04867555212069746,
+    "aire_bbox": 0.03861731839002018,
+    "aspect_ratio": 0.06694242285688935,
+    "centroide_x": 0.005856671787863403,
+    "dispersion": 0.3601663064735429
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6625689662264298,
+    "hauteur_max": 0.17524377891012868,
+    "aire_bbox": 0.11611108943009699,
+    "aspect_ratio": 0.2885846893513322,
+    "centroide_x": 0.011993013102673387,
+    "dispersion": 0.29498179013505355
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.633496741002271,
+    "hauteur_max": 0.18971879988725426,
+    "aire_bbox": 0.1201862414354376,
+    "aspect_ratio": 0.3267591446976217,
+    "centroide_x": 0.02263727092494691,
+    "dispersion": 0.2387754718277907
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6773681778113484,
+    "hauteur_max": 0.19151965753821826,
+    "aire_bbox": 0.12972932144171637,
+    "aspect_ratio": 0.3084965654849085,
+    "centroide_x": 0.0018986016161965126,
+    "dispersion": 0.22895511547863395
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9565604065172987,
+    "hauteur_max": 0.29441630622743825,
+    "aire_bbox": 0.28162698157023985,
+    "aspect_ratio": 0.33582360994259847,
+    "centroide_x": -0.014344204290518347,
+    "dispersion": 0.4304627327517782
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19109829132847778,
+    "hauteur_max": 0.07807346207851529,
+    "aire_bbox": 0.014919705201302976,
+    "aspect_ratio": 0.4457674992599113,
+    "centroide_x": 0.01774926567559106,
+    "dispersion": 0.06621938929787864
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.48505786644379817,
+    "hauteur_max": 0.11487627489977932,
+    "aire_bbox": 0.0557216408078982,
+    "aspect_ratio": 0.25840359947387764,
+    "centroide_x": -0.0040737645250993135,
+    "dispersion": 0.20525158567389226
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14604669965587647,
+    "hauteur_max": 0.03422121599338056,
+    "aire_bbox": 0.004997895654044127,
+    "aspect_ratio": 0.255661573190972,
+    "centroide_x": 0.015558569654802484,
+    "dispersion": 0.07138057528747173
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.26058117656584395,
+    "hauteur_max": 0.0551362417078552,
+    "aire_bbox": 0.014367466735651665,
+    "aspect_ratio": 0.23086382446509363,
+    "centroide_x": 0.006905477392496763,
+    "dispersion": 0.11028233357569367
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13086475798274094,
+    "hauteur_max": 0.0318907532891654,
+    "aire_bbox": 0.00417337571107393,
+    "aspect_ratio": 0.26589112303398016,
+    "centroide_x": 0.024040443905035305,
+    "dispersion": 0.0503270830361425
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.2102989237837229,
+    "hauteur_max": 0.03539587854352866,
+    "aire_bbox": 0.007443715164083446,
+    "aspect_ratio": 0.1836442829877453,
+    "centroide_x": 0.017055673649375932,
+    "dispersion": 0.09474747048058366
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14963488744227763,
+    "hauteur_max": 0.07245766203948983,
+    "aire_bbox": 0.010842194103609653,
+    "aspect_ratio": 0.528339672085835,
+    "centroide_x": 0.017307711777348418,
+    "dispersion": 0.0746191393227376
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23106249090237135,
+    "hauteur_max": 0.029098754178426296,
+    "aire_bbox": 0.006723630622622967,
+    "aspect_ratio": 0.13740632101090047,
+    "centroide_x": 0.01659021921241668,
+    "dispersion": 0.10285631926998391
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.07983285333280431,
+    "hauteur_max": 0.08539726575108167,
+    "aire_bbox": 0.006817507391728615,
+    "aspect_ratio": 1.1671430297188274,
+    "centroide_x": 0.017839231632654166,
+    "dispersion": 0.04765826216390253
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05769724433406895,
+    "hauteur_max": 0.02865380210082385,
+    "aire_bbox": 0.0016532454209112917,
+    "aspect_ratio": 0.541862320551283,
+    "centroide_x": 0.02863281886972841,
+    "dispersion": 0.02121361607514159
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13045021243063787,
+    "hauteur_max": 0.04205904273982681,
+    "aire_bbox": 0.005486611060039685,
+    "aspect_ratio": 0.35178422468034254,
+    "centroide_x": 0.016236475165971872,
+    "dispersion": 0.04498479575876681
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.22386225373165444,
+    "hauteur_max": 0.2018019870308865,
+    "aire_bbox": 0.04517584762426036,
+    "aspect_ratio": 0.9835723996239131,
+    "centroide_x": 0.009247686550941532,
+    "dispersion": 0.11008621600954449
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5273395242918183,
+    "hauteur_max": 0.10730839911173923,
+    "aire_bbox": 0.05658796014010114,
+    "aspect_ratio": 0.22202667731526993,
+    "centroide_x": 0.03990742609376284,
+    "dispersion": 0.19068552005767797
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.928006176814535,
+    "hauteur_max": 0.18520430863583953,
+    "aire_bbox": 0.17187074238672462,
+    "aspect_ratio": 0.21775191645753625,
+    "centroide_x": -0.0724182296471576,
+    "dispersion": 0.41278851716542625
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.6976323912819724,
+    "hauteur_max": 0.052588223589903435,
+    "aire_bbox": 0.036687248176295366,
+    "aspect_ratio": 0.0822476751470901,
+    "centroide_x": 0.043937451134881865,
+    "dispersion": 0.3246334660749803
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3176730322761557,
+    "hauteur_max": 0.05394900422698641,
+    "aire_bbox": 0.017138143761065913,
+    "aspect_ratio": 0.1852954910495763,
+    "centroide_x": 0.02664804015366544,
+    "dispersion": 0.13898568607962533
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5235226628587359,
+    "hauteur_max": 0.03215209315370847,
+    "aire_bbox": 0.016832349424311593,
+    "aspect_ratio": 0.0670093695067905,
+    "centroide_x": 0.006203577995155787,
+    "dispersion": 0.23718820799085963
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6249163589505088,
+    "hauteur_max": 0.037871955300581975,
+    "aire_bbox": 0.023666804412776108,
+    "aspect_ratio": 0.06612376917337134,
+    "centroide_x": 0.004998843200196691,
+    "dispersion": 0.2945993190193469
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.372771350904031,
+    "hauteur_max": 0.02956357100165998,
+    "aire_bbox": 0.01102045229983603,
+    "aspect_ratio": 0.08653187831975537,
+    "centroide_x": 0.007337814196193027,
+    "dispersion": 0.1737263444623395
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5339998928097184,
+    "hauteur_max": 0.040686598398886956,
+    "aire_bbox": 0.021726639183797695,
+    "aspect_ratio": 0.08313271787676421,
+    "centroide_x": 0.00421886721836468,
+    "dispersion": 0.22995556780696505
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.64247461750596,
+    "hauteur_max": 0.061208338598937644,
+    "aire_bbox": 0.03932480392952775,
+    "aspect_ratio": 0.10394805889374066,
+    "centroide_x": 0.0036954489831379903,
+    "dispersion": 0.29740678169900103
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.3954646253306945,
+    "hauteur_max": 0.04336041138538883,
+    "aire_bbox": 0.017147508842707576,
+    "aspect_ratio": 0.11963204296879713,
+    "centroide_x": 0.0053931623196925,
+    "dispersion": 0.17819684932564278
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6221415533830199,
+    "hauteur_max": 0.02699272665076957,
+    "aire_bbox": 0.01679329688855302,
+    "aspect_ratio": 0.047339025595041856,
+    "centroide_x": 0.004552142487848411,
+    "dispersion": 0.2553363797083605
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7202503028285557,
+    "hauteur_max": 0.049588510315556965,
+    "aire_bbox": 0.03571613957159686,
+    "aspect_ratio": 0.07512065728004126,
+    "centroide_x": -0.05723401615105392,
+    "dispersion": 0.328459705104558
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3036393802909958,
+    "hauteur_max": 0.036831243099415156,
+    "aire_bbox": 0.011183415830053433,
+    "aspect_ratio": 0.1323488120764681,
+    "centroide_x": 0.007680719028932318,
+    "dispersion": 0.12147781693242479
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6085405419950484,
+    "hauteur_max": 0.21037048103808542,
+    "aire_bbox": 0.12801896655067554,
+    "aspect_ratio": 0.377187289954649,
+    "centroide_x": 0.002866255141496308,
+    "dispersion": 0.24330238656215433
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.39581558966668773,
+    "hauteur_max": 0.08215156678484746,
+    "aire_bbox": 0.032516870848986676,
+    "aspect_ratio": 0.2264564641957,
+    "centroide_x": 0.013807974197187448,
+    "dispersion": 0.13121528571206934
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4000676767033991,
+    "hauteur_max": 0.11449073481369781,
+    "aire_bbox": 0.045804042280981054,
+    "aspect_ratio": 0.31224726672492714,
+    "centroide_x": 0.006952905080110979,
+    "dispersion": 0.1526155262263415
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2513517093391434,
+    "hauteur_max": 0.2455938643362933,
+    "aire_bbox": 0.061730437604133014,
+    "aspect_ratio": 1.0660987557434527,
+    "centroide_x": 0.007877732560672151,
+    "dispersion": 0.13348073506556882
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6798954690121359,
+    "hauteur_max": 0.19281870255527755,
+    "aire_bbox": 0.13109656220813196,
+    "aspect_ratio": 0.3094345306424465,
+    "centroide_x": 0.00426173420618071,
+    "dispersion": 0.25232663985500475
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7698817305275573,
+    "hauteur_max": 0.15342226471152764,
+    "aire_bbox": 0.11811699865756789,
+    "aspect_ratio": 0.21743334256261274,
+    "centroide_x": -0.0021947077519379223,
+    "dispersion": 0.32018259496570195
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.955397451888938,
+    "hauteur_max": 0.29767749605035737,
+    "aire_bbox": 0.28440032121119085,
+    "aspect_ratio": 0.33995676832539673,
+    "centroide_x": -0.017892845822924833,
+    "dispersion": 0.42939832339050066
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6987436954931805,
+    "hauteur_max": 0.17736757536162986,
+    "aire_bbox": 0.12393447506885044,
+    "aspect_ratio": 0.2769606652166975,
+    "centroide_x": 0.0552025572049015,
+    "dispersion": 0.2790398941132094
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4775464342669456,
+    "hauteur_max": 0.18503463819379656,
+    "aire_bbox": 0.08836263168532194,
+    "aspect_ratio": 0.4227651653712356,
+    "centroide_x": 0.010974463396608874,
+    "dispersion": 0.16452774568106954
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9212557307645074,
+    "hauteur_max": 0.2168715379753103,
+    "aire_bbox": 0.19979414719946711,
+    "aspect_ratio": 0.25685269316010634,
+    "centroide_x": 0.0713076547770524,
+    "dispersion": 0.36553250860040565
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0047452745543926,
+    "hauteur_max": 0.24466290941087337,
+    "aire_bbox": 0.24582390208930444,
+    "aspect_ratio": 0.2656892178991523,
+    "centroide_x": -0.1057101379823389,
+    "dispersion": 0.46281749503880193
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7174923992262564,
+    "hauteur_max": 0.10664306681712234,
+    "aire_bbox": 0.07651558987146308,
+    "aspect_ratio": 0.16217245383521742,
+    "centroide_x": -0.010642318830720782,
+    "dispersion": 0.28569250459860257
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3542249239249433,
+    "hauteur_max": 0.15080175849655914,
+    "aire_bbox": 0.05341774143119133,
+    "aspect_ratio": 0.46450357093237193,
+    "centroide_x": 0.017404070378010318,
+    "dispersion": 0.12917207515197326
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.254713311368681,
+    "hauteur_max": 0.17008987976837267,
+    "aire_bbox": 0.043324156506103016,
+    "aspect_ratio": 0.7285990475064084,
+    "centroide_x": 0.0225632411459447,
+    "dispersion": 0.08768120820814479
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.7933616920104662,
+    "hauteur_max": 0.07737701138649901,
+    "aire_bbox": 0.06138795667630596,
+    "aspect_ratio": 0.1064149124142105,
+    "centroide_x": 0.016142913892876937,
+    "dispersion": 0.29904122881315415
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6756313020414804,
+    "hauteur_max": 0.059526623860417884,
+    "aire_bbox": 0.040218050384947586,
+    "aspect_ratio": 0.09613095487735195,
+    "centroide_x": 0.025170345074690997,
+    "dispersion": 0.263810192118124
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.7981522557734494,
+    "hauteur_max": 0.07409367875078911,
+    "aire_bbox": 0.05913803683349562,
+    "aspect_ratio": 0.10128780962495781,
+    "centroide_x": 0.01980231954862577,
+    "dispersion": 0.31468813105149707
    }
   },
   "notes": ""
@@ -8333,9 +19421,7 @@ window.PRESETS_DB = [
     "height": 0.20332274373720458,
     "projection": 0.10412167232266326,
     "narine": 0.12698209988465645,
-    "evasement": 2.0294772977773388,
-    "compacite_narines": 0.1689703141235756,
-    "ratio_pointe_base": 0.5539708577133614
+    "compacite_narines": 0.1689703141235756
    },
    "joues": {
     "width": 1.0655673167829818,
@@ -8359,6 +19445,701 @@ window.PRESETS_DB = [
     "width": 0.8398255748849308,
     "height": 0.1680145440434283,
     "angle": 0.26385685350208893
+   },
+   "philtrum": {
+    "largeur_sup": 0.11737935144032641,
+    "largeur_milieu": 0.11511473469378546,
+    "largeur_inf": 0.10678463273551293,
+    "hauteur": 0.10159346946889454,
+    "profondeur_z": 0.006827380508184433
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.46320135198672685,
+    "hauteur_max": 0.21097309138144915,
+    "aire_bbox": 0.09772302116070651,
+    "aspect_ratio": 0.4699584140201795,
+    "centroide_x": 0.018512067402863652,
+    "dispersion": 0.17495687545971028
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6406803339701017,
+    "hauteur_max": 0.16177982105345268,
+    "aire_bbox": 0.10364914978214936,
+    "aspect_ratio": 0.2605464370646553,
+    "centroide_x": 0.01488179287941301,
+    "dispersion": 0.24985744518793312
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.25391814026682713,
+    "hauteur_max": 0.09581429523467733,
+    "aire_bbox": 0.024328987656965985,
+    "aspect_ratio": 0.3893487297154126,
+    "centroide_x": -0.015873920394073687,
+    "dispersion": 0.11000463402363896
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6868229997740308,
+    "hauteur_max": 0.12247362341908473,
+    "aire_bbox": 0.08411770142989076,
+    "aspect_ratio": 0.1839924142179811,
+    "centroide_x": -0.017446671483684704,
+    "dispersion": 0.2552643798333503
+   },
+   "joues__joues": {
+    "largeur_max": 1.008345033737474,
+    "hauteur_max": 0.24744148911569205,
+    "aire_bbox": 0.2495063966904133,
+    "aspect_ratio": 0.2532010708933448,
+    "centroide_x": 0.03804846039450351,
+    "dispersion": 0.380535419653093
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9915651591352289,
+    "hauteur_max": 0.48134917726376253,
+    "aire_bbox": 0.4772890735531542,
+    "aspect_ratio": 0.5008886105565252,
+    "centroide_x": -0.010978420951892807,
+    "dispersion": 0.4379343879624633
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5607727999675416,
+    "hauteur_max": 0.0801407737228772,
+    "aire_bbox": 0.04494076607214303,
+    "aspect_ratio": 0.14745814696747805,
+    "centroide_x": 0.01849170022511607,
+    "dispersion": 0.2300656981278454
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6554159693797472,
+    "hauteur_max": 0.1448082138711813,
+    "aire_bbox": 0.09490961586853006,
+    "aspect_ratio": 0.22797034639825,
+    "centroide_x": 0.013014467021652303,
+    "dispersion": 0.27386348111598574
+   },
+   "menton__menton": {
+    "largeur_max": 0.44576676478294514,
+    "hauteur_max": 0.14727197963748997,
+    "aire_bbox": 0.06564895390618368,
+    "aspect_ratio": 0.3408902817972533,
+    "centroide_x": 0.01723428313448583,
+    "dispersion": 0.16223490523860037
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.172205233149677,
+    "hauteur_max": 0.10478577176518906,
+    "aire_bbox": 0.018044658257593226,
+    "aspect_ratio": 0.6278532584489854,
+    "centroide_x": 0.013552820359768092,
+    "dispersion": 0.07235599267878044
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2565923090462471,
+    "hauteur_max": 0.12724816844037953,
+    "aire_bbox": 0.03265090136202277,
+    "aspect_ratio": 0.5116937192356581,
+    "centroide_x": -0.002260479384833628,
+    "dispersion": 0.10263877145265571
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.1092852812982314,
+    "hauteur_max": 0.08564680147140331,
+    "aire_bbox": 0.00935993479109609,
+    "aspect_ratio": 0.8086333623855002,
+    "centroide_x": 0.005003776956366339,
+    "dispersion": 0.04852927547433336
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.18141305787263415,
+    "hauteur_max": 0.06604390062733928,
+    "aire_bbox": 0.011981225966641999,
+    "aspect_ratio": 0.3756352608516545,
+    "centroide_x": -0.003219011613587832,
+    "dispersion": 0.06650136023051423
+   },
+   "nez__nez": {
+    "largeur_max": 0.27229112649591847,
+    "hauteur_max": 0.1618817501168725,
+    "aire_bbox": 0.04407896409845399,
+    "aspect_ratio": 0.6134322204425766,
+    "centroide_x": 0.009399830503637492,
+    "dispersion": 0.10938241207860873
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8483063913017221,
+    "hauteur_max": 0.13047287136701347,
+    "aire_bbox": 0.11068097067212498,
+    "aspect_ratio": 0.15869734545198924,
+    "centroide_x": -0.035093018701239376,
+    "dispersion": 0.30961100031650873
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4263723540324348,
+    "hauteur_max": 0.11442015887270067,
+    "aire_bbox": 0.04878559248731856,
+    "aspect_ratio": 0.276895367740804,
+    "centroide_x": -0.011236508619085992,
+    "dispersion": 0.14262475359746055
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8984382596233896,
+    "hauteur_max": 0.21115739064972014,
+    "aire_bbox": 0.18971187856195076,
+    "aspect_ratio": 0.24250473899360464,
+    "centroide_x": 0.030252369871762764,
+    "dispersion": 0.36778123184045325
+   },
+   "tete__tempes": {
+    "largeur_max": 1.0032330695743126,
+    "hauteur_max": 0.2501835388792135,
+    "aire_bbox": 0.25099239966675774,
+    "aspect_ratio": 0.2573114269450754,
+    "centroide_x": 0.06102687946137527,
+    "dispersion": 0.45812119097119275
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7316632390598936,
+    "hauteur_max": 0.17076941624154587,
+    "aire_bbox": 0.12494570421965666,
+    "aspect_ratio": 0.24082470652426294,
+    "centroide_x": -0.0027414107114457735,
+    "dispersion": 0.2654647294838344
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6673104262937805,
+    "hauteur_max": 0.07754831902964376,
+    "aire_bbox": 0.05174880183003767,
+    "aspect_ratio": 0.11990758579748699,
+    "centroide_x": 0.006675179148908254,
+    "dispersion": 0.2465766891316795
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3614419100722584,
+    "hauteur_max": 0.035364181699893374,
+    "aire_bbox": 0.012782097381751867,
+    "aspect_ratio": 0.1009548727848657,
+    "centroide_x": -0.008979179327308323,
+    "dispersion": 0.1666295108890295
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3167322969277916,
+    "hauteur_max": 0.04738614329567876,
+    "aire_bbox": 0.015008722008589805,
+    "aspect_ratio": 0.15436939224853694,
+    "centroide_x": 0.010397103836070076,
+    "dispersion": 0.11902648281350704
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.36182027048841947,
+    "hauteur_max": 0.09058111588608958,
+    "aire_bbox": 0.032774083851047804,
+    "aspect_ratio": 0.25831341071853237,
+    "centroide_x": 0.006545935599765011,
+    "dispersion": 0.1249789995072618
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.0870737080876462,
+    "hauteur_max": 0.0033628228471203354,
+    "aire_bbox": 0.00029281345494062337,
+    "aspect_ratio": 0.03984915632139613,
+    "centroide_x": 0.0073223661991101046,
+    "dispersion": 0.035261427304511886
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.23603755467055046,
+    "hauteur_max": 0.01745737303784013,
+    "aire_bbox": 0.0041205956428233825,
+    "aspect_ratio": 0.07631325302183553,
+    "centroide_x": -0.009628033440563642,
+    "dispersion": 0.07885098676541372
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2958860904641361,
+    "hauteur_max": 0.03254250275920619,
+    "aire_bbox": 0.009628873915339882,
+    "aspect_ratio": 0.1134824183013101,
+    "centroide_x": -0.007165747985542304,
+    "dispersion": 0.12045463871595714
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.19597444520008714,
+    "hauteur_max": 0.013949322181489879,
+    "aire_bbox": 0.0027337106754347484,
+    "aspect_ratio": 0.07344391895279992,
+    "centroide_x": 0.009211911283894404,
+    "dispersion": 0.07850230153208525
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.30918771449034577,
+    "hauteur_max": 0.028266964150943534,
+    "aire_bbox": 0.008739798041410769,
+    "aspect_ratio": 0.09433201694763894,
+    "centroide_x": 0.009767524354700843,
+    "dispersion": 0.10517732524584114
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10329828976441181,
+    "hauteur_max": 0.004297745578324049,
+    "aire_bbox": 0.0004439497680834372,
+    "aspect_ratio": 0.042928899184746294,
+    "centroide_x": 0.008034058962141218,
+    "dispersion": 0.042227604993936955
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09989199142259121,
+    "hauteur_max": 0.023162520187376925,
+    "aire_bbox": 0.0023137502678830515,
+    "aspect_ratio": 0.23925296074147265,
+    "centroide_x": 0.0070827730887537245,
+    "dispersion": 0.04099996202332474
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10259108702532346,
+    "hauteur_max": 0.018516896383488704,
+    "aire_bbox": 0.001899668528317387,
+    "aspect_ratio": 0.18623476106214537,
+    "centroide_x": 0.0064106197002650874,
+    "dispersion": 0.04112657897944258
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10675429794426095,
+    "hauteur_max": 0.010393326569693283,
+    "aire_bbox": 0.0011095322812530403,
+    "aspect_ratio": 0.1004549601977182,
+    "centroide_x": 0.005670852303541823,
+    "dispersion": 0.043822015893978467
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.32778259738311505,
+    "hauteur_max": 0.04149897332459276,
+    "aire_bbox": 0.01360264126506762,
+    "aspect_ratio": 0.13063322283633277,
+    "centroide_x": 0.00975489259568025,
+    "dispersion": 0.13473868251073323
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3040134332689036,
+    "hauteur_max": 0.03934629097152899,
+    "aire_bbox": 0.011961801004651794,
+    "aspect_ratio": 0.1335405641368247,
+    "centroide_x": 0.029850136744456336,
+    "dispersion": 0.11306787468225453
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.20896692868102598,
+    "hauteur_max": 0.03150165556829544,
+    "aire_bbox": 0.006582804212474239,
+    "aspect_ratio": 0.15554569662090367,
+    "centroide_x": 0.006695794143538793,
+    "dispersion": 0.08071508296070151
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.1150807197821359,
+    "hauteur_max": 0.06483106556369367,
+    "aire_bbox": 0.007460805689312711,
+    "aspect_ratio": 0.5812765078272808,
+    "centroide_x": 0.0050928735720381915,
+    "dispersion": 0.0496380505583196
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4332875341812457,
+    "hauteur_max": 0.09926106786192514,
+    "aire_bbox": 0.04300858333409084,
+    "aspect_ratio": 0.2363768440146842,
+    "centroide_x": -0.06581248599457429,
+    "dispersion": 0.19715983792237576
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8561462127868223,
+    "hauteur_max": 0.1688256559478253,
+    "aire_bbox": 0.1445394459609817,
+    "aspect_ratio": 0.20346639347699755,
+    "centroide_x": 0.006570694646381912,
+    "dispersion": 0.3745438130974879
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7602032533474778,
+    "hauteur_max": 0.23929134527077717,
+    "aire_bbox": 0.18191005917273942,
+    "aspect_ratio": 0.3247876064080372,
+    "centroide_x": 0.015033247299134399,
+    "dispersion": 0.33962358604302917
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8031200526614082,
+    "hauteur_max": 0.05883741363574428,
+    "aire_bbox": 0.0472535067376,
+    "aspect_ratio": 0.07559190415960142,
+    "centroide_x": -0.0012263118239328318,
+    "dispersion": 0.36585228051347113
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6554159693797472,
+    "hauteur_max": 0.1786040631540614,
+    "aire_bbox": 0.11705995518728075,
+    "aspect_ratio": 0.2811748660997012,
+    "centroide_x": 0.011175755479287165,
+    "dispersion": 0.2915495054483856
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6406803339701017,
+    "hauteur_max": 0.18942898543896453,
+    "aire_bbox": 0.12136342565465333,
+    "aspect_ratio": 0.3050754223333427,
+    "centroide_x": 0.01487410391314513,
+    "dispersion": 0.24065435234607527
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6902478494247396,
+    "hauteur_max": 0.1901956369451424,
+    "aire_bbox": 0.1312821293713531,
+    "aspect_ratio": 0.2843136226802089,
+    "centroide_x": -0.006099649590077991,
+    "dispersion": 0.2338807031432562
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9365965283670072,
+    "hauteur_max": 0.2902246571399436,
+    "aire_bbox": 0.27182340632377616,
+    "aspect_ratio": 0.31973040983196266,
+    "centroide_x": -0.009594466688108759,
+    "dispersion": 0.42035997879517895
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18318099281605704,
+    "hauteur_max": 0.07255695407262407,
+    "aire_bbox": 0.01329105488273233,
+    "aspect_ratio": 0.4086964031036152,
+    "centroide_x": 0.01700750443528494,
+    "dispersion": 0.06265568758788613
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.46696117979379365,
+    "hauteur_max": 0.10955971283123116,
+    "aire_bbox": 0.05116013276154093,
+    "aspect_ratio": 0.24208745726702355,
+    "centroide_x": -0.002427824654416591,
+    "dispersion": 0.19711454668550354
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1460906467065755,
+    "hauteur_max": 0.03465996987522701,
+    "aire_bbox": 0.005063497413902339,
+    "aspect_ratio": 0.24479804804164318,
+    "centroide_x": -0.0009039089303612544,
+    "dispersion": 0.07121417977368893
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2634422000924594,
+    "hauteur_max": 0.05622368113437671,
+    "aire_bbox": 0.014811690255337103,
+    "aspect_ratio": 0.22020953169796517,
+    "centroide_x": -0.007729738667959622,
+    "dispersion": 0.11124017155482972
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.1324407182607755,
+    "hauteur_max": 0.03069681550690739,
+    "aire_bbox": 0.004065508294053326,
+    "aspect_ratio": 0.23915197835281923,
+    "centroide_x": 0.009362954251243784,
+    "dispersion": 0.050362762385686065
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.21233588472407686,
+    "hauteur_max": 0.03687295483736961,
+    "aire_bbox": 0.007829451487783806,
+    "aspect_ratio": 0.17917884246533283,
+    "centroide_x": 0.0017498749805711464,
+    "dispersion": 0.095232655249247
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14949689711219744,
+    "hauteur_max": 0.07315719267763061,
+    "aire_bbox": 0.010936773306744947,
+    "aspect_ratio": 0.5049251859129422,
+    "centroide_x": 0.0005844261502257484,
+    "dispersion": 0.07378253528289769
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23317677026967917,
+    "hauteur_max": 0.03055623330731375,
+    "aire_bbox": 0.007125003794206217,
+    "aspect_ratio": 0.13521246054172067,
+    "centroide_x": 0.002608795788473618,
+    "dispersion": 0.10373522263733771
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.07988270305164522,
+    "hauteur_max": 0.0834662442605219,
+    "aire_bbox": 0.006667509205099358,
+    "aspect_ratio": 1.0781031157474805,
+    "centroide_x": -0.0006997406708275968,
+    "dispersion": 0.04541971894284262
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.056516969985503165,
+    "hauteur_max": 0.026687203042225036,
+    "aire_bbox": 0.0015082798533344612,
+    "aspect_ratio": 0.4872214173997713,
+    "centroide_x": 0.01283887672589682,
+    "dispersion": 0.02003846257087903
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.1313053014589015,
+    "hauteur_max": 0.03984664466935566,
+    "aire_bbox": 0.005232075690435476,
+    "aspect_ratio": 0.31312062640918703,
+    "centroide_x": -0.001518900399268709,
+    "dispersion": 0.04449265693981756
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23390885189588112,
+    "hauteur_max": 0.220586247138923,
+    "aire_bbox": 0.05159707581228657,
+    "aspect_ratio": 0.9730473091267765,
+    "centroide_x": -0.009071222535459354,
+    "dispersion": 0.11290304759770986
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.549085715048987,
+    "hauteur_max": 0.11469296081454267,
+    "aire_bbox": 0.0629762663999386,
+    "aspect_ratio": 0.2155255689221478,
+    "centroide_x": 0.022518242378501988,
+    "dispersion": 0.1992481348046261
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9379026459723716,
+    "hauteur_max": 0.1789205357064844,
+    "aire_bbox": 0.1678100438579059,
+    "aspect_ratio": 0.19683603581686165,
+    "centroide_x": -0.08793975221467212,
+    "dispersion": 0.4189699869151819
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7069048156135758,
+    "hauteur_max": 0.06477782458526198,
+    "aire_bbox": 0.04579175614429317,
+    "aspect_ratio": 0.09455132084722195,
+    "centroide_x": 0.03764577219106842,
+    "dispersion": 0.3274407158547359
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.336133993980501,
+    "hauteur_max": 0.056887195666629316,
+    "aire_bbox": 0.01912172028577436,
+    "aspect_ratio": 0.17462413606628074,
+    "centroide_x": 0.021416044030750484,
+    "dispersion": 0.14859305312383275
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5310351476922001,
+    "hauteur_max": 0.04019052749863264,
+    "aire_bbox": 0.02134258270606381,
+    "aspect_ratio": 0.07809129427023412,
+    "centroide_x": -0.0008674918002260346,
+    "dispersion": 0.24181064718665027
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6298291125478858,
+    "hauteur_max": 0.04420023287950772,
+    "aire_bbox": 0.02783859344891023,
+    "aspect_ratio": 0.07241091037730392,
+    "centroide_x": -0.002085188690319879,
+    "dispersion": 0.2965171208685335
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3890952484929059,
+    "hauteur_max": 0.0337254188087942,
+    "aire_bbox": 0.0131224002119351,
+    "aspect_ratio": 0.08943419564515692,
+    "centroide_x": -0.00039369999973786136,
+    "dispersion": 0.18228846295755607
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5382758625662296,
+    "hauteur_max": 0.05279892964480485,
+    "aire_bbox": 0.028420389397131002,
+    "aspect_ratio": 0.10120975979530156,
+    "centroide_x": -0.0033405538453344956,
+    "dispersion": 0.23492446544353335
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6529407837610373,
+    "hauteur_max": 0.07526899190589519,
+    "aire_bbox": 0.049146194567938374,
+    "aspect_ratio": 0.1189445327147608,
+    "centroide_x": -0.003968629899139311,
+    "dispersion": 0.30049067402680424
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4103893228608048,
+    "hauteur_max": 0.054399829187368395,
+    "aire_bbox": 0.022325109063947562,
+    "aspect_ratio": 0.13677403649997308,
+    "centroide_x": -0.0026600156167604686,
+    "dispersion": 0.18623034119243057
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6386086273356599,
+    "hauteur_max": 0.03539990797599632,
+    "aire_bbox": 0.02260668664035969,
+    "aspect_ratio": 0.057196510387962696,
+    "centroide_x": -0.005826992486683933,
+    "dispersion": 0.26285746175164737
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7316632390598936,
+    "hauteur_max": 0.05394593358590446,
+    "aire_bbox": 0.03947025650157276,
+    "aspect_ratio": 0.07607634850509118,
+    "centroide_x": -0.06727827268624,
+    "dispersion": 0.3345502948706088
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.32138589515919935,
+    "hauteur_max": 0.04272207562753453,
+    "aire_bbox": 0.013730272518614198,
+    "aspect_ratio": 0.13716007470261174,
+    "centroide_x": -0.0013430164942963261,
+    "dispersion": 0.13050363892020167
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6004679511769568,
+    "hauteur_max": 0.20784664732862243,
+    "aire_bbox": 0.12480525048041742,
+    "aspect_ratio": 0.35715387957864025,
+    "centroide_x": 0.0009146466388650022,
+    "dispersion": 0.24064839957716508
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.3939905410380453,
+    "hauteur_max": 0.08999369971567914,
+    "aire_bbox": 0.03545666644099581,
+    "aspect_ratio": 0.2356831273061485,
+    "centroide_x": 0.011021896847718867,
+    "dispersion": 0.12951793555189053
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4059263189553386,
+    "hauteur_max": 0.11397685571720745,
+    "aire_bbox": 0.04626620548738976,
+    "aspect_ratio": 0.28971544111551484,
+    "centroide_x": -0.003273399225670647,
+    "dispersion": 0.15335660033095444
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.25391814026682713,
+    "hauteur_max": 0.2572841943272942,
+    "aire_bbox": 0.0653291241436355,
+    "aspect_ratio": 1.045494036060398,
+    "centroide_x": -0.011270427474333539,
+    "dispersion": 0.13556776351638367
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6868229997740308,
+    "hauteur_max": 0.1890599687795553,
+    "aire_bbox": 0.12985073489435878,
+    "aspect_ratio": 0.2840252383870107,
+    "centroide_x": -0.015858516895565306,
+    "dispersion": 0.25802377088396256
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7470700771234207,
+    "hauteur_max": 0.15773898874801456,
+    "aire_bbox": 0.11784207848934962,
+    "aspect_ratio": 0.21786120018543859,
+    "centroide_x": 0.0001921202949327858,
+    "dispersion": 0.31214020084246685
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9493922816885738,
+    "hauteur_max": 0.2960413966369437,
+    "aire_bbox": 0.28105941702742004,
+    "aspect_ratio": 0.3217428681196997,
+    "centroide_x": -0.016412234975929488,
+    "dispersion": 0.42228305587839715
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7040728888043083,
+    "hauteur_max": 0.17263410485525701,
+    "aire_bbox": 0.12154699291158667,
+    "aspect_ratio": 0.2529945448261907,
+    "centroide_x": 0.049851241098937064,
+    "dispersion": 0.28151229662519983
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4885715372005663,
+    "hauteur_max": 0.1852772111994122,
+    "aire_bbox": 0.0905211718839308,
+    "aspect_ratio": 0.3912875445650616,
+    "centroide_x": 0.00047176170247411204,
+    "dispersion": 0.16663620402515641
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9256185156992894,
+    "hauteur_max": 0.2174590132984581,
+    "aire_bbox": 0.20128408911475082,
+    "aspect_ratio": 0.24240834185034893,
+    "centroide_x": 0.06639689445405994,
+    "dispersion": 0.36810083572800933
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0094775743674274,
+    "hauteur_max": 0.24760218767101078,
+    "aire_bbox": 0.24994885581820048,
+    "aspect_ratio": 0.25308125724697933,
+    "centroide_x": -0.11028582061708912,
+    "dispersion": 0.46448231836978177
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.689757510048468,
+    "hauteur_max": 0.11334158770754338,
+    "aire_bbox": 0.07817821132209517,
+    "aspect_ratio": 0.16954892302312158,
+    "centroide_x": -0.0042798807784899615,
+    "dispersion": 0.2742052887522476
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3405760977033438,
+    "hauteur_max": 0.14727197963748997,
+    "aire_bbox": 0.05015731612598264,
+    "aspect_ratio": 0.44617798808379544,
+    "centroide_x": 0.016461441624860698,
+    "dispersion": 0.12348544375944981
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2586144017150578,
+    "hauteur_max": 0.1618817501168725,
+    "aire_bbox": 0.041864951955061465,
+    "aspect_ratio": 0.645873351311805,
+    "centroide_x": 0.007063459500314023,
+    "dispersion": 0.08578829882958373
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8031200526614082,
+    "hauteur_max": 0.08601920957184701,
+    "aire_bbox": 0.06908375212123448,
+    "aspect_ratio": 0.1105139645684474,
+    "centroide_x": 0.008795639011234615,
+    "dispersion": 0.3045061060378344
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6860276903017732,
+    "hauteur_max": 0.06664246674087677,
+    "aire_bbox": 0.045718577534256434,
+    "aspect_ratio": 0.10023320089222015,
+    "centroide_x": 0.017891426746051292,
+    "dispersion": 0.26862258692706603
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8123714993251618,
+    "hauteur_max": 0.09088857556781817,
+    "aire_bbox": 0.07383528840555671,
+    "aspect_ratio": 0.11544012804205504,
+    "centroide_x": 0.010253984322893726,
+    "dispersion": 0.32253861680729984
    }
   },
   "notes": ""
@@ -8825,9 +20606,7 @@ window.PRESETS_DB = [
     "height": 0.2304224676014268,
     "projection": 0.09114371648495162,
     "narine": 0.12502297291639095,
-    "evasement": 1.9472149446749265,
-    "compacite_narines": 0.171357679278534,
-    "ratio_pointe_base": 0.5596876568956393
+    "compacite_narines": 0.171357679278534
    },
    "joues": {
     "width": 1.078333405565252,
@@ -8851,6 +20630,701 @@ window.PRESETS_DB = [
     "width": 0.8592684992105726,
     "height": 0.20191094156497932,
     "angle": 0.3129377305023422
+   },
+   "philtrum": {
+    "largeur_sup": 0.11057655029826244,
+    "largeur_milieu": 0.11490367682774885,
+    "largeur_inf": 0.10424912564505356,
+    "hauteur": 0.09532321162274851,
+    "profondeur_z": 0.00718226283788681
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4540110394461924,
+    "hauteur_max": 0.2168157922316139,
+    "aire_bbox": 0.09843676319942472,
+    "aspect_ratio": 0.5040990271184349,
+    "centroide_x": 0.024727515285155967,
+    "dispersion": 0.17487472768133455
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6273342083572864,
+    "hauteur_max": 0.1537347407562354,
+    "aire_bbox": 0.09644306188932558,
+    "aspect_ratio": 0.2586809279665035,
+    "centroide_x": 0.019627661983176534,
+    "dispersion": 0.24580051419206428
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2633319800658724,
+    "hauteur_max": 0.08724803089293892,
+    "aire_bbox": 0.02297519673188601,
+    "aspect_ratio": 0.3497384572082363,
+    "centroide_x": -0.0074983679210087915,
+    "dispersion": 0.1113621128195984
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.698012877972304,
+    "hauteur_max": 0.1085463675395372,
+    "aire_bbox": 0.07576676239971185,
+    "aspect_ratio": 0.16415088173022863,
+    "centroide_x": -0.008454502034410099,
+    "dispersion": 0.25728638351063016
+   },
+   "joues__joues": {
+    "largeur_max": 1.0036481204456091,
+    "hauteur_max": 0.2441294515429244,
+    "aire_bbox": 0.24502006518647348,
+    "aspect_ratio": 0.25676159233901513,
+    "centroide_x": 0.04171021251037839,
+    "dispersion": 0.38115931575707146
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9951917129408271,
+    "hauteur_max": 0.4772359029538028,
+    "aire_bbox": 0.47494121573745735,
+    "aspect_ratio": 0.5061948451935537,
+    "centroide_x": -0.009708684760539443,
+    "dispersion": 0.4426469637499507
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5669362273922859,
+    "hauteur_max": 0.07941721427034362,
+    "aire_bbox": 0.045024495848433425,
+    "aspect_ratio": 0.14786718334885887,
+    "centroide_x": 0.022236254035574013,
+    "dispersion": 0.23356219619777288
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6486623766874464,
+    "hauteur_max": 0.13291843239138756,
+    "aire_bbox": 0.08621918626056711,
+    "aspect_ratio": 0.21630066876981346,
+    "centroide_x": 0.018385383952260234,
+    "dispersion": 0.2726301030942194
+   },
+   "menton__menton": {
+    "largeur_max": 0.4532409756449112,
+    "hauteur_max": 0.14735511559708633,
+    "aire_bbox": 0.06678737635949208,
+    "aspect_ratio": 0.34318430057976806,
+    "centroide_x": 0.02307786291380924,
+    "dispersion": 0.16481002268495815
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17371801912520088,
+    "hauteur_max": 0.09391855090997371,
+    "aire_bbox": 0.016315344623189964,
+    "aspect_ratio": 0.5706868626756719,
+    "centroide_x": 0.021429493218179243,
+    "dispersion": 0.07037413096402924
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.25702024837664617,
+    "hauteur_max": 0.13785352292866584,
+    "aire_bbox": 0.035431146702721385,
+    "aspect_ratio": 0.5661635305392756,
+    "centroide_x": 0.000759606209305941,
+    "dispersion": 0.10603266618381096
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11956419675086416,
+    "hauteur_max": 0.09888656089668671,
+    "aire_bbox": 0.01182329222306776,
+    "aspect_ratio": 0.8730266137196613,
+    "centroide_x": 0.008164115350309344,
+    "dispersion": 0.055563702700515444
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.18006825400449117,
+    "hauteur_max": 0.06816286609614837,
+    "aire_bbox": 0.012273968285875365,
+    "aspect_ratio": 0.3995784429652469,
+    "centroide_x": -1.1326355077117956e-05,
+    "dispersion": 0.06846458685321846
+   },
+   "nez__nez": {
+    "largeur_max": 0.2753661039914068,
+    "hauteur_max": 0.17895550731414925,
+    "aire_bbox": 0.049278280836902985,
+    "aspect_ratio": 0.6860028954355554,
+    "centroide_x": 0.01222105691329546,
+    "dispersion": 0.11461698733171773
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8403323637930527,
+    "hauteur_max": 0.12659953951291308,
+    "aire_bbox": 0.10638569029399822,
+    "aspect_ratio": 0.15902756041593344,
+    "centroide_x": -0.02898257132018109,
+    "dispersion": 0.30564847966634734
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4189550881175551,
+    "hauteur_max": 0.09180094577209837,
+    "aire_bbox": 0.03846047332522437,
+    "aspect_ratio": 0.23129755759985912,
+    "centroide_x": -0.004858164070826591,
+    "dispersion": 0.13715416924678306
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8926036208181947,
+    "hauteur_max": 0.193713451518071,
+    "aire_bbox": 0.17290932822622,
+    "aspect_ratio": 0.22908280681121085,
+    "centroide_x": 0.03610321136005333,
+    "dispersion": 0.36408356407028986
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9916379647558895,
+    "hauteur_max": 0.23451305115473023,
+    "aire_bbox": 0.2325520447557705,
+    "aspect_ratio": 0.24963486028300566,
+    "centroide_x": 0.0653636720696506,
+    "dispersion": 0.453696887329914
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.730850997424264,
+    "hauteur_max": 0.172645733396737,
+    "aire_bbox": 0.1261783064540488,
+    "aspect_ratio": 0.24935516398274749,
+    "centroide_x": 0.0009483393009191994,
+    "dispersion": 0.26378238660643477
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6708259198550338,
+    "hauteur_max": 0.07165209976220183,
+    "aire_bbox": 0.04806608573252369,
+    "aspect_ratio": 0.11274841558219799,
+    "centroide_x": 0.009599713555921744,
+    "dispersion": 0.2463944667820173
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3485748182255339,
+    "hauteur_max": 0.036813336997907904,
+    "aire_bbox": 0.01283220225232107,
+    "aspect_ratio": 0.11148091829452014,
+    "centroide_x": -0.00080982522059195,
+    "dispersion": 0.1611200396811739
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.31623035779918285,
+    "hauteur_max": 0.03529512117065415,
+    "aire_bbox": 0.011161388796361475,
+    "aspect_ratio": 0.11781551290956697,
+    "centroide_x": 0.019215805113640887,
+    "dispersion": 0.117582737356338
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.35532635260326684,
+    "hauteur_max": 0.08877326832021061,
+    "aire_bbox": 0.031543481640891574,
+    "aspect_ratio": 0.2637218732802071,
+    "centroide_x": 0.01264927655879119,
+    "dispersion": 0.12383151321403804
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08330545389361316,
+    "hauteur_max": 0.004366888073489572,
+    "aire_bbox": 0.0003637855930646548,
+    "aspect_ratio": 0.055333735056003336,
+    "centroide_x": 0.016283696948410985,
+    "dispersion": 0.03380700833333037
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.22590274023067394,
+    "hauteur_max": 0.021864259370121413,
+    "aire_bbox": 0.004939196104824616,
+    "aspect_ratio": 0.10216558642297517,
+    "centroide_x": -0.0005011208697987199,
+    "dispersion": 0.07561340473150428
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2894726139931518,
+    "hauteur_max": 0.034112027162438024,
+    "aire_bbox": 0.00987449767131633,
+    "aspect_ratio": 0.12439170094622727,
+    "centroide_x": 0.002243818856138027,
+    "dispersion": 0.11796171467631679
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.1938223154301872,
+    "hauteur_max": 0.014615870790571932,
+    "aire_bbox": 0.0028328819186570924,
+    "aspect_ratio": 0.07959985528202003,
+    "centroide_x": 0.019043713902424878,
+    "dispersion": 0.07775982765116858
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.29883760052547037,
+    "hauteur_max": 0.031013677762317848,
+    "aire_bbox": 0.009268053045961205,
+    "aspect_ratio": 0.1095492453171137,
+    "centroide_x": 0.018612098298484057,
+    "dispersion": 0.10199612664518455
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10263314085500737,
+    "hauteur_max": 0.005114734070204574,
+    "aire_bbox": 0.0005249412222632112,
+    "aspect_ratio": 0.052604972660682967,
+    "centroide_x": 0.01834527004541173,
+    "dispersion": 0.041961558530236046
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09909262814165429,
+    "hauteur_max": 0.02608259956790696,
+    "aire_bbox": 0.002584593339950277,
+    "aspect_ratio": 0.27784391351291493,
+    "centroide_x": 0.017159443984920048,
+    "dispersion": 0.04081826580546231
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10106678295421383,
+    "hauteur_max": 0.022367078883093798,
+    "aire_bbox": 0.00226056870679742,
+    "aspect_ratio": 0.23361040804032543,
+    "centroide_x": 0.01507197749260122,
+    "dispersion": 0.04068344225304576
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.1042256327960569,
+    "hauteur_max": 0.00918124356630368,
+    "aire_bbox": 0.0009569209205527272,
+    "aspect_ratio": 0.09298616331755288,
+    "centroide_x": 0.013530542385876159,
+    "dispersion": 0.042751526724812576
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.32096191856818,
+    "hauteur_max": 0.04652193008244142,
+    "aire_bbox": 0.014931767934755126,
+    "aspect_ratio": 0.15300146083560037,
+    "centroide_x": 0.017349036099244857,
+    "dispersion": 0.13266783970943688
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.2937438691249331,
+    "hauteur_max": 0.04531366774169349,
+    "aire_bbox": 0.013310612086686716,
+    "aspect_ratio": 0.16283650237586025,
+    "centroide_x": 0.036722505030847515,
+    "dispersion": 0.10954766129978549
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2096356718474719,
+    "hauteur_max": 0.03627568305367773,
+    "aire_bbox": 0.007604677188683682,
+    "aspect_ratio": 0.18265929396044958,
+    "centroide_x": 0.014617128479352271,
+    "dispersion": 0.0805664728055287
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11489284534532963,
+    "hauteur_max": 0.05893557177648033,
+    "aire_bbox": 0.0067712755334537284,
+    "aspect_ratio": 0.5414718417416993,
+    "centroide_x": 0.010301600695120688,
+    "dispersion": 0.048503883060768985
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4321769391985906,
+    "hauteur_max": 0.09259529847023083,
+    "aire_bbox": 0.0400175526770443,
+    "aspect_ratio": 0.22616151622641475,
+    "centroide_x": -0.05877822395248687,
+    "dispersion": 0.1959439971401895
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.85948914471955,
+    "hauteur_max": 0.14357740359782864,
+    "aire_bbox": 0.12340321981935137,
+    "aspect_ratio": 0.1763344063330596,
+    "centroide_x": 0.010903233093616514,
+    "dispersion": 0.3715779502821615
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.752894458767839,
+    "hauteur_max": 0.2208539417588094,
+    "aire_bbox": 0.16627970894724264,
+    "aspect_ratio": 0.3096438185790382,
+    "centroide_x": 0.018120511684161865,
+    "dispersion": 0.33879694231016033
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8040430108997006,
+    "hauteur_max": 0.05118427249434784,
+    "aire_bbox": 0.04115435656706617,
+    "aspect_ratio": 0.06719680344843706,
+    "centroide_x": 0.0023723820772950615,
+    "dispersion": 0.3658264916521214
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6486623766874464,
+    "hauteur_max": 0.16028634952101847,
+    "aire_bbox": 0.10397172443085859,
+    "aspect_ratio": 0.2608369958350096,
+    "centroide_x": 0.01630076469063157,
+    "dispersion": 0.2877653106689326
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6273342083572864,
+    "hauteur_max": 0.1818181315708103,
+    "aire_bbox": 0.11406073363397522,
+    "aspect_ratio": 0.30593529324935886,
+    "centroide_x": 0.01948924153400422,
+    "dispersion": 0.23701098578875382
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6830006766822773,
+    "hauteur_max": 0.18664730537535057,
+    "aire_bbox": 0.12748023587228807,
+    "aspect_ratio": 0.2884642189166324,
+    "centroide_x": -0.002484618876331797,
+    "dispersion": 0.2329389790466027
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9522838541914135,
+    "hauteur_max": 0.27520094351837693,
+    "aire_bbox": 0.26206941517079346,
+    "aspect_ratio": 0.30505268932290114,
+    "centroide_x": -0.007950032113097593,
+    "dispersion": 0.4238139420633629
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.188722038487339,
+    "hauteur_max": 0.07114604301805234,
+    "aire_bbox": 0.013426826268674752,
+    "aspect_ratio": 0.39794173782736386,
+    "centroide_x": 0.024143035484869502,
+    "dispersion": 0.06431070816480682
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.47060759887836767,
+    "hauteur_max": 0.11074257812176913,
+    "aire_bbox": 0.05211629878348582,
+    "aspect_ratio": 0.24839740524924758,
+    "centroide_x": 0.002373986376881004,
+    "dispersion": 0.1995347534502955
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15003066408184068,
+    "hauteur_max": 0.03930855831337097,
+    "aire_bbox": 0.0058974891078548055,
+    "aspect_ratio": 0.27656578112458946,
+    "centroide_x": 0.0022211407445735802,
+    "dispersion": 0.0738977925357916
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2653217286704079,
+    "hauteur_max": 0.060241589379815566,
+    "aire_bbox": 0.01598340263210555,
+    "aspect_ratio": 0.23967071076684077,
+    "centroide_x": -0.004830372254331761,
+    "dispersion": 0.1125254322320692
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12988382175183358,
+    "hauteur_max": 0.031172074115969103,
+    "aire_bbox": 0.004048748118113476,
+    "aspect_ratio": 0.25333897069694933,
+    "centroide_x": 0.012113191830630522,
+    "dispersion": 0.049445840354546654
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.21359721694417547,
+    "hauteur_max": 0.03499118619844941,
+    "aire_bbox": 0.007474019989564237,
+    "aspect_ratio": 0.17292366679164745,
+    "centroide_x": 0.00444409234230486,
+    "dispersion": 0.09537876530068748
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15239654072431444,
+    "hauteur_max": 0.07755056294090136,
+    "aire_bbox": 0.011818437523416584,
+    "aspect_ratio": 0.537156958696875,
+    "centroide_x": 0.003280255213013822,
+    "dispersion": 0.07624199775651652
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23176331079032456,
+    "hauteur_max": 0.027978613951969673,
+    "aire_bbox": 0.006484416200832858,
+    "aspect_ratio": 0.1274303483237953,
+    "centroide_x": 0.005360081228554311,
+    "dispersion": 0.10331584853419128
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08252225087872259,
+    "hauteur_max": 0.09207269081175337,
+    "aire_bbox": 0.007598045690246568,
+    "aspect_ratio": 1.1777446247126162,
+    "centroide_x": 0.002211069753922449,
+    "dispersion": 0.049493202541135234
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.058463051277318746,
+    "hauteur_max": 0.027328614407452597,
+    "aire_bbox": 0.001597714185440973,
+    "aspect_ratio": 0.49343220966876206,
+    "centroide_x": 0.015557315016257529,
+    "dispersion": 0.02083799213617243
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13462529709227228,
+    "hauteur_max": 0.04704763818768005,
+    "aire_bbox": 0.006333802268506161,
+    "aspect_ratio": 0.36889478213212823,
+    "centroide_x": 0.001500379074944715,
+    "dispersion": 0.0468971445823432
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23610497863093557,
+    "hauteur_max": 0.19785355102994245,
+    "aire_bbox": 0.046714208437979285,
+    "aspect_ratio": 0.8845656384213291,
+    "centroide_x": -0.003573609413812371,
+    "dispersion": 0.10665591768634237
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5485781470146798,
+    "hauteur_max": 0.08327704251396686,
+    "aire_bbox": 0.04568396567117465,
+    "aspect_ratio": 0.16024266187942848,
+    "centroide_x": 0.029904794024419055,
+    "dispersion": 0.19533760140192014
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9271949830297216,
+    "hauteur_max": 0.1610262620216093,
+    "aire_bbox": 0.14930274228246554,
+    "aspect_ratio": 0.18332301831636602,
+    "centroide_x": -0.08191000202771645,
+    "dispersion": 0.41541327639366454
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7063333210871723,
+    "hauteur_max": 0.05515165888370031,
+    "aire_bbox": 0.03895545438279089,
+    "aspect_ratio": 0.08242144912999869,
+    "centroide_x": 0.04084906911219448,
+    "dispersion": 0.3282191997226565
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3296877040164477,
+    "hauteur_max": 0.055770517176189804,
+    "aire_bbox": 0.018386853759627876,
+    "aspect_ratio": 0.17856374357927768,
+    "centroide_x": 0.023765291917248122,
+    "dispersion": 0.14682444034198872
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5298439385991355,
+    "hauteur_max": 0.033542912802543096,
+    "aire_bbox": 0.017772509031386798,
+    "aspect_ratio": 0.06682579950352589,
+    "centroide_x": 0.002063915374396369,
+    "dispersion": 0.24116842740652206
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6317298769219623,
+    "hauteur_max": 0.03673673772498502,
+    "aire_bbox": 0.023207694801519196,
+    "aspect_ratio": 0.06138475564894608,
+    "centroide_x": 0.0010177656519855098,
+    "dispersion": 0.29750088257882323
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3861340063271985,
+    "hauteur_max": 0.028552105413174482,
+    "aire_bbox": 0.011024938852265555,
+    "aspect_ratio": 0.07805333209354873,
+    "centroide_x": 0.0026944612621809254,
+    "dispersion": 0.18080591319822903
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5373884943052254,
+    "hauteur_max": 0.04536692247429702,
+    "aire_bbox": 0.02437966215972437,
+    "aspect_ratio": 0.08911325681072445,
+    "centroide_x": -0.0002396542829060797,
+    "dispersion": 0.23152213326086535
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6495075698383401,
+    "hauteur_max": 0.06631677802390147,
+    "aire_bbox": 0.04307324933381288,
+    "aspect_ratio": 0.10777810950206308,
+    "centroide_x": -0.000397533405164527,
+    "dispersion": 0.29976358751562326
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.39958158235998464,
+    "hauteur_max": 0.05373812872944116,
+    "aire_bbox": 0.021472766510774653,
+    "aspect_ratio": 0.1419607998067043,
+    "centroide_x": 0.000721880668590102,
+    "dispersion": 0.18108730413028898
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6285907118360394,
+    "hauteur_max": 0.027684709836933403,
+    "aire_bbox": 0.01740235146337217,
+    "aspect_ratio": 0.04649041008478744,
+    "centroide_x": -0.0013090081934539828,
+    "dispersion": 0.2571002820189335
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7288580723065482,
+    "hauteur_max": 0.05525078199044695,
+    "aire_bbox": 0.04026997845498652,
+    "aspect_ratio": 0.08001783958740209,
+    "centroide_x": -0.0621037637299148,
+    "dispersion": 0.3322393010252788
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3060036698732305,
+    "hauteur_max": 0.04612128852817153,
+    "aire_bbox": 0.014113283548902615,
+    "aspect_ratio": 0.15909852656287182,
+    "centroide_x": 0.0019273854688785905,
+    "dispersion": 0.12596374637921431
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.5949178913524782,
+    "hauteur_max": 0.19470285879332497,
+    "aire_bbox": 0.1158322141936242,
+    "aspect_ratio": 0.34546707175024227,
+    "centroide_x": 0.0066138662216589875,
+    "dispersion": 0.2374879201757808
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.3904478556129883,
+    "hauteur_max": 0.08828923386702646,
+    "aire_bbox": 0.0344723420370941,
+    "aspect_ratio": 0.23869101254479183,
+    "centroide_x": 0.019374594322024857,
+    "dispersion": 0.12822458837023862
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.39964463133371453,
+    "hauteur_max": 0.1044949043291908,
+    "aire_bbox": 0.041760827516891225,
+    "aspect_ratio": 0.2760021658034283,
+    "centroide_x": 0.0012008543368635639,
+    "dispersion": 0.15243170019497163
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2633319800658724,
+    "hauteur_max": 0.2287070542412019,
+    "aire_bbox": 0.06022588144836857,
+    "aspect_ratio": 0.9167846137537513,
+    "centroide_x": -0.0048557215247069015,
+    "dispersion": 0.12729524986403865
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.698012877972304,
+    "hauteur_max": 0.15782792321344158,
+    "aire_bbox": 0.11016592290660616,
+    "aspect_ratio": 0.23867765770881838,
+    "centroide_x": -0.0075309532509750445,
+    "dispersion": 0.2567022151185163
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7490614180679742,
+    "hauteur_max": 0.13478481015199797,
+    "aire_bbox": 0.10096210102647829,
+    "aspect_ratio": 0.18993932196892716,
+    "centroide_x": 0.004409252971420334,
+    "dispersion": 0.31115836564743865
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9613986662462909,
+    "hauteur_max": 0.2964803127259657,
+    "aire_bbox": 0.28503577722302664,
+    "aspect_ratio": 0.3255245185843029,
+    "centroide_x": -0.013664469315315708,
+    "dispersion": 0.42477218436778824
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6919595989463828,
+    "hauteur_max": 0.1708134605504994,
+    "aire_bbox": 0.11819601365716735,
+    "aspect_ratio": 0.26057498022909903,
+    "centroide_x": 0.05404116772818044,
+    "dispersion": 0.2770086869178398
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4840256718417672,
+    "hauteur_max": 0.19162128828155933,
+    "aire_bbox": 0.09274962279966671,
+    "aspect_ratio": 0.4178945619415556,
+    "centroide_x": 0.004146401318650582,
+    "dispersion": 0.16794038126554098
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9336288179604384,
+    "hauteur_max": 0.20344648341825133,
+    "aire_bbox": 0.1899434998319899,
+    "aspect_ratio": 0.23002090061526495,
+    "centroide_x": 0.07078443994079447,
+    "dispersion": 0.36814153349415624
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0036481204456091,
+    "hauteur_max": 0.23857299499886453,
+    "aire_bbox": 0.2394433380196901,
+    "aspect_ratio": 0.2509176246366402,
+    "centroide_x": -0.10838787877903112,
+    "dispersion": 0.4648900422839514
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6952538356302886,
+    "hauteur_max": 0.12357870128182201,
+    "aire_bbox": 0.08591856606839642,
+    "aspect_ratio": 0.187625383887563,
+    "centroide_x": -0.0022541864512245938,
+    "dispersion": 0.27798876468550726
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3458435944383398,
+    "hauteur_max": 0.14735511559708633,
+    "aire_bbox": 0.050961822836973404,
+    "aspect_ratio": 0.4497558715042866,
+    "centroide_x": 0.023117125204960863,
+    "dispersion": 0.12481746792897376
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2600840434680186,
+    "hauteur_max": 0.17895550731414925,
+    "aire_bbox": 0.04654347194313452,
+    "aspect_ratio": 0.7263111651297508,
+    "centroide_x": 0.009833358729408801,
+    "dispersion": 0.08894792585597032
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8040430108997006,
+    "hauteur_max": 0.08033480972723238,
+    "aire_bbox": 0.06459264229313848,
+    "aspect_ratio": 0.10546681932237173,
+    "centroide_x": 0.012266557804843165,
+    "dispersion": 0.30395549324118903
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6848570598622283,
+    "hauteur_max": 0.06188902088532138,
+    "aire_bbox": 0.04238513288127325,
+    "aspect_ratio": 0.09539048029191509,
+    "centroide_x": 0.021105963127264413,
+    "dispersion": 0.2681360336618132
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8054513613342689,
+    "hauteur_max": 0.08227053718672118,
+    "aire_bbox": 0.06626491617474617,
+    "aspect_ratio": 0.10781926668027067,
+    "centroide_x": 0.014628978076739338,
+    "dispersion": 0.31805499414374655
    }
   },
   "notes": "visage asiatique"
@@ -9317,9 +21791,7 @@ window.PRESETS_DB = [
     "height": 0.23365993647515576,
     "projection": 0.09199577957812004,
     "narine": 0.12196973395795746,
-    "evasement": 1.951150658426142,
-    "compacite_narines": 0.16354149070991827,
-    "ratio_pointe_base": 0.570024638343292
+    "compacite_narines": 0.16354149070991827
    },
    "joues": {
     "width": 1.0822341976701744,
@@ -9343,6 +21815,701 @@ window.PRESETS_DB = [
     "width": 0.8775874189643597,
     "height": 0.1813128761503197,
     "angle": 0.2890160193616646
+   },
+   "philtrum": {
+    "largeur_sup": 0.11007423785346773,
+    "largeur_milieu": 0.11350480514718872,
+    "largeur_inf": 0.10436391982221298,
+    "hauteur": 0.10041575641992441,
+    "profondeur_z": 0.006441187113523483
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4608525540033626,
+    "hauteur_max": 0.20416166221364346,
+    "aire_bbox": 0.0940884234607294,
+    "aspect_ratio": 0.48341625661111276,
+    "centroide_x": 0.005082768405251139,
+    "dispersion": 0.17558766754880592
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6425339368144938,
+    "hauteur_max": 0.14692576724676598,
+    "aire_bbox": 0.09440479164855456,
+    "aspect_ratio": 0.24952321255346097,
+    "centroide_x": 0.006171800543265119,
+    "dispersion": 0.24977383988540275
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2605177425081562,
+    "hauteur_max": 0.08674313753143793,
+    "aire_bbox": 0.022598126367764725,
+    "aspect_ratio": 0.3633347003852143,
+    "centroide_x": -0.002561669674021625,
+    "dispersion": 0.11095000037337872
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6920524041458751,
+    "hauteur_max": 0.1046727169161087,
+    "aire_bbox": 0.07243900539027363,
+    "aspect_ratio": 0.16504545604967605,
+    "centroide_x": -0.0024649988271252224,
+    "dispersion": 0.2555166112251461
+   },
+   "joues__joues": {
+    "largeur_max": 0.9992441752053637,
+    "hauteur_max": 0.2508975234457645,
+    "aire_bbox": 0.2507078888766313,
+    "aspect_ratio": 0.2739894281330478,
+    "centroide_x": 0.03696969127734437,
+    "dispersion": 0.38261015990452835
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9912560173218821,
+    "hauteur_max": 0.48594611381403335,
+    "aire_bbox": 0.4816970094123447,
+    "aspect_ratio": 0.5349477108620004,
+    "centroide_x": -0.02495615244332212,
+    "dispersion": 0.4485082265621304
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5793112946623064,
+    "hauteur_max": 0.07204062170802239,
+    "aire_bbox": 0.0417339458299519,
+    "aspect_ratio": 0.13569833312899163,
+    "centroide_x": -0.003746715877332019,
+    "dispersion": 0.23767842881308646
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6653866040075587,
+    "hauteur_max": 0.12968360366790074,
+    "aire_bbox": 0.08628973264004665,
+    "aspect_ratio": 0.21267677880366212,
+    "centroide_x": -0.003432964750843586,
+    "dispersion": 0.27795002770631405
+   },
+   "menton__menton": {
+    "largeur_max": 0.4612452678541204,
+    "hauteur_max": 0.1484629528805686,
+    "aire_bbox": 0.06847783446781151,
+    "aspect_ratio": 0.3512329307065897,
+    "centroide_x": -0.0037662723993405374,
+    "dispersion": 0.1675600612751764
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17444465274022355,
+    "hauteur_max": 0.10084995462764369,
+    "aire_bbox": 0.017592735313886606,
+    "aspect_ratio": 0.6308514452939747,
+    "centroide_x": -0.004233751254812004,
+    "dispersion": 0.07298334416110891
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.253281870001213,
+    "hauteur_max": 0.13492340406634262,
+    "aire_bbox": 0.03417365208885252,
+    "aspect_ratio": 0.5812891845120363,
+    "centroide_x": -0.005655269167748812,
+    "dispersion": 0.10466934896888604
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11268133223075591,
+    "hauteur_max": 0.09712801640592122,
+    "aire_bbox": 0.01094451428554992,
+    "aspect_ratio": 0.9405926986425064,
+    "centroide_x": 0.0035857675158186796,
+    "dispersion": 0.05496535430032717
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1790197060453783,
+    "hauteur_max": 0.06685208856772698,
+    "aire_bbox": 0.01196784124391408,
+    "aspect_ratio": 0.4074958563621537,
+    "centroide_x": -0.0020003267994006747,
+    "dispersion": 0.06792925461760227
+   },
+   "nez__nez": {
+    "largeur_max": 0.2701262927248481,
+    "hauteur_max": 0.18065222656856003,
+    "aire_bbox": 0.04879891623545443,
+    "aspect_ratio": 0.7297691785091489,
+    "centroide_x": 0.002182312522134138,
+    "dispersion": 0.11492693218023184
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8423873522560352,
+    "hauteur_max": 0.12342400551047636,
+    "aire_bbox": 0.10397082120680448,
+    "aspect_ratio": 0.15988099989550364,
+    "centroide_x": -0.029227744457006443,
+    "dispersion": 0.30823985121513686
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4208907794912963,
+    "hauteur_max": 0.09292044919697706,
+    "aire_bbox": 0.039109360293197074,
+    "aspect_ratio": 0.24090784661909628,
+    "centroide_x": -0.003307680961261625,
+    "dispersion": 0.13830224717134515
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8950511624290931,
+    "hauteur_max": 0.18709285500813197,
+    "aire_bbox": 0.1674576773572063,
+    "aspect_ratio": 0.22809638276356073,
+    "centroide_x": 0.03854797382187533,
+    "dispersion": 0.36532508318064794
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9870782683569417,
+    "hauteur_max": 0.24252196050936703,
+    "aire_bbox": 0.2393881568181166,
+    "aspect_ratio": 0.26810723672116726,
+    "centroide_x": 0.07112068735841776,
+    "dispersion": 0.45297880585668804
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7423617472321931,
+    "hauteur_max": 0.17339081348661572,
+    "aire_bbox": 0.12871870725393536,
+    "aspect_ratio": 0.25487049103040865,
+    "centroide_x": -0.0016840586506125825,
+    "dispersion": 0.2676500431478646
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.68940404484404,
+    "hauteur_max": 0.0724282003304752,
+    "aire_bbox": 0.049932294268604044,
+    "aspect_ratio": 0.11464178083785523,
+    "centroide_x": 0.0067183558318300845,
+    "dispersion": 0.25328276285856666
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.351157007271965,
+    "hauteur_max": 0.027735910255814716,
+    "aire_bbox": 0.009739659239395697,
+    "aspect_ratio": 0.08618866246221553,
+    "centroide_x": -0.021661719832684265,
+    "dispersion": 0.16166686001916059
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.31840452078394543,
+    "hauteur_max": 0.03898521335038927,
+    "aire_bbox": 0.012413068174490567,
+    "aspect_ratio": 0.13360716434708794,
+    "centroide_x": -0.0043563429661449,
+    "dispersion": 0.11701439251210352
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.35954811932883823,
+    "hauteur_max": 0.0822578302981979,
+    "aire_bbox": 0.029575648183787783,
+    "aspect_ratio": 0.24964868644648025,
+    "centroide_x": -0.005898791562855316,
+    "dispersion": 0.12371858762042585
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08569737586164562,
+    "hauteur_max": 0.002815215046532869,
+    "aire_bbox": 0.00024125654197408743,
+    "aspect_ratio": 0.0358470241283707,
+    "centroide_x": -0.006733020539188488,
+    "dispersion": 0.034392555761937824
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.22893386347892342,
+    "hauteur_max": 0.019422848070557077,
+    "aire_bbox": 0.004446547648556785,
+    "aspect_ratio": 0.09257888209925673,
+    "centroide_x": -0.022915620536849902,
+    "dispersion": 0.07668519883201234
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2849198764500813,
+    "hauteur_max": 0.02675078377150299,
+    "aire_bbox": 0.007621830007119472,
+    "aspect_ratio": 0.10245256134059096,
+    "centroide_x": -0.02073119687245742,
+    "dispersion": 0.11614373987332614
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.18965904814728357,
+    "hauteur_max": 0.010497537402980128,
+    "aire_bbox": 0.001990952951739718,
+    "aspect_ratio": 0.06039805049519592,
+    "centroide_x": -0.005601229478441995,
+    "dispersion": 0.07595861324714787
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.2989767622849527,
+    "hauteur_max": 0.023244362193133944,
+    "aire_bbox": 0.006949524149881948,
+    "aspect_ratio": 0.08483777232682628,
+    "centroide_x": -0.004109035751490161,
+    "dispersion": 0.10154391705045651
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10016185680430413,
+    "hauteur_max": 0.0035090103668777945,
+    "aire_bbox": 0.0003514689938920324,
+    "aspect_ratio": 0.03822885944978968,
+    "centroide_x": -0.007010526556571438,
+    "dispersion": 0.04092976519540942
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.0967368976652929,
+    "hauteur_max": 0.02149415624775422,
+    "aire_bbox": 0.0020792779933408163,
+    "aspect_ratio": 0.24245843790886143,
+    "centroide_x": -0.0072637769657457685,
+    "dispersion": 0.039807497813100855
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.1009324536937295,
+    "hauteur_max": 0.016835816239724005,
+    "aire_bbox": 0.001699280243012082,
+    "aspect_ratio": 0.18201718874634903,
+    "centroide_x": -0.007764644765896625,
+    "dispersion": 0.04058336226522813
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10436336533555246,
+    "hauteur_max": 0.00915617512851795,
+    "aire_bbox": 0.0009555692500138179,
+    "aspect_ratio": 0.09573595468415652,
+    "centroide_x": -0.008315553945617393,
+    "dispersion": 0.042857499204573046
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.31993391044705083,
+    "hauteur_max": 0.035511059171647145,
+    "aire_bbox": 0.01136119202490168,
+    "aspect_ratio": 0.12111903680718485,
+    "centroide_x": -0.003897518920846843,
+    "dispersion": 0.13171923158622675
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.29594456744163833,
+    "hauteur_max": 0.03700044467477033,
+    "aire_bbox": 0.010950080594423177,
+    "aspect_ratio": 0.13642866456951414,
+    "centroide_x": 0.015573950882178238,
+    "dispersion": 0.11038730586645902
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.205292792332937,
+    "hauteur_max": 0.02679969338297187,
+    "aire_bbox": 0.00550178388825683,
+    "aspect_ratio": 0.14245089431721372,
+    "centroide_x": -0.0072325935859028296,
+    "dispersion": 0.07926366011588394
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11350439185682715,
+    "hauteur_max": 0.06133440945989054,
+    "aire_bbox": 0.006961724845642502,
+    "aspect_ratio": 0.5896585209760606,
+    "centroide_x": -0.00684191014394308,
+    "dispersion": 0.049449747735022566
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.43639654486649726,
+    "hauteur_max": 0.09586783114255484,
+    "aire_bbox": 0.041836390274455716,
+    "aspect_ratio": 0.23971800547177027,
+    "centroide_x": -0.08161609443521078,
+    "dispersion": 0.19785820610910712
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8710543031277573,
+    "hauteur_max": 0.14493276992195853,
+    "aire_bbox": 0.12624431290474716,
+    "aspect_ratio": 0.18156428285464882,
+    "centroide_x": -0.0036212361932366458,
+    "dispersion": 0.3790965621451421
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7724071565092856,
+    "hauteur_max": 0.2209439460052758,
+    "aire_bbox": 0.17065868508187623,
+    "aspect_ratio": 0.31213672829068867,
+    "centroide_x": -0.003914144732019599,
+    "dispersion": 0.34808852262413525
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8065119709242308,
+    "hauteur_max": 0.04245206344726743,
+    "aire_bbox": 0.034238097360656146,
+    "aspect_ratio": 0.057437700330360976,
+    "centroide_x": -0.001980510345830946,
+    "dispersion": 0.36736967624074907
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6653866040075587,
+    "hauteur_max": 0.15915492679190232,
+    "aire_bbox": 0.1058995562491355,
+    "aspect_ratio": 0.2610087644349803,
+    "centroide_x": -0.0035816158973321463,
+    "dispersion": 0.2946250170506084
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6425339368144938,
+    "hauteur_max": 0.17606692737916954,
+    "aire_bbox": 0.11312897599176938,
+    "aspect_ratio": 0.29901348257233146,
+    "centroide_x": 0.006591208044941542,
+    "dispersion": 0.2405707114951034
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6905215515795363,
+    "hauteur_max": 0.1830942862429031,
+    "aire_bbox": 0.1264305506217972,
+    "aspect_ratio": 0.28933875652467206,
+    "centroide_x": -0.009198177834758606,
+    "dispersion": 0.23352025590616204
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9578943577495014,
+    "hauteur_max": 0.2877038089823786,
+    "aire_bbox": 0.27558985532726077,
+    "aspect_ratio": 0.327745738314929,
+    "centroide_x": -0.025362789345763942,
+    "dispersion": 0.4311041866046104
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18930189797857896,
+    "hauteur_max": 0.0753224658832574,
+    "aire_bbox": 0.014258685752127388,
+    "aspect_ratio": 0.4341888012825091,
+    "centroide_x": -0.004635471208693935,
+    "dispersion": 0.06530768956115798
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.47914358624506864,
+    "hauteur_max": 0.11446513304901812,
+    "aire_bbox": 0.05484523434912547,
+    "aspect_ratio": 0.2606853318071732,
+    "centroide_x": -0.02394474280040814,
+    "dispersion": 0.2028739087651128
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14587894486124015,
+    "hauteur_max": 0.03764440581632183,
+    "aire_bbox": 0.0054915262004133596,
+    "aspect_ratio": 0.2815897809184102,
+    "centroide_x": -0.006324572071181764,
+    "dispersion": 0.07249314598120858
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2597641960081407,
+    "hauteur_max": 0.05653877120416414,
+    "aire_bbox": 0.014686748445137916,
+    "aspect_ratio": 0.23750684537796196,
+    "centroide_x": -0.013888963040155348,
+    "dispersion": 0.11041438143823658
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13101872337147888,
+    "hauteur_max": 0.027657969230354858,
+    "aire_bbox": 0.0036237118196087376,
+    "aspect_ratio": 0.23035411906846517,
+    "centroide_x": -2.0262050532126122e-06,
+    "dispersion": 0.0499028344796805
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.21101047395325112,
+    "hauteur_max": 0.03230752584880182,
+    "aire_bbox": 0.006817226341612583,
+    "aspect_ratio": 0.16707395147868054,
+    "centroide_x": -0.0066021075147793045,
+    "dispersion": 0.09512035468309855
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15044794477370502,
+    "hauteur_max": 0.07729382833267032,
+    "aire_bbox": 0.01162869761634182,
+    "aspect_ratio": 0.5606187460581494,
+    "centroide_x": -0.007322227937035174,
+    "dispersion": 0.07649340618073108
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23005873517552566,
+    "hauteur_max": 0.025283957711098905,
+    "aire_bbox": 0.005816795331246893,
+    "aspect_ratio": 0.11992656214951089,
+    "centroide_x": -0.006249741207797629,
+    "dispersion": 0.10279784826833425
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08151221149066004,
+    "hauteur_max": 0.0934462044060844,
+    "aire_bbox": 0.007617006776548199,
+    "aspect_ratio": 1.2509733176967135,
+    "centroide_x": -0.008159432464149918,
+    "dispersion": 0.050979122681639524
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06095514214042576,
+    "hauteur_max": 0.026109873702122522,
+    "aire_bbox": 0.0015915310627814428,
+    "aspect_ratio": 0.4674158977117557,
+    "centroide_x": 0.0034353659299439917,
+    "dispersion": 0.021629307890276197
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13216291547974976,
+    "hauteur_max": 0.047132223244157105,
+    "aire_bbox": 0.006229132036990232,
+    "aspect_ratio": 0.38915030244921267,
+    "centroide_x": -0.006501741002857142,
+    "dispersion": 0.04646422407049045
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2342431933173641,
+    "hauteur_max": 0.19774493383941122,
+    "aire_bbox": 0.046320404764874576,
+    "aspect_ratio": 0.9211862410203245,
+    "centroide_x": -0.0024356582161933604,
+    "dispersion": 0.10909592212818313
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5458865284711333,
+    "hauteur_max": 0.08690734068827864,
+    "aire_bbox": 0.0474415465069825,
+    "aspect_ratio": 0.17372532824442014,
+    "centroide_x": 0.03204787998640417,
+    "dispersion": 0.19578791915755328
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9240073645815147,
+    "hauteur_max": 0.16020523527259506,
+    "aire_bbox": 0.14803081723639208,
+    "aspect_ratio": 0.18919529334999605,
+    "centroide_x": -0.075415183928445,
+    "dispersion": 0.41455168342934445
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7204341393320244,
+    "hauteur_max": 0.05337249794449831,
+    "aire_bbox": 0.03845136962064488,
+    "aspect_ratio": 0.08084111619473289,
+    "centroide_x": 0.03929443561044633,
+    "dispersion": 0.33802126993105913
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.32450886286232744,
+    "hauteur_max": 0.056369714068869536,
+    "aire_bbox": 0.018292471812363393,
+    "aspect_ratio": 0.18955198034115703,
+    "centroide_x": 0.018362588387794705,
+    "dispersion": 0.14115543839201042
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5397118157027311,
+    "hauteur_max": 0.025320108293488946,
+    "aire_bbox": 0.013665561620868698,
+    "aspect_ratio": 0.05119324858295539,
+    "centroide_x": -0.002384839984561653,
+    "dispersion": 0.24596616025408546
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.650553017445633,
+    "hauteur_max": 0.0316541803489061,
+    "aire_bbox": 0.020592722540749123,
+    "aspect_ratio": 0.05309546560606264,
+    "centroide_x": -0.002076477638690678,
+    "dispersion": 0.30763777177272184
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3827875478698492,
+    "hauteur_max": 0.02617787562884343,
+    "aire_bbox": 0.010020564820406863,
+    "aspect_ratio": 0.07462522526677846,
+    "centroide_x": -0.0016604876522911096,
+    "dispersion": 0.17777394651565845
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5583837072345106,
+    "hauteur_max": 0.04518069276385586,
+    "aire_bbox": 0.02522816272090526,
+    "aspect_ratio": 0.08829359594376164,
+    "centroide_x": -0.0023252678745010616,
+    "dispersion": 0.23731555111233468
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6669352636373936,
+    "hauteur_max": 0.06686235126502953,
+    "aire_bbox": 0.04459285986835849,
+    "aspect_ratio": 0.10939740507829405,
+    "centroide_x": -0.002080113878049484,
+    "dispersion": 0.3107978385962986
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.40411662656780317,
+    "hauteur_max": 0.052869903146871046,
+    "aire_bbox": 0.021365606906680008,
+    "aspect_ratio": 0.14276141786264063,
+    "centroide_x": -0.0018059162079213035,
+    "dispersion": 0.18100987473588043
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6395150594350972,
+    "hauteur_max": 0.025722526221500844,
+    "aire_bbox": 0.016449942885363958,
+    "aspect_ratio": 0.04389063857845013,
+    "centroide_x": -0.002577635497241259,
+    "dispersion": 0.2614980050985643
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7404430235292484,
+    "hauteur_max": 0.05731244914135048,
+    "aire_bbox": 0.04243660312808783,
+    "aspect_ratio": 0.08446297587953652,
+    "centroide_x": -0.06440460238634935,
+    "dispersion": 0.3394966488031911
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.30089750378546065,
+    "hauteur_max": 0.0448588508781788,
+    "aire_bbox": 0.01349791625192822,
+    "aspect_ratio": 0.16268166783182197,
+    "centroide_x": -0.0009549290024504714,
+    "dispersion": 0.12238466544661747
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.608207669116976,
+    "hauteur_max": 0.19982793779326397,
+    "aire_bbox": 0.12153688426969315,
+    "aspect_ratio": 0.35851998637788174,
+    "centroide_x": -0.014014736566020841,
+    "dispersion": 0.24180794701837
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.39229762956545194,
+    "hauteur_max": 0.08539035685051753,
+    "aire_bbox": 0.03349843458020608,
+    "aspect_ratio": 0.2375211029698914,
+    "centroide_x": -0.0038264756316389505,
+    "dispersion": 0.12807071973073278
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4020376392933931,
+    "hauteur_max": 0.10037130612372236,
+    "aire_bbox": 0.040353042966775825,
+    "aspect_ratio": 0.2724281104580511,
+    "centroide_x": -0.013124221967408421,
+    "dispersion": 0.15290024957168713
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2605177425081562,
+    "hauteur_max": 0.2303967223315105,
+    "aire_bbox": 0.060022433983083615,
+    "aspect_ratio": 0.9650460711974561,
+    "centroide_x": -0.0026609495178809874,
+    "dispersion": 0.1300015541644676
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6920524041458751,
+    "hauteur_max": 0.15788521848509304,
+    "aire_bbox": 0.1092648450317054,
+    "aspect_ratio": 0.24894966574011482,
+    "centroide_x": -0.003043573329886127,
+    "dispersion": 0.256095309030298
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7653983871180922,
+    "hauteur_max": 0.13860447641231982,
+    "aire_bbox": 0.10608764269333724,
+    "aspect_ratio": 0.1976053827908316,
+    "centroide_x": -0.017734893603300352,
+    "dispersion": 0.31849158570228064
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9610620476991915,
+    "hauteur_max": 0.2992080152883325,
+    "aire_bbox": 0.2875574678610158,
+    "aspect_ratio": 0.3397276170152549,
+    "centroide_x": -0.029949132143504028,
+    "dispersion": 0.4313382651736575
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7068498216864786,
+    "hauteur_max": 0.1706791962087991,
+    "aire_bbox": 0.12064455940578113,
+    "aspect_ratio": 0.26348900223689126,
+    "centroide_x": 0.04028376685118221,
+    "dispersion": 0.2819791436189323
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.48637728961963134,
+    "hauteur_max": 0.18670046863559148,
+    "aire_bbox": 0.09080686790569398,
+    "aspect_ratio": 0.4188718516335112,
+    "centroide_x": -0.0039563511718010156,
+    "dispersion": 0.16794825423221915
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9324386812548366,
+    "hauteur_max": 0.20052848245507812,
+    "aire_bbox": 0.18698051373444668,
+    "aspect_ratio": 0.23467392789745842,
+    "centroide_x": 0.06273585569646037,
+    "dispersion": 0.3714267636260991
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0018803268319407,
+    "hauteur_max": 0.2498284462483833,
+    "aire_bbox": 0.2502982053792462,
+    "aspect_ratio": 0.2721041058173235,
+    "centroide_x": -0.10970969338400152,
+    "dispersion": 0.46642477252055903
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7108954049110227,
+    "hauteur_max": 0.10509741691664234,
+    "aire_bbox": 0.07471327075405902,
+    "aspect_ratio": 0.16132266647895455,
+    "centroide_x": -0.027690253977255094,
+    "dispersion": 0.2832989338188421
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3504069919176854,
+    "hauteur_max": 0.1484629528805686,
+    "aire_bbox": 0.0520224567300971,
+    "aspect_ratio": 0.4623324617934718,
+    "centroide_x": -0.003986557601323509,
+    "dispersion": 0.12746484739335825
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.25819036435370357,
+    "hauteur_max": 0.18065222656856003,
+    "aire_bbox": 0.04664266419904432,
+    "aspect_ratio": 0.7635058079296855,
+    "centroide_x": -0.0013627789313637865,
+    "dispersion": 0.08972996482059103
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8065119709242308,
+    "hauteur_max": 0.07196536192780374,
+    "aire_bbox": 0.05804092588666859,
+    "aspect_ratio": 0.09736923383499815,
+    "centroide_x": 0.007411087692852883,
+    "dispersion": 0.30582371184120105
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6942741001529498,
+    "hauteur_max": 0.05587215816316108,
+    "aire_bbox": 0.038790592332331945,
+    "aspect_ratio": 0.08781597743749041,
+    "centroide_x": 0.017044236454839636,
+    "dispersion": 0.271980960434651
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8119675910860109,
+    "hauteur_max": 0.07972322143466702,
+    "aire_bbox": 0.06473267206192321,
+    "aspect_ratio": 0.10714087796086956,
+    "centroide_x": 0.01403920488372288,
+    "dispersion": 0.3227830804083691
    }
   },
   "notes": "visage typé asie (thailandais)"
@@ -9809,9 +22976,7 @@ window.PRESETS_DB = [
     "height": 0.20961390512363834,
     "projection": 0.10460164561821092,
     "narine": 0.14283170141920848,
-    "evasement": 1.9669081481533637,
-    "compacite_narines": 0.21091379383862766,
-    "ratio_pointe_base": 0.546607695825286
+    "compacite_narines": 0.21091379383862766
    },
    "joues": {
     "width": 1.043934790710682,
@@ -9835,6 +23000,701 @@ window.PRESETS_DB = [
     "width": 0.8081597099464395,
     "height": 0.19630128618193837,
     "angle": 0.3274877961733259
+   },
+   "philtrum": {
+    "largeur_sup": 0.11655071001819697,
+    "largeur_milieu": 0.11970639059840413,
+    "largeur_inf": 0.11260633058438238,
+    "hauteur": 0.10217645155681891,
+    "profondeur_z": 0.008185911923646927
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.46541101207946584,
+    "hauteur_max": 0.23715115484458196,
+    "aire_bbox": 0.11037275899203101,
+    "aspect_ratio": 0.5673944457118869,
+    "centroide_x": 0.02185814224174809,
+    "dispersion": 0.18504227245032986
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6380338069157693,
+    "hauteur_max": 0.15652211421378884,
+    "aire_bbox": 0.09986640039832853,
+    "aspect_ratio": 0.2731671714707199,
+    "centroide_x": 0.02178464195976189,
+    "dispersion": 0.25377486595862603
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2741433172722481,
+    "hauteur_max": 0.08947605779255806,
+    "aire_bbox": 0.02452926329969525,
+    "aspect_ratio": 0.3634340961135918,
+    "centroide_x": 0.01062818330903015,
+    "dispersion": 0.11669957872888478
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7275998861687469,
+    "hauteur_max": 0.11136770576140492,
+    "aire_bbox": 0.08103113003487272,
+    "aspect_ratio": 0.17043670980000716,
+    "centroide_x": 0.00881362899243468,
+    "dispersion": 0.2684996264058882
+   },
+   "joues__joues": {
+    "largeur_max": 1.0060533295309058,
+    "hauteur_max": 0.2410662035948205,
+    "aire_bbox": 0.24252545676394438,
+    "aspect_ratio": 0.26681596796831303,
+    "centroide_x": 0.045726794288835734,
+    "dispersion": 0.3875600145820359
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9874608696521621,
+    "hauteur_max": 0.47298358380898986,
+    "aire_bbox": 0.46705278099922143,
+    "aspect_ratio": 0.5333627287660863,
+    "centroide_x": -0.019099033752366587,
+    "dispersion": 0.43743937919907183
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5556579135576514,
+    "hauteur_max": 0.07891409597552017,
+    "aire_bbox": 0.04384924192004579,
+    "aspect_ratio": 0.1581406694713053,
+    "centroide_x": 0.006484941569583813,
+    "dispersion": 0.23079813741934502
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6507307019179808,
+    "hauteur_max": 0.13140649049523817,
+    "aire_bbox": 0.0855102377965448,
+    "aspect_ratio": 0.2248598984978835,
+    "centroide_x": 0.008545672380166203,
+    "dispersion": 0.2753759800840867
+   },
+   "menton__menton": {
+    "largeur_max": 0.44818319322783323,
+    "hauteur_max": 0.14389110459121698,
+    "aire_bbox": 0.06448957473277177,
+    "aspect_ratio": 0.35749903275096323,
+    "centroide_x": 0.009597779891608592,
+    "dispersion": 0.1658475439573454
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17898292898652146,
+    "hauteur_max": 0.09081877926302846,
+    "aire_bbox": 0.016255011119477192,
+    "aspect_ratio": 0.5650157321329513,
+    "centroide_x": 0.013132749857173798,
+    "dispersion": 0.07287532957492493
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2745554464537633,
+    "hauteur_max": 0.12308728661685152,
+    "aire_bbox": 0.03379428492987199,
+    "aspect_ratio": 0.49920580378078144,
+    "centroide_x": 0.010867588072673266,
+    "dispersion": 0.11128107783576249
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12330738301499072,
+    "hauteur_max": 0.0883161064724757,
+    "aire_bbox": 0.010890027967194262,
+    "aspect_ratio": 0.7975305441753934,
+    "centroide_x": 0.021658137632798193,
+    "dispersion": 0.054978224928713876
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1903208764573431,
+    "hauteur_max": 0.06260651340384188,
+    "aire_bbox": 0.011915326502957586,
+    "aspect_ratio": 0.3662938107456611,
+    "centroide_x": 0.01451668273406604,
+    "dispersion": 0.07099953756107445
+   },
+   "nez__nez": {
+    "largeur_max": 0.2941705880157217,
+    "hauteur_max": 0.17041551614380165,
+    "aire_bbox": 0.05013123259102485,
+    "aspect_ratio": 0.6450693048866638,
+    "centroide_x": 0.021898804915485785,
+    "dispersion": 0.11998670566242958
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8666874418337949,
+    "hauteur_max": 0.12470530702795549,
+    "aire_bbox": 0.1080805235311567,
+    "aspect_ratio": 0.16022081013851286,
+    "centroide_x": -0.016624146453031185,
+    "dispersion": 0.3186674159657049
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4379565761674668,
+    "hauteur_max": 0.10076430109308887,
+    "aire_bbox": 0.04413038830663694,
+    "aspect_ratio": 0.2561958769493649,
+    "centroide_x": 0.011964681486676515,
+    "dispersion": 0.14574511469185136
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9143427002228793,
+    "hauteur_max": 0.19678595225435389,
+    "aire_bbox": 0.17992979895017655,
+    "aspect_ratio": 0.2396522892360583,
+    "centroide_x": 0.05081937424250636,
+    "dispersion": 0.3780544536261787
+   },
+   "tete__tempes": {
+    "largeur_max": 1.0050656079091382,
+    "hauteur_max": 0.24187415978846227,
+    "aire_bbox": 0.24309939944530287,
+    "aspect_ratio": 0.2679733174003378,
+    "centroide_x": 0.07563637832884214,
+    "dispersion": 0.4669597931970269
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7643463068697992,
+    "hauteur_max": 0.1683556629102504,
+    "aire_bbox": 0.12868202918606672,
+    "aspect_ratio": 0.24526413663007804,
+    "centroide_x": 0.01321112896727121,
+    "dispersion": 0.2774134031301988
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.7063327818175279,
+    "hauteur_max": 0.07139266698423834,
+    "aire_bbox": 0.05042698107234944,
+    "aspect_ratio": 0.1125487651167089,
+    "centroide_x": 0.02328142142833112,
+    "dispersion": 0.26125832984157243
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3748864278275013,
+    "hauteur_max": 0.03875462753985158,
+    "aire_bbox": 0.014528583880200265,
+    "aspect_ratio": 0.11511193140050203,
+    "centroide_x": -0.006760455392611822,
+    "dispersion": 0.17419958771677133
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.33150478723558796,
+    "hauteur_max": 0.03543148496744643,
+    "aire_bbox": 0.011745706885574261,
+    "aspect_ratio": 0.11901344899640988,
+    "centroide_x": 0.015377782342802246,
+    "dispersion": 0.1291650531956839
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.36622881832487625,
+    "hauteur_max": 0.09115480723031859,
+    "aire_bbox": 0.033383517336591464,
+    "aspect_ratio": 0.2771555326210046,
+    "centroide_x": 0.013630291185637697,
+    "dispersion": 0.13065154510315408
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.09063895359584113,
+    "hauteur_max": 0.007102425618294082,
+    "aire_bbox": 0.0006437564260344705,
+    "aspect_ratio": 0.08725459404358486,
+    "centroide_x": 0.016046360222679544,
+    "dispersion": 0.03628054700998933
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.24483025466489178,
+    "hauteur_max": 0.033775923791710606,
+    "aire_bbox": 0.008269368023466485,
+    "aspect_ratio": 0.1536167748392099,
+    "centroide_x": -0.002969294401351007,
+    "dispersion": 0.08180230413814223
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3237015516917827,
+    "hauteur_max": 0.03912904845161585,
+    "aire_bbox": 0.012666133700010998,
+    "aspect_ratio": 0.13460183999603792,
+    "centroide_x": -0.002510900978324816,
+    "dispersion": 0.13321036468539157
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.22241116634604916,
+    "hauteur_max": 0.014690055527851442,
+    "aire_bbox": 0.003267232383637666,
+    "aspect_ratio": 0.07354672540955537,
+    "centroide_x": 0.016536633465352925,
+    "dispersion": 0.08941070994330912
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.32746550173600153,
+    "hauteur_max": 0.03759019106270448,
+    "aire_bbox": 0.012309490776700684,
+    "aspect_ratio": 0.12782195927520654,
+    "centroide_x": 0.016924561722699138,
+    "dispersion": 0.11315644646832798
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.11851715539552272,
+    "hauteur_max": 0.003914375976678819,
+    "aire_bbox": 0.0004639207059045446,
+    "aspect_ratio": 0.036777127840910286,
+    "centroide_x": 0.01643438360944457,
+    "dispersion": 0.04842002939962026
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.11215697130235977,
+    "hauteur_max": 0.03334992357370185,
+    "aire_bbox": 0.00374042642119157,
+    "aspect_ratio": 0.3311044831415744,
+    "centroide_x": 0.017047466553686864,
+    "dispersion": 0.04682500633864057
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10900027752547532,
+    "hauteur_max": 0.024602611453486023,
+    "aire_bbox": 0.0026816914762814144,
+    "aspect_ratio": 0.2513333357770186,
+    "centroide_x": 0.014973460908343563,
+    "dispersion": 0.04438166727197731
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.11259826716371077,
+    "hauteur_max": 0.010135378528610729,
+    "aire_bbox": 0.0011412260593698486,
+    "aspect_ratio": 0.10023162173358799,
+    "centroide_x": 0.014780123444717434,
+    "dispersion": 0.04624377780029017
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3480075843557547,
+    "hauteur_max": 0.05074721990582872,
+    "aire_bbox": 0.01766041741219772,
+    "aspect_ratio": 0.16237532654152786,
+    "centroide_x": 0.014928986715888486,
+    "dispersion": 0.1438328562859031
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.31587983725835544,
+    "hauteur_max": 0.05694454082845882,
+    "aire_bbox": 0.01798763228964535,
+    "aspect_ratio": 0.20073665407393798,
+    "centroide_x": 0.03565377349226648,
+    "dispersion": 0.11796387043134947
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.22751748286394297,
+    "hauteur_max": 0.040801204708491204,
+    "aire_bbox": 0.009282987393092376,
+    "aspect_ratio": 0.19968925802120843,
+    "centroide_x": 0.014401847256036767,
+    "dispersion": 0.08748677837898651
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11970090307611815,
+    "hauteur_max": 0.05778030499590197,
+    "aire_bbox": 0.006916354688023007,
+    "aspect_ratio": 0.5375005267543214,
+    "centroide_x": 0.014503531091902614,
+    "dispersion": 0.05032333945324555
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.44535946906475904,
+    "hauteur_max": 0.09737410542256589,
+    "aire_bbox": 0.043366479891649816,
+    "aspect_ratio": 0.24346093268583263,
+    "centroide_x": -0.06830529268429152,
+    "dispersion": 0.20147157137353044
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8614080730117384,
+    "hauteur_max": 0.14270173064078998,
+    "aire_bbox": 0.12292442280672304,
+    "aspect_ratio": 0.18446619672964323,
+    "centroide_x": 0.00676380632639269,
+    "dispersion": 0.37399116321558545
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7510499966426065,
+    "hauteur_max": 0.21641914423482292,
+    "aire_bbox": 0.16254159755095954,
+    "aspect_ratio": 0.320865717614389,
+    "centroide_x": 0.004781687375885951,
+    "dispersion": 0.3358911290884888
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8289348206213529,
+    "hauteur_max": 0.04120747023541511,
+    "aire_bbox": 0.03415830694785356,
+    "aspect_ratio": 0.055354389022629485,
+    "centroide_x": 0.008853502380266434,
+    "dispersion": 0.37878272988884776
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6507307019179808,
+    "hauteur_max": 0.160913800605297,
+    "aire_bbox": 0.10471155041617491,
+    "aspect_ratio": 0.2753521590497611,
+    "centroide_x": 0.008536491618315534,
+    "dispersion": 0.2916111773346909
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6380338069157693,
+    "hauteur_max": 0.18070060921523332,
+    "aire_bbox": 0.11529309760959405,
+    "aspect_ratio": 0.31536421898147776,
+    "centroide_x": 0.022159852804153803,
+    "dispersion": 0.24531911676910342
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7012031419443544,
+    "hauteur_max": 0.17975190879290007,
+    "aire_bbox": 0.12604260321607655,
+    "aspect_ratio": 0.28544743749396373,
+    "centroide_x": 0.004925159583613159,
+    "dispersion": 0.2436208871539148
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9325043522587062,
+    "hauteur_max": 0.27476188792664297,
+    "aire_bbox": 0.25621665632641344,
+    "aspect_ratio": 0.3280968913246055,
+    "centroide_x": -0.018314412045819704,
+    "dispersion": 0.41707494497084896
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19005473050384158,
+    "hauteur_max": 0.06791406886796938,
+    "aire_bbox": 0.01290739005612126,
+    "aspect_ratio": 0.39790331570329507,
+    "centroide_x": 0.011204654745113198,
+    "dispersion": 0.06477049598094209
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4679187472300041,
+    "hauteur_max": 0.10950887726749521,
+    "aire_bbox": 0.05124125666157063,
+    "aspect_ratio": 0.26060057640750955,
+    "centroide_x": -0.01174384967515835,
+    "dispersion": 0.19921387205037364
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15918324824306784,
+    "hauteur_max": 0.03251541525023684,
+    "aire_bbox": 0.005175909417504884,
+    "aspect_ratio": 0.22745130521048837,
+    "centroide_x": 0.013642502235671686,
+    "dispersion": 0.077676633759072
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2867642989981747,
+    "hauteur_max": 0.053497338811643036,
+    "aire_bbox": 0.015341126862588659,
+    "aspect_ratio": 0.20773208857512176,
+    "centroide_x": 0.003955717079687835,
+    "dispersion": 0.12137988757346833
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13630878015240558,
+    "hauteur_max": 0.0338014891869796,
+    "aire_bbox": 0.004607439758411917,
+    "aspect_ratio": 0.2761267582411543,
+    "centroide_x": 0.020405318026990107,
+    "dispersion": 0.05203879107798406
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.22910751640149749,
+    "hauteur_max": 0.03280407995892333,
+    "aire_bbox": 0.007515661287225061,
+    "aspect_ratio": 0.1594354953857154,
+    "centroide_x": 0.01339926760815418,
+    "dispersion": 0.10244743555508617
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.16116793093141404,
+    "hauteur_max": 0.06866004019097649,
+    "aire_bbox": 0.011065796615247411,
+    "aspect_ratio": 0.4743751318932731,
+    "centroide_x": 0.01379443491699948,
+    "dispersion": 0.07921799922624007
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.24884871395644478,
+    "hauteur_max": 0.029746638091033215,
+    "aire_bbox": 0.007402412633481409,
+    "aspect_ratio": 0.1331064130404242,
+    "centroide_x": 0.013098710965599824,
+    "dispersion": 0.11046658713176588
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08607901289541901,
+    "hauteur_max": 0.0843529768385032,
+    "aire_bbox": 0.007261020981048498,
+    "aspect_ratio": 1.0911881138141286,
+    "centroide_x": 0.014233414674279611,
+    "dispersion": 0.04933704005293044
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05906002952021486,
+    "hauteur_max": 0.03040739142981031,
+    "aire_bbox": 0.0017958614354773251,
+    "aspect_ratio": 0.5733000718785675,
+    "centroide_x": 0.024624359006330452,
+    "dispersion": 0.021908051039310036
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.14300508026490896,
+    "hauteur_max": 0.04140894349076311,
+    "aire_bbox": 0.005921689287581658,
+    "aspect_ratio": 0.3224327706278862,
+    "centroide_x": 0.013965539446310085,
+    "dispersion": 0.0485548829566978
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.246074832852405,
+    "hauteur_max": 0.20202690313607005,
+    "aire_bbox": 0.04971373642089745,
+    "aspect_ratio": 0.9141942786443762,
+    "centroide_x": 0.013064541667447489,
+    "dispersion": 0.11476868005656703
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.570112600449418,
+    "hauteur_max": 0.0957195309813843,
+    "aire_bbox": 0.05457091072159564,
+    "aspect_ratio": 0.18695471104602096,
+    "centroide_x": 0.04822151982246029,
+    "dispersion": 0.20523741048197833
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.957896943632451,
+    "hauteur_max": 0.16973659791891238,
+    "aire_bbox": 0.16259016836909643,
+    "aspect_ratio": 0.19731186285589153,
+    "centroide_x": -0.0726890246864318,
+    "dispersion": 0.4311632341572833
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7377641744338478,
+    "hauteur_max": 0.055403351157873794,
+    "aire_bbox": 0.04087460762785732,
+    "aspect_ratio": 0.08362092425335801,
+    "centroide_x": 0.054765505051376714,
+    "dispersion": 0.3459883163119875
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3500039037502683,
+    "hauteur_max": 0.05158625823792913,
+    "aire_bbox": 0.01805539176314463,
+    "aspect_ratio": 0.16411853469033935,
+    "centroide_x": 0.03762589098969656,
+    "dispersion": 0.15643404255777138
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.561761041313289,
+    "hauteur_max": 0.029671646264910808,
+    "aire_bbox": 0.016668374903255855,
+    "aspect_ratio": 0.0588147854171423,
+    "centroide_x": 0.013749407606429403,
+    "dispersion": 0.25650406984905344
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6676045751189349,
+    "hauteur_max": 0.033906935229571576,
+    "aire_bbox": 0.022636425087523376,
+    "aspect_ratio": 0.056554312019327695,
+    "centroide_x": 0.012638430542309485,
+    "dispersion": 0.3159770546333948
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.4120829343482113,
+    "hauteur_max": 0.029285294835354338,
+    "aire_bbox": 0.012067970229005333,
+    "aspect_ratio": 0.0791336982312848,
+    "centroide_x": 0.01388725179918526,
+    "dispersion": 0.19308524871681124
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5665311419259524,
+    "hauteur_max": 0.05065424259987672,
+    "aire_bbox": 0.028697205903502384,
+    "aspect_ratio": 0.09956083478856342,
+    "centroide_x": 0.01455103931826184,
+    "dispersion": 0.2451314690376686
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6834233037224737,
+    "hauteur_max": 0.06864124738287525,
+    "aire_bbox": 0.04691102805803621,
+    "aspect_ratio": 0.11183863936496723,
+    "centroide_x": 0.013259269209707282,
+    "dispersion": 0.31669033483585685
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.42350268836281896,
+    "hauteur_max": 0.05307622741483485,
+    "aire_bbox": 0.02247792499833891,
+    "aspect_ratio": 0.1395533820062667,
+    "centroide_x": 0.014344543969604263,
+    "dispersion": 0.1926431710254865
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6604553424389131,
+    "hauteur_max": 0.02853201270633171,
+    "aire_bbox": 0.01884412022243173,
+    "aspect_ratio": 0.04810447091796954,
+    "centroide_x": 0.012790005299198687,
+    "dispersion": 0.2710707352382441
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7623996807054854,
+    "hauteur_max": 0.05537962467700133,
+    "aire_bbox": 0.042221408171335434,
+    "aspect_ratio": 0.08088421846169508,
+    "centroide_x": -0.052063742114729264,
+    "dispersion": 0.34896253160341806
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3282663868008074,
+    "hauteur_max": 0.04295156841160885,
+    "aire_bbox": 0.014099556169906529,
+    "aspect_ratio": 0.1456964947203852,
+    "centroide_x": 0.015379417974248516,
+    "dispersion": 0.13471532377720097
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.601941638793225,
+    "hauteur_max": 0.20273044487324474,
+    "aire_bbox": 0.1220318962202805,
+    "aspect_ratio": 0.37502574136372063,
+    "centroide_x": 0.0009301798577730766,
+    "dispersion": 0.2440669248105226
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4049686617296366,
+    "hauteur_max": 0.08908365140096419,
+    "aire_bbox": 0.036076087089837935,
+    "aspect_ratio": 0.24494754105072794,
+    "centroide_x": 0.014716245438885901,
+    "dispersion": 0.13829955228981955
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.41655932050177513,
+    "hauteur_max": 0.11000735762367012,
+    "aire_bbox": 0.04582459014191179,
+    "aspect_ratio": 0.29406366656819377,
+    "centroide_x": 0.004999201386767449,
+    "dispersion": 0.15933989861307826
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2741433172722481,
+    "hauteur_max": 0.24038172377517095,
+    "aire_bbox": 0.0658990431673466,
+    "aspect_ratio": 0.9763831426838133,
+    "centroide_x": 0.01216583918309531,
+    "dispersion": 0.13868751793267067
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7275998861687469,
+    "hauteur_max": 0.1673380704754028,
+    "aire_bbox": 0.12175516102960084,
+    "aspect_ratio": 0.2560935413109078,
+    "centroide_x": 0.009259431353264869,
+    "dispersion": 0.2687056465005524
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7345243755966093,
+    "hauteur_max": 0.13371177152337185,
+    "aire_bbox": 0.09821455548812119,
+    "aspect_ratio": 0.20270288095615296,
+    "centroide_x": -0.005734873451238419,
+    "dispersion": 0.3108249087996999
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.94125515529656,
+    "hauteur_max": 0.29199807741700445,
+    "aire_bbox": 0.27484469570543946,
+    "aspect_ratio": 0.34543720835933933,
+    "centroide_x": -0.023944491278934638,
+    "dispersion": 0.41832047168279896
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.6909172925513078,
+    "hauteur_max": 0.17159107581046928,
+    "aire_bbox": 0.11855524152493566,
+    "aspect_ratio": 0.27654456383674814,
+    "centroide_x": 0.05180443425844132,
+    "dispersion": 0.2816996492233544
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.5052412098578132,
+    "hauteur_max": 0.17920911508492557,
+    "aire_bbox": 0.09054383012305588,
+    "aspect_ratio": 0.39496427967033226,
+    "centroide_x": 0.011850599314733215,
+    "dispersion": 0.17622401583289687
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9315667733536426,
+    "hauteur_max": 0.1982713914226242,
+    "aire_bbox": 0.18470304035591112,
+    "aspect_ratio": 0.23699684012219194,
+    "centroide_x": 0.07293084414493124,
+    "dispersion": 0.3732152671715515
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0130122795907661,
+    "hauteur_max": 0.23714469621840875,
+    "aire_bbox": 0.24023048930906998,
+    "aspect_ratio": 0.26067248814559657,
+    "centroide_x": -0.10672376884563434,
+    "dispersion": 0.468708960783073
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6769137402810422,
+    "hauteur_max": 0.12191141298918934,
+    "aire_bbox": 0.08252351054945899,
+    "aspect_ratio": 0.20054300875308154,
+    "centroide_x": -0.018652081052923746,
+    "dispersion": 0.2725937918728459
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3465927506689946,
+    "hauteur_max": 0.14310440804206206,
+    "aire_bbox": 0.04959895041615648,
+    "aspect_ratio": 0.45975877600625037,
+    "centroide_x": 0.010946165045068608,
+    "dispersion": 0.12644552053233896
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2758092141431426,
+    "hauteur_max": 0.17041551614380165,
+    "aire_bbox": 0.04700216958541996,
+    "aspect_ratio": 0.6880133331256973,
+    "centroide_x": 0.019554638622002928,
+    "dispersion": 0.09291459590128003
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8289348206213529,
+    "hauteur_max": 0.07048872842941119,
+    "aire_bbox": 0.05843056145646122,
+    "aspect_ratio": 0.09468818330514056,
+    "centroide_x": 0.020587324356414482,
+    "dispersion": 0.3172884103646406
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7163051892882297,
+    "hauteur_max": 0.05512267002876253,
+    "aire_bbox": 0.03948465458902537,
+    "aspect_ratio": 0.08568970337745173,
+    "centroide_x": 0.03146200107011835,
+    "dispersion": 0.28307819275991053
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8369674441111954,
+    "hauteur_max": 0.08126602263712711,
+    "aire_bbox": 0.06801701525967882,
+    "aspect_ratio": 0.1081177329293506,
+    "centroide_x": 0.02864078961546058,
+    "dispersion": 0.3331983093608933
    }
   },
   "notes": ""
@@ -10301,9 +24161,7 @@ window.PRESETS_DB = [
     "height": 0.2234881834227997,
     "projection": 0.0953339076741758,
     "narine": 0.13202694461426442,
-    "evasement": 2.0297055391413528,
-    "compacite_narines": 0.1752221674573848,
-    "ratio_pointe_base": 0.5674251532690793
+    "compacite_narines": 0.1752221674573848
    },
    "joues": {
     "width": 1.0658639906333154,
@@ -10327,6 +24185,701 @@ window.PRESETS_DB = [
     "width": 0.854263564929232,
     "height": 0.19890099037110165,
     "angle": 0.326553804280604
+   },
+   "philtrum": {
+    "largeur_sup": 0.11423370993041101,
+    "largeur_milieu": 0.1182550640339192,
+    "largeur_inf": 0.10698345157022356,
+    "hauteur": 0.12009904632919388,
+    "profondeur_z": 0.005930941551923752
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4682634166496689,
+    "hauteur_max": 0.21394137893616358,
+    "aire_bbox": 0.10018092106338947,
+    "aspect_ratio": 0.5186266808192599,
+    "centroide_x": 0.011873576018909504,
+    "dispersion": 0.18072389408059059
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6379303966106249,
+    "hauteur_max": 0.15985451081273347,
+    "aire_bbox": 0.1019760514827645,
+    "aspect_ratio": 0.2844473511308084,
+    "centroide_x": 0.008566276808506362,
+    "dispersion": 0.251033767426264
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2636690202270702,
+    "hauteur_max": 0.09477729837801396,
+    "aire_bbox": 0.024989837403099634,
+    "aspect_ratio": 0.408033211815262,
+    "centroide_x": -0.021621667502313643,
+    "dispersion": 0.11334967897279727
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7026280025159033,
+    "hauteur_max": 0.12218062205171996,
+    "aire_bbox": 0.08584752641835053,
+    "aspect_ratio": 0.19739092036528993,
+    "centroide_x": -0.02182402466445578,
+    "dispersion": 0.25845336507225
+   },
+   "joues__joues": {
+    "largeur_max": 1.0063399249799212,
+    "hauteur_max": 0.24129003696588538,
+    "aire_bbox": 0.2428197976986515,
+    "aspect_ratio": 0.27217296298785665,
+    "centroide_x": 0.034179290695007046,
+    "dispersion": 0.38103442707716384
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.993880265593615,
+    "hauteur_max": 0.4772651597241083,
+    "aire_bbox": 0.4743444237051759,
+    "aspect_ratio": 0.5450997200677961,
+    "centroide_x": -0.014577952158793973,
+    "dispersion": 0.4471737824550197
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5720172166569314,
+    "hauteur_max": 0.08592464020701036,
+    "aire_bbox": 0.04915037353346233,
+    "aspect_ratio": 0.17051355779001,
+    "centroide_x": 0.011501483320373219,
+    "dispersion": 0.2362575680447641
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6616704998868592,
+    "hauteur_max": 0.14378102209859522,
+    "aire_bbox": 0.09513566076622106,
+    "aspect_ratio": 0.24666645280309904,
+    "centroide_x": 0.005823218193534228,
+    "dispersion": 0.27871472943356757
+   },
+   "menton__menton": {
+    "largeur_max": 0.45750438283280986,
+    "hauteur_max": 0.1540783831930603,
+    "aire_bbox": 0.07049153561061824,
+    "aspect_ratio": 0.3822933538864053,
+    "centroide_x": 0.009824220123602803,
+    "dispersion": 0.16843546037861046
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17649507540945225,
+    "hauteur_max": 0.10228604061074137,
+    "aire_bbox": 0.018052982450927093,
+    "aspect_ratio": 0.6578608925923433,
+    "centroide_x": 0.006823708612026832,
+    "dispersion": 0.0747149980164228
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.24889881548288373,
+    "hauteur_max": 0.13476816943405034,
+    "aire_bbox": 0.033543637736931704,
+    "aspect_ratio": 0.6146314712038328,
+    "centroide_x": -0.010326200797983237,
+    "dispersion": 0.10443524749019945
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11365190799837034,
+    "hauteur_max": 0.09235465302972538,
+    "aire_bbox": 0.010496282529355763,
+    "aspect_ratio": 0.9224277172035982,
+    "centroide_x": -0.003405191674701603,
+    "dispersion": 0.0543083183332384
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.16947914436879763,
+    "hauteur_max": 0.05295655975473214,
+    "aire_bbox": 0.008975032435947106,
+    "aspect_ratio": 0.35469396205735354,
+    "centroide_x": -0.011439563335191237,
+    "dispersion": 0.06271835155360529
+   },
+   "nez__nez": {
+    "largeur_max": 0.28488966881151234,
+    "hauteur_max": 0.17454945903176758,
+    "aire_bbox": 0.04972733757478891,
+    "aspect_ratio": 0.695491939592126,
+    "centroide_x": 0.002426885389495845,
+    "dispersion": 0.11856593078353486
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8464779730856539,
+    "hauteur_max": 0.12763756851768832,
+    "aire_bbox": 0.10804239028843407,
+    "aspect_ratio": 0.17116428692865202,
+    "centroide_x": -0.04009003651440873,
+    "dispersion": 0.30539659759029736
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.41235320559484395,
+    "hauteur_max": 0.10642828281234652,
+    "aire_bbox": 0.043886043583625724,
+    "aspect_ratio": 0.2929799996798175,
+    "centroide_x": -0.01843442698160504,
+    "dispersion": 0.13921702769587285
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8972120161449442,
+    "hauteur_max": 0.20233906571349616,
+    "aire_bbox": 0.18154104109369024,
+    "aspect_ratio": 0.2559970456021496,
+    "centroide_x": 0.02511874633329333,
+    "dispersion": 0.36603131370388553
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9992812370945524,
+    "hauteur_max": 0.23264709445690956,
+    "aire_bbox": 0.23247987635535378,
+    "aspect_ratio": 0.2642775026819745,
+    "centroide_x": 0.05892942898822579,
+    "dispersion": 0.4579969059375306
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7263777540112536,
+    "hauteur_max": 0.16769156005135294,
+    "aire_bbox": 0.121807418756745,
+    "aspect_ratio": 0.26205893048967244,
+    "centroide_x": -0.008170219552882973,
+    "dispersion": 0.2601735520791781
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6639138631716318,
+    "hauteur_max": 0.07706728490620451,
+    "aire_bbox": 0.05116603884622703,
+    "aspect_ratio": 0.13176759399285254,
+    "centroide_x": 0.0026212022304114755,
+    "dispersion": 0.24097417076397215
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.37209829643784736,
+    "hauteur_max": 0.03723633993629214,
+    "aire_bbox": 0.013855578655874888,
+    "aspect_ratio": 0.11359510019597033,
+    "centroide_x": -0.017041740103347844,
+    "dispersion": 0.1712148956232526
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.32358415625684755,
+    "hauteur_max": 0.043385911742528455,
+    "aire_bbox": 0.014038993644640124,
+    "aspect_ratio": 0.1521989911590278,
+    "centroide_x": 0.004253868070683008,
+    "dispersion": 0.12215815313884208
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.36419345973600514,
+    "hauteur_max": 0.09223570380930476,
+    "aire_bbox": 0.03359164008149613,
+    "aspect_ratio": 0.2874863426683763,
+    "centroide_x": -0.0006164619580619351,
+    "dispersion": 0.1271264150911341
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08880728675375615,
+    "hauteur_max": 0.004707239814960735,
+    "aire_bbox": 0.00041803719606591606,
+    "aspect_ratio": 0.0601683382317624,
+    "centroide_x": 0.0012741235044191619,
+    "dispersion": 0.035986440078875984
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.24158810595818492,
+    "hauteur_max": 0.01243155793832635,
+    "aire_bbox": 0.0030033165364297012,
+    "aspect_ratio": 0.0584117615529891,
+    "centroide_x": -0.016537549506593488,
+    "dispersion": 0.08048074208371439
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.30418575158281486,
+    "hauteur_max": 0.03697500058100922,
+    "aire_bbox": 0.011247268341509306,
+    "aspect_ratio": 0.13798110431025057,
+    "centroide_x": -0.014085923140642576,
+    "dispersion": 0.12402625387095566
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.20291834842184703,
+    "hauteur_max": 0.017161433445476947,
+    "aire_bbox": 0.00348236973130763,
+    "aspect_ratio": 0.09600249848536832,
+    "centroide_x": 0.0035318448626394106,
+    "dispersion": 0.08141307391249912
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.3174739390906826,
+    "hauteur_max": 0.03514795129164513,
+    "aire_bbox": 0.011158558547526025,
+    "aspect_ratio": 0.12567307150936927,
+    "centroide_x": 0.003413561686142284,
+    "dispersion": 0.10806478869762058
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10688144796406711,
+    "hauteur_max": 0.005157627461141572,
+    "aire_bbox": 0.0005512546911060465,
+    "aspect_ratio": 0.05477696112201217,
+    "centroide_x": 0.0028441341917458942,
+    "dispersion": 0.04370991504002606
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.103309372566719,
+    "hauteur_max": 0.02594497670653325,
+    "aire_bbox": 0.00268035926481009,
+    "aspect_ratio": 0.2850780998856691,
+    "centroide_x": 0.001750669358598813,
+    "dispersion": 0.042575992238579906
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10330932178661839,
+    "hauteur_max": 0.020037150514119067,
+    "aire_bbox": 0.002070024430150033,
+    "aspect_ratio": 0.22016422169191105,
+    "centroide_x": -0.00020060678746195446,
+    "dispersion": 0.041687126198309894
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10688144796406711,
+    "hauteur_max": 0.012568087844578229,
+    "aire_bbox": 0.0013432954269681123,
+    "aspect_ratio": 0.13348029969735697,
+    "centroide_x": -0.0013494050035742936,
+    "dispersion": 0.044036643351517746
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.33318098591103307,
+    "hauteur_max": 0.038804733944546026,
+    "aire_bbox": 0.012928999513659176,
+    "aspect_ratio": 0.1322071050170158,
+    "centroide_x": 0.002447884371656666,
+    "dispersion": 0.1364558774451255
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3108596786458574,
+    "hauteur_max": 0.03490343213451119,
+    "aire_bbox": 0.010850069696971642,
+    "aspect_ratio": 0.12745416579068208,
+    "centroide_x": 0.02332299552981924,
+    "dispersion": 0.11553387570419409
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.21019076975068549,
+    "hauteur_max": 0.03176619677230797,
+    "aire_bbox": 0.006676961351623153,
+    "aspect_ratio": 0.17155440558460683,
+    "centroide_x": -0.0003506238996906544,
+    "dispersion": 0.08143802128423691
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11817037213079717,
+    "hauteur_max": 0.07114621728120496,
+    "aire_bbox": 0.008407374971818543,
+    "aspect_ratio": 0.683429160758025,
+    "centroide_x": -0.0023371795206505973,
+    "dispersion": 0.05389436206534621
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.44184806533296933,
+    "hauteur_max": 0.0972499122404845,
+    "aire_bbox": 0.04296968557725913,
+    "aspect_ratio": 0.2498426367382449,
+    "centroide_x": -0.07400492974253309,
+    "dispersion": 0.2009260394758071
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8616619340896151,
+    "hauteur_max": 0.15643804226742927,
+    "aire_bbox": 0.13479670606534608,
+    "aspect_ratio": 0.20608944953047106,
+    "centroide_x": 0.0009373879622454914,
+    "dispersion": 0.3758139095352199
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.764979770893377,
+    "hauteur_max": 0.2353247715861752,
+    "aire_bbox": 0.1800186898535286,
+    "aspect_ratio": 0.3491949780405107,
+    "centroide_x": 0.008616308228146442,
+    "dispersion": 0.34535973390694
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.800072984383513,
+    "hauteur_max": 0.06015708080329328,
+    "aire_bbox": 0.048130055170090995,
+    "aspect_ratio": 0.08535076962916137,
+    "centroide_x": -0.005781966132468313,
+    "dispersion": 0.3633695162576241
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6616704998868592,
+    "hauteur_max": 0.17194760699788103,
+    "aire_bbox": 0.11377265907663715,
+    "aspect_ratio": 0.2949882096196549,
+    "centroide_x": 0.004076397966561732,
+    "dispersion": 0.29519875352173564
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6379303966106249,
+    "hauteur_max": 0.18936554846513,
+    "aire_bbox": 0.1208020394367489,
+    "aspect_ratio": 0.3369597040614025,
+    "centroide_x": 0.008308005310639594,
+    "dispersion": 0.24240750625444166
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6833594933392323,
+    "hauteur_max": 0.1924307611703655,
+    "aire_bbox": 0.1314993874562638,
+    "aspect_ratio": 0.3196506264662193,
+    "centroide_x": -0.012097619837886557,
+    "dispersion": 0.22985578634810822
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9503539500149852,
+    "hauteur_max": 0.28396073241052555,
+    "aire_bbox": 0.2698632036954912,
+    "aspect_ratio": 0.3391745033926106,
+    "centroide_x": -0.013592956372182151,
+    "dispersion": 0.42764512048083225
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19059549062658568,
+    "hauteur_max": 0.07380586637894389,
+    "aire_bbox": 0.014067065313615035,
+    "aspect_ratio": 0.43957051700480904,
+    "centroide_x": 0.009524219188322473,
+    "dispersion": 0.0659503570476224
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.47674084976599557,
+    "hauteur_max": 0.11404013822787556,
+    "aire_bbox": 0.05436759240618899,
+    "aspect_ratio": 0.2715349039340288,
+    "centroide_x": -0.010158713775627545,
+    "dispersion": 0.20262945763721904
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15237473073984625,
+    "hauteur_max": 0.04008396369525989,
+    "aire_bbox": 0.006107783175050998,
+    "aspect_ratio": 0.29861251357193275,
+    "centroide_x": -0.0092897750808187,
+    "dispersion": 0.07515605507539887
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2746257409756061,
+    "hauteur_max": 0.05999129448855886,
+    "aire_bbox": 0.016475153701006273,
+    "aspect_ratio": 0.247968940135947,
+    "centroide_x": -0.01539449812220927,
+    "dispersion": 0.11600044578358258
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13785121572442574,
+    "hauteur_max": 0.0315813535309473,
+    "aire_bbox": 0.004353527978463971,
+    "aspect_ratio": 0.26005812861231753,
+    "centroide_x": 0.002027480150376959,
+    "dispersion": 0.05226474758469307
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.22156530916704492,
+    "hauteur_max": 0.0359661465686264,
+    "aire_bbox": 0.00796885038402496,
+    "aspect_ratio": 0.18426482576787706,
+    "centroide_x": -0.006130560943972039,
+    "dispersion": 0.10029551091045448
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.156792802613366,
+    "hauteur_max": 0.07482089376192394,
+    "aire_bbox": 0.011731377626968967,
+    "aspect_ratio": 0.5416853160396699,
+    "centroide_x": -0.00792907150485856,
+    "dispersion": 0.07859673422600451
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.24369867927986097,
+    "hauteur_max": 0.03125309125962479,
+    "aire_bbox": 0.0076163370633835275,
+    "aspect_ratio": 0.14557610617661904,
+    "centroide_x": -0.003979869226976171,
+    "dispersion": 0.1092453979179662
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08407295641363391,
+    "hauteur_max": 0.08975105634762658,
+    "aire_bbox": 0.00754563664839161,
+    "aspect_ratio": 1.2118072417233823,
+    "centroide_x": -0.00913291676059109,
+    "dispersion": 0.05115256640617751
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06367433609787529,
+    "hauteur_max": 0.027950337990104417,
+    "aire_bbox": 0.0017797192152311208,
+    "aspect_ratio": 0.49827939993125575,
+    "centroide_x": 0.005312004764667797,
+    "dispersion": 0.02253944793476093
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13664625471703815,
+    "hauteur_max": 0.046588191168850365,
+    "aire_bbox": 0.006366101837264794,
+    "aspect_ratio": 0.3870155458629528,
+    "centroide_x": -0.010010325665944592,
+    "dispersion": 0.04776170188072227
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2328114257089603,
+    "hauteur_max": 0.1968734854756056,
+    "aire_bbox": 0.045834396837868024,
+    "aspect_ratio": 0.9599160075538236,
+    "centroide_x": -0.016389641396107452,
+    "dispersion": 0.11233746012327182
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5454897936581844,
+    "hauteur_max": 0.10362919606133529,
+    "aire_bbox": 0.05652866877646132,
+    "aspect_ratio": 0.2156481784543868,
+    "centroide_x": 0.016074505733951857,
+    "dispersion": 0.19615325377106835
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9375523882112683,
+    "hauteur_max": 0.17261898341761503,
+    "aire_bbox": 0.1618393401537863,
+    "aspect_ratio": 0.20899856512932793,
+    "centroide_x": -0.0914012155411037,
+    "dispersion": 0.4201238033880753
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.701883667801154,
+    "hauteur_max": 0.06270860644644151,
+    "aire_bbox": 0.04401414669532745,
+    "aspect_ratio": 0.10141736136724425,
+    "centroide_x": 0.03371850871199081,
+    "dispersion": 0.3256416160769737
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3070141016266209,
+    "hauteur_max": 0.05805894002248542,
+    "aire_bbox": 0.017824913312397227,
+    "aspect_ratio": 0.21466491717682887,
+    "centroide_x": 0.013852447522502085,
+    "dispersion": 0.13298126430489024
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5223836799380728,
+    "hauteur_max": 0.03668601526174738,
+    "aire_bbox": 0.019164175654695897,
+    "aspect_ratio": 0.07971888875592935,
+    "centroide_x": -0.0052180260324679005,
+    "dispersion": 0.2349500493160219
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6261374291652346,
+    "hauteur_max": 0.04359764046018578,
+    "aire_bbox": 0.02729811451541094,
+    "aspect_ratio": 0.07903939622249778,
+    "centroide_x": -0.0058021089057104635,
+    "dispersion": 0.2948303442647821
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3627579062917451,
+    "hauteur_max": 0.03338330672679655,
+    "aire_bbox": 0.012110058453307846,
+    "aspect_ratio": 0.10446306410877722,
+    "centroide_x": -0.005058011164763926,
+    "dispersion": 0.16855367265167837
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5317283863927269,
+    "hauteur_max": 0.04904756359873553,
+    "aire_bbox": 0.02607998184885029,
+    "aspect_ratio": 0.10470752338128328,
+    "centroide_x": -0.007896711885744492,
+    "dispersion": 0.22692445715532372
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6437672644952033,
+    "hauteur_max": 0.0709136422541396,
+    "aire_bbox": 0.04565188148933891,
+    "aspect_ratio": 0.1250406427109339,
+    "centroide_x": -0.007987252805133092,
+    "dispersion": 0.29728601571079977
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.38806284914839384,
+    "hauteur_max": 0.04762862778733208,
+    "aire_bbox": 0.01848290100018045,
+    "aspect_ratio": 0.13932090783255643,
+    "centroide_x": -0.00764841623629666,
+    "dispersion": 0.1733799596910111
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6265176705586064,
+    "hauteur_max": 0.034263548851736984,
+    "aire_bbox": 0.02146671881166127,
+    "aspect_ratio": 0.06207965758724083,
+    "centroide_x": -0.011499119929857336,
+    "dispersion": 0.254720977414855
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7261695048186497,
+    "hauteur_max": 0.04992279545188691,
+    "aire_bbox": 0.03625241165245945,
+    "aspect_ratio": 0.07803890791765782,
+    "centroide_x": -0.0705250693152237,
+    "dispersion": 0.3306995150886031
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.2901021953590841,
+    "hauteur_max": 0.038393354843008584,
+    "aire_bbox": 0.011137996527157114,
+    "aspect_ratio": 0.15022954147193962,
+    "centroide_x": -0.007386435349734287,
+    "dispersion": 0.11648578505639007
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6072937463102714,
+    "hauteur_max": 0.19957952432196288,
+    "aire_bbox": 0.12120339701230677,
+    "aspect_ratio": 0.3730503643779403,
+    "centroide_x": -0.006161487294746394,
+    "dispersion": 0.24445686547040316
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.40078641271757304,
+    "hauteur_max": 0.09624052141326714,
+    "aire_bbox": 0.03857189333529211,
+    "aspect_ratio": 0.2725808061943687,
+    "centroide_x": 0.0047457035891266324,
+    "dispersion": 0.13329210650232412
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.40760744973208435,
+    "hauteur_max": 0.11666641533673379,
+    "aire_bbox": 0.04755410002479019,
+    "aspect_ratio": 0.32490323490487566,
+    "centroide_x": -0.009407648389360927,
+    "dispersion": 0.1573919596177783
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2636690202270702,
+    "hauteur_max": 0.243970666576741,
+    "aire_bbox": 0.06432750662043453,
+    "aspect_ratio": 1.0503373315725442,
+    "centroide_x": -0.018198170447676992,
+    "dispersion": 0.1376165087306565
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7026280025159033,
+    "hauteur_max": 0.18397722482884396,
+    "aire_bbox": 0.12926754998990989,
+    "aspect_ratio": 0.29722744184298544,
+    "centroide_x": -0.020940704237288752,
+    "dispersion": 0.2591899212165162
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7566239053379119,
+    "hauteur_max": 0.1496952005998848,
+    "aire_bbox": 0.11326296728822698,
+    "aspect_ratio": 0.22458363780744278,
+    "centroide_x": -0.0066941798598361265,
+    "dispersion": 0.3168589401533239
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9615907737984889,
+    "hauteur_max": 0.2935786648627385,
+    "aire_bbox": 0.2823025355160879,
+    "aspect_ratio": 0.34656483792828296,
+    "centroide_x": -0.020023897524497365,
+    "dispersion": 0.4287740178720523
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7059225138833142,
+    "hauteur_max": 0.16963447187583905,
+    "aire_bbox": 0.11974879282786066,
+    "aspect_ratio": 0.272776763582902,
+    "centroide_x": 0.0432231237551888,
+    "dispersion": 0.2825358931550459
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4824066902717176,
+    "hauteur_max": 0.19082496906197186,
+    "aire_bbox": 0.09205524174638875,
+    "aspect_ratio": 0.44902670718351617,
+    "centroide_x": -0.00687129915809569,
+    "dispersion": 0.1685587827528619
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9334449889932839,
+    "hauteur_max": 0.21184645904436297,
+    "aire_bbox": 0.19774701563093156,
+    "aspect_ratio": 0.25762189764804916,
+    "centroide_x": 0.061572692819606666,
+    "dispersion": 0.3694522790466711
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0063399249799212,
+    "hauteur_max": 0.2349379964978876,
+    "aire_bbox": 0.2364274857706172,
+    "aspect_ratio": 0.26500791922171824,
+    "centroide_x": -0.1122437916772214,
+    "dispersion": 0.46630367460235816
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7006731717627998,
+    "hauteur_max": 0.13044779417651628,
+    "aire_bbox": 0.09140126969512054,
+    "aspect_ratio": 0.21133505684516166,
+    "centroide_x": -0.011545098892860109,
+    "dispersion": 0.28123896155208455
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3504947658948017,
+    "hauteur_max": 0.1540783831930603,
+    "aire_bbox": 0.05400366684670122,
+    "aspect_ratio": 0.49901140316423426,
+    "centroide_x": 0.00906204156361063,
+    "dispersion": 0.12869131223326744
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.27121560331910505,
+    "hauteur_max": 0.17454945903176758,
+    "aire_bbox": 0.04734053684032425,
+    "aspect_ratio": 0.7305570398851746,
+    "centroide_x": -0.0005755834792262586,
+    "dispersion": 0.09277595682737248
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.800072984383513,
+    "hauteur_max": 0.08687408671103719,
+    "aire_bbox": 0.06950560982049162,
+    "aspect_ratio": 0.12325681470254461,
+    "centroide_x": 0.0033113128991208293,
+    "dispersion": 0.30083702323490996
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6797143961572063,
+    "hauteur_max": 0.06717249020307649,
+    "aire_bbox": 0.04565810861675999,
+    "aspect_ratio": 0.11217995841454093,
+    "centroide_x": 0.012975955368716378,
+    "dispersion": 0.2637710463370386
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8063437682278085,
+    "hauteur_max": 0.08635632880312132,
+    "aire_bbox": 0.06963288757742848,
+    "aspect_ratio": 0.12156938834617441,
+    "centroide_x": 0.004936472717826676,
+    "dispersion": 0.3171276030148899
    }
   },
   "notes": ""
@@ -10793,9 +25346,7 @@ window.PRESETS_DB = [
     "height": 0.20247688073453404,
     "projection": 0.1074135083018668,
     "narine": 0.12322825639240055,
-    "evasement": 2.0369473365149737,
-    "compacite_narines": 0.1622241272455999,
-    "ratio_pointe_base": 0.559366846488857
+    "compacite_narines": 0.1622241272455999
    },
    "joues": {
     "width": 1.1012570219674205,
@@ -10819,6 +25370,701 @@ window.PRESETS_DB = [
     "width": 0.9056891838518851,
     "height": 0.15291368585264722,
     "angle": 0.22266792618681575
+   },
+   "philtrum": {
+    "largeur_sup": 0.11583012951557196,
+    "largeur_milieu": 0.1128738519712965,
+    "largeur_inf": 0.10838828795055465,
+    "hauteur": 0.09524303039066817,
+    "profondeur_z": 0.007004331797361374
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4656300569962954,
+    "hauteur_max": 0.21311750708039787,
+    "aire_bbox": 0.09923391696875404,
+    "aspect_ratio": 0.4488153595573832,
+    "centroide_x": 0.012674003784172012,
+    "dispersion": 0.17169173830783196
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6395017926827,
+    "hauteur_max": 0.15972787937491495,
+    "aire_bbox": 0.10214626520166417,
+    "aspect_ratio": 0.24492242459009242,
+    "centroide_x": 0.009687874399251364,
+    "dispersion": 0.24598465049035226
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.23742551376306623,
+    "hauteur_max": 0.08576683121114208,
+    "aire_bbox": 0.020363233964135592,
+    "aspect_ratio": 0.3542269247241559,
+    "centroide_x": -0.006045506980027956,
+    "dispersion": 0.1024181537938284
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6504436731629976,
+    "hauteur_max": 0.11087484325768976,
+    "aire_bbox": 0.07211784030990334,
+    "aspect_ratio": 0.16715251510605145,
+    "centroide_x": -0.0055823805138822446,
+    "dispersion": 0.2426486544685985
+   },
+   "joues__joues": {
+    "largeur_max": 1.0022856840199175,
+    "hauteur_max": 0.2554622627848306,
+    "aire_bbox": 0.25604616879656983,
+    "aspect_ratio": 0.24993369968015658,
+    "centroide_x": 0.036230761869041665,
+    "dispersion": 0.3761140663023335
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9970132188282788,
+    "hauteur_max": 0.49189036746616777,
+    "aire_bbox": 0.49042119857806876,
+    "aspect_ratio": 0.483790116842263,
+    "centroide_x": -0.016352868577343062,
+    "dispersion": 0.44535125709145984
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5882407055628404,
+    "hauteur_max": 0.07630279015962006,
+    "aire_bbox": 0.04488440711990826,
+    "aspect_ratio": 0.1271964339480383,
+    "centroide_x": 0.008189102686455018,
+    "dispersion": 0.23954993860260376
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6674133584237901,
+    "hauteur_max": 0.13947426709211366,
+    "aire_bbox": 0.09308698901364429,
+    "aspect_ratio": 0.2049220932884758,
+    "centroide_x": 0.005335310287086398,
+    "dispersion": 0.2777795493729777
+   },
+   "menton__menton": {
+    "largeur_max": 0.46533918287011977,
+    "hauteur_max": 0.15647273625118815,
+    "aire_bbox": 0.07281289522857966,
+    "aspect_ratio": 0.3297301383324514,
+    "centroide_x": 0.008017658052943756,
+    "dispersion": 0.16617623562355108
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17061110031351973,
+    "hauteur_max": 0.11113854054464667,
+    "aire_bbox": 0.018961468689560893,
+    "aspect_ratio": 0.6387736547906657,
+    "centroide_x": 0.006052449616996584,
+    "dispersion": 0.07212750199787218
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.24650152752205087,
+    "hauteur_max": 0.12501770356913616,
+    "aire_bbox": 0.030817054897091016,
+    "aspect_ratio": 0.49732637587354844,
+    "centroide_x": -0.0056091729197057325,
+    "dispersion": 0.09716656935604213
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.09971324227868908,
+    "hauteur_max": 0.08298949656261424,
+    "aire_bbox": 0.00827515177733439,
+    "aspect_ratio": 0.8161310151841827,
+    "centroide_x": 0.0025589329911922293,
+    "dispersion": 0.045339538194771
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.174570263565132,
+    "hauteur_max": 0.07430194676152294,
+    "aire_bbox": 0.012970910429561465,
+    "aspect_ratio": 0.41736835306352765,
+    "centroide_x": -0.004413618814212701,
+    "dispersion": 0.06513800584540924
+   },
+   "nez__nez": {
+    "largeur_max": 0.2561505527889144,
+    "hauteur_max": 0.1632323057644294,
+    "aire_bbox": 0.041812045354567694,
+    "aspect_ratio": 0.6248854440556268,
+    "centroide_x": 0.005262419714355567,
+    "dispersion": 0.10412789651991768
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8283939132859794,
+    "hauteur_max": 0.12291237017939152,
+    "aire_bbox": 0.10181985932416107,
+    "aspect_ratio": 0.14549507233287784,
+    "centroide_x": -0.03481322624313615,
+    "dispersion": 0.3026320223964065
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4158637307972041,
+    "hauteur_max": 0.10256658279681545,
+    "aire_bbox": 0.04265372177700401,
+    "aspect_ratio": 0.24184907546446763,
+    "centroide_x": -0.007563281903742103,
+    "dispersion": 0.13592954818590244
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.88357203516709,
+    "hauteur_max": 0.20136387573421702,
+    "aire_bbox": 0.17791948949161515,
+    "aspect_ratio": 0.2234751256161999,
+    "centroide_x": 0.03235904134605457,
+    "dispersion": 0.357685154189359
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9869620288629822,
+    "hauteur_max": 0.25797865233814576,
+    "aire_bbox": 0.25461513411499426,
+    "aspect_ratio": 0.2563143467352544,
+    "centroide_x": 0.06618084591247907,
+    "dispersion": 0.445466586831392
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7217674817974424,
+    "hauteur_max": 0.16640609596608777,
+    "aire_bbox": 0.12010650884118672,
+    "aspect_ratio": 0.2260796700335134,
+    "centroide_x": -0.00694537859150128,
+    "dispersion": 0.2618607917231864
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6626989013254392,
+    "hauteur_max": 0.07137585381685048,
+    "aire_bbox": 0.047300699905591964,
+    "aspect_ratio": 0.10561476969664926,
+    "centroide_x": 0.0005844816529494989,
+    "dispersion": 0.2468862279954603
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3748685928850368,
+    "hauteur_max": 0.024673818813398033,
+    "aire_bbox": 0.00924943973967887,
+    "aspect_ratio": 0.06454266679243041,
+    "centroide_x": -0.015433459110368876,
+    "dispersion": 0.17255038281549184
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.31435456149509844,
+    "hauteur_max": 0.05129525643539772,
+    "aire_bbox": 0.016124897843528076,
+    "aspect_ratio": 0.1600099646087596,
+    "centroide_x": 0.004273651746027896,
+    "dispersion": 0.11805446811110727
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3588795271425572,
+    "hauteur_max": 0.08905243503332683,
+    "aire_bbox": 0.03195909577565363,
+    "aspect_ratio": 0.24332498524990653,
+    "centroide_x": 0.0007909231445497868,
+    "dispersion": 0.12467110808893765
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.0895983792856151,
+    "hauteur_max": 0.0012892385665868122,
+    "aire_bbox": 0.00011551368607868795,
+    "aspect_ratio": 0.014109860667806156,
+    "centroide_x": 0.001757427407722619,
+    "dispersion": 0.036027401408822816
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2454028475980673,
+    "hauteur_max": 0.020972634037825847,
+    "aire_bbox": 0.005146744114514615,
+    "aspect_ratio": 0.08380365712747681,
+    "centroide_x": -0.016424245693987028,
+    "dispersion": 0.08185853863006783
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.29762200337223543,
+    "hauteur_max": 0.014722546528501707,
+    "aire_bbox": 0.004381753792553628,
+    "aspect_ratio": 0.04850734340323245,
+    "centroide_x": -0.013181531457266657,
+    "dispersion": 0.11960717918683472
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.18956997304482623,
+    "hauteur_max": 0.00152807283320974,
+    "aire_bbox": 0.0002896767258021017,
+    "aspect_ratio": 0.007904312408308238,
+    "centroide_x": 0.002864691602453076,
+    "dispersion": 0.07524903414456624
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.31753899049996814,
+    "hauteur_max": 0.018739626939536874,
+    "aire_bbox": 0.005950562220726547,
+    "aspect_ratio": 0.05786999856956392,
+    "centroide_x": 0.004347334129336669,
+    "dispersion": 0.10619959027347246
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.09671091264420859,
+    "hauteur_max": 0.00037252547915052765,
+    "aire_bbox": 3.602727907186863e-05,
+    "aspect_ratio": 0.0037772009550368357,
+    "centroide_x": 0.0015501546252500089,
+    "dispersion": 0.03948607682314541
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09629136594106617,
+    "hauteur_max": 0.013054811626098794,
+    "aire_bbox": 0.001257065643580364,
+    "aspect_ratio": 0.13294525844951194,
+    "centroide_x": 0.001822930120206257,
+    "dispersion": 0.039253300938383126
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.1053728230120519,
+    "hauteur_max": 0.013729798313214763,
+    "aire_bbox": 0.001446747607649548,
+    "aspect_ratio": 0.1277688932414435,
+    "centroide_x": 0.00024272292365614325,
+    "dispersion": 0.04196891846595119
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10838558184935802,
+    "hauteur_max": 0.008693847188980771,
+    "aire_bbox": 0.0009422876860870865,
+    "aspect_ratio": 0.07865567809471397,
+    "centroide_x": -0.00018048314889875896,
+    "dispersion": 0.04441579346633864
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.33938208671796694,
+    "hauteur_max": 0.03785868316124384,
+    "aire_bbox": 0.012848558891657293,
+    "aspect_ratio": 0.10938711761735953,
+    "centroide_x": 0.0033197913665437445,
+    "dispersion": 0.1388288930324285
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3179585829452282,
+    "hauteur_max": 0.039976378090178934,
+    "aire_bbox": 0.012710832528835963,
+    "aspect_ratio": 0.12328847528280368,
+    "centroide_x": 0.024565272015332547,
+    "dispersion": 0.11805801629857653
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.21225207118487455,
+    "hauteur_max": 0.026879210699608733,
+    "aire_bbox": 0.005705168142806595,
+    "aspect_ratio": 0.12418071763887203,
+    "centroide_x": 0.0004272370966733524,
+    "dispersion": 0.08206392041961355
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11286195122530865,
+    "hauteur_max": 0.06402960098889895,
+    "aire_bbox": 0.007226505703785089,
+    "aspect_ratio": 0.5563176408077807,
+    "centroide_x": -0.000569272089760473,
+    "dispersion": 0.04814441557041312
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4368835146395095,
+    "hauteur_max": 0.09845037683566824,
+    "aire_bbox": 0.04301134664955089,
+    "aspect_ratio": 0.22097407060110488,
+    "centroide_x": -0.07331739497194009,
+    "dispersion": 0.1975561621923266
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8599697885882702,
+    "hauteur_max": 0.17235157649083227,
+    "aire_bbox": 0.1482171487976761,
+    "aspect_ratio": 0.19652674281862087,
+    "centroide_x": 0.001677664590059669,
+    "dispersion": 0.3765068610706757
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7739754764949025,
+    "hauteur_max": 0.24033929568119386,
+    "aire_bbox": 0.18601672089530127,
+    "aspect_ratio": 0.3044999140682863,
+    "centroide_x": 0.006152673138010034,
+    "dispersion": 0.350215136398258
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.78791950364121,
+    "hauteur_max": 0.04692524241864594,
+    "aire_bbox": 0.03697331371474297,
+    "aspect_ratio": 0.058400190603887826,
+    "centroide_x": -0.004466527196968226,
+    "dispersion": 0.35808111190880565
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6674133584237901,
+    "hauteur_max": 0.17806559302515043,
+    "aire_bbox": 0.11884335546063947,
+    "aspect_ratio": 0.26162226786442727,
+    "centroide_x": 0.00415683209529874,
+    "dispersion": 0.2949290455443623
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6395017926827,
+    "hauteur_max": 0.18781833432591644,
+    "aire_bbox": 0.12011016150010226,
+    "aspect_ratio": 0.2879955710023683,
+    "centroide_x": 0.010045685663805348,
+    "dispersion": 0.23637928988548457
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.678797290729117,
+    "hauteur_max": 0.1862466928979751,
+    "aire_bbox": 0.12642375054640337,
+    "aspect_ratio": 0.26905313708080564,
+    "centroide_x": -0.010623680521279958,
+    "dispersion": 0.22817313805019981
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9642128270363323,
+    "hauteur_max": 0.3011259751436034,
+    "aire_bbox": 0.2903495277872862,
+    "aspect_ratio": 0.3062421077869582,
+    "centroide_x": -0.01587417461210381,
+    "dispersion": 0.431456696162173
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18571812080123531,
+    "hauteur_max": 0.08434096265101257,
+    "aire_bbox": 0.01566364509011323,
+    "aspect_ratio": 0.44532170541108224,
+    "centroide_x": 0.008047730954073911,
+    "dispersion": 0.06434182857708867
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.48303959846046973,
+    "hauteur_max": 0.11886958709630377,
+    "aire_bbox": 0.05741871762016041,
+    "aspect_ratio": 0.24131127260427068,
+    "centroide_x": -0.01244936186814865,
+    "dispersion": 0.20328227468065413
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.13742702363867326,
+    "hauteur_max": 0.031241947734799345,
+    "aire_bbox": 0.004293487889868464,
+    "aspect_ratio": 0.2229233450950227,
+    "centroide_x": -0.003983360831852416,
+    "dispersion": 0.06705027411962242
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.24616779303163144,
+    "hauteur_max": 0.054491437349551974,
+    "aire_bbox": 0.013414036871460621,
+    "aspect_ratio": 0.21706341036307863,
+    "centroide_x": -0.010470736668438993,
+    "dispersion": 0.10399563866340623
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12600018522698497,
+    "hauteur_max": 0.03136099168956921,
+    "aire_bbox": 0.0039514907617876575,
+    "aspect_ratio": 0.24406651184555742,
+    "centroide_x": 0.0035175688477596173,
+    "dispersion": 0.04852006813216135
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.19821043035948882,
+    "hauteur_max": 0.036418867053122105,
+    "aire_bbox": 0.007218599311804341,
+    "aspect_ratio": 0.18017292010666444,
+    "centroide_x": -0.00241327407883373,
+    "dispersion": 0.08861477770783906
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14079506150381485,
+    "hauteur_max": 0.07147012804592175,
+    "aire_bbox": 0.010062641073911074,
+    "aspect_ratio": 0.49776771935706676,
+    "centroide_x": -0.0036813485000275407,
+    "dispersion": 0.0693958327092832
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.21856846298566235,
+    "hauteur_max": 0.028587248884504264,
+    "aire_bbox": 0.006248271049674688,
+    "aspect_ratio": 0.12825504428793982,
+    "centroide_x": -0.001402720156357834,
+    "dispersion": 0.09712910937245267
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.07668656876633684,
+    "hauteur_max": 0.08246872590781378,
+    "aire_bbox": 0.006324243620401746,
+    "aspect_ratio": 1.054531529414291,
+    "centroide_x": -0.004786002852822819,
+    "dispersion": 0.04309888105205818
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05321802639742598,
+    "hauteur_max": 0.02836548753615946,
+    "aire_bbox": 0.0015095552644751918,
+    "aspect_ratio": 0.5226621833947033,
+    "centroide_x": 0.006395772671768258,
+    "dispersion": 0.019170559731268435
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.12416007131791248,
+    "hauteur_max": 0.03812718512192384,
+    "aire_bbox": 0.004733874023889316,
+    "aspect_ratio": 0.3011219264729775,
+    "centroide_x": -0.004521259546665462,
+    "dispersion": 0.0420606537224648
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.22351798882664842,
+    "hauteur_max": 0.2162530931288601,
+    "aire_bbox": 0.04833645645370471,
+    "aspect_ratio": 0.9487230176480784,
+    "centroide_x": -0.006186232604997169,
+    "dispersion": 0.10542553522586671
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.529507917976551,
+    "hauteur_max": 0.0969647064142476,
+    "aire_bbox": 0.05134357981061576,
+    "aspect_ratio": 0.1795687744699393,
+    "centroide_x": 0.026422517502571224,
+    "dispersion": 0.19128405373114812
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9079475979870051,
+    "hauteur_max": 0.17487785527549982,
+    "aire_bbox": 0.15877992863850918,
+    "aspect_ratio": 0.18887028031107847,
+    "centroide_x": -0.07729514934490513,
+    "dispersion": 0.4037713038506803
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.6999216410523843,
+    "hauteur_max": 0.0546196708259087,
+    "aire_bbox": 0.03822948963821105,
+    "aspect_ratio": 0.07652251711763641,
+    "centroide_x": 0.031722148429640086,
+    "dispersion": 0.32582265186537174
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.33572326621088505,
+    "hauteur_max": 0.05272341071409451,
+    "aire_bbox": 0.01770047565071378,
+    "aspect_ratio": 0.1539967828774744,
+    "centroide_x": 0.014561172174038173,
+    "dispersion": 0.14662741146245073
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5247664730287829,
+    "hauteur_max": 0.03135865932368422,
+    "aire_bbox": 0.016455973052200926,
+    "aspect_ratio": 0.05859775762136949,
+    "centroide_x": -0.006783034588269077,
+    "dispersion": 0.24049558216338035
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6263946633210299,
+    "hauteur_max": 0.035500661251519426,
+    "aire_bbox": 0.02223742475231944,
+    "aspect_ratio": 0.05557480966545607,
+    "centroide_x": -0.007526510958911247,
+    "dispersion": 0.2959214169691883
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.38407872253298936,
+    "hauteur_max": 0.026473425682938253,
+    "aire_bbox": 0.010167879517374955,
+    "aspect_ratio": 0.06758953911161766,
+    "centroide_x": -0.006242724120302541,
+    "dispersion": 0.1792168048790648
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5415731333822488,
+    "hauteur_max": 0.04441906862790699,
+    "aire_bbox": 0.024056174178736733,
+    "aspect_ratio": 0.08042701067526688,
+    "centroide_x": -0.008530283612444615,
+    "dispersion": 0.23591201896077182
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6498084523751063,
+    "hauteur_max": 0.06684336719255032,
+    "aire_bbox": 0.04343538498693208,
+    "aspect_ratio": 0.1008701237111791,
+    "centroide_x": -0.009190067917517239,
+    "dispersion": 0.3010870181196609
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4093325797540206,
+    "hauteur_max": 0.04962542240369832,
+    "aire_bbox": 0.020313302173888804,
+    "aspect_ratio": 0.11888238093077633,
+    "centroide_x": -0.007494056926434193,
+    "dispersion": 0.18630608343376473
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6286972300396063,
+    "hauteur_max": 0.027342885037544652,
+    "aire_bbox": 0.01719039608439572,
+    "aspect_ratio": 0.04264738237814077,
+    "centroide_x": -0.009061868009099484,
+    "dispersion": 0.2606182017403023
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7207816476777167,
+    "hauteur_max": 0.054799029762464396,
+    "aire_bbox": 0.03949813496332932,
+    "aspect_ratio": 0.074551903997492,
+    "centroide_x": -0.07045489136744827,
+    "dispersion": 0.33081045132101966
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.323166643235207,
+    "hauteur_max": 0.041917186390396426,
+    "aire_bbox": 0.013546236419648916,
+    "aspect_ratio": 0.1271906500934399,
+    "centroide_x": -0.00611823694710127,
+    "dispersion": 0.12980891174424752
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6105172083456314,
+    "hauteur_max": 0.21323701750834473,
+    "aire_bbox": 0.13018486864514314,
+    "aspect_ratio": 0.342495035190843,
+    "centroide_x": -0.005708591125325506,
+    "dispersion": 0.2419125533616934
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.3936557954487797,
+    "hauteur_max": 0.08093542857502166,
+    "aire_bbox": 0.03186070051568805,
+    "aspect_ratio": 0.20160978742574495,
+    "centroide_x": 0.004941849237358281,
+    "dispersion": 0.12928478702612853
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.39963017343585233,
+    "hauteur_max": 0.10958742393649323,
+    "aire_bbox": 0.04379444123412907,
+    "aspect_ratio": 0.26890076461173473,
+    "centroide_x": -0.007989493614611272,
+    "dispersion": 0.1492067144780504
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.23742551376306623,
+    "hauteur_max": 0.2398223501064448,
+    "aire_bbox": 0.056939944685888595,
+    "aspect_ratio": 0.9904940215080446,
+    "centroide_x": -0.006215823943277631,
+    "dispersion": 0.12279984190840396
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6504436731629976,
+    "hauteur_max": 0.16915534892936032,
+    "aire_bbox": 0.11002602649278165,
+    "aspect_ratio": 0.25501494465673846,
+    "centroide_x": -0.006846820256011129,
+    "dispersion": 0.24608051410281775
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7722724974545633,
+    "hauteur_max": 0.16001308107533146,
+    "aire_bbox": 0.12357370174744575,
+    "aspect_ratio": 0.2031769840543092,
+    "centroide_x": -0.008731190616876685,
+    "dispersion": 0.3201727440013658
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9634746864837147,
+    "hauteur_max": 0.29864946904692147,
+    "aire_bbox": 0.2877412035585105,
+    "aspect_ratio": 0.3039562155485982,
+    "centroide_x": -0.01986643132487138,
+    "dispersion": 0.43110939249684244
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7092328150382393,
+    "hauteur_max": 0.17694652387353244,
+    "aire_bbox": 0.12549628123805642,
+    "aspect_ratio": 0.2446486391382202,
+    "centroide_x": 0.04611981863840763,
+    "dispersion": 0.2800689130138047
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.47546461229237236,
+    "hauteur_max": 0.18409961015888912,
+    "aire_bbox": 0.0875328497673731,
+    "aspect_ratio": 0.3796857171993543,
+    "centroide_x": -0.003122503325986758,
+    "dispersion": 0.16012339249304072
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9219811881996833,
+    "hauteur_max": 0.21778055954693973,
+    "aire_bbox": 0.2007895790578794,
+    "aspect_ratio": 0.2316256440306534,
+    "centroide_x": 0.06366826079527273,
+    "dispersion": 0.36480907631224246
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0022856840199175,
+    "hauteur_max": 0.26131790057568527,
+    "aire_bbox": 0.2619151907251495,
+    "aspect_ratio": 0.25566261322339856,
+    "centroide_x": -0.10893553932993817,
+    "dispersion": 0.46119894601498995
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7226286686465552,
+    "hauteur_max": 0.0969872370686966,
+    "aire_bbox": 0.07008575799866004,
+    "aspect_ratio": 0.13161003081172137,
+    "centroide_x": -0.015637282719350686,
+    "dispersion": 0.2860773572777271
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.349841113404286,
+    "hauteur_max": 0.15647273625118815,
+    "aire_bbox": 0.05474059626753085,
+    "aspect_ratio": 0.43858868286289515,
+    "centroide_x": 0.007625963471119262,
+    "dispersion": 0.12621077224220265
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.24529759498534043,
+    "hauteur_max": 0.1632323057644294,
+    "aire_bbox": 0.040040492027926256,
+    "aspect_ratio": 0.652532903692598,
+    "centroide_x": 0.0023546508463098796,
+    "dispersion": 0.08151581643695656
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.78791950364121,
+    "hauteur_max": 0.07595498775885041,
+    "aire_bbox": 0.0598464162540276,
+    "aspect_ratio": 0.09452877670526968,
+    "centroide_x": 0.004598351566340344,
+    "dispersion": 0.2981507768229727
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6754957161609297,
+    "hauteur_max": 0.05771779907825799,
+    "aire_bbox": 0.03898812602360053,
+    "aspect_ratio": 0.08378702172435944,
+    "centroide_x": 0.012743274890514043,
+    "dispersion": 0.26479139577681515
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.7960533212607128,
+    "hauteur_max": 0.08092115449580553,
+    "aire_bbox": 0.06441755379663726,
+    "aspect_ratio": 0.09968033802769638,
+    "centroide_x": 0.00714370020787966,
+    "dispersion": 0.31751122869704007
    }
   },
   "notes": ""
@@ -11285,9 +26531,7 @@ window.PRESETS_DB = [
     "height": 0.20769899437893327,
     "projection": 0.11033810171865788,
     "narine": 0.15712120783373457,
-    "evasement": 2.170484450756062,
-    "compacite_narines": 0.19189538436121195,
-    "ratio_pointe_base": 0.5324615006593967
+    "compacite_narines": 0.19189538436121195
    },
    "joues": {
     "width": 1.079769779896485,
@@ -11311,6 +26555,701 @@ window.PRESETS_DB = [
     "width": 0.8861021369617453,
     "height": 0.17711747815852802,
     "angle": 0.2772716756879635
+   },
+   "philtrum": {
+    "largeur_sup": 0.13472758734769288,
+    "largeur_milieu": 0.13394668879945915,
+    "largeur_inf": 0.1296340024728162,
+    "hauteur": 0.08486235008669935,
+    "profondeur_z": 0.00776749849319458
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.5038141540370125,
+    "hauteur_max": 0.24115670474335923,
+    "aire_bbox": 0.12149816119062912,
+    "aspect_ratio": 0.514028847220028,
+    "centroide_x": 0.0326405183273278,
+    "dispersion": 0.19554931302245618
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6643550362834897,
+    "hauteur_max": 0.16261349911931772,
+    "aire_bbox": 0.10803309710759953,
+    "aspect_ratio": 0.2628541747902261,
+    "centroide_x": 0.028790081319701392,
+    "dispersion": 0.2646653440023555
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.26244794410984684,
+    "hauteur_max": 0.08677666065981182,
+    "aire_bbox": 0.022774356186885437,
+    "aspect_ratio": 0.35507351072705257,
+    "centroide_x": 0.004732537010812897,
+    "dispersion": 0.1116523355175112
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.697317295071212,
+    "hauteur_max": 0.11201956058773327,
+    "aire_bbox": 0.0781131769841039,
+    "aspect_ratio": 0.17251304605890128,
+    "centroide_x": 0.0019915786579011497,
+    "dispersion": 0.25853106490638694
+   },
+   "joues__joues": {
+    "largeur_max": 0.9991436456955719,
+    "hauteur_max": 0.24426275687289617,
+    "aire_bbox": 0.2440535814096366,
+    "aspect_ratio": 0.2625353805863524,
+    "centroide_x": 0.04741086557856952,
+    "dispersion": 0.38873879788650456
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9971834980551295,
+    "hauteur_max": 0.4815433184829702,
+    "aire_bbox": 0.4801870507899235,
+    "aspect_ratio": 0.5185836188108953,
+    "centroide_x": -0.012734191838898916,
+    "dispersion": 0.4526080091389037
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.587486241574938,
+    "hauteur_max": 0.082757713706965,
+    "aire_bbox": 0.0486190181870396,
+    "aspect_ratio": 0.1512757447103576,
+    "centroide_x": 0.02053505425108111,
+    "dispersion": 0.24249999132424888
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6858685081983705,
+    "hauteur_max": 0.14291071526409324,
+    "aire_bbox": 0.09801795908374573,
+    "aspect_ratio": 0.223759996165336,
+    "centroide_x": 0.0192421497859712,
+    "dispersion": 0.2897554491699307
+   },
+   "menton__menton": {
+    "largeur_max": 0.4702839571904892,
+    "hauteur_max": 0.15012106517867146,
+    "aire_bbox": 0.07059952858987698,
+    "aspect_ratio": 0.3427993494168215,
+    "centroide_x": 0.024720738299026095,
+    "dispersion": 0.1729319079907371
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.1847400466269192,
+    "hauteur_max": 0.095067384538759,
+    "aire_bbox": 0.017562753052389597,
+    "aspect_ratio": 0.5526230719003222,
+    "centroide_x": 0.02702323516935775,
+    "dispersion": 0.07545656414759766
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2749930570961955,
+    "hauteur_max": 0.11916638075666514,
+    "aire_bbox": 0.032769927347364586,
+    "aspect_ratio": 0.465361591446053,
+    "centroide_x": 0.01147349595284527,
+    "dispersion": 0.11102853116780266
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12383857732153224,
+    "hauteur_max": 0.08365440384153029,
+    "aire_bbox": 0.010359642358416032,
+    "aspect_ratio": 0.7254230819592551,
+    "centroide_x": 0.021975158887681277,
+    "dispersion": 0.05236319023847282
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1858955494340533,
+    "hauteur_max": 0.061192035150779464,
+    "aire_bbox": 0.01137532699534205,
+    "aspect_ratio": 0.35349593227830445,
+    "centroide_x": 0.012055071956445942,
+    "dispersion": 0.06851238546480394
+   },
+   "nez__nez": {
+    "largeur_max": 0.3259203119939098,
+    "hauteur_max": 0.17067616041860392,
+    "aire_bbox": 0.05562682745355399,
+    "aspect_ratio": 0.562367161101919,
+    "centroide_x": 0.02842132506758012,
+    "dispersion": 0.126686884190555
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8567350560764077,
+    "hauteur_max": 0.12397770016028399,
+    "aire_bbox": 0.10621604189904496,
+    "aspect_ratio": 0.15540162419823864,
+    "centroide_x": -0.022553720333924724,
+    "dispersion": 0.3148011673777658
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4311336058870876,
+    "hauteur_max": 0.10127295167907796,
+    "aire_bbox": 0.04366217283622966,
+    "aspect_ratio": 0.2522551881827084,
+    "centroide_x": 0.00627746316555734,
+    "dispersion": 0.14282012646725933
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8988757337519104,
+    "hauteur_max": 0.19797024248204706,
+    "aire_bbox": 0.17795064697209367,
+    "aspect_ratio": 0.2365150463415561,
+    "centroide_x": 0.04305455467637034,
+    "dispersion": 0.37060216640426136
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9844231836090002,
+    "hauteur_max": 0.24534303876517,
+    "aire_bbox": 0.241521375297515,
+    "aspect_ratio": 0.26763963117195316,
+    "centroide_x": 0.07069329816292655,
+    "dispersion": 0.4543700041883367
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7582715141945603,
+    "hauteur_max": 0.1683786854285836,
+    "aire_bbox": 0.12767676075802165,
+    "aspect_ratio": 0.23846293720144784,
+    "centroide_x": 0.009450940780579203,
+    "dispersion": 0.27458003421863897
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.704487117563534,
+    "hauteur_max": 0.07122619018724397,
+    "aire_bbox": 0.05017793342004357,
+    "aspect_ratio": 0.10857383417634768,
+    "centroide_x": 0.019491168637091067,
+    "dispersion": 0.2602477743491742
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.41822942830106347,
+    "hauteur_max": 0.04048796726091101,
+    "aire_bbox": 0.016933259400602984,
+    "aspect_ratio": 0.10396086886625626,
+    "centroide_x": 0.0017343100545604234,
+    "dispersion": 0.19462672264392208
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.35424503617648845,
+    "hauteur_max": 0.03585296591948462,
+    "aire_bbox": 0.012700735209182237,
+    "aspect_ratio": 0.10868755784652932,
+    "centroide_x": 0.026110473945515418,
+    "dispersion": 0.14027364468705739
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3991375042618957,
+    "hauteur_max": 0.0869376947542111,
+    "aire_bbox": 0.03470009451047832,
+    "aspect_ratio": 0.2339074737257104,
+    "centroide_x": 0.02216551552926467,
+    "dispersion": 0.14437409854164746
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.10113118965804024,
+    "hauteur_max": 0.003759303644552934,
+    "aire_bbox": 0.00038018284985944466,
+    "aspect_ratio": 0.03991910588242195,
+    "centroide_x": 0.024765825303694144,
+    "dispersion": 0.041080414267666995
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2743588727805357,
+    "hauteur_max": 0.03626093737304852,
+    "aire_bbox": 0.009948509903635192,
+    "aspect_ratio": 0.14193141500033335,
+    "centroide_x": 0.0037316969031853313,
+    "dispersion": 0.09218957158284814
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.35710786322288907,
+    "hauteur_max": 0.040110563742933474,
+    "aire_bbox": 0.01432379771090446,
+    "aspect_ratio": 0.12061959570397401,
+    "centroide_x": 0.005785750873328881,
+    "dispersion": 0.14664985815537676
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.2444690066234113,
+    "hauteur_max": 0.01564894157831974,
+    "aire_bbox": 0.0038256812023596248,
+    "aspect_ratio": 0.06874160643929811,
+    "centroide_x": 0.026665935213962173,
+    "dispersion": 0.09811586192143705
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.36316989010051637,
+    "hauteur_max": 0.03807282413330219,
+    "aire_bbox": 0.013826903356307643,
+    "aspect_ratio": 0.112580655700214,
+    "centroide_x": 0.02651666396413254,
+    "dispersion": 0.12523835262893426
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.12965677842391524,
+    "hauteur_max": 0.004746868937021089,
+    "aire_bbox": 0.0006154637339747094,
+    "aspect_ratio": 0.03931610895891163,
+    "centroide_x": 0.02611367296407573,
+    "dispersion": 0.05297616895108817
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.12262098100796932,
+    "hauteur_max": 0.03602956019796252,
+    "aire_bbox": 0.004417980016759849,
+    "aspect_ratio": 0.3155387423331558,
+    "centroide_x": 0.025714226162302706,
+    "dispersion": 0.051165453170149526
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.12494780662387543,
+    "hauteur_max": 0.02860707617618247,
+    "aire_bbox": 0.0035743914221361213,
+    "aspect_ratio": 0.24586876021063636,
+    "centroide_x": 0.02391650544492707,
+    "dispersion": 0.05077202328559341
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.1296330978589635,
+    "hauteur_max": 0.010522275248847489,
+    "aire_bbox": 0.001364035137032796,
+    "aspect_ratio": 0.08716703512865914,
+    "centroide_x": 0.023098265297711203,
+    "dispersion": 0.053179851515507914
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.39361607650273894,
+    "hauteur_max": 0.05733734481566183,
+    "aire_bbox": 0.022568900703425467,
+    "aspect_ratio": 0.15643115982984948,
+    "centroide_x": 0.02511424848039287,
+    "dispersion": 0.16386793738019492
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3568596869471943,
+    "hauteur_max": 0.06509635234517738,
+    "aire_bbox": 0.023230263919304255,
+    "aspect_ratio": 0.19589244153829102,
+    "centroide_x": 0.04829539987522723,
+    "dispersion": 0.13366906139485893
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.26278792583254657,
+    "hauteur_max": 0.045357384156563,
+    "aire_bbox": 0.0119193729036932,
+    "aspect_ratio": 0.1853536354979101,
+    "centroide_x": 0.023319547570621494,
+    "dispersion": 0.10082777656441
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.13394365280525347,
+    "hauteur_max": 0.047812394501367296,
+    "aire_bbox": 0.006404166768878951,
+    "aspect_ratio": 0.3833335855460695,
+    "centroide_x": 0.02249370640699366,
+    "dispersion": 0.05219264987488208
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.47474465383982406,
+    "hauteur_max": 0.10196910879042904,
+    "aire_bbox": 0.0484092892550676,
+    "aspect_ratio": 0.2306572216277853,
+    "centroide_x": -0.06234050444395967,
+    "dispersion": 0.2147995066306943
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8907082129687924,
+    "hauteur_max": 0.16267380634163423,
+    "aire_bbox": 0.14489489534338842,
+    "aspect_ratio": 0.19612849125918336,
+    "centroide_x": 0.011886922642161731,
+    "dispersion": 0.38936048693598424
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7905373468476786,
+    "hauteur_max": 0.23712173724595811,
+    "aire_bbox": 0.1874535890423321,
+    "aspect_ratio": 0.3221124357749283,
+    "centroide_x": 0.014820766664665117,
+    "dispersion": 0.3546512992286691
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8248207240846818,
+    "hauteur_max": 0.04544236670037692,
+    "aire_bbox": 0.03748180580592652,
+    "aspect_ratio": 0.05916432217027592,
+    "centroide_x": 0.008867110918049537,
+    "dispersion": 0.3771415662110654
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6858685081983705,
+    "hauteur_max": 0.17640562275495564,
+    "aire_bbox": 0.12099106131674595,
+    "aspect_ratio": 0.2762040718797674,
+    "centroide_x": 0.017935302708480327,
+    "dispersion": 0.3072450707835997
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6643550362834897,
+    "hauteur_max": 0.1857014056244475,
+    "aire_bbox": 0.12337166407152486,
+    "aspect_ratio": 0.3001742782558482,
+    "centroide_x": 0.02847131132900548,
+    "dispersion": 0.25595718847726356
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7123866376314048,
+    "hauteur_max": 0.1833740072035068,
+    "aire_bbox": 0.1306331924207032,
+    "aspect_ratio": 0.2764270420175322,
+    "centroide_x": 0.005483890960131551,
+    "dispersion": 0.24301243197757216
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9660863185855069,
+    "hauteur_max": 0.29091743684997723,
+    "aire_bbox": 0.2810513555787262,
+    "aspect_ratio": 0.32337938917590386,
+    "centroide_x": -0.013053543591071977,
+    "dispersion": 0.43703640857320447
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19646889696625675,
+    "hauteur_max": 0.07436745989317183,
+    "aire_bbox": 0.014610892815393807,
+    "aspect_ratio": 0.4064879320679019,
+    "centroide_x": 0.027895611581900848,
+    "dispersion": 0.06713687503481763
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.49255466337126974,
+    "hauteur_max": 0.11475396370523891,
+    "aire_bbox": 0.056522599963352856,
+    "aspect_ratio": 0.25019105349718734,
+    "centroide_x": 0.0014929519812762187,
+    "dispersion": 0.20890848377373245
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.16792353319833436,
+    "hauteur_max": 0.03250761841467967,
+    "aire_bbox": 0.0054587941400562464,
+    "aspect_ratio": 0.20788928492885558,
+    "centroide_x": 0.0172466568012444,
+    "dispersion": 0.08092177252646961
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.31513423487718156,
+    "hauteur_max": 0.05314677547747466,
+    "aire_bbox": 0.01674836842628333,
+    "aspect_ratio": 0.18110892388863195,
+    "centroide_x": 0.008085880236471013,
+    "dispersion": 0.13121036617427909
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.1581547810619341,
+    "hauteur_max": 0.032229928975738405,
+    "aire_bbox": 0.005097317360799593,
+    "aspect_ratio": 0.2188444508351607,
+    "centroide_x": 0.028143309137754344,
+    "dispersion": 0.05917950574714988
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.2475806526330732,
+    "hauteur_max": 0.03311345280069873,
+    "aire_bbox": 0.008198250255331456,
+    "aspect_ratio": 0.14363037025913986,
+    "centroide_x": 0.01947842645418396,
+    "dispersion": 0.11251092386395453
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.1714374521871453,
+    "hauteur_max": 0.07072416708849488,
+    "aire_bbox": 0.012124771013709516,
+    "aspect_ratio": 0.44301726676088693,
+    "centroide_x": 0.019458614374007734,
+    "dispersion": 0.08381629794730411
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2788117088665567,
+    "hauteur_max": 0.029274138505469418,
+    "aire_bbox": 0.008161972582306196,
+    "aspect_ratio": 0.11275391511575125,
+    "centroide_x": 0.019679752454194697,
+    "dispersion": 0.12531103332507146
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08942196600823475,
+    "hauteur_max": 0.08467373400682164,
+    "aire_bbox": 0.007571691764148316,
+    "aspect_ratio": 1.0168643312538561,
+    "centroide_x": 0.01922530368144929,
+    "dispersion": 0.04937836947370678
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06514375105710836,
+    "hauteur_max": 0.03023933027881863,
+    "aire_bbox": 0.00196990340381704,
+    "aspect_ratio": 0.49849168892136975,
+    "centroide_x": 0.03297610128915538,
+    "dispersion": 0.023392262512799765
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.14840961061547533,
+    "hauteur_max": 0.04047231500473726,
+    "aire_bbox": 0.006006480510559917,
+    "aspect_ratio": 0.29285627675748277,
+    "centroide_x": 0.017361852367858584,
+    "dispersion": 0.049587340264125104
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23822406097684565,
+    "hauteur_max": 0.19857087479469074,
+    "aire_bbox": 0.04730436018531599,
+    "aspect_ratio": 0.8951347990564242,
+    "centroide_x": 0.008949160697377799,
+    "dispersion": 0.1097460189948212
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5523680131889991,
+    "hauteur_max": 0.09815161558174784,
+    "aire_bbox": 0.05421581289018046,
+    "aspect_ratio": 0.19082156215810608,
+    "centroide_x": 0.04052630967849923,
+    "dispersion": 0.19974419912300126
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9259934412470215,
+    "hauteur_max": 0.16308099518238942,
+    "aire_bbox": 0.1510119319309297,
+    "aspect_ratio": 0.18912718480884688,
+    "centroide_x": -0.07612393465018329,
+    "dispersion": 0.4174490643163205
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7352638925624838,
+    "hauteur_max": 0.05548826092897173,
+    "aire_bbox": 0.040798514722158535,
+    "aspect_ratio": 0.08104316443003584,
+    "centroide_x": 0.050360247911926295,
+    "dispersion": 0.3451447178625128
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3413093174621987,
+    "hauteur_max": 0.05363880875390108,
+    "aire_bbox": 0.018307425205279386,
+    "aspect_ratio": 0.1687677636288369,
+    "centroide_x": 0.03329051970191685,
+    "dispersion": 0.15112725688959194
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.558834241108475,
+    "hauteur_max": 0.028435453790842117,
+    "aire_bbox": 0.015890705239780364,
+    "aspect_ratio": 0.05464314288615951,
+    "centroide_x": 0.011535762275596346,
+    "dispersion": 0.25513023493556347
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.666606815766626,
+    "hauteur_max": 0.0341075552119218,
+    "aire_bbox": 0.022736328773403577,
+    "aspect_ratio": 0.05494641432685139,
+    "centroide_x": 0.009534918916878025,
+    "dispersion": 0.31537336280206296
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.40418156347162854,
+    "hauteur_max": 0.028109426501952528,
+    "aire_bbox": 0.011361311951850002,
+    "aspect_ratio": 0.074685105911415,
+    "centroide_x": 0.011602891815879817,
+    "dispersion": 0.18869907733893748
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5674081381836669,
+    "hauteur_max": 0.04544485264694569,
+    "aire_bbox": 0.02578577923043454,
+    "aspect_ratio": 0.08600974394545188,
+    "centroide_x": 0.009849520660387577,
+    "dispersion": 0.24389027191678264
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6802839487451775,
+    "hauteur_max": 0.06754602250846359,
+    "aire_bbox": 0.04595047491408825,
+    "aspect_ratio": 0.10662721650104869,
+    "centroide_x": 0.00836401838679554,
+    "dispersion": 0.31659784589876955
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.41822483061308746,
+    "hauteur_max": 0.050211517084421814,
+    "aire_bbox": 0.02099970322745846,
+    "aspect_ratio": 0.1289294247634097,
+    "centroide_x": 0.010137957604313174,
+    "dispersion": 0.1891727331507996
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6568457758810242,
+    "hauteur_max": 0.027509668874212682,
+    "aire_bbox": 0.01806960979591229,
+    "aspect_ratio": 0.044975962613159066,
+    "centroide_x": 0.007184336519866475,
+    "dispersion": 0.26916806501409013
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7570246014404621,
+    "hauteur_max": 0.0550154707204295,
+    "aire_bbox": 0.041648064795192556,
+    "aspect_ratio": 0.07804289220512123,
+    "centroide_x": -0.05720156147856986,
+    "dispersion": 0.3470927950129142
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.32101443061098317,
+    "hauteur_max": 0.04198510556392969,
+    "aire_bbox": 0.013477824756746911,
+    "aspect_ratio": 0.14045241445925039,
+    "centroide_x": 0.011272671940544954,
+    "dispersion": 0.13063910092014638
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6367840857414525,
+    "hauteur_max": 0.21475383452482058,
+    "aire_bbox": 0.13675182417735907,
+    "aspect_ratio": 0.3621656373269324,
+    "centroide_x": 0.011231180278436628,
+    "dispersion": 0.2595216845468272
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4362448012287713,
+    "hauteur_max": 0.09272111133831466,
+    "aire_bbox": 0.04044910278549385,
+    "aspect_ratio": 0.228247946803364,
+    "centroide_x": 0.025902279161552105,
+    "dispersion": 0.14958748708483494
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.44141200926375423,
+    "hauteur_max": 0.11180802494914986,
+    "aire_bbox": 0.0493534049446162,
+    "aspect_ratio": 0.27201155108248276,
+    "centroide_x": 0.012676579671834965,
+    "dispersion": 0.17227442120870598
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.26244794410984684,
+    "hauteur_max": 0.23575612393084647,
+    "aire_bbox": 0.06187371003695692,
+    "aspect_ratio": 0.9646690015843861,
+    "centroide_x": 0.007047633578629646,
+    "dispersion": 0.13302360908487793
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.697317295071212,
+    "hauteur_max": 0.16857364809004188,
+    "aire_bbox": 0.11754932030643439,
+    "aspect_ratio": 0.25960781639112185,
+    "centroide_x": 0.0024289851303893645,
+    "dispersion": 0.2602286647626329
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7806059453194385,
+    "hauteur_max": 0.15355185558776605,
+    "aire_bbox": 0.11986349138664201,
+    "aspect_ratio": 0.21124270982850143,
+    "centroide_x": 0.003418739432081568,
+    "dispersion": 0.3285968168252259
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9707359159418993,
+    "hauteur_max": 0.2943195928374833,
+    "aire_bbox": 0.28570659953274125,
+    "aspect_ratio": 0.3255941486330682,
+    "centroide_x": -0.018337436462890683,
+    "dispersion": 0.4374919518133548
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7243468554946968,
+    "hauteur_max": 0.17527635850806753,
+    "aire_bbox": 0.12696087912787984,
+    "aspect_ratio": 0.25985751344138125,
+    "centroide_x": 0.06056855939307856,
+    "dispersion": 0.29471266207564695
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.508889803812516,
+    "hauteur_max": 0.17804146766930223,
+    "aire_bbox": 0.09060348755272363,
+    "aspect_ratio": 0.37571274883670414,
+    "centroide_x": 0.013896914823181448,
+    "dispersion": 0.17909826034142737
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9445157463522142,
+    "hauteur_max": 0.20949191428758815,
+    "aire_bbox": 0.19786841177809542,
+    "aspect_ratio": 0.23818619042192965,
+    "centroide_x": 0.07665909846809109,
+    "dispersion": 0.3793159969142691
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 0.9998275147038758,
+    "hauteur_max": 0.24985263791301612,
+    "aire_bbox": 0.24980954200677827,
+    "aspect_ratio": 0.2683597450147149,
+    "centroide_x": -0.10770223435789958,
+    "dispersion": 0.4683708814636576
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7191189382034283,
+    "hauteur_max": 0.11637249906569926,
+    "aire_bbox": 0.0836856679642051,
+    "aspect_ratio": 0.1737833441724953,
+    "centroide_x": -0.006563114835757053,
+    "dispersion": 0.2869227385348368
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3624758864036632,
+    "hauteur_max": 0.15012106517867146,
+    "aire_bbox": 0.054415266168501036,
+    "aspect_ratio": 0.44475519783000605,
+    "centroide_x": 0.026186964889372423,
+    "dispersion": 0.1317217613021192
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.30618574982570707,
+    "hauteur_max": 0.17067616041860392,
+    "aire_bbox": 0.05225860815514291,
+    "aspect_ratio": 0.5986133603729137,
+    "centroide_x": 0.026198585029545952,
+    "dispersion": 0.09943236076968322
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8248207240846818,
+    "hauteur_max": 0.07403314611571966,
+    "aire_bbox": 0.06106407318543494,
+    "aspect_ratio": 0.09638848559428616,
+    "centroide_x": 0.02041602825356044,
+    "dispersion": 0.3156894302264715
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7117243233753325,
+    "hauteur_max": 0.05697439661662123,
+    "aire_bbox": 0.04055006388168258,
+    "aspect_ratio": 0.08596594506491012,
+    "centroide_x": 0.03010065597006669,
+    "dispersion": 0.2812220558991443
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8258905516954456,
+    "hauteur_max": 0.08173718660443684,
+    "aire_bbox": 0.06750597013877192,
+    "aspect_ratio": 0.10628101739107897,
+    "centroide_x": 0.022740652183185973,
+    "dispersion": 0.33046797545364376
    }
   },
   "notes": ""
@@ -11777,9 +27716,7 @@ window.PRESETS_DB = [
     "height": 0.21212474683673638,
     "projection": 0.10115069943987175,
     "narine": 0.147565688225276,
-    "evasement": 2.0335079710743225,
-    "compacite_narines": 0.19579976131598062,
-    "ratio_pointe_base": 0.5464556631538154
+    "compacite_narines": 0.19579976131598062
    },
    "joues": {
     "width": 1.029325354843567,
@@ -11803,6 +27740,701 @@ window.PRESETS_DB = [
     "width": 0.8038464402467548,
     "height": 0.19712174265848262,
     "angle": 0.32072666545667033
+   },
+   "philtrum": {
+    "largeur_sup": 0.12637252568431792,
+    "largeur_milieu": 0.12883361280069047,
+    "largeur_inf": 0.12637252568431792,
+    "hauteur": 0.07843251709506194,
+    "profondeur_z": 0.00850079208612442
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.48694585176165556,
+    "hauteur_max": 0.23795025692404143,
+    "aire_bbox": 0.11586889053478212,
+    "aspect_ratio": 0.533261765882556,
+    "centroide_x": 0.017056974237076358,
+    "dispersion": 0.191276210244137
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6469361321066613,
+    "hauteur_max": 0.1594948681976196,
+    "aire_bbox": 0.10318299312262977,
+    "aspect_ratio": 0.2690421006912813,
+    "centroide_x": 0.017176800098760166,
+    "dispersion": 0.2592377804769494
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.28306003156787996,
+    "hauteur_max": 0.09770466318226931,
+    "aire_bbox": 0.027656285044702227,
+    "aspect_ratio": 0.3766792352930857,
+    "centroide_x": -0.002598370641760964,
+    "dispersion": 0.12011552049204682
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7429302802506405,
+    "hauteur_max": 0.12546858604518146,
+    "aire_bbox": 0.09321441179319825,
+    "aspect_ratio": 0.18429853503223415,
+    "centroide_x": -0.0024356648341114736,
+    "dispersion": 0.27391484571734
+   },
+   "joues__joues": {
+    "largeur_max": 1.009186375310556,
+    "hauteur_max": 0.2410823558142047,
+    "aire_bbox": 0.24329702881546703,
+    "aspect_ratio": 0.26069277015618636,
+    "centroide_x": 0.04147196569419105,
+    "dispersion": 0.3909430756600926
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.984983145268741,
+    "hauteur_max": 0.4671365201261875,
+    "aire_bbox": 0.4601215988637867,
+    "aspect_ratio": 0.5175471972901214,
+    "centroide_x": -0.018083172235541102,
+    "dispersion": 0.43805581775859603
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.568991683809427,
+    "hauteur_max": 0.07959828653261156,
+    "aire_bbox": 0.045290763082535886,
+    "aspect_ratio": 0.15266262967329408,
+    "centroide_x": 0.007879439324458328,
+    "dispersion": 0.2370417222999242
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6645760446812784,
+    "hauteur_max": 0.13124682474464083,
+    "aire_bbox": 0.08722349566577034,
+    "aspect_ratio": 0.21551577355920495,
+    "centroide_x": 0.006994216056686834,
+    "dispersion": 0.28281020921162203
+   },
+   "menton__menton": {
+    "largeur_max": 0.4615110529707796,
+    "hauteur_max": 0.14167777807543544,
+    "aire_bbox": 0.06538586054215464,
+    "aspect_ratio": 0.33500753051821575,
+    "centroide_x": 0.009384630107334802,
+    "dispersion": 0.17007442666782616
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.1854250289783209,
+    "hauteur_max": 0.08792821257648645,
+    "aire_bbox": 0.01630409136500696,
+    "aspect_ratio": 0.5174814997953664,
+    "centroide_x": 0.0099005173398429,
+    "dispersion": 0.0740058943391459
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.28388075973603505,
+    "hauteur_max": 0.1259750442984753,
+    "aire_bbox": 0.03576189128323184,
+    "aspect_ratio": 0.4842654661488609,
+    "centroide_x": 0.0006968695235498497,
+    "dispersion": 0.11494152437454903
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.13210573612475487,
+    "hauteur_max": 0.08687871010296691,
+    "aire_bbox": 0.011477175951721623,
+    "aspect_ratio": 0.7176730332236698,
+    "centroide_x": 0.010034040110657531,
+    "dispersion": 0.05535788902368613
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1948605188523555,
+    "hauteur_max": 0.05793516558012313,
+    "aire_bbox": 0.01128927642473992,
+    "aspect_ratio": 0.324454152518116,
+    "centroide_x": 0.0016807715044214132,
+    "dispersion": 0.0713119427661515
+   },
+   "nez__nez": {
+    "largeur_max": 0.3117791976006408,
+    "hauteur_max": 0.17062343686269993,
+    "aire_bbox": 0.053196838236916184,
+    "aspect_ratio": 0.5972092002633206,
+    "centroide_x": 0.013344224006417221,
+    "dispersion": 0.1240633611439828
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8793417420288271,
+    "hauteur_max": 0.12551836318360757,
+    "aire_bbox": 0.11037353613848047,
+    "aspect_ratio": 0.15577024991858981,
+    "centroide_x": -0.026238412084657256,
+    "dispersion": 0.3233994986465203
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4426408757436839,
+    "hauteur_max": 0.1127068400396628,
+    "aire_bbox": 0.04988865437745964,
+    "aspect_ratio": 0.2778649039185007,
+    "centroide_x": -0.0004083452422534083,
+    "dispersion": 0.14925769514806916
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9258920212581574,
+    "hauteur_max": 0.20540736107406318,
+    "aire_bbox": 0.19018503672616852,
+    "aspect_ratio": 0.2420976648011584,
+    "centroide_x": 0.04380697552896801,
+    "dispersion": 0.382756851993811
+   },
+   "tete__tempes": {
+    "largeur_max": 1.013084319994294,
+    "hauteur_max": 0.23845942695126615,
+    "aire_bbox": 0.24157950639915252,
+    "aspect_ratio": 0.25686435484476267,
+    "centroide_x": 0.07156204556933174,
+    "dispersion": 0.4718586093259498
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7773836091122219,
+    "hauteur_max": 0.1692855671071071,
+    "aire_bbox": 0.13159982512833215,
+    "aspect_ratio": 0.23763997183787786,
+    "centroide_x": 0.0035320273639374553,
+    "dispersion": 0.2827028738931848
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.7232394250129506,
+    "hauteur_max": 0.07961106404367568,
+    "aire_bbox": 0.057577860183617185,
+    "aspect_ratio": 0.12012302912405899,
+    "centroide_x": 0.01264568357269362,
+    "dispersion": 0.2707892505657025
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.41433505816987104,
+    "hauteur_max": 0.04679988642362065,
+    "aire_bbox": 0.01939083366367422,
+    "aspect_ratio": 0.12326167247935095,
+    "centroide_x": -0.01685327721710694,
+    "dispersion": 0.19343372307964254
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.34746685387712967,
+    "hauteur_max": 0.030731017203722066,
+    "aire_bbox": 0.010678009864221252,
+    "aspect_ratio": 0.09651581730628349,
+    "centroide_x": 0.009139265589361716,
+    "dispersion": 0.13800566505136858
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3860287390204497,
+    "hauteur_max": 0.09213651801904792,
+    "aire_bbox": 0.03556734386862801,
+    "aspect_ratio": 0.26046363444772713,
+    "centroide_x": 0.006087932465074844,
+    "dispersion": 0.14207502531058042
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.09804624443095149,
+    "hauteur_max": 0.0034889039922887267,
+    "aire_bbox": 0.00034207393362406296,
+    "aspect_ratio": 0.038832289303317793,
+    "centroide_x": 0.008049210128538441,
+    "dispersion": 0.039802765549057637
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2711661190064437,
+    "hauteur_max": 0.04114404524921088,
+    "aire_bbox": 0.011156871070454022,
+    "aspect_ratio": 0.16557947544765483,
+    "centroide_x": -0.012809160723872375,
+    "dispersion": 0.09087536989305632
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.355674286031363,
+    "hauteur_max": 0.03841241561768714,
+    "aire_bbox": 0.01366230849956085,
+    "aspect_ratio": 0.11785664928347205,
+    "centroide_x": -0.011632313016302577,
+    "dispersion": 0.1453732373895188
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.24080660010371135,
+    "hauteur_max": 0.01328098176987665,
+    "aire_bbox": 0.003198148066043367,
+    "aspect_ratio": 0.06018617359747536,
+    "centroide_x": 0.009396768237060007,
+    "dispersion": 0.09633820891703085
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.36223574766880984,
+    "hauteur_max": 0.03351881272920397,
+    "aire_bbox": 0.01214171218993402,
+    "aspect_ratio": 0.10097927750054451,
+    "centroide_x": 0.009286195894170691,
+    "dispersion": 0.12401296174977412
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.12635176105939924,
+    "hauteur_max": 0.002799194168445592,
+    "aire_bbox": 0.0003536831127303012,
+    "aspect_ratio": 0.024176123428355477,
+    "centroide_x": 0.0090217903121607,
+    "dispersion": 0.05159941178348141
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.12019818070676798,
+    "hauteur_max": 0.034895934263389494,
+    "aire_bbox": 0.004194427812522387,
+    "aspect_ratio": 0.3168194784536215,
+    "centroide_x": 0.009013422359092629,
+    "dispersion": 0.05018718643212367
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.12224922368496252,
+    "hauteur_max": 0.03281007452557468,
+    "aire_bbox": 0.00401100613979727,
+    "aspect_ratio": 0.29288426884787455,
+    "centroide_x": 0.006812391554775622,
+    "dispersion": 0.05010696145035192
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.12635156042915585,
+    "hauteur_max": 0.010474617487308737,
+    "aire_bbox": 0.0013234842644199824,
+    "aspect_ratio": 0.09046748174839118,
+    "centroide_x": 0.005984214988834624,
+    "dispersion": 0.05181845566562193
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3938235750791477,
+    "hauteur_max": 0.07051522273227301,
+    "aire_bbox": 0.027770557113926144,
+    "aspect_ratio": 0.19539619872259983,
+    "centroide_x": 0.0077382416108746615,
+    "dispersion": 0.16427818193112448
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3552623921416796,
+    "hauteur_max": 0.07674182337572744,
+    "aire_bbox": 0.027263483749775195,
+    "aspect_ratio": 0.23573160704160764,
+    "centroide_x": 0.03070434985367284,
+    "dispersion": 0.1332014021138878
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2633693268028726,
+    "hauteur_max": 0.05305388058000394,
+    "aire_bbox": 0.013972764812635634,
+    "aspect_ratio": 0.21982997006193294,
+    "centroide_x": 0.006501191058392921,
+    "dispersion": 0.10058353735131692
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.12881304272776922,
+    "hauteur_max": 0.04256437131721038,
+    "aire_bbox": 0.005482846181164455,
+    "aspect_ratio": 0.3605963472794615,
+    "centroide_x": 0.005569671108019819,
+    "dispersion": 0.04958014134169229
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.46397088006988496,
+    "hauteur_max": 0.09140415520863097,
+    "aire_bbox": 0.04240886633419287,
+    "aspect_ratio": 0.21498598743301275,
+    "centroide_x": -0.07473749089092475,
+    "dispersion": 0.2095249602466087
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8641540326040665,
+    "hauteur_max": 0.1473162455117796,
+    "aire_bbox": 0.12730392762709505,
+    "aspect_ratio": 0.18603489775166437,
+    "centroide_x": 0.004852242436431104,
+    "dispersion": 0.37700001349663376
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7593398278576572,
+    "hauteur_max": 0.21988395937383662,
+    "aire_bbox": 0.16696664785958917,
+    "aspect_ratio": 0.31600380207793205,
+    "centroide_x": 0.005534748906279431,
+    "dispersion": 0.34123059915654214
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8385147915951743,
+    "hauteur_max": 0.054521731635198814,
+    "aire_bbox": 0.04571727843949675,
+    "aspect_ratio": 0.07095677224293058,
+    "centroide_x": 0.00464551804939626,
+    "dispersion": 0.3835567997494424
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6645760446812784,
+    "hauteur_max": 0.16334972378376672,
+    "aire_bbox": 0.10855831333199503,
+    "aspect_ratio": 0.2682308097771976,
+    "centroide_x": 0.006257575785354406,
+    "dispersion": 0.29852736115070616
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6469361321066613,
+    "hauteur_max": 0.18671124253784463,
+    "aire_bbox": 0.12079024906826194,
+    "aspect_ratio": 0.3149517315680677,
+    "centroide_x": 0.016911802014486516,
+    "dispersion": 0.25082405448783995
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7092915101772297,
+    "hauteur_max": 0.18497396065582258,
+    "aire_bbox": 0.13120045989703186,
+    "aspect_ratio": 0.28459074532778816,
+    "centroide_x": -0.002670756361657912,
+    "dispersion": 0.24718649368639067
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9254836383977334,
+    "hauteur_max": 0.2701414035215959,
+    "aire_bbox": 0.25001144901303685,
+    "aspect_ratio": 0.3185351370358054,
+    "centroide_x": -0.017416298226080457,
+    "dispersion": 0.41863848789030433
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.1973218506782863,
+    "hauteur_max": 0.06559110089649997,
+    "aire_bbox": 0.01294255741692358,
+    "aspect_ratio": 0.3627477097335055,
+    "centroide_x": 0.00997810439879993,
+    "dispersion": 0.06645469937413721
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4812021088387129,
+    "hauteur_max": 0.10535710536612503,
+    "aire_bbox": 0.050698061283321834,
+    "aspect_ratio": 0.2389303102729781,
+    "centroide_x": -0.01201781541606552,
+    "dispersion": 0.2050920467436489
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.1677851164037038,
+    "hauteur_max": 0.03560669480689944,
+    "aire_bbox": 0.005974273432926778,
+    "aspect_ratio": 0.231586461757745,
+    "centroide_x": 0.003283765351154723,
+    "dispersion": 0.08147384621456838
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.3039824053970697,
+    "hauteur_max": 0.05725069545506169,
+    "aire_bbox": 0.01740320411508474,
+    "aspect_ratio": 0.20552623111763785,
+    "centroide_x": -0.005757954231849502,
+    "dispersion": 0.1279615728671486
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.14809370943284456,
+    "hauteur_max": 0.03350686253900011,
+    "aire_bbox": 0.004962155564856946,
+    "aspect_ratio": 0.24690625455111986,
+    "centroide_x": 0.011679309257551614,
+    "dispersion": 0.0561427016504873
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.2420371657015551,
+    "hauteur_max": 0.03456951022174389,
+    "aire_bbox": 0.008367106273761828,
+    "aspect_ratio": 0.1558641038292733,
+    "centroide_x": 0.0039130358398580525,
+    "dispersion": 0.10892238059914011
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.16901573215910837,
+    "hauteur_max": 0.071890689624738,
+    "aire_bbox": 0.012150657542348309,
+    "aspect_ratio": 0.46417362278377633,
+    "centroide_x": 0.0035501145386475728,
+    "dispersion": 0.082941614196613
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2666511861667151,
+    "hauteur_max": 0.03212937330665446,
+    "aire_bbox": 0.008567335503012606,
+    "aspect_ratio": 0.13149028708280672,
+    "centroide_x": 0.004430187460879317,
+    "dispersion": 0.11895975527943074
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.09025120774201005,
+    "hauteur_max": 0.08548265211353526,
+    "aire_bbox": 0.007714912594236645,
+    "aspect_ratio": 1.0336176205460403,
+    "centroide_x": 0.003131520434794295,
+    "dispersion": 0.049982447448719554
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06399708519468277,
+    "hauteur_max": 0.030008949941788463,
+    "aire_bbox": 0.0019204853260276066,
+    "aspect_ratio": 0.5117119320083297,
+    "centroide_x": 0.015897333579881275,
+    "dispersion": 0.023064268374334725
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.14973471435110708,
+    "hauteur_max": 0.042918832343565055,
+    "aire_bbox": 0.00642643910124677,
+    "aspect_ratio": 0.3127953861722508,
+    "centroide_x": 0.0028704231619018374,
+    "dispersion": 0.05047236347009929
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.24983129955440125,
+    "hauteur_max": 0.20725573376271117,
+    "aire_bbox": 0.051778969306039126,
+    "aspect_ratio": 0.9053044311002162,
+    "centroide_x": -0.00018352651514266495,
+    "dispersion": 0.1163058572059099
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5784305342400385,
+    "hauteur_max": 0.11167434360604876,
+    "aire_bbox": 0.06459585023295242,
+    "aspect_ratio": 0.21068670782074994,
+    "centroide_x": 0.037256155654014474,
+    "dispersion": 0.20940738542698376
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9712246755403429,
+    "hauteur_max": 0.17794053832452714,
+    "aire_bbox": 0.17282024159971282,
+    "aspect_ratio": 0.19993560040230382,
+    "centroide_x": -0.08039251344832081,
+    "dispersion": 0.43775660719892195
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7548338732213203,
+    "hauteur_max": 0.06288930077821588,
+    "aire_bbox": 0.04747097449060129,
+    "aspect_ratio": 0.09092018780465796,
+    "centroide_x": 0.04754300324669539,
+    "dispersion": 0.35464396433723017
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.36469647760401047,
+    "hauteur_max": 0.05795924980961092,
+    "aire_bbox": 0.021137534250136016,
+    "aspect_ratio": 0.17343075941095998,
+    "centroide_x": 0.026816773345732754,
+    "dispersion": 0.16227352730381694
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.575145715580106,
+    "hauteur_max": 0.035658632172016244,
+    "aire_bbox": 0.02050890951718207,
+    "aspect_ratio": 0.0676584010506873,
+    "centroide_x": 0.004414697970130134,
+    "dispersion": 0.26485646080561387
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6838572129619622,
+    "hauteur_max": 0.04264600030875679,
+    "aire_bbox": 0.0291637749151214,
+    "aspect_ratio": 0.06805308423388866,
+    "centroide_x": 0.004751400660346292,
+    "dispersion": 0.32455521500732276
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.42335970746300006,
+    "hauteur_max": 0.03249463546646263,
+    "aire_bbox": 0.013756919365198447,
+    "aspect_ratio": 0.08376008044929528,
+    "centroide_x": 0.0038119997032249543,
+    "dispersion": 0.19832411897769195
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5890935301007051,
+    "hauteur_max": 0.04961369659393097,
+    "aire_bbox": 0.029227107667864124,
+    "aspect_ratio": 0.09190777923278778,
+    "centroide_x": 0.0015092075675409854,
+    "dispersion": 0.25532869036822464
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.7010867363737213,
+    "hauteur_max": 0.07160535585248569,
+    "aire_bbox": 0.05020156524149814,
+    "aspect_ratio": 0.11145734544940479,
+    "centroide_x": 0.002982130319605338,
+    "dispersion": 0.32693410607967593
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4397689541246517,
+    "hauteur_max": 0.053779395012188654,
+    "aire_bbox": 0.023650508297966714,
+    "aspect_ratio": 0.13345236805337743,
+    "centroide_x": 0.0015103820904242373,
+    "dispersion": 0.19988956635284025
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.67606272800619,
+    "hauteur_max": 0.032522810337981746,
+    "aire_bbox": 0.021987459879523857,
+    "aspect_ratio": 0.05249718446328228,
+    "centroide_x": 0.0016416402473666588,
+    "dispersion": 0.27868890925818585
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7765695518996597,
+    "hauteur_max": 0.0505951749078285,
+    "aire_bbox": 0.03929067230645728,
+    "aspect_ratio": 0.07109903102850541,
+    "centroide_x": -0.06238407321112946,
+    "dispersion": 0.3568765234063066
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.34213365058972756,
+    "hauteur_max": 0.042598797057451517,
+    "aire_bbox": 0.014574481947996832,
+    "aspect_ratio": 0.13587403817932914,
+    "centroide_x": 0.0026913167818088985,
+    "dispersion": 0.14008619813067624
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6161681801859441,
+    "hauteur_max": 0.20025788622840723,
+    "aire_bbox": 0.12339253732524152,
+    "aspect_ratio": 0.3546706898982568,
+    "centroide_x": -0.002038114866885989,
+    "dispersion": 0.2520001143523518
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4266418176146468,
+    "hauteur_max": 0.08027678156257106,
+    "aire_bbox": 0.034249431998109287,
+    "aspect_ratio": 0.20533428512848295,
+    "centroide_x": 0.009100643898703218,
+    "dispersion": 0.14675951786761912
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4307369818276389,
+    "hauteur_max": 0.11098987348098732,
+    "aire_bbox": 0.04780744311663198,
+    "aspect_ratio": 0.2811940550169673,
+    "centroide_x": -0.0018854519708517029,
+    "dispersion": 0.1667560129306985
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.28306003156787996,
+    "hauteur_max": 0.25503783389654955,
+    "aire_bbox": 0.07219101731376104,
+    "aspect_ratio": 0.98324330808799,
+    "centroide_x": -0.0009418461382126748,
+    "dispersion": 0.14433915818049345
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7429302802506405,
+    "hauteur_max": 0.1929812775264631,
+    "aire_bbox": 0.14337163459586186,
+    "aspect_ratio": 0.28346670555423903,
+    "centroide_x": -0.0014960903204301232,
+    "dispersion": 0.2744342300659291
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7445804138449773,
+    "hauteur_max": 0.13265106401813515,
+    "aire_bbox": 0.09876938414359965,
+    "aspect_ratio": 0.19441692457353332,
+    "centroide_x": -0.0059553952903308,
+    "dispersion": 0.3172061295965633
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9388345277866811,
+    "hauteur_max": 0.2899106031758516,
+    "aire_bbox": 0.27217808423295253,
+    "aspect_ratio": 0.3369845462374211,
+    "centroide_x": -0.02373847598388767,
+    "dispersion": 0.42006186684918984
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.701919151253554,
+    "hauteur_max": 0.17444584308621652,
+    "aire_bbox": 0.12244687811878775,
+    "aspect_ratio": 0.27121173187567155,
+    "centroide_x": 0.048198739385046166,
+    "dispersion": 0.28752852962478803
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.5127904378246593,
+    "hauteur_max": 0.1846052513257633,
+    "aire_bbox": 0.09466380765206943,
+    "aspect_ratio": 0.3928611392160407,
+    "centroide_x": 0.0035914518924203397,
+    "dispersion": 0.1806924496477534
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9373966108322919,
+    "hauteur_max": 0.20486974040169925,
+    "aire_bbox": 0.19204420031464434,
+    "aspect_ratio": 0.23850054569419005,
+    "centroide_x": 0.06936910326881543,
+    "dispersion": 0.376140839963767
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0173757005853235,
+    "hauteur_max": 0.2320154707329114,
+    "aire_bbox": 0.23604690208352935,
+    "aspect_ratio": 0.2488688396278451,
+    "centroide_x": -0.10967935021536859,
+    "dispersion": 0.4711953717656415
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6887794753533371,
+    "hauteur_max": 0.12496663209434908,
+    "aire_bbox": 0.08607445129061925,
+    "aspect_ratio": 0.19799253090301738,
+    "centroide_x": -0.01741158102690552,
+    "dispersion": 0.27863515493175267
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3585427969362575,
+    "hauteur_max": 0.13887665349164924,
+    "aire_bbox": 0.04979322377204339,
+    "aspect_ratio": 0.422691174022464,
+    "centroide_x": 0.009746717539096185,
+    "dispersion": 0.12933862530705342
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2953667910126558,
+    "hauteur_max": 0.17062343686269993,
+    "aire_bbox": 0.050396497017686157,
+    "aspect_ratio": 0.6303938388586157,
+    "centroide_x": 0.01028942751074944,
+    "dispersion": 0.09698713202724117
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8385147915951743,
+    "hauteur_max": 0.08242754002564687,
+    "aire_bbox": 0.06911671154630816,
+    "aspect_ratio": 0.1072745125426085,
+    "centroide_x": 0.01492378033957864,
+    "dispersion": 0.32191076782602596
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7281595306292089,
+    "hauteur_max": 0.06567305162393648,
+    "aire_bbox": 0.0478204584454734,
+    "aspect_ratio": 0.09842277321150839,
+    "centroide_x": 0.024396716792593733,
+    "dispersion": 0.28899356052329805
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8501959357834936,
+    "hauteur_max": 0.08452999214293705,
+    "aire_bbox": 0.07186705577173573,
+    "aspect_ratio": 0.10849925170366616,
+    "centroide_x": 0.019790411977065752,
+    "dispersion": 0.34046316609443017
    }
   },
   "notes": ""
@@ -12269,9 +28901,7 @@ window.PRESETS_DB = [
     "height": 0.2168474331271001,
     "projection": 0.10373181049767756,
     "narine": 0.1496204372359872,
-    "evasement": 2.134844038468442,
-    "compacite_narines": 0.18401845677948808,
-    "ratio_pointe_base": 0.5450875402556963
+    "compacite_narines": 0.18401845677948808
    },
    "joues": {
     "width": 1.0604869971206128,
@@ -12295,6 +28925,701 @@ window.PRESETS_DB = [
     "width": 0.8578796308608235,
     "height": 0.18169979644780138,
     "angle": 0.2815008368409977
+   },
+   "philtrum": {
+    "largeur_sup": 0.1307735428538268,
+    "largeur_milieu": 0.13153353087032285,
+    "largeur_inf": 0.12811331759541236,
+    "hauteur": 0.09004854721616985,
+    "profondeur_z": 0.007190432399511337
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.49595622548887486,
+    "hauteur_max": 0.22737564667478796,
+    "aire_bbox": 0.11276836749291988,
+    "aspect_ratio": 0.48297576566003525,
+    "centroide_x": 0.023154765627619305,
+    "dispersion": 0.18946077183003354
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6598877994251406,
+    "hauteur_max": 0.15892694899503046,
+    "aire_bbox": 0.10487395464168221,
+    "aspect_ratio": 0.25371852957504387,
+    "centroide_x": 0.021841019265940707,
+    "dispersion": 0.2617144176292472
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.26951113262412324,
+    "hauteur_max": 0.08953461345816781,
+    "aire_bbox": 0.024130575082173873,
+    "aspect_ratio": 0.34997658762681394,
+    "centroide_x": 0.0021070699506345134,
+    "dispersion": 0.11423625331604365
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7142719004644337,
+    "hauteur_max": 0.11166422134730201,
+    "aire_bbox": 0.0797586155956186,
+    "aspect_ratio": 0.16469302825623242,
+    "centroide_x": 0.0005230064685969513,
+    "dispersion": 0.26348797475533614
+   },
+   "joues__joues": {
+    "largeur_max": 1.0048279107403206,
+    "hauteur_max": 0.24552008987376456,
+    "aire_bbox": 0.24670543895263058,
+    "aspect_ratio": 0.25740684000376135,
+    "centroide_x": 0.043513716961772725,
+    "dispersion": 0.3866112439994148
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.996166605655594,
+    "hauteur_max": 0.47550247017967406,
+    "aire_bbox": 0.47367968169973623,
+    "aspect_ratio": 0.5028582006763794,
+    "centroide_x": -0.0137499698645843,
+    "dispersion": 0.44720256016493004
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5819113401131161,
+    "hauteur_max": 0.07679305284808267,
+    "aire_bbox": 0.04468674829420513,
+    "aspect_ratio": 0.13902402270640424,
+    "centroide_x": 0.011753606573586454,
+    "dispersion": 0.24012055045356667
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6811423452427124,
+    "hauteur_max": 0.13470081821909907,
+    "aire_bbox": 0.09175043122786943,
+    "aspect_ratio": 0.20833253191257461,
+    "centroide_x": 0.012049433467861186,
+    "dispersion": 0.28644658208853796
+   },
+   "menton__menton": {
+    "largeur_max": 0.46674485962369133,
+    "hauteur_max": 0.14839251738638323,
+    "aire_bbox": 0.06926144469671362,
+    "aspect_ratio": 0.3349324276335403,
+    "centroide_x": 0.013565094725277648,
+    "dispersion": 0.1702285625399844
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.1805385333082948,
+    "hauteur_max": 0.09564894585515925,
+    "aire_bbox": 0.017268320397174953,
+    "aspect_ratio": 0.5581295498750416,
+    "centroide_x": 0.015352619914704862,
+    "dispersion": 0.07378125593153913
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.26861553939611443,
+    "hauteur_max": 0.12191818072146422,
+    "aire_bbox": 0.03274911787668907,
+    "aspect_ratio": 0.478147708726765,
+    "centroide_x": 0.0037171743852651004,
+    "dispersion": 0.10934219409706425
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12306484157861707,
+    "hauteur_max": 0.08651305979062114,
+    "aire_bbox": 0.010646715997614216,
+    "aspect_ratio": 0.74058074105617,
+    "centroide_x": 0.01336238792855128,
+    "dispersion": 0.05282231447318718
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1889193048684504,
+    "hauteur_max": 0.05763520703229784,
+    "aire_bbox": 0.010888403248490932,
+    "aspect_ratio": 0.3213928842741008,
+    "centroide_x": 0.006020619313443677,
+    "dispersion": 0.06853905076101756
+   },
+   "nez__nez": {
+    "largeur_max": 0.31868514102629164,
+    "hauteur_max": 0.17357104783258975,
+    "aire_bbox": 0.05531451385661008,
+    "aspect_ratio": 0.5737731339351075,
+    "centroide_x": 0.017513955460442585,
+    "dispersion": 0.1244039106463671
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8566060653032299,
+    "hauteur_max": 0.1255798649221679,
+    "aire_bbox": 0.10757247397228936,
+    "aspect_ratio": 0.1544413555954468,
+    "centroide_x": -0.023355400621130548,
+    "dispersion": 0.3144857227956947
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4341196493887409,
+    "hauteur_max": 0.10363524434657465,
+    "aire_bbox": 0.04499009594005148,
+    "aspect_ratio": 0.2514911869675649,
+    "centroide_x": 0.003773524525330338,
+    "dispersion": 0.14440044154088258
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9033397347577985,
+    "hauteur_max": 0.1954910316969577,
+    "aire_bbox": 0.17659481672065813,
+    "aspect_ratio": 0.2279819496669221,
+    "centroide_x": 0.04281902281457342,
+    "dispersion": 0.3728676796824603
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9968139716255267,
+    "hauteur_max": 0.24527103768973327,
+    "aire_bbox": 0.24448959720421726,
+    "aspect_ratio": 0.25921306688290274,
+    "centroide_x": 0.06916003877614398,
+    "dispersion": 0.460465135745612
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7466263037926824,
+    "hauteur_max": 0.1660091320016506,
+    "aire_bbox": 0.12394678462222389,
+    "aspect_ratio": 0.23423588571598725,
+    "centroide_x": 0.005454753941273421,
+    "dispersion": 0.2695827662260915
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6860663959135135,
+    "hauteur_max": 0.07281179799928586,
+    "aire_bbox": 0.04995372783335282,
+    "aspect_ratio": 0.11180477354977067,
+    "centroide_x": 0.013914122011553738,
+    "dispersion": 0.2525634707576789
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.4260248701693076,
+    "hauteur_max": 0.042703569981890614,
+    "aire_bbox": 0.01819278285730089,
+    "aspect_ratio": 0.10559758083491948,
+    "centroide_x": -0.008777535332517732,
+    "dispersion": 0.19783995324262837
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.34585719242858415,
+    "hauteur_max": 0.032088680432951065,
+    "aire_bbox": 0.0110981009232785,
+    "aspect_ratio": 0.09774167674654521,
+    "centroide_x": 0.015263718406820002,
+    "dispersion": 0.13777876002428968
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.39187431782490373,
+    "hauteur_max": 0.08876837876449407,
+    "aire_bbox": 0.03478604787275878,
+    "aspect_ratio": 0.2386361449005498,
+    "centroide_x": 0.011308119617779422,
+    "dispersion": 0.14239006868580048
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.10113072277582041,
+    "hauteur_max": 0.0019379623323335304,
+    "aire_bbox": 0.00019598753138120461,
+    "aspect_ratio": 0.020187705422415714,
+    "centroide_x": 0.01319308191852794,
+    "dispersion": 0.04090659691039819
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2778434695973372,
+    "hauteur_max": 0.029735898064192422,
+    "aire_bbox": 0.008261925089747966,
+    "aspect_ratio": 0.11274715818212962,
+    "centroide_x": -0.007823145855601222,
+    "dispersion": 0.09293710983833177
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3569819123655498,
+    "hauteur_max": 0.03786469378592647,
+    "aire_bbox": 0.013517010798835981,
+    "aspect_ratio": 0.11174110860869871,
+    "centroide_x": -0.005434623670544417,
+    "dispersion": 0.14576118355306897
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.24018930017027967,
+    "hauteur_max": 0.013836033551977147,
+    "aire_bbox": 0.0033232672159819,
+    "aspect_ratio": 0.06068518611875799,
+    "centroide_x": 0.014920879939723039,
+    "dispersion": 0.09604970639356698
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.36865370493206995,
+    "hauteur_max": 0.03345816125272745,
+    "aire_bbox": 0.012334475106032602,
+    "aspect_ratio": 0.09561107596214681,
+    "centroide_x": 0.015235407001235747,
+    "dispersion": 0.12550618748430128
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.12580477028171577,
+    "hauteur_max": 0.0035676595819546003,
+    "aire_bbox": 0.00044882859415116064,
+    "aspect_ratio": 0.029875214884906895,
+    "centroide_x": 0.014277839668043586,
+    "dispersion": 0.05138300886826527
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.12012779998685812,
+    "hauteur_max": 0.03164465435262594,
+    "aire_bbox": 0.0038014027087255077,
+    "aspect_ratio": 0.2775118747526524,
+    "centroide_x": 0.013787307140321958,
+    "dispersion": 0.04946041777981157
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.12430716888343075,
+    "hauteur_max": 0.02728805473319146,
+    "aire_bbox": 0.003392100828219133,
+    "aspect_ratio": 0.23126032975368277,
+    "centroide_x": 0.011907596882385532,
+    "dispersion": 0.05018101905599837
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.12810655455027747,
+    "hauteur_max": 0.01145385671322881,
+    "aire_bbox": 0.0014673141198443083,
+    "aspect_ratio": 0.09419007298580145,
+    "centroide_x": 0.010189699168664681,
+    "dispersion": 0.05257964675933351
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.396769387144502,
+    "hauteur_max": 0.0571639533820143,
+    "aire_bbox": 0.022680906750138695,
+    "aspect_ratio": 0.15177800435658345,
+    "centroide_x": 0.013852415929325535,
+    "dispersion": 0.1641061570938042
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.36270726762174776,
+    "hauteur_max": 0.05759281116212039,
+    "aire_bbox": 0.02088933117126798,
+    "aspect_ratio": 0.1672772030274431,
+    "centroide_x": 0.03789395582148169,
+    "dispersion": 0.13521651384453798
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2599904113747899,
+    "hauteur_max": 0.043323020751705535,
+    "aire_bbox": 0.011263569987234481,
+    "aspect_ratio": 0.17554405980639956,
+    "centroide_x": 0.011012398591454264,
+    "dispersion": 0.09967775239286897
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.13152600661299965,
+    "hauteur_max": 0.052294363733432714,
+    "aire_bbox": 0.00687806883022608,
+    "aspect_ratio": 0.4188591311539614,
+    "centroide_x": 0.010553504452342445,
+    "dispersion": 0.052149893100170396
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4672879622051358,
+    "hauteur_max": 0.09624898873773738,
+    "aire_bbox": 0.044975993811562365,
+    "aspect_ratio": 0.21698830152242907,
+    "centroide_x": -0.0694457522682489,
+    "dispersion": 0.21045335436517434
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8809783891527673,
+    "hauteur_max": 0.15043552726371198,
+    "aire_bbox": 0.13253044848013218,
+    "aspect_ratio": 0.17989119052428565,
+    "centroide_x": 0.00897548063156303,
+    "dispersion": 0.3852116732932364
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7830550186193936,
+    "hauteur_max": 0.22169149104053038,
+    "aire_bbox": 0.17359663464450364,
+    "aspect_ratio": 0.2982507095550455,
+    "centroide_x": 0.009886217938924559,
+    "dispersion": 0.35046536468420353
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8160967861522831,
+    "hauteur_max": 0.04072396548373835,
+    "aire_bbox": 0.03323469735065537,
+    "aspect_ratio": 0.0525694134827957,
+    "centroide_x": 0.00447309456017572,
+    "dispersion": 0.37232050074658385
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6811423452427124,
+    "hauteur_max": 0.16603014151064963,
+    "aire_bbox": 0.11309015996954332,
+    "aspect_ratio": 0.2567874509749065,
+    "centroide_x": 0.011556673577731217,
+    "dispersion": 0.3040607362267468
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6598877994251406,
+    "hauteur_max": 0.18312057627049247,
+    "aire_bbox": 0.1208390341045989,
+    "aspect_ratio": 0.29234238522842865,
+    "centroide_x": 0.021347367196569732,
+    "dispersion": 0.2529913541608552
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7055359584752394,
+    "hauteur_max": 0.18103484077732931,
+    "aire_bbox": 0.1277265899052454,
+    "aspect_ratio": 0.27031350879292,
+    "centroide_x": -0.00032280075205309134,
+    "dispersion": 0.23886340063218472
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9562731802177069,
+    "hauteur_max": 0.2826124722246252,
+    "aire_bbox": 0.2702547275834307,
+    "aspect_ratio": 0.31133940208373173,
+    "centroide_x": -0.013191322572803059,
+    "dispersion": 0.4313854419044754
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.19347860736914757,
+    "hauteur_max": 0.07431826458625782,
+    "aire_bbox": 0.014378994334241,
+    "aspect_ratio": 0.4046572684793086,
+    "centroide_x": 0.014533795286440339,
+    "dispersion": 0.066051800802772
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.48652393706119124,
+    "hauteur_max": 0.1136008646970078,
+    "aire_bbox": 0.05526953994594392,
+    "aspect_ratio": 0.24598134005991498,
+    "centroide_x": -0.008066977604117787,
+    "dispersion": 0.20612989973887133
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.16499405806169756,
+    "hauteur_max": 0.034515702681042655,
+    "aire_bbox": 0.005694885852196242,
+    "aspect_ratio": 0.22038049469182444,
+    "centroide_x": 0.006541584741208326,
+    "dispersion": 0.07996586545277495
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.3079514708281584,
+    "hauteur_max": 0.05391171907417991,
+    "aire_bbox": 0.016602193183768182,
+    "aspect_ratio": 0.1844274817033159,
+    "centroide_x": -0.001822155588253299,
+    "dispersion": 0.12823897785142105
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.15546236955446044,
+    "hauteur_max": 0.03006375946023135,
+    "aire_bbox": 0.004673783283402892,
+    "aspect_ratio": 0.20372425747078005,
+    "centroide_x": 0.015564015327138522,
+    "dispersion": 0.058010812075289714
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.24332831795963356,
+    "hauteur_max": 0.032946678632297756,
+    "aire_bbox": 0.008016859893953614,
+    "aspect_ratio": 0.1426407863141463,
+    "centroide_x": 0.0076229452047630744,
+    "dispersion": 0.11084184907752179
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.16916236044916363,
+    "hauteur_max": 0.07292230990088175,
+    "aire_bbox": 0.012335710072238572,
+    "aspect_ratio": 0.4541312824677039,
+    "centroide_x": 0.006724802461483637,
+    "dispersion": 0.0831295419724453
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2737457348150259,
+    "hauteur_max": 0.028514802790037107,
+    "aire_bbox": 0.007805805642864258,
+    "aspect_ratio": 0.10973565231263438,
+    "centroide_x": 0.008576796821052307,
+    "dispersion": 0.12331025861162016
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08897264894142982,
+    "hauteur_max": 0.08840810808103061,
+    "aire_bbox": 0.007865903563869521,
+    "aspect_ratio": 1.046791806246716,
+    "centroide_x": 0.006180849352371199,
+    "dispersion": 0.049910230441395434
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06629771916131198,
+    "hauteur_max": 0.027514071827759674,
+    "aire_bbox": 0.0018241202070209768,
+    "aspect_ratio": 0.4372008700872333,
+    "centroide_x": 0.01936152266497313,
+    "dispersion": 0.023265894814177394
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.1467126316480841,
+    "hauteur_max": 0.0431584305623722,
+    "aire_bbox": 0.006331886925606728,
+    "aspect_ratio": 0.3099009264677529,
+    "centroide_x": 0.0059743331014948985,
+    "dispersion": 0.0493188226868686
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.24328960999056132,
+    "hauteur_max": 0.19898322662999643,
+    "aire_bbox": 0.0484105516014753,
+    "aspect_ratio": 0.8616237178485597,
+    "centroide_x": 0.004064857821400557,
+    "dispersion": 0.1099487896343325
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5609454167931394,
+    "hauteur_max": 0.10198067485311614,
+    "aire_bbox": 0.05720559216032686,
+    "aspect_ratio": 0.19152347638781414,
+    "centroide_x": 0.039596622986998765,
+    "dispersion": 0.20252615243041075
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9429032988233481,
+    "hauteur_max": 0.1632368189442249,
+    "aire_bbox": 0.15391653507193925,
+    "aspect_ratio": 0.18237936794815252,
+    "centroide_x": -0.07873924450563449,
+    "dispersion": 0.4239600356705958
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7200343756704599,
+    "hauteur_max": 0.05183380326373838,
+    "aire_bbox": 0.037322120171631314,
+    "aspect_ratio": 0.07583760052925934,
+    "centroide_x": 0.045283749988270984,
+    "dispersion": 0.3361284471454096
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3309800326436722,
+    "hauteur_max": 0.055503542679775794,
+    "aire_bbox": 0.018370564367991647,
+    "aspect_ratio": 0.17666220559072873,
+    "centroide_x": 0.027459834400131007,
+    "dispersion": 0.1454478010498708
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.546853085893968,
+    "hauteur_max": 0.027209575266840764,
+    "aire_bbox": 0.01487964020053606,
+    "aspect_ratio": 0.05241744328456921,
+    "centroide_x": 0.005487206957761099,
+    "dispersion": 0.24880205893164353
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6484189755682429,
+    "hauteur_max": 0.03167621572264692,
+    "aire_bbox": 0.020539459348757387,
+    "aspect_ratio": 0.051463854998909785,
+    "centroide_x": 0.004526679870993481,
+    "dispersion": 0.3063865270336228
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.39292156689071356,
+    "hauteur_max": 0.02836575775310217,
+    "aire_bbox": 0.011145517982391311,
+    "aspect_ratio": 0.07605245904786467,
+    "centroide_x": 0.006522135640936172,
+    "dispersion": 0.18310278237704575
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5523048552097873,
+    "hauteur_max": 0.045155370260774805,
+    "aire_bbox": 0.024939530233821564,
+    "aspect_ratio": 0.08613016618814577,
+    "centroide_x": 0.0049914505084014795,
+    "dispersion": 0.23804129797386844
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6639523346801323,
+    "hauteur_max": 0.06427703826734155,
+    "aire_bbox": 0.04267688962392562,
+    "aspect_ratio": 0.10198673615746198,
+    "centroide_x": 0.0038133345962997212,
+    "dispersion": 0.30757884478127284
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4081207472029458,
+    "hauteur_max": 0.0508890819566176,
+    "aire_bbox": 0.02076889015260672,
+    "aspect_ratio": 0.13135925649769284,
+    "centroide_x": 0.0061119759101077396,
+    "dispersion": 0.18467357206562482
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6471575424068999,
+    "hauteur_max": 0.02435322417341889,
+    "aire_bbox": 0.015760372705754075,
+    "aspect_ratio": 0.039643426783632904,
+    "centroide_x": 0.004726975001341853,
+    "dispersion": 0.26468854060003616
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7452708301167345,
+    "hauteur_max": 0.054183523708539766,
+    "aire_bbox": 0.04038139969291319,
+    "aspect_ratio": 0.07659102123004127,
+    "centroide_x": -0.05909013651813489,
+    "dispersion": 0.3402860194396842
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.31338110712576467,
+    "hauteur_max": 0.04116134954440234,
+    "aire_bbox": 0.012899189291015396,
+    "aspect_ratio": 0.13836987015487795,
+    "centroide_x": 0.007221033662429729,
+    "dispersion": 0.12724561850321192
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6306142526814346,
+    "hauteur_max": 0.20765600847262955,
+    "aire_bbox": 0.13095083859777693,
+    "aspect_ratio": 0.3469009252691219,
+    "centroide_x": 0.003815444511451637,
+    "dispersion": 0.2552938865568414
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4279466712081434,
+    "hauteur_max": 0.08608472018226167,
+    "aire_bbox": 0.03683966944388336,
+    "aspect_ratio": 0.21191473630330865,
+    "centroide_x": 0.015506314618716538,
+    "dispersion": 0.14699199554895165
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4342523978724182,
+    "hauteur_max": 0.11165112573406942,
+    "aire_bbox": 0.0484847690751745,
+    "aspect_ratio": 0.27086046489303783,
+    "centroide_x": 0.003342648173661245,
+    "dispersion": 0.16904136613652612
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.26951113262412324,
+    "hauteur_max": 0.24147241482835644,
+    "aire_bbox": 0.06507950401787248,
+    "aspect_ratio": 0.9438773283711009,
+    "centroide_x": 0.003704257524478179,
+    "dispersion": 0.13521461305027313
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7142719004644337,
+    "hauteur_max": 0.1713319335024291,
+    "aire_bbox": 0.122377585753026,
+    "aspect_ratio": 0.2526966527420491,
+    "centroide_x": 0.0013107392979087667,
+    "dispersion": 0.26409944205954927
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7698730197518393,
+    "hauteur_max": 0.14184113067438472,
+    "aire_bbox": 0.10919965959730381,
+    "aspect_ratio": 0.1940920839525202,
+    "centroide_x": -0.002252253782923038,
+    "dispersion": 0.32462418293382167
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9648132003326739,
+    "hauteur_max": 0.2916660631944966,
+    "aire_bbox": 0.2814032678591142,
+    "aspect_ratio": 0.31846917401456365,
+    "centroide_x": -0.018865926963639958,
+    "dispersion": 0.43286282634505263
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7202470213723503,
+    "hauteur_max": 0.1713856820445096,
+    "aire_bbox": 0.12344002699842674,
+    "aspect_ratio": 0.25067891410673754,
+    "centroide_x": 0.05437928510025048,
+    "dispersion": 0.2923817564296179
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.5040897126773805,
+    "hauteur_max": 0.17830073110958575,
+    "aire_bbox": 0.08987956431519795,
+    "aspect_ratio": 0.37262331736145893,
+    "centroide_x": 0.006615090181964462,
+    "dispersion": 0.17677962995314797
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9410046729403543,
+    "hauteur_max": 0.20164182454230173,
+    "aire_bbox": 0.18974589915452494,
+    "aspect_ratio": 0.2257426281429765,
+    "centroide_x": 0.07281136646128934,
+    "dispersion": 0.3764295278599462
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.005610307971594,
+    "hauteur_max": 0.24713655019058578,
+    "aire_bbox": 0.24852306234819224,
+    "aspect_ratio": 0.25889997119020575,
+    "centroide_x": -0.10840714481258446,
+    "dispersion": 0.46793246907836844
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7100400276816066,
+    "hauteur_max": 0.11110930651320165,
+    "aire_bbox": 0.07889205507231781,
+    "aspect_ratio": 0.1648512874461715,
+    "centroide_x": -0.013464471335264776,
+    "dispersion": 0.284177907052279
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3576353822844516,
+    "hauteur_max": 0.14839251738638323,
+    "aire_bbox": 0.053070414683631294,
+    "aspect_ratio": 0.43711555585096085,
+    "centroide_x": 0.014320598740374696,
+    "dispersion": 0.12939026491359132
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.3024554354759128,
+    "hauteur_max": 0.17357104783258975,
+    "aire_bbox": 0.05249750685821643,
+    "aspect_ratio": 0.604561699535961,
+    "centroide_x": 0.013933034908123521,
+    "dispersion": 0.09823158038063041
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8160967861522831,
+    "hauteur_max": 0.06918817586869704,
+    "aire_bbox": 0.0564642479661826,
+    "aspect_ratio": 0.08931305638234813,
+    "centroide_x": 0.014930743680964607,
+    "dispersion": 0.31072447760188737
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.7002652729788363,
+    "hauteur_max": 0.053509759118375286,
+    "aire_bbox": 0.03747102607606085,
+    "aspect_ratio": 0.0804998636521605,
+    "centroide_x": 0.024424750685515896,
+    "dispersion": 0.2753077544412942
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8255852011351215,
+    "hauteur_max": 0.08107348122076499,
+    "aire_bbox": 0.06693306630036976,
+    "aspect_ratio": 0.10345265971783589,
+    "centroide_x": 0.020535948251938,
+    "dispersion": 0.32665963944999754
    }
   },
   "notes": ""
@@ -12761,9 +30086,7 @@ window.PRESETS_DB = [
     "height": 0.22903491105925627,
     "projection": 0.09307502508333983,
     "narine": 0.12253199926281182,
-    "evasement": 1.9500227671662314,
-    "compacite_narines": 0.16324293609193039,
-    "ratio_pointe_base": 0.5736995110647378
+    "compacite_narines": 0.16324293609193039
    },
    "joues": {
     "width": 1.0722495265096583,
@@ -12787,6 +30110,701 @@ window.PRESETS_DB = [
     "width": 0.8651650068274788,
     "height": 0.1905028000166898,
     "angle": 0.3219960800490007
+   },
+   "philtrum": {
+    "largeur_sup": 0.10869016843517575,
+    "largeur_milieu": 0.11254793062303897,
+    "largeur_inf": 0.10028691671590571,
+    "hauteur": 0.1161315892323953,
+    "profondeur_z": 0.006085585802793503
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4502079485317739,
+    "hauteur_max": 0.20449664257793826,
+    "aire_bbox": 0.092066013936649,
+    "aspect_ratio": 0.5321238469240823,
+    "centroide_x": 0.028367640221587512,
+    "dispersion": 0.1751988512460375
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6355007248239536,
+    "hauteur_max": 0.15711053623642837,
+    "aire_bbox": 0.09984385965573025,
+    "aspect_ratio": 0.2896202732425169,
+    "centroide_x": 0.020441157685128997,
+    "dispersion": 0.24751951657277027
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2617412797513459,
+    "hauteur_max": 0.0887147082482668,
+    "aire_bbox": 0.023220301269668637,
+    "aspect_ratio": 0.39706636984759436,
+    "centroide_x": -0.014309604569118646,
+    "dispersion": 0.1132603146038969
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6976301560191618,
+    "hauteur_max": 0.11097849207040504,
+    "aire_bbox": 0.07742194273784797,
+    "aspect_ratio": 0.18636024488001876,
+    "centroide_x": -0.01652193445064533,
+    "dispersion": 0.2578669978498084
+   },
+   "joues__joues": {
+    "largeur_max": 1.0068650460444013,
+    "hauteur_max": 0.24680815808169815,
+    "aire_bbox": 0.2485025074510629,
+    "aspect_ratio": 0.2871626449788327,
+    "centroide_x": 0.03952788183801551,
+    "dispersion": 0.38133860750280546
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9987966112078427,
+    "hauteur_max": 0.4795730793694341,
+    "aire_bbox": 0.4789959665007006,
+    "aspect_ratio": 0.562493404161748,
+    "centroide_x": -0.007091352116475737,
+    "dispersion": 0.45138663397672807
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5739260140753079,
+    "hauteur_max": 0.08384112889003263,
+    "aire_bbox": 0.04811860491943057,
+    "aspect_ratio": 0.1711358141534227,
+    "centroide_x": 0.02600820552012788,
+    "dispersion": 0.23592815027266184
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6580142855018004,
+    "hauteur_max": 0.13843553942480957,
+    "aire_bbox": 0.0910925625626724,
+    "aspect_ratio": 0.24646313778572473,
+    "centroide_x": 0.021041751485372163,
+    "dispersion": 0.275294501709089
+   },
+   "menton__menton": {
+    "largeur_max": 0.45685501148922303,
+    "hauteur_max": 0.15753352801886275,
+    "aire_bbox": 0.07196998175299538,
+    "aspect_ratio": 0.4039562242741128,
+    "centroide_x": 0.027279605318844893,
+    "dispersion": 0.16742021824926911
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.16985468073379603,
+    "hauteur_max": 0.10525915510445083,
+    "aire_bbox": 0.017878760184575612,
+    "aspect_ratio": 0.7259756572693129,
+    "centroide_x": 0.02585051575372787,
+    "dispersion": 0.07438771786932433
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.24667329782551797,
+    "hauteur_max": 0.13647572269096,
+    "aire_bbox": 0.03366491658929998,
+    "aspect_ratio": 0.648146172833571,
+    "centroide_x": -0.0023041785082763993,
+    "dispersion": 0.10380596490086395
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11580739620905167,
+    "hauteur_max": 0.09418472409630536,
+    "aire_bbox": 0.01090728766026105,
+    "aspect_ratio": 0.9527607793872533,
+    "centroide_x": 0.004918471880839866,
+    "dispersion": 0.05592136011971425
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.1793825523474483,
+    "hauteur_max": 0.06071739735123372,
+    "aire_bbox": 0.010891641708758502,
+    "aspect_ratio": 0.39652689238324595,
+    "centroide_x": -0.004700450192316034,
+    "dispersion": 0.06736617266823754
+   },
+   "nez__nez": {
+    "largeur_max": 0.26625903784520055,
+    "hauteur_max": 0.1762832714552835,
+    "aire_bbox": 0.046937014245888094,
+    "aspect_ratio": 0.7756154320909102,
+    "centroide_x": 0.012961321294159115,
+    "dispersion": 0.1161496071172978
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8448068928925785,
+    "hauteur_max": 0.12021711162792742,
+    "aire_bbox": 0.10156024454690964,
+    "aspect_ratio": 0.1667049665975931,
+    "centroide_x": -0.03698780921512791,
+    "dispersion": 0.30792948299730033
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.42305253501615747,
+    "hauteur_max": 0.09899395085857943,
+    "aire_bbox": 0.04187964186198694,
+    "aspect_ratio": 0.27412841423650147,
+    "centroide_x": -0.011145960662003468,
+    "dispersion": 0.14111866311210094
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8944870377306519,
+    "hauteur_max": 0.1932673405400489,
+    "aire_bbox": 0.17287513092974946,
+    "aspect_ratio": 0.2531186335807738,
+    "centroide_x": 0.028012006073870062,
+    "dispersion": 0.3667397826189433
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9963681342461832,
+    "hauteur_max": 0.23826223275934183,
+    "aire_bbox": 0.23739689631575525,
+    "aspect_ratio": 0.2801399688164712,
+    "centroide_x": 0.0589070065292598,
+    "dispersion": 0.4569297417030111
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7311472251695114,
+    "hauteur_max": 0.16655147782492924,
+    "aire_bbox": 0.12177365085957842,
+    "aspect_ratio": 0.2668599207457462,
+    "centroide_x": -0.0057149544718714425,
+    "dispersion": 0.2644940127892945
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6739936014386158,
+    "hauteur_max": 0.07079165163621275,
+    "aire_bbox": 0.0477131202380789,
+    "aspect_ratio": 0.12304556636335802,
+    "centroide_x": 0.00248489179326751,
+    "dispersion": 0.2466125682088272
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.34192792560518004,
+    "hauteur_max": 0.030311066908663243,
+    "aire_bbox": 0.01036420023095904,
+    "aspect_ratio": 0.10384996390862053,
+    "centroide_x": 0.0033625304150359313,
+    "dispersion": 0.15774230494575134
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.30825536743483106,
+    "hauteur_max": 0.0481837350765491,
+    "aire_bbox": 0.0148528949604042,
+    "aspect_ratio": 0.18311735775873617,
+    "centroide_x": 0.02225613290809968,
+    "dispersion": 0.11274040909388786
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3527794391929643,
+    "hauteur_max": 0.08845526425008776,
+    "aire_bbox": 0.03120519851581142,
+    "aspect_ratio": 0.2937379888102158,
+    "centroide_x": 0.014951418102272025,
+    "dispersion": 0.12176882088906435
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08267129368720597,
+    "hauteur_max": 0.0024325642804357145,
+    "aire_bbox": 0.0002011032360409078,
+    "aspect_ratio": 0.03447063547309391,
+    "centroide_x": 0.01793762876099504,
+    "dispersion": 0.033308313666074854
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.22492251746777733,
+    "hauteur_max": 0.01549315862597343,
+    "aire_bbox": 0.0034847602416815536,
+    "aspect_ratio": 0.08069501931851482,
+    "centroide_x": 0.0016268478029611635,
+    "dispersion": 0.07508427823460029
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.2749186697829963,
+    "hauteur_max": 0.024412681498050374,
+    "aire_bbox": 0.006711501923279974,
+    "aspect_ratio": 0.10402816778813768,
+    "centroide_x": 0.00568694928852103,
+    "dispersion": 0.1112950425071449
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.17895330312233582,
+    "hauteur_max": 0.009618001610250655,
+    "aire_bbox": 0.0017211731575902994,
+    "aspect_ratio": 0.06296291475209247,
+    "centroide_x": 0.021268854396196617,
+    "dispersion": 0.07140810732853746
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.29067319635007466,
+    "hauteur_max": 0.020470452315477568,
+    "aire_bbox": 0.005950211805271652,
+    "aspect_ratio": 0.08250155815553725,
+    "centroide_x": 0.021266483375827358,
+    "dispersion": 0.0981292339970826
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.09291657480375651,
+    "hauteur_max": 0.003942229182572808,
+    "aire_bbox": 0.0003662984327360782,
+    "aspect_ratio": 0.04970366056970558,
+    "centroide_x": 0.02033757028452721,
+    "dispersion": 0.03799031639375168
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.09142505551181104,
+    "hauteur_max": 0.018145714786418823,
+    "aire_bbox": 0.0016589729816498314,
+    "aspect_ratio": 0.23251369933215937,
+    "centroide_x": 0.01921747051408064,
+    "dispersion": 0.03763804968880538
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.09761512792767515,
+    "hauteur_max": 0.015063749660514929,
+    "aire_bbox": 0.001470449850181638,
+    "aspect_ratio": 0.18078219707652324,
+    "centroide_x": 0.016021024970837416,
+    "dispersion": 0.039086829271847215
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10025341183051867,
+    "hauteur_max": 0.0099161746637231,
+    "aire_bbox": 0.000994130342345587,
+    "aspect_ratio": 0.11587365459378793,
+    "centroide_x": 0.014049644433650274,
+    "dispersion": 0.041230059923727774
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3106606031027282,
+    "hauteur_max": 0.03675879933928385,
+    "aire_bbox": 0.011419510772074088,
+    "aspect_ratio": 0.13861646992742335,
+    "centroide_x": 0.019915022563823336,
+    "dispersion": 0.1276386359795589
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.2900580697163078,
+    "hauteur_max": 0.03335597506217438,
+    "aire_bbox": 0.009675169740039602,
+    "aspect_ratio": 0.13471885599287586,
+    "centroide_x": 0.03930758527170095,
+    "dispersion": 0.10809085820416862
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.1966846631952973,
+    "hauteur_max": 0.02660211588644581,
+    "aire_bbox": 0.005232228203407862,
+    "aspect_ratio": 0.15844749694223845,
+    "centroide_x": 0.01585451971877193,
+    "dispersion": 0.07617210292634156
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.1125217972747022,
+    "hauteur_max": 0.06752566700837799,
+    "aire_bbox": 0.007598109413955755,
+    "aspect_ratio": 0.7030268641070556,
+    "centroide_x": 0.011944105866467667,
+    "dispersion": 0.05217602532135821
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.42878736395807704,
+    "hauteur_max": 0.09376842064547357,
+    "aire_bbox": 0.04020671391108474,
+    "aspect_ratio": 0.2561853676797778,
+    "centroide_x": -0.054489274990628514,
+    "dispersion": 0.19426541141163806
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8641753082860787,
+    "hauteur_max": 0.15466432414420897,
+    "aire_bbox": 0.1336570899981798,
+    "aspect_ratio": 0.2096659919431382,
+    "centroide_x": 0.011420422341244879,
+    "dispersion": 0.37616745625723436
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7652222971359297,
+    "hauteur_max": 0.23119619118691917,
+    "aire_bbox": 0.17691648050913186,
+    "aspect_ratio": 0.35394253516262414,
+    "centroide_x": 0.02034180560001919,
+    "dispersion": 0.3464506360315147
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.7982192695438638,
+    "hauteur_max": 0.052658500067263664,
+    "aire_bbox": 0.042033029458966704,
+    "aspect_ratio": 0.0772833563667049,
+    "centroide_x": -0.0014033100232509123,
+    "dispersion": 0.36258840052852176
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6580142855018004,
+    "hauteur_max": 0.16821108789096775,
+    "aire_bbox": 0.1106852988120557,
+    "aspect_ratio": 0.2994739118597201,
+    "centroide_x": 0.01867967368233828,
+    "dispersion": 0.29220132895059986
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6355007248239536,
+    "hauteur_max": 0.18644501634825322,
+    "aire_bbox": 0.11848594302912879,
+    "aspect_ratio": 0.34369596001013675,
+    "centroide_x": 0.020291285345058845,
+    "dispersion": 0.23871615217941053
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6821874545551807,
+    "hauteur_max": 0.19103858960777337,
+    "aire_bbox": 0.1303241291663387,
+    "aspect_ratio": 0.3280628647357714,
+    "centroide_x": -0.006623336367119969,
+    "dispersion": 0.23086088964396748
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9591522052523539,
+    "hauteur_max": 0.2821403995581501,
+    "aire_bbox": 0.27061558642697997,
+    "aspect_ratio": 0.3446017238398722,
+    "centroide_x": -0.005581431108944331,
+    "dispersion": 0.43067594264591996
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18556298942056815,
+    "hauteur_max": 0.07951856863470685,
+    "aire_bbox": 0.01475570331030083,
+    "aspect_ratio": 0.5020152288362456,
+    "centroide_x": 0.02883174609319893,
+    "dispersion": 0.06575129661180389
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4732903650216377,
+    "hauteur_max": 0.11772647636026647,
+    "aire_bbox": 0.055718806969261715,
+    "aspect_ratio": 0.2913977407313115,
+    "centroide_x": 0.006414825689162171,
+    "dispersion": 0.20123812308448344
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14464687704716792,
+    "hauteur_max": 0.039304342194087724,
+    "aire_bbox": 0.005685250352768021,
+    "aspect_ratio": 0.31832530867925357,
+    "centroide_x": 0.0017043174246957871,
+    "dispersion": 0.07199824840719679
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.25529481192388587,
+    "hauteur_max": 0.05832550535757054,
+    "aire_bbox": 0.014890198920626568,
+    "aspect_ratio": 0.26764320350146437,
+    "centroide_x": -0.004039905682280306,
+    "dispersion": 0.10887040137312501
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12819278224370123,
+    "hauteur_max": 0.02872918610179002,
+    "aire_bbox": 0.003682874297985536,
+    "aspect_ratio": 0.2625423978703291,
+    "centroide_x": 0.013663489543668722,
+    "dispersion": 0.04912906811310286
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.20818852125173423,
+    "hauteur_max": 0.03531909077039552,
+    "aire_bbox": 0.007353029279444419,
+    "aspect_ratio": 0.1987432707003049,
+    "centroide_x": 0.00555716407471136,
+    "dispersion": 0.09415004828218664
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14923345901776724,
+    "hauteur_max": 0.07796732761720228,
+    "aire_bbox": 0.011635333990686588,
+    "aspect_ratio": 0.6120489279278001,
+    "centroide_x": 0.003951231705358247,
+    "dispersion": 0.0767900813409757
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.22773767873385478,
+    "hauteur_max": 0.027423424930672582,
+    "aire_bbox": 0.006245347136643496,
+    "aspect_ratio": 0.14106734794929435,
+    "centroide_x": 0.0074384493042739235,
+    "dispersion": 0.1013290903038209
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08039666456079284,
+    "hauteur_max": 0.0920714824584638,
+    "aire_bbox": 0.007402240090828036,
+    "aspect_ratio": 1.3416115938669666,
+    "centroide_x": 0.002368509011960679,
+    "dispersion": 0.052435930940883106
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06023238044490539,
+    "hauteur_max": 0.02576345333319609,
+    "aire_bbox": 0.001551794122739633,
+    "aspect_ratio": 0.5010877045873446,
+    "centroide_x": 0.016822969606241023,
+    "dispersion": 0.021396131178362407
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13008512120551924,
+    "hauteur_max": 0.046600588909642957,
+    "aire_bbox": 0.00606204325655948,
+    "aspect_ratio": 0.4196657022706378,
+    "centroide_x": 0.0005869154619820015,
+    "dispersion": 0.0463216116452127
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2346735902078571,
+    "hauteur_max": 0.19691456006923158,
+    "aire_bbox": 0.04621064677564731,
+    "aspect_ratio": 0.982999530083351,
+    "centroide_x": -0.009064395745220208,
+    "dispersion": 0.11426402321411308
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5461558974574736,
+    "hauteur_max": 0.0936910077263165,
+    "aire_bbox": 0.05116989640846148,
+    "aspect_ratio": 0.2009652560926835,
+    "centroide_x": 0.022863506561563204,
+    "dispersion": 0.19741206110387124
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.932294216767162,
+    "hauteur_max": 0.16357376932745227,
+    "aire_bbox": 0.15249887915878954,
+    "aspect_ratio": 0.20554190131433359,
+    "centroide_x": -0.0901375301905369,
+    "dispersion": 0.4178627773385215
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.709775240841085,
+    "hauteur_max": 0.053148917462880974,
+    "aire_bbox": 0.037723785692659294,
+    "aspect_ratio": 0.08772295965076822,
+    "centroide_x": 0.03365475513932619,
+    "dispersion": 0.3302391832781042
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3194426885996859,
+    "hauteur_max": 0.05285562508382123,
+    "aire_bbox": 0.016884342984392852,
+    "aspect_ratio": 0.19383757103837046,
+    "centroide_x": 0.015138491105195455,
+    "dispersion": 0.1381970211805935
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.527575303686926,
+    "hauteur_max": 0.03048704233609909,
+    "aire_bbox": 0.016084210618983644,
+    "aspect_ratio": 0.06769717321001427,
+    "centroide_x": -0.004527944027612764,
+    "dispersion": 0.2399190824527556
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6341308120280716,
+    "hauteur_max": 0.035804582300170376,
+    "aire_bbox": 0.022704788848332963,
+    "aspect_ratio": 0.06614537059130073,
+    "centroide_x": -0.005771391626440226,
+    "dispersion": 0.2991995633919915
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3730467473581942,
+    "hauteur_max": 0.028055969372845033,
+    "aire_bbox": 0.010466188118520955,
+    "aspect_ratio": 0.0881052361041513,
+    "centroide_x": -0.0037082834204493717,
+    "dispersion": 0.17351911430079198
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5427618215050858,
+    "hauteur_max": 0.04303860041696363,
+    "aire_bbox": 0.023359709157340723,
+    "aspect_ratio": 0.09289418886793711,
+    "centroide_x": -0.007446778758074955,
+    "dispersion": 0.23363312424594687
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6544817676742682,
+    "hauteur_max": 0.06231419132992354,
+    "aire_bbox": 0.04078350209280092,
+    "aspect_ratio": 0.11153960676313629,
+    "centroide_x": -0.007893172187355956,
+    "dispersion": 0.3029205556024911
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.3979955615024876,
+    "hauteur_max": 0.04751982778213205,
+    "aire_bbox": 0.018912680540651153,
+    "aspect_ratio": 0.13987378512664053,
+    "centroide_x": -0.006390343279510805,
+    "dispersion": 0.1795484740418832
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6346250733459861,
+    "hauteur_max": 0.024777195570391805,
+    "aire_bbox": 0.01572422955616774,
+    "aspect_ratio": 0.04573773147619039,
+    "centroide_x": -0.008731685242603118,
+    "dispersion": 0.25977203697858264
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7309815713923312,
+    "hauteur_max": 0.052844959906400875,
+    "aire_bbox": 0.03862869183254565,
+    "aspect_ratio": 0.08469091846667284,
+    "centroide_x": -0.07061054987916125,
+    "dispersion": 0.33450754185239784
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.30105882523374083,
+    "hauteur_max": 0.03929006170228759,
+    "aire_bbox": 0.011828619819451894,
+    "aspect_ratio": 0.15288717164693796,
+    "centroide_x": -0.004732845944042799,
+    "dispersion": 0.1218588736788187
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6023774870729148,
+    "hauteur_max": 0.19894541773064386,
+    "aire_bbox": 0.11984024079725657,
+    "aspect_ratio": 0.38690550267072493,
+    "centroide_x": 0.009389321208548556,
+    "dispersion": 0.23948434715703798
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.3821355755796588,
+    "hauteur_max": 0.08948906339698617,
+    "aire_bbox": 0.03419695474929189,
+    "aspect_ratio": 0.2743419302640037,
+    "centroide_x": 0.022839581873348513,
+    "dispersion": 0.12478537489845941
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.3988444246099683,
+    "hauteur_max": 0.10897145029246956,
+    "aire_bbox": 0.04346265539081378,
+    "aspect_ratio": 0.3200728992034448,
+    "centroide_x": 0.003614338828692824,
+    "dispersion": 0.15113663020798687
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2617412797513459,
+    "hauteur_max": 0.23516756884167897,
+    "aire_bbox": 0.06155306042463379,
+    "aspect_ratio": 1.052555260673745,
+    "centroide_x": -0.010925922786834038,
+    "dispersion": 0.13749418415112352
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6976301560191618,
+    "hauteur_max": 0.16714258172602345,
+    "aire_bbox": 0.11660370536697123,
+    "aspect_ratio": 0.280673596110672,
+    "centroide_x": -0.015450933858468683,
+    "dispersion": 0.25939955033889783
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7614823017907342,
+    "hauteur_max": 0.14752669934706664,
+    "aire_bbox": 0.1123389705943939,
+    "aspect_ratio": 0.22696062052290258,
+    "centroide_x": 0.006250522720938165,
+    "dispersion": 0.31617836327488186
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9685370290852645,
+    "hauteur_max": 0.2946180244599481,
+    "aire_bbox": 0.28534846612540793,
+    "aspect_ratio": 0.3563549386657058,
+    "centroide_x": -0.011417873366443242,
+    "dispersion": 0.43154125080358147
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7024399920576323,
+    "hauteur_max": 0.16968215931210068,
+    "aire_bbox": 0.1191915346395139,
+    "aspect_ratio": 0.28298710816593364,
+    "centroide_x": 0.05663603689419503,
+    "dispersion": 0.2800216942247703
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4786787451563131,
+    "hauteur_max": 0.1903169276661393,
+    "aire_bbox": 0.09110066811723237,
+    "aspect_ratio": 0.4657715659418443,
+    "centroide_x": 0.0024748589604410643,
+    "dispersion": 0.16602572862967283
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9354744092872047,
+    "hauteur_max": 0.21054461162101457,
+    "aire_bbox": 0.19695909618477253,
+    "aspect_ratio": 0.2636646566100262,
+    "centroide_x": 0.06968304074452611,
+    "dispersion": 0.3695917755964764
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0068650460444013,
+    "hauteur_max": 0.24680354855586392,
+    "aire_bbox": 0.24849786628062157,
+    "aspect_ratio": 0.28715728177025424,
+    "centroide_x": -0.11063168847119793,
+    "dispersion": 0.4664296532149967
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7051391586206731,
+    "hauteur_max": 0.12183374464427628,
+    "aire_bbox": 0.08590974419007091,
+    "aspect_ratio": 0.20241022978208648,
+    "centroide_x": 0.0011357263198970683,
+    "dispersion": 0.28167072729070997
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.34544260216620215,
+    "hauteur_max": 0.15753352801886275,
+    "aire_bbox": 0.054418791847258265,
+    "aspect_ratio": 0.5342404912556241,
+    "centroide_x": 0.02748678724678143,
+    "dispersion": 0.12824244236768484
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2530567123935911,
+    "hauteur_max": 0.1762832714552835,
+    "aire_bbox": 0.044609665124461025,
+    "aspect_ratio": 0.8160803826662114,
+    "centroide_x": 0.010661691263027353,
+    "dispersion": 0.09040284409865654
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.7982192695438638,
+    "hauteur_max": 0.08077814416462259,
+    "aire_bbox": 0.06447867123019396,
+    "aspect_ratio": 0.11855267609486225,
+    "centroide_x": 0.0076451387374649096,
+    "dispersion": 0.3011782669206761
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6823918614691125,
+    "hauteur_max": 0.06143187385553796,
+    "aire_bbox": 0.04192061075381625,
+    "aspect_ratio": 0.10546287890842503,
+    "centroide_x": 0.015509587405249065,
+    "dispersion": 0.26637045529393194
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8071610793763129,
+    "hauteur_max": 0.07754270894329698,
+    "aire_bbox": 0.06258945664843486,
+    "aspect_ratio": 0.11254350973964239,
+    "centroide_x": 0.006997002723487629,
+    "dispersion": 0.32038132709091055
    }
   },
   "notes": ""
@@ -13253,9 +31271,7 @@ window.PRESETS_DB = [
     "height": 0.22804644303206753,
     "projection": 0.09297888031188506,
     "narine": 0.1380511985060866,
-    "evasement": 2.1156560489194547,
-    "compacite_narines": 0.16955026436526535,
-    "ratio_pointe_base": 0.5472884938512323
+    "compacite_narines": 0.16955026436526535
    },
    "joues": {
     "width": 1.063536671421115,
@@ -13279,6 +31295,701 @@ window.PRESETS_DB = [
     "width": 0.8542492490181812,
     "height": 0.16925609148414042,
     "angle": 0.28012703529556343
+   },
+   "philtrum": {
+    "largeur_sup": 0.127678885120848,
+    "largeur_milieu": 0.12848864067923096,
+    "largeur_inf": 0.13002590965832822,
+    "hauteur": 0.07658278495531984,
+    "profondeur_z": 0.006435364484786987
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4984987960592849,
+    "hauteur_max": 0.21548104117403158,
+    "aire_bbox": 0.10741703959885593,
+    "aspect_ratio": 0.48274739789798415,
+    "centroide_x": 0.020269805585310503,
+    "dispersion": 0.18980221050188364
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6616349100742177,
+    "hauteur_max": 0.15237252645227137,
+    "aire_bbox": 0.10081498283702993,
+    "aspect_ratio": 0.25719542941199797,
+    "centroide_x": 0.018587148029340462,
+    "dispersion": 0.2608400967575796
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2676799216806801,
+    "hauteur_max": 0.09128732673807191,
+    "aire_bbox": 0.024435784471685745,
+    "aspect_ratio": 0.38086378824225053,
+    "centroide_x": -0.006015628739489387,
+    "dispersion": 0.11488233964685383
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7123084622444878,
+    "hauteur_max": 0.1179719880397803,
+    "aire_bbox": 0.08403244538854102,
+    "aspect_ratio": 0.18496339329664382,
+    "centroide_x": -0.007788704973933528,
+    "dispersion": 0.2630288258544375
+   },
+   "joues__joues": {
+    "largeur_max": 1.005348708208698,
+    "hauteur_max": 0.2475971685024479,
+    "aire_bbox": 0.24892149351006734,
+    "aspect_ratio": 0.27504511727722636,
+    "centroide_x": 0.04036748877567308,
+    "dispersion": 0.3839490402973048
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.996512942824949,
+    "hauteur_max": 0.4734004417145089,
+    "aire_bbox": 0.47174966730755596,
+    "aspect_ratio": 0.5305431419927216,
+    "centroide_x": -0.016073916257397763,
+    "dispersion": 0.4475382321257583
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.564842046179585,
+    "hauteur_max": 0.07836583867890583,
+    "aire_bbox": 0.044264320669972435,
+    "aspect_ratio": 0.15494399812320336,
+    "centroide_x": 0.007475225749776516,
+    "dispersion": 0.23169262204581872
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.676142440725903,
+    "hauteur_max": 0.13771987717629017,
+    "aire_bbox": 0.09311825389044842,
+    "aspect_ratio": 0.2274748669566706,
+    "centroide_x": 0.00799972883548058,
+    "dispersion": 0.2827216513335219
+   },
+   "menton__menton": {
+    "largeur_max": 0.4479488365375049,
+    "hauteur_max": 0.14641333281598537,
+    "aire_bbox": 0.06558568208849913,
+    "aspect_ratio": 0.3650288612997319,
+    "centroide_x": 0.008708625561753206,
+    "dispersion": 0.164738004412744
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17077389429957196,
+    "hauteur_max": 0.09593275793465963,
+    "aire_bbox": 0.01638281066339999,
+    "aspect_ratio": 0.6273652190589251,
+    "centroide_x": 0.010843753976081463,
+    "dispersion": 0.07314619784888736
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2626737823413245,
+    "hauteur_max": 0.13070290427420483,
+    "aire_bbox": 0.034332226228701454,
+    "aspect_ratio": 0.5557039709245609,
+    "centroide_x": 0.0011833908379629413,
+    "dispersion": 0.10849501021452841
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12262939032245958,
+    "hauteur_max": 0.0939551210074859,
+    "aire_bbox": 0.011521659206820911,
+    "aspect_ratio": 0.8556593042067461,
+    "centroide_x": 0.009858403707756138,
+    "dispersion": 0.05582060627692492
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.18527245870337133,
+    "hauteur_max": 0.06454946589593123,
+    "aire_bbox": 0.011959238254528595,
+    "aspect_ratio": 0.38909601070393995,
+    "centroide_x": -0.0004689111690422336,
+    "dispersion": 0.06992004513252237
+   },
+   "nez__nez": {
+    "largeur_max": 0.3070978125443594,
+    "hauteur_max": 0.1764882711053851,
+    "aire_bbox": 0.05419916199619963,
+    "aspect_ratio": 0.6418212850520032,
+    "centroide_x": 0.01804517424189804,
+    "dispersion": 0.12381567184547365
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8490388818539539,
+    "hauteur_max": 0.13472130768646004,
+    "aire_bbox": 0.11438362844001453,
+    "aspect_ratio": 0.17720815354831446,
+    "centroide_x": -0.03305273575923518,
+    "dispersion": 0.31116077141343695
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.42809850753373846,
+    "hauteur_max": 0.10104240688437607,
+    "aire_bbox": 0.043256103584818135,
+    "aspect_ratio": 0.26359365919518996,
+    "centroide_x": -0.005477988134349952,
+    "dispersion": 0.14268951230518248
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8985600824077753,
+    "hauteur_max": 0.2081108976929685,
+    "aire_bbox": 0.18700014538094986,
+    "aspect_ratio": 0.25865607969325155,
+    "centroide_x": 0.03364023997597275,
+    "dispersion": 0.37057768058436635
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9963834513291655,
+    "hauteur_max": 0.25065890980557926,
+    "aire_bbox": 0.24975238965848906,
+    "aspect_ratio": 0.2809516781895415,
+    "centroide_x": 0.06437418792762399,
+    "dispersion": 0.45991386811786517
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7405478015333948,
+    "hauteur_max": 0.17474240501162763,
+    "aire_bbox": 0.12940510386601892,
+    "aspect_ratio": 0.26352401680329335,
+    "centroide_x": -0.0013401720378585387,
+    "dispersion": 0.26841573759709564
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6857535505978888,
+    "hauteur_max": 0.07341976035747641,
+    "aire_bbox": 0.05034786134918557,
+    "aspect_ratio": 0.11956935532397309,
+    "centroide_x": 0.007157518457978099,
+    "dispersion": 0.25107221647035977
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.4275895077984907,
+    "hauteur_max": 0.042133528957646306,
+    "aire_bbox": 0.01801585490881344,
+    "aspect_ratio": 0.11004638627416573,
+    "centroide_x": -0.015081262651745139,
+    "dispersion": 0.1989877430270925
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3446612002005691,
+    "hauteur_max": 0.03316515972775854,
+    "aire_bbox": 0.011430743756612839,
+    "aspect_ratio": 0.10746441706392668,
+    "centroide_x": 0.011884389945351492,
+    "dispersion": 0.1388765511914685
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3953868037993556,
+    "hauteur_max": 0.078319273235255,
+    "aire_bbox": 0.03096640712037589,
+    "aspect_ratio": 0.22121851277010282,
+    "centroide_x": 0.010967011045703254,
+    "dispersion": 0.14322480476758517
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.1042639663501512,
+    "hauteur_max": 0.0024618837368273992,
+    "aire_bbox": 0.00025668576309455644,
+    "aspect_ratio": 0.026369888124181343,
+    "centroide_x": 0.01209548412830849,
+    "dispersion": 0.04198872187772556
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.281288562386417,
+    "hauteur_max": 0.03081119626596216,
+    "aire_bbox": 0.008666837103058236,
+    "aspect_ratio": 0.122329577825841,
+    "centroide_x": -0.010428682846723106,
+    "dispersion": 0.09461484773948715
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.36238039365419744,
+    "hauteur_max": 0.0380072052703601,
+    "aire_bbox": 0.01377306600756898,
+    "aspect_ratio": 0.1171321820886461,
+    "centroide_x": -0.009491680498829909,
+    "dispersion": 0.14802528444825522
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.24397802292058904,
+    "hauteur_max": 0.013929997536129795,
+    "aire_bbox": 0.003398613258153624,
+    "aspect_ratio": 0.0637639660536213,
+    "centroide_x": 0.012162349528660996,
+    "dispersion": 0.09760560924809505
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.3717890550870757,
+    "hauteur_max": 0.035310719588751094,
+    "aire_bbox": 0.013128139070346464,
+    "aspect_ratio": 0.10606814102207725,
+    "centroide_x": 0.01174796898938342,
+    "dispersion": 0.12718473135156347
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.12776936270920652,
+    "hauteur_max": 0.0029792587749948958,
+    "aire_bbox": 0.00038065799502690913,
+    "aspect_ratio": 0.02604092990341299,
+    "centroide_x": 0.011882118889143556,
+    "dispersion": 0.05217950366866412
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.12162592561169482,
+    "hauteur_max": 0.03228016276603198,
+    "aire_bbox": 0.003926104675314806,
+    "aspect_ratio": 0.2964043325557827,
+    "centroide_x": 0.011635830216951998,
+    "dispersion": 0.05062355731446259
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.1265757663524828,
+    "hauteur_max": 0.02735191622066485,
+    "aire_bbox": 0.0034620897568395587,
+    "aspect_ratio": 0.24133048295177045,
+    "centroide_x": 0.012224786860978517,
+    "dispersion": 0.05123222754245016
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.12998983040275497,
+    "hauteur_max": 0.011562089794474277,
+    "aire_bbox": 0.0015029540914851354,
+    "aspect_ratio": 0.09933492100371748,
+    "centroide_x": 0.011547898066632659,
+    "dispersion": 0.05335416144241468
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.40208095728017357,
+    "hauteur_max": 0.05645996659571072,
+    "aire_bbox": 0.022701477416809987,
+    "aspect_ratio": 0.1568202354627386,
+    "centroide_x": 0.011792751352649445,
+    "dispersion": 0.16695282544251444
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.36623790944859375,
+    "hauteur_max": 0.05819353636995604,
+    "aire_bbox": 0.021312679103553406,
+    "aspect_ratio": 0.1774542656331298,
+    "centroide_x": 0.03552217842428197,
+    "dispersion": 0.13709152789557563
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2653552567485421,
+    "hauteur_max": 0.043552042517862155,
+    "aire_bbox": 0.011556763424250735,
+    "aspect_ratio": 0.18329719624572652,
+    "centroide_x": 0.01150274632316694,
+    "dispersion": 0.10183981452779703
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.1284540065214608,
+    "hauteur_max": 0.042498953600742725,
+    "aire_bbox": 0.0054591608629850664,
+    "aspect_ratio": 0.36949245320102936,
+    "centroide_x": 0.01137414555332482,
+    "dispersion": 0.04958109597996969
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4639714743187901,
+    "hauteur_max": 0.09792002909155421,
+    "aire_bbox": 0.04543210026294722,
+    "aspect_ratio": 0.2356976451472641,
+    "centroide_x": -0.07296913427510987,
+    "dispersion": 0.20895400287921922
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8766902240446608,
+    "hauteur_max": 0.15635661848499438,
+    "aire_bbox": 0.13707631889047528,
+    "aspect_ratio": 0.1991797099459967,
+    "centroide_x": 0.005220503449995633,
+    "dispersion": 0.3849458404073634
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7819422781481267,
+    "hauteur_max": 0.22642087804364025,
+    "aire_bbox": 0.17704805719774322,
+    "aspect_ratio": 0.32338268674277576,
+    "centroide_x": 0.006243056830601645,
+    "dispersion": 0.3469377977035876
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8050592472106102,
+    "hauteur_max": 0.047274827197103644,
+    "aire_bbox": 0.03805903679531194,
+    "aspect_ratio": 0.06558085843732174,
+    "centroide_x": 0.0006727360058515221,
+    "dispersion": 0.3675447147517475
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.676142440725903,
+    "hauteur_max": 0.16820342512095612,
+    "aire_bbox": 0.11372947439973995,
+    "aspect_ratio": 0.27782519513917336,
+    "centroide_x": 0.007698084200518925,
+    "dispersion": 0.30225448889611967
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6616349100742177,
+    "hauteur_max": 0.18003493530446632,
+    "aire_bbox": 0.11911739823038818,
+    "aspect_ratio": 0.3038878698995494,
+    "centroide_x": 0.018646662134943592,
+    "dispersion": 0.25161272409886754
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7001152145537043,
+    "hauteur_max": 0.18436716952433913,
+    "aire_bbox": 0.12907826044819184,
+    "aspect_ratio": 0.29409596269791927,
+    "centroide_x": -0.004118077055327862,
+    "dispersion": 0.2367273173908216
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9583000212955749,
+    "hauteur_max": 0.28328658092785836,
+    "aire_bbox": 0.27147353653591727,
+    "aspect_ratio": 0.3301410247356888,
+    "centroide_x": -0.015770928911123496,
+    "dispersion": 0.4308366431986216
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18229297453089416,
+    "hauteur_max": 0.07449076556144515,
+    "aire_bbox": 0.01357914322927933,
+    "aspect_ratio": 0.4563599208261992,
+    "centroide_x": 0.009433002436349584,
+    "dispersion": 0.06341588241880135
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4694927481945786,
+    "hauteur_max": 0.112578002547118,
+    "aire_bbox": 0.0528545558021027,
+    "aspect_ratio": 0.26779325878113835,
+    "centroide_x": -0.012170441674629738,
+    "dispersion": 0.19840359659367965
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15767722634811873,
+    "hauteur_max": 0.03851638276218616,
+    "aire_bbox": 0.006073156402904006,
+    "aspect_ratio": 0.2728044888294039,
+    "centroide_x": 0.007237331137283382,
+    "dispersion": 0.07729349694527442
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.29267956684530616,
+    "hauteur_max": 0.05858752565906693,
+    "aire_bbox": 0.017147371632433968,
+    "aspect_ratio": 0.22355672721116404,
+    "centroide_x": -0.0008299442187838537,
+    "dispersion": 0.12236293177640503
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.15187606396595582,
+    "hauteur_max": 0.0269415318388711,
+    "aire_bbox": 0.004091773812901222,
+    "aspect_ratio": 0.19811070420732166,
+    "centroide_x": 0.01861446150733863,
+    "dispersion": 0.057024573604908896
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.2315659043998334,
+    "hauteur_max": 0.03682456131673122,
+    "aire_bbox": 0.008527312845435986,
+    "aspect_ratio": 0.17759795362395395,
+    "centroide_x": 0.01078098106489566,
+    "dispersion": 0.10567784901697723
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.16169278405919826,
+    "hauteur_max": 0.0805411463369312,
+    "aire_bbox": 0.013022922182537703,
+    "aspect_ratio": 0.5562911587910683,
+    "centroide_x": 0.010380885848377538,
+    "dispersion": 0.0819800526205915
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2607892657988264,
+    "hauteur_max": 0.028032819631725863,
+    "aire_bbox": 0.007310658450028714,
+    "aspect_ratio": 0.12004720719703467,
+    "centroide_x": 0.011007186128335884,
+    "dispersion": 0.11799326973965944
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08504467243443718,
+    "hauteur_max": 0.09386596212717445,
+    "aire_bbox": 0.007982800001848837,
+    "aspect_ratio": 1.2326393089128185,
+    "centroide_x": 0.009905695684105263,
+    "dispersion": 0.05244183442022255
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.0652240736210292,
+    "hauteur_max": 0.02413814001167538,
+    "aire_bbox": 0.0015743878211962254,
+    "aspect_ratio": 0.41330520296121365,
+    "centroide_x": 0.02346680374052334,
+    "dispersion": 0.023027306491873994
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.14074097509804093,
+    "hauteur_max": 0.04599524937075702,
+    "aire_bbox": 0.006473416246317896,
+    "aspect_ratio": 0.3649786093871914,
+    "centroide_x": 0.006878563244902405,
+    "dispersion": 0.04846426458822692
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.2408437529951346,
+    "hauteur_max": 0.20510159533318617,
+    "aire_bbox": 0.04939743796533394,
+    "aspect_ratio": 0.951061589824789,
+    "centroide_x": -0.0030679747470070727,
+    "dispersion": 0.11449615459113663
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5567951218466798,
+    "hauteur_max": 0.09533239330363351,
+    "aire_bbox": 0.05308061154543222,
+    "aspect_ratio": 0.19121416630759097,
+    "centroide_x": 0.029759364746294776,
+    "dispersion": 0.2007658522430442
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9400451181261545,
+    "hauteur_max": 0.16982721538285586,
+    "aire_bbox": 0.15964524474561262,
+    "aspect_ratio": 0.20175930826057015,
+    "centroide_x": -0.08444803470472172,
+    "dispersion": 0.42256793272471554
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7190132808412122,
+    "hauteur_max": 0.05779418064586906,
+    "aire_bbox": 0.041554783439716,
+    "aspect_ratio": 0.08976813216376749,
+    "centroide_x": 0.03770524837933979,
+    "dispersion": 0.33568706270905363
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.32686466106123047,
+    "hauteur_max": 0.05523160230630129,
+    "aire_bbox": 0.018053258967717846,
+    "aspect_ratio": 0.18870989072038613,
+    "centroide_x": 0.02112274182545896,
+    "dispersion": 0.1428776329557976
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5382350831044695,
+    "hauteur_max": 0.032598092346820304,
+    "aire_bbox": 0.017545436943338,
+    "aspect_ratio": 0.06763868774348969,
+    "centroide_x": -0.0007030765302765883,
+    "dispersion": 0.24469413694425302
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6460797913340135,
+    "hauteur_max": 0.0366630189473328,
+    "aire_bbox": 0.023687235631167758,
+    "aspect_ratio": 0.06337486631539443,
+    "centroide_x": -0.0024771147415871184,
+    "dispersion": 0.30456861094557125
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.384418345569783,
+    "hauteur_max": 0.029702372484799695,
+    "aire_bbox": 0.011418136890104144,
+    "aspect_ratio": 0.08629030911676434,
+    "centroide_x": 0.0008357250891313275,
+    "dispersion": 0.17921104028940957
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5512394458934765,
+    "hauteur_max": 0.048430977019000156,
+    "aire_bbox": 0.02669706493603334,
+    "aspect_ratio": 0.09812008885476725,
+    "centroide_x": -0.00208488072222853,
+    "dispersion": 0.23666438369411358
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6638465530922153,
+    "hauteur_max": 0.07203669907241757,
+    "aire_bbox": 0.04782131437536558,
+    "aspect_ratio": 0.12118841050737975,
+    "centroide_x": -0.003856768607072582,
+    "dispersion": 0.3076897880888287
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.40460231337646074,
+    "hauteur_max": 0.051811957820118736,
+    "aire_bbox": 0.020963237994583647,
+    "aspect_ratio": 0.1430133670672767,
+    "centroide_x": -0.0006584942222029081,
+    "dispersion": 0.18278628248716913
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6411714784781707,
+    "hauteur_max": 0.03080168880242184,
+    "aire_bbox": 0.019749164349073325,
+    "aspect_ratio": 0.05365069145072907,
+    "centroide_x": -0.0038010009047613398,
+    "dispersion": 0.2627789732657264
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.740381359658166,
+    "hauteur_max": 0.05794706065959741,
+    "aire_bbox": 0.04290292355934695,
+    "aspect_ratio": 0.08740794809852515,
+    "centroide_x": -0.06712207728797884,
+    "dispersion": 0.33903089370072614
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.30794601959436346,
+    "hauteur_max": 0.04449514064566846,
+    "aire_bbox": 0.013702101453124978,
+    "aspect_ratio": 0.16136635121457102,
+    "centroide_x": 0.00023562355628519823,
+    "dispersion": 0.12549628228305487
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6261191774812508,
+    "hauteur_max": 0.2047035495262981,
+    "aire_bbox": 0.12816881805689825,
+    "aspect_ratio": 0.36512650261018587,
+    "centroide_x": 0.00015488485361185664,
+    "dispersion": 0.2547015923169594
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4277650574939405,
+    "hauteur_max": 0.0838136575429031,
+    "aire_bbox": 0.03585255403761738,
+    "aspect_ratio": 0.21881872208230047,
+    "centroide_x": 0.011718586186603264,
+    "dispersion": 0.14772055474004098
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4351650434464905,
+    "hauteur_max": 0.10637964338355105,
+    "aire_bbox": 0.046292702134825156,
+    "aspect_ratio": 0.2730106057648513,
+    "centroide_x": 0.002597588866141504,
+    "dispersion": 0.16763990553993746
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2676799216806801,
+    "hauteur_max": 0.24241399516801965,
+    "aire_bbox": 0.06488935924087627,
+    "aspect_ratio": 1.0113858716395645,
+    "centroide_x": -0.004511037288330968,
+    "dispersion": 0.1374886721220814
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7123084622444878,
+    "hauteur_max": 0.17096591372723172,
+    "aire_bbox": 0.1217804671032682,
+    "aspect_ratio": 0.26805037421584277,
+    "centroide_x": -0.007848902978691412,
+    "dispersion": 0.2632707447132267
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7611619604754813,
+    "hauteur_max": 0.14901702565344083,
+    "aire_bbox": 0.11342609139059812,
+    "aspect_ratio": 0.21864210738806944,
+    "centroide_x": -0.006281871245791827,
+    "dispersion": 0.320631264817209
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9649962983614185,
+    "hauteur_max": 0.2895336183047517,
+    "aire_bbox": 0.27939886991527324,
+    "aspect_ratio": 0.335079871554522,
+    "centroide_x": -0.021609956539333924,
+    "dispersion": 0.4323696061880123
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.721117847983141,
+    "hauteur_max": 0.16694725678261543,
+    "aire_bbox": 0.12038864653776848,
+    "aspect_ratio": 0.2585520779985166,
+    "centroide_x": 0.0512160316177194,
+    "dispersion": 0.29178664570648055
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.49659969756627764,
+    "hauteur_max": 0.18433091439670538,
+    "aire_bbox": 0.0915386763415193,
+    "aspect_ratio": 0.41454026118961884,
+    "centroide_x": 0.004136394418114224,
+    "dispersion": 0.17422190427414913
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.934555556453415,
+    "hauteur_max": 0.2074580941185933,
+    "aire_bbox": 0.19388111458976692,
+    "aspect_ratio": 0.24791354173636088,
+    "centroide_x": 0.06888089377665663,
+    "dispersion": 0.37417678162958573
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.005348708208698,
+    "hauteur_max": 0.2496464705770189,
+    "aire_bbox": 0.2509817567034667,
+    "aspect_ratio": 0.27732159940683226,
+    "centroide_x": -0.10984437322063179,
+    "dispersion": 0.4666962281687203
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6990554984351502,
+    "hauteur_max": 0.10935924020169405,
+    "aire_bbox": 0.07644817816768455,
+    "aspect_ratio": 0.17471042418913912,
+    "centroide_x": -0.016009235600234744,
+    "dispersion": 0.27710076180709603
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.34065484469126717,
+    "hauteur_max": 0.14641333281598537,
+    "aire_bbox": 0.04987641115116031,
+    "aspect_ratio": 0.4799997894350126,
+    "centroide_x": 0.00932118388705702,
+    "dispersion": 0.12558111489536178
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.2894319446702629,
+    "hauteur_max": 0.1764882711053851,
+    "aire_bbox": 0.05108134351752418,
+    "aspect_ratio": 0.6809957100914673,
+    "centroide_x": 0.01652169275397841,
+    "dispersion": 0.0972440320961637
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8050592472106102,
+    "hauteur_max": 0.07555619305347025,
+    "aire_bbox": 0.06082721190172629,
+    "aspect_ratio": 0.10481349789061022,
+    "centroide_x": 0.010807445777578781,
+    "dispersion": 0.3066615743005169
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6923702168206615,
+    "hauteur_max": 0.05835199409562805,
+    "aire_bbox": 0.040401182803907955,
+    "aspect_ratio": 0.09412225295631522,
+    "centroide_x": 0.019066192128406254,
+    "dispersion": 0.2717992897933495
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8127025960070942,
+    "hauteur_max": 0.08928175899578639,
+    "aire_bbox": 0.07255951731195533,
+    "aspect_ratio": 0.12268912832924159,
+    "centroide_x": 0.0115983078852729,
+    "dispersion": 0.32395192968050296
    }
   },
   "notes": ""
@@ -13745,9 +32456,7 @@ window.PRESETS_DB = [
     "height": 0.2174955941815802,
     "projection": 0.09639450133661583,
     "narine": 0.13424697983732434,
-    "evasement": 2.129660352591544,
-    "compacite_narines": 0.15127741996743538,
-    "ratio_pointe_base": 0.5595328671661994
+    "compacite_narines": 0.15127741996743538
    },
    "joues": {
     "width": 1.0834146322232239,
@@ -13771,6 +32480,701 @@ window.PRESETS_DB = [
     "width": 0.8771282376258699,
     "height": 0.1875381890673573,
     "angle": 0.30089543280782877
+   },
+   "philtrum": {
+    "largeur_sup": 0.1292603328610318,
+    "largeur_milieu": 0.1275871843381668,
+    "largeur_inf": 0.11963415525991736,
+    "hauteur": 0.10588780265486195,
+    "profondeur_z": 0.006146613508462906
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.497358341491108,
+    "hauteur_max": 0.21693497992351227,
+    "aire_bbox": 0.10789442182616488,
+    "aspect_ratio": 0.4813757383443502,
+    "centroide_x": 0.009010557169150118,
+    "dispersion": 0.18917130485506384
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6614454792640468,
+    "hauteur_max": 0.14814174361753155,
+    "aire_bbox": 0.09798768660610971,
+    "aspect_ratio": 0.24717663601553694,
+    "centroide_x": 0.010276963814846923,
+    "dispersion": 0.2604888779554488
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2552193945741636,
+    "hauteur_max": 0.08632284405012218,
+    "aire_bbox": 0.022031263996392124,
+    "aspect_ratio": 0.373281171389097,
+    "centroide_x": 0.003292936972139187,
+    "dispersion": 0.11009110624529374
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6836831645470866,
+    "hauteur_max": 0.11046221591637234,
+    "aire_bbox": 0.07552115734058899,
+    "aspect_ratio": 0.1783129493223678,
+    "centroide_x": 0.0028278692661676784,
+    "dispersion": 0.2545201911668802
+   },
+   "joues__joues": {
+    "largeur_max": 0.9998882977914999,
+    "hauteur_max": 0.24996182802117026,
+    "aire_bbox": 0.24993390673293958,
+    "aspect_ratio": 0.2758965211620372,
+    "centroide_x": 0.0394528479620575,
+    "dispersion": 0.3853024506546365
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9953394194657753,
+    "hauteur_max": 0.4829608760947469,
+    "aire_bbox": 0.4807099980368276,
+    "aspect_ratio": 0.5355065218220483,
+    "centroide_x": -0.022714112243432862,
+    "dispersion": 0.44991623884108467
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5748529575142909,
+    "hauteur_max": 0.07288192472832707,
+    "aire_bbox": 0.041896389979412745,
+    "aspect_ratio": 0.13992234700288406,
+    "centroide_x": -0.0029060828850648976,
+    "dispersion": 0.2369973630895467
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6798484554474802,
+    "hauteur_max": 0.1321382799804669,
+    "aire_bbox": 0.08983400555020711,
+    "aspect_ratio": 0.21450654709930894,
+    "centroide_x": -0.0016284022374629828,
+    "dispersion": 0.2860166904466188
+   },
+   "menton__menton": {
+    "largeur_max": 0.4577134521594934,
+    "hauteur_max": 0.14971322854525523,
+    "aire_bbox": 0.06852575867139198,
+    "aspect_ratio": 0.3609861315680937,
+    "centroide_x": -0.002374587278859021,
+    "dispersion": 0.16933005486725838
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17905537341375327,
+    "hauteur_max": 0.10154605835154637,
+    "aire_bbox": 0.018182367396830913,
+    "aspect_ratio": 0.6258924743119202,
+    "centroide_x": -0.0007506760675313278,
+    "dispersion": 0.07586350423180087
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.26068071204057724,
+    "hauteur_max": 0.13452761065419863,
+    "aire_bbox": 0.03506875333445404,
+    "aspect_ratio": 0.569543038833693,
+    "centroide_x": -0.0010768344340267287,
+    "dispersion": 0.10766712299779102
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.10991895235315817,
+    "hauteur_max": 0.09074143534523892,
+    "aire_bbox": 0.0099742035081705,
+    "aspect_ratio": 0.9110811937335049,
+    "centroide_x": 0.009144625870352334,
+    "dispersion": 0.053854482639957776
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17993635770333372,
+    "hauteur_max": 0.0698511137450062,
+    "aire_bbox": 0.012568754988797686,
+    "aspect_ratio": 0.4284285735589693,
+    "centroide_x": 0.003697145888202097,
+    "dispersion": 0.06834668659340884
+   },
+   "nez__nez": {
+    "largeur_max": 0.29866391065959846,
+    "hauteur_max": 0.16912405260265165,
+    "aire_bbox": 0.05051125093690758,
+    "aspect_ratio": 0.6249519785662601,
+    "centroide_x": 0.007319069573226348,
+    "dispersion": 0.1201579941219086
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8451503070203397,
+    "hauteur_max": 0.12342888015984203,
+    "aire_bbox": 0.10431595596226721,
+    "aspect_ratio": 0.16117840477886888,
+    "centroide_x": -0.025050263557390724,
+    "dispersion": 0.3103225085831218
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.4259708860620774,
+    "hauteur_max": 0.09645307300315345,
+    "aire_bbox": 0.04108620097056351,
+    "aspect_ratio": 0.2498964976967019,
+    "centroide_x": 0.002352591796481689,
+    "dispersion": 0.1403227255952306
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8960762078822465,
+    "hauteur_max": 0.19195655523426827,
+    "aire_bbox": 0.1720077020924621,
+    "aspect_ratio": 0.23641880580241095,
+    "centroide_x": 0.04205023577767151,
+    "dispersion": 0.3667530280471342
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9866079403933489,
+    "hauteur_max": 0.2472560571413746,
+    "aire_bbox": 0.24394478928603178,
+    "aspect_ratio": 0.276583552841891,
+    "centroide_x": 0.0718260912335895,
+    "dispersion": 0.45318785175841303
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.746990301044176,
+    "hauteur_max": 0.16176551206807246,
+    "aire_bbox": 0.12083726855829473,
+    "aspect_ratio": 0.23899839906804554,
+    "centroide_x": 0.0037746270921965373,
+    "dispersion": 0.26977880179186997
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6884357788752524,
+    "hauteur_max": 0.07772308166571894,
+    "aire_bbox": 0.053507350263124066,
+    "aspect_ratio": 0.12459786382956485,
+    "centroide_x": 0.012887882887924368,
+    "dispersion": 0.25242241253313175
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.39981724573699434,
+    "hauteur_max": 0.03396941486967586,
+    "aire_bbox": 0.013581557892491105,
+    "aspect_ratio": 0.09376711652004019,
+    "centroide_x": -0.022925532101595113,
+    "dispersion": 0.18488477542800968
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3430093374094867,
+    "hauteur_max": 0.03746565590565502,
+    "aire_bbox": 0.012851069807810549,
+    "aspect_ratio": 0.12054561458711806,
+    "centroide_x": 0.0002584093040718976,
+    "dispersion": 0.13007030716097015
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3902863264676719,
+    "hauteur_max": 0.08764421154120886,
+    "aire_bbox": 0.03420633735857394,
+    "aspect_ratio": 0.24783573125762495,
+    "centroide_x": -0.0012728530981782908,
+    "dispersion": 0.13691606401754353
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.09704880000382468,
+    "hauteur_max": 0.002701268315679762,
+    "aire_bbox": 0.00026215484852507357,
+    "aspect_ratio": 0.03071861088837891,
+    "centroide_x": -0.0003262757541533733,
+    "dispersion": 0.03929498096751828
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.2628386241483848,
+    "hauteur_max": 0.01876938877344844,
+    "aire_bbox": 0.004933320321319328,
+    "aspect_ratio": 0.07881065968715462,
+    "centroide_x": -0.02064148441903583,
+    "dispersion": 0.08795691059045703
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.32774146076995997,
+    "hauteur_max": 0.030430759679725135,
+    "aire_bbox": 0.009973421629772715,
+    "aspect_ratio": 0.1024720506236377,
+    "centroide_x": -0.01888957395121497,
+    "dispersion": 0.1335563280393507
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.21663865316749478,
+    "hauteur_max": 0.01309048475665633,
+    "aire_bbox": 0.0028359049869916483,
+    "aspect_ratio": 0.0666874022571516,
+    "centroide_x": 0.00018162319242013091,
+    "dispersion": 0.08677369660454434
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.3433831184364044,
+    "hauteur_max": 0.028892863880305895,
+    "aire_bbox": 0.00992132169977799,
+    "aspect_ratio": 0.09286149455809975,
+    "centroide_x": 0.0006242662782814982,
+    "dispersion": 0.11674882238945168
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.11416739461284395,
+    "hauteur_max": 0.004173516730289504,
+    "aire_bbox": 0.000476479531470268,
+    "aspect_ratio": 0.04034447668218779,
+    "centroide_x": -0.00020789354200325942,
+    "dispersion": 0.04664743149969182
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.11041795648401534,
+    "hauteur_max": 0.024896928278746615,
+    "aire_bbox": 0.0027490679432682946,
+    "aspect_ratio": 0.24884566573359856,
+    "centroide_x": -0.00030134708068388187,
+    "dispersion": 0.045292727556705596
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.1158552231637994,
+    "hauteur_max": 0.021032737703217917,
+    "aire_bbox": 0.0024367525203519693,
+    "aspect_ratio": 0.20035685487329935,
+    "centroide_x": -0.001001967034444762,
+    "dispersion": 0.04649523747543468
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.11961946942158592,
+    "hauteur_max": 0.01091115367328913,
+    "aire_bbox": 0.001305186413176234,
+    "aspect_ratio": 0.1006683194640151,
+    "centroide_x": -0.001785671523835131,
+    "dispersion": 0.04912028556744312
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.36511727764316687,
+    "hauteur_max": 0.041686179405314286,
+    "aire_bbox": 0.015220344339813001,
+    "aspect_ratio": 0.1260038243520037,
+    "centroide_x": 0.00011525991650300783,
+    "dispersion": 0.15053674487853988
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.33884159448345075,
+    "hauteur_max": 0.03941013324473803,
+    "aire_bbox": 0.013353792387452284,
+    "aspect_ratio": 0.12836162440848023,
+    "centroide_x": 0.022729601569377318,
+    "dispersion": 0.1263904285627677
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.23587808987021888,
+    "hauteur_max": 0.03256137301935854,
+    "aire_bbox": 0.007680514471357974,
+    "aspect_ratio": 0.15234883069332586,
+    "centroide_x": -0.001229888405224459,
+    "dispersion": 0.09096714466645067
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.12758097547990838,
+    "hauteur_max": 0.0633046106487256,
+    "aire_bbox": 0.008076463978940207,
+    "aspect_ratio": 0.5476126117353795,
+    "centroide_x": -0.0019461508945385,
+    "dispersion": 0.05419266818140623
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.46391661713333254,
+    "hauteur_max": 0.1000018589623649,
+    "aire_bbox": 0.04639252411686495,
+    "aspect_ratio": 0.23789875122859125,
+    "centroide_x": -0.08370611264004871,
+    "dispersion": 0.21010073067109544
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8784265579907665,
+    "hauteur_max": 0.14395606996412919,
+    "aire_bbox": 0.12645483504046798,
+    "aspect_ratio": 0.18086250521000447,
+    "centroide_x": -0.001013470664826502,
+    "dispersion": 0.3854127717250707
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.784066824760626,
+    "hauteur_max": 0.21727825541170678,
+    "aire_bbox": 0.17036067181018522,
+    "aspect_ratio": 0.30583501414096603,
+    "centroide_x": -0.00252086862435172,
+    "dispersion": 0.3502310973314036
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8125966231746682,
+    "hauteur_max": 0.03861101816545203,
+    "aire_bbox": 0.03137518297858209,
+    "aspect_ratio": 0.05243970727634312,
+    "centroide_x": 0.0006183884591169135,
+    "dispersion": 0.37106515932376666
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6798484554474802,
+    "hauteur_max": 0.16161791801635397,
+    "aire_bbox": 0.10987569193605573,
+    "aspect_ratio": 0.2623622885676432,
+    "centroide_x": -0.0014565819767212132,
+    "dispersion": 0.3043296958288415
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6614454792640468,
+    "hauteur_max": 0.1770307352926978,
+    "aire_bbox": 0.1170961795501451,
+    "aspect_ratio": 0.2953783353190369,
+    "centroide_x": 0.010301664161289383,
+    "dispersion": 0.25133241424831365
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.7041440234302996,
+    "hauteur_max": 0.1862323554224704,
+    "aire_bbox": 0.1311344000400799,
+    "aspect_ratio": 0.29188895158674666,
+    "centroide_x": -0.004963285084511282,
+    "dispersion": 0.2387283262091201
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9633904340136908,
+    "hauteur_max": 0.2860367319227129,
+    "aire_bbox": 0.2755650513108801,
+    "aspect_ratio": 0.32767514154076155,
+    "centroide_x": -0.023097415719264398,
+    "dispersion": 0.43308922512240905
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18994461551886346,
+    "hauteur_max": 0.07448213601511006,
+    "aire_bbox": 0.014147480688413773,
+    "aspect_ratio": 0.4327620347205635,
+    "centroide_x": -0.0024958157216124475,
+    "dispersion": 0.06549530522010102
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4819719004365021,
+    "hauteur_max": 0.11656994413956065,
+    "aire_bbox": 0.05618343751072094,
+    "aspect_ratio": 0.26692477618354093,
+    "centroide_x": -0.02329537780338495,
+    "dispersion": 0.20387591088068371
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15731381014251183,
+    "hauteur_max": 0.03344477609889377,
+    "aire_bbox": 0.005261325157480192,
+    "aspect_ratio": 0.23463103750210057,
+    "centroide_x": -0.0016174402466974148,
+    "dispersion": 0.0764343688539095
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.28826303865985214,
+    "hauteur_max": 0.05180722312754917,
+    "aire_bbox": 0.014934107563276294,
+    "aspect_ratio": 0.19834687949327612,
+    "centroide_x": -0.01071460335830224,
+    "dispersion": 0.12051548544566597
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.14974819792112815,
+    "hauteur_max": 0.02705212561845271,
+    "aire_bbox": 0.004051007061299277,
+    "aspect_ratio": 0.19937183615973877,
+    "centroide_x": 0.00395225897564901,
+    "dispersion": 0.05668338130373361
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.23094797676138965,
+    "hauteur_max": 0.032109135479559764,
+    "aire_bbox": 0.0074155398745616805,
+    "aspect_ratio": 0.1534399571737424,
+    "centroide_x": -0.0033068154520616397,
+    "dispersion": 0.10459359018845042
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.16232536796060962,
+    "hauteur_max": 0.07369265642303204,
+    "aire_bbox": 0.011962187569863458,
+    "aspect_ratio": 0.5010278116810224,
+    "centroide_x": -0.0033139462121470815,
+    "dispersion": 0.08124663822596936
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.25730510463037426,
+    "hauteur_max": 0.024623442534348193,
+    "aire_bbox": 0.0063357374576604696,
+    "aspect_ratio": 0.1056147039732686,
+    "centroide_x": -0.0028138799210332827,
+    "dispersion": 0.11532702076849674
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08662208831596388,
+    "hauteur_max": 0.08825142733787614,
+    "aire_bbox": 0.007644522932871376,
+    "aspect_ratio": 1.1243903418445493,
+    "centroide_x": -0.003255911128443651,
+    "dispersion": 0.05072967450292731
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06532099234365871,
+    "hauteur_max": 0.024659463047275215,
+    "aire_bbox": 0.0016107805969097992,
+    "aspect_ratio": 0.4166341454137426,
+    "centroide_x": 0.00797301465787505,
+    "dispersion": 0.022797275086769077
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13889597613841276,
+    "hauteur_max": 0.04220712607352135,
+    "aire_bbox": 0.005862399975978801,
+    "aspect_ratio": 0.3353668527744804,
+    "centroide_x": -0.001408033178090716,
+    "dispersion": 0.047706453139988794
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23473438552090514,
+    "hauteur_max": 0.2039779961928917,
+    "aire_bbox": 0.04788064959612396,
+    "aspect_ratio": 0.9590265408417858,
+    "centroide_x": 0.00299419042416933,
+    "dispersion": 0.11187948854280116
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5473338884391886,
+    "hauteur_max": 0.08808676856815849,
+    "aire_bbox": 0.04821287356045308,
+    "aspect_ratio": 0.17761611142745914,
+    "centroide_x": 0.03745035995637652,
+    "dispersion": 0.19723513438026022
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.923003548099527,
+    "hauteur_max": 0.16945679209081502,
+    "aire_bbox": 0.15640922034938612,
+    "aspect_ratio": 0.20261874832398805,
+    "centroide_x": -0.07326785922483016,
+    "dispersion": 0.414252801222455
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7210298620794567,
+    "hauteur_max": 0.05385859133874312,
+    "aire_bbox": 0.038833652684767773,
+    "aspect_ratio": 0.08243767911705972,
+    "centroide_x": 0.043991058616861714,
+    "dispersion": 0.3373791588558282
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.33109485598672606,
+    "hauteur_max": 0.053934954826148414,
+    "aire_bbox": 0.017857586100814185,
+    "aspect_ratio": 0.17978021846080883,
+    "centroide_x": 0.025850976414139464,
+    "dispersion": 0.14554341856709366
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5431696239327066,
+    "hauteur_max": 0.030627881936718268,
+    "aire_bbox": 0.0166361351134226,
+    "aspect_ratio": 0.0622308177176581,
+    "centroide_x": 0.0036369708863102433,
+    "dispersion": 0.2464239923054588
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6499196366888699,
+    "hauteur_max": 0.035296320514625064,
+    "aire_bbox": 0.022939771805319024,
+    "aspect_ratio": 0.05993683326508162,
+    "centroide_x": 0.0027420443457822972,
+    "dispersion": 0.30630689557488433
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.38963496756035504,
+    "hauteur_max": 0.031305697938722524,
+    "aire_bbox": 0.012197794600808423,
+    "aspect_ratio": 0.08867260822089298,
+    "centroide_x": 0.004220242215445441,
+    "dispersion": 0.1818133573310929
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5528857441974189,
+    "hauteur_max": 0.048775016349352385,
+    "aire_bbox": 0.026967011212552967,
+    "aspect_ratio": 0.09736122947411713,
+    "centroide_x": 0.005007710851710181,
+    "dispersion": 0.23872296138978755
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6674787979802412,
+    "hauteur_max": 0.0666040896328409,
+    "aire_bbox": 0.04445681768869689,
+    "aspect_ratio": 0.11012538490893435,
+    "centroide_x": 0.003171730614589442,
+    "dispersion": 0.309237346143351
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.41306440907425984,
+    "hauteur_max": 0.05040850158495171,
+    "aire_bbox": 0.02082195791950697,
+    "aspect_ratio": 0.1346821465684023,
+    "centroide_x": 0.005551688048716041,
+    "dispersion": 0.186386302115332
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6465292211497089,
+    "hauteur_max": 0.029716382857099956,
+    "aire_bbox": 0.019212509863987395,
+    "aspect_ratio": 0.05072613866303605,
+    "centroide_x": 0.0038002271952907634,
+    "dispersion": 0.2658403391839137
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7440258925169488,
+    "hauteur_max": 0.058904299763919324,
+    "aire_bbox": 0.04382632420493597,
+    "aspect_ratio": 0.08737415044495907,
+    "centroide_x": -0.06005421791372239,
+    "dispersion": 0.3407731064783546
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3214158057361165,
+    "hauteur_max": 0.04309872381974749,
+    "aire_bbox": 0.013852611042722496,
+    "aspect_ratio": 0.14798619337255908,
+    "centroide_x": 0.0059176923233454455,
+    "dispersion": 0.12896972448546562
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6285553825558079,
+    "hauteur_max": 0.20957932102996724,
+    "aire_bbox": 0.13173221030577753,
+    "aspect_ratio": 0.36798396723877586,
+    "centroide_x": -0.010711149508537295,
+    "dispersion": 0.25493874431466484
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4250010529987494,
+    "hauteur_max": 0.091330730936725,
+    "aire_bbox": 0.038815656819253586,
+    "aspect_ratio": 0.23716518979379278,
+    "centroide_x": 0.0003834387565026473,
+    "dispersion": 0.14146090256778343
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.42987620707862745,
+    "hauteur_max": 0.10544771026051918,
+    "aire_bbox": 0.04532946173191805,
+    "aspect_ratio": 0.27071839298363726,
+    "centroide_x": -0.009298776173857892,
+    "dispersion": 0.16530673497741996
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2552193945741636,
+    "hauteur_max": 0.23361621453694004,
+    "aire_bbox": 0.059623388836825754,
+    "aspect_ratio": 1.0102138683846127,
+    "centroide_x": 0.0031378947024766376,
+    "dispersion": 0.13096121747819478
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6836831645470866,
+    "hauteur_max": 0.16628905813273032,
+    "aire_bbox": 0.1136890294937395,
+    "aspect_ratio": 0.26843108432782187,
+    "centroide_x": 0.002201407880889699,
+    "dispersion": 0.256705292622427
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7673871570075977,
+    "hauteur_max": 0.13786716245894523,
+    "aire_bbox": 0.10579748984407458,
+    "aspect_ratio": 0.198276082010692,
+    "centroide_x": -0.015360559956734764,
+    "dispersion": 0.3237581941350163
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9665357700494274,
+    "hauteur_max": 0.29604205974716974,
+    "aire_bbox": 0.2861352401847493,
+    "aspect_ratio": 0.33803331457645747,
+    "centroide_x": -0.028141522023622228,
+    "dispersion": 0.43441978493393646
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7217186388428317,
+    "hauteur_max": 0.1715899268663533,
+    "aire_bbox": 0.12383964845712554,
+    "aspect_ratio": 0.2623903662405307,
+    "centroide_x": 0.043535975932561866,
+    "dispersion": 0.2924769577142709
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.49914232349687415,
+    "hauteur_max": 0.18311901243890552,
+    "aire_bbox": 0.0914024493452083,
+    "aspect_ratio": 0.40488627875510674,
+    "centroide_x": -0.00029337984351530857,
+    "dispersion": 0.1735332892716541
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9350725707338954,
+    "hauteur_max": 0.20007737987366556,
+    "aire_bbox": 0.1870868699441706,
+    "aspect_ratio": 0.23614387837434317,
+    "centroide_x": 0.06589886431378836,
+    "dispersion": 0.3753416675278134
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0005121274926332,
+    "hauteur_max": 0.24365706759227113,
+    "aire_bbox": 0.24378185107535952,
+    "aspect_ratio": 0.2687699273501633,
+    "centroide_x": -0.10897692801187074,
+    "dispersion": 0.4667196870167815
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7066461996905248,
+    "hauteur_max": 0.1087273779625246,
+    "aire_bbox": 0.07683178843953332,
+    "aspect_ratio": 0.16980907845980683,
+    "centroide_x": -0.02674033612277491,
+    "dispersion": 0.28181001531308614
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.3526734801477225,
+    "hauteur_max": 0.14971322854525523,
+    "aire_bbox": 0.05279988533520651,
+    "aspect_ratio": 0.46850193667106743,
+    "centroide_x": -0.0020001409351854144,
+    "dispersion": 0.12939159064463396
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.28550912420734226,
+    "hauteur_max": 0.16912405260265165,
+    "aire_bbox": 0.04828646014097956,
+    "aspect_ratio": 0.6537465393137611,
+    "centroide_x": 0.00305609338212773,
+    "dispersion": 0.09497301908589871
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8125966231746682,
+    "hauteur_max": 0.0684439273818709,
+    "aire_bbox": 0.0556173042673205,
+    "aspect_ratio": 0.09295739110967255,
+    "centroide_x": 0.011014044137208946,
+    "dispersion": 0.30940558306862104
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6993285490916245,
+    "hauteur_max": 0.05496599698304328,
+    "aire_bbox": 0.03843929091952627,
+    "aspect_ratio": 0.08674348564609195,
+    "centroide_x": 0.021601662805996506,
+    "dispersion": 0.27407724292601116
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8155201354262834,
+    "hauteur_max": 0.0773243345876168,
+    "aire_bbox": 0.0630595518146405,
+    "aspect_ratio": 0.10464187695601049,
+    "centroide_x": 0.019254511179236405,
+    "dispersion": 0.3254754974345396
    }
   },
   "notes": ""
@@ -14237,9 +33641,7 @@ window.PRESETS_DB = [
     "height": 0.22834717244196412,
     "projection": 0.09621267714646249,
     "narine": 0.12203106878409667,
-    "evasement": 1.9650220827647564,
-    "compacite_narines": 0.1796093277730156,
-    "ratio_pointe_base": 0.5562138316454088
+    "compacite_narines": 0.1796093277730156
    },
    "joues": {
     "width": 1.0812012614723803,
@@ -14263,6 +33665,701 @@ window.PRESETS_DB = [
     "width": 0.8750637585169757,
     "height": 0.16843063342969514,
     "angle": 0.2643755220003633
+   },
+   "philtrum": {
+    "largeur_sup": 0.10820147840153133,
+    "largeur_milieu": 0.11350459590828334,
+    "largeur_inf": 0.10646166354104236,
+    "hauteur": 0.09442819787815637,
+    "profondeur_z": 0.006824221462011337
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4562009839762504,
+    "hauteur_max": 0.20219502917101556,
+    "aire_bbox": 0.09224157126292395,
+    "aspect_ratio": 0.46856077753874237,
+    "centroide_x": 0.028727899743288994,
+    "dispersion": 0.17260863073816837
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6404041428408468,
+    "hauteur_max": 0.15695485497171374,
+    "aire_bbox": 0.10051453936286976,
+    "aspect_ratio": 0.25910291323799894,
+    "centroide_x": 0.023581024190175673,
+    "dispersion": 0.2482904422536725
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.25961438037325874,
+    "hauteur_max": 0.09151533195368529,
+    "aire_bbox": 0.023758696199809092,
+    "aspect_ratio": 0.3726634406072758,
+    "centroide_x": -0.00451428460519697,
+    "dispersion": 0.11018500590366591
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.692209144124489,
+    "hauteur_max": 0.12057423169680599,
+    "aire_bbox": 0.0834625857263139,
+    "aspect_ratio": 0.1841487800263582,
+    "centroide_x": -0.0070942849557559,
+    "dispersion": 0.25390207843990076
+   },
+   "joues__joues": {
+    "largeur_max": 1.0049402705773942,
+    "hauteur_max": 0.2454584879346186,
+    "aire_bbox": 0.24667111928053367,
+    "aspect_ratio": 0.25821976377918576,
+    "centroide_x": 0.04337969218274679,
+    "dispersion": 0.378280497075845
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9976975626126985,
+    "hauteur_max": 0.4740285199584765,
+    "aire_bbox": 0.4729370989714769,
+    "aspect_ratio": 0.5022931267214967,
+    "centroide_x": -0.007904722460261375,
+    "dispersion": 0.4455710808114125
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.566902909773514,
+    "hauteur_max": 0.07798086461165579,
+    "aire_bbox": 0.04420757905500211,
+    "aspect_ratio": 0.14542230858515492,
+    "centroide_x": 0.02549602163902437,
+    "dispersion": 0.23126354588198209
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6587737076197134,
+    "hauteur_max": 0.1381352549941912,
+    "aire_bbox": 0.09099987408551787,
+    "aspect_ratio": 0.22167665058351102,
+    "centroide_x": 0.020708608735185555,
+    "dispersion": 0.2736187104346069
+   },
+   "menton__menton": {
+    "largeur_max": 0.44677405419541755,
+    "hauteur_max": 0.15134334147559492,
+    "aire_bbox": 0.06761627824653303,
+    "aspect_ratio": 0.3581187410974553,
+    "centroide_x": 0.027109475923859077,
+    "dispersion": 0.16255420597354048
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.16981361313940593,
+    "hauteur_max": 0.10439740434604426,
+    "aire_bbox": 0.017728100434377295,
+    "aspect_ratio": 0.6499334257143713,
+    "centroide_x": 0.02579770689372827,
+    "dispersion": 0.07199896944848361
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2482553121595291,
+    "hauteur_max": 0.13358916709437543,
+    "aire_bbox": 0.03316422037814566,
+    "aspect_ratio": 0.568884847947655,
+    "centroide_x": 0.00516707610816815,
+    "dispersion": 0.10231396328741885
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11604109159826297,
+    "hauteur_max": 0.09532448405441432,
+    "aire_bbox": 0.01106155718571545,
+    "aspect_ratio": 0.8684490263210545,
+    "centroide_x": 0.01418314367029146,
+    "dispersion": 0.053137381915229695
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.17303515250372836,
+    "hauteur_max": 0.06469795672773186,
+    "aire_bbox": 0.0111950208090627,
+    "aspect_ratio": 0.39528278421275537,
+    "centroide_x": 0.0045325652145757735,
+    "dispersion": 0.06507255806698768
+   },
+   "nez__nez": {
+    "largeur_max": 0.2708376890106653,
+    "hauteur_max": 0.1797874862025433,
+    "aire_bbox": 0.048693227276133705,
+    "aspect_ratio": 0.7017816941484697,
+    "centroide_x": 0.020000731517449084,
+    "dispersion": 0.11279731411659893
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8276750997716231,
+    "hauteur_max": 0.13653081271318843,
+    "aire_bbox": 0.11300315403428902,
+    "aspect_ratio": 0.17439035445137815,
+    "centroide_x": -0.02680791812270901,
+    "dispersion": 0.29923873595759154
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.40568926108426445,
+    "hauteur_max": 0.09995039061954111,
+    "aire_bbox": 0.04054880011552523,
+    "aspect_ratio": 0.2604609731230032,
+    "centroide_x": -0.0011453290497332696,
+    "dispersion": 0.13503121219965195
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8839610395024793,
+    "hauteur_max": 0.21249342500759932,
+    "aire_bbox": 0.18783590885715962,
+    "aspect_ratio": 0.2541347462561422,
+    "centroide_x": 0.036313812560649646,
+    "dispersion": 0.35852238577096995
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9928446787928664,
+    "hauteur_max": 0.24576598005882383,
+    "aire_bbox": 0.24400744552971695,
+    "aspect_ratio": 0.2616930134214601,
+    "centroide_x": 0.06384692832617532,
+    "dispersion": 0.45191499000008223
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7181198843693,
+    "hauteur_max": 0.1755664954628199,
+    "aire_bbox": 0.12607779142088346,
+    "aspect_ratio": 0.2584617988816907,
+    "centroide_x": 0.0016999535754765834,
+    "dispersion": 0.2580998633572791
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6595461946341502,
+    "hauteur_max": 0.07337957758890237,
+    "aire_bbox": 0.048397221162621934,
+    "aspect_ratio": 0.1176201322212455,
+    "centroide_x": 0.00938634482378437,
+    "dispersion": 0.24100604457092023
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.36331123804970805,
+    "hauteur_max": 0.031686772274404175,
+    "aire_bbox": 0.011512160464812944,
+    "aspect_ratio": 0.09220423006833105,
+    "centroide_x": -0.00298475117688439,
+    "dispersion": 0.16734012561895784
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.31277654120585596,
+    "hauteur_max": 0.04584534730792099,
+    "aire_bbox": 0.014339349161352728,
+    "aspect_ratio": 0.15495755997970007,
+    "centroide_x": 0.02088387357272659,
+    "dispersion": 0.11748705360620795
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.35757182141640725,
+    "hauteur_max": 0.08365876376393223,
+    "aire_bbox": 0.02991401653651418,
+    "aspect_ratio": 0.24734311775189347,
+    "centroide_x": 0.015957954154332547,
+    "dispersion": 0.1241141324770806
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08811009763681525,
+    "hauteur_max": 0.003480937382198382,
+    "aire_bbox": 0.00030670573261313953,
+    "aspect_ratio": 0.0417659345186983,
+    "centroide_x": 0.01792545017770689,
+    "dispersion": 0.03542634431665917
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.23858555643175627,
+    "hauteur_max": 0.016743764522063585,
+    "aire_bbox": 0.00399482037525884,
+    "aspect_ratio": 0.07419260735169361,
+    "centroide_x": -0.0005399065104907306,
+    "dispersion": 0.07966912333546472
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.29565920220845426,
+    "hauteur_max": 0.02679880741466624,
+    "aire_bbox": 0.00792331402035823,
+    "aspect_ratio": 0.09582431907625812,
+    "centroide_x": 0.002329141892255021,
+    "dispersion": 0.11959146211600588
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.19268418222217984,
+    "hauteur_max": 0.010468944621740063,
+    "aire_bbox": 0.002017200033169272,
+    "aspect_ratio": 0.057439217280363185,
+    "centroide_x": 0.020591906875895714,
+    "dispersion": 0.07699020117230072
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.3094042655750698,
+    "hauteur_max": 0.021551864870042844,
+    "aire_bbox": 0.006668238921888753,
+    "aspect_ratio": 0.07363939866358546,
+    "centroide_x": 0.019613440172763594,
+    "dispersion": 0.10455743505500076
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10077683931330716,
+    "hauteur_max": 0.0031639550433352833,
+    "aire_bbox": 0.00031885338899672764,
+    "aspect_ratio": 0.03319106940344377,
+    "centroide_x": 0.020195606206204253,
+    "dispersion": 0.04116845085348544
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.0976101660112474,
+    "hauteur_max": 0.02147181697249367,
+    "aire_bbox": 0.002095867619248227,
+    "aspect_ratio": 0.23255486000042702,
+    "centroide_x": 0.019231427251618274,
+    "dispersion": 0.04011314967837722
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10327639558269608,
+    "hauteur_max": 0.018036084187651236,
+    "aire_bbox": 0.0018627017653266786,
+    "aspect_ratio": 0.18462599815562664,
+    "centroide_x": 0.016372107297168897,
+    "dispersion": 0.04146440202843219
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10644311735300871,
+    "hauteur_max": 0.009866613992873505,
+    "aire_bbox": 0.0010502331511202724,
+    "aspect_ratio": 0.0979946187426035,
+    "centroide_x": 0.015346341349254035,
+    "dispersion": 0.04368993570478285
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.32984846545030694,
+    "hauteur_max": 0.039784813703785796,
+    "aire_bbox": 0.013122959748420086,
+    "aspect_ratio": 0.12751302117389965,
+    "centroide_x": 0.017238230937153133,
+    "dispersion": 0.1357219458261113
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.30743936260322463,
+    "hauteur_max": 0.03764039196268332,
+    "aire_bbox": 0.011572138113142899,
+    "aspect_ratio": 0.1294333944810651,
+    "centroide_x": 0.038050094455486815,
+    "dispersion": 0.11434386650668273
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.21042327196755461,
+    "hauteur_max": 0.029762505174785726,
+    "aire_bbox": 0.006262723720829688,
+    "aspect_ratio": 0.1495296749991823,
+    "centroide_x": 0.01582780477828057,
+    "dispersion": 0.08130384436913225
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11348027145723093,
+    "hauteur_max": 0.05967346114697364,
+    "aire_bbox": 0.006771760569751092,
+    "aspect_ratio": 0.5559203051937956,
+    "centroide_x": 0.0153837507624369,
+    "dispersion": 0.04828892704852568
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4293086162058158,
+    "hauteur_max": 0.09590975980476525,
+    "aire_bbox": 0.041174886262415944,
+    "aspect_ratio": 0.2361809544475306,
+    "centroide_x": -0.05625401530829114,
+    "dispersion": 0.19499065390752462
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8676432328046227,
+    "hauteur_max": 0.16241727582016366,
+    "aire_bbox": 0.1409202502559269,
+    "aspect_ratio": 0.19789859590401104,
+    "centroide_x": 0.012718424990148603,
+    "dispersion": 0.37786343799852845
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7695784345813401,
+    "hauteur_max": 0.23069895766566392,
+    "aire_bbox": 0.1775409426998885,
+    "aspect_ratio": 0.31691618397542765,
+    "centroide_x": 0.019818664564518224,
+    "dispersion": 0.34373294381980457
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.7919464848182312,
+    "hauteur_max": 0.051773659757112414,
+    "aire_bbox": 0.04100196785082029,
+    "aspect_ratio": 0.06911378929904112,
+    "centroide_x": 0.003412811246279901,
+    "dispersion": 0.35949333581056503
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6587737076197134,
+    "hauteur_max": 0.17202650785608353,
+    "aire_bbox": 0.1133265403892239,
+    "aspect_ratio": 0.2760646445740318,
+    "centroide_x": 0.018694520180315498,
+    "dispersion": 0.29135195773771455
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6404041428408468,
+    "hauteur_max": 0.18571589034462999,
+    "aire_bbox": 0.11893322556807746,
+    "aspect_ratio": 0.306581967353316,
+    "centroide_x": 0.02375531180210277,
+    "dispersion": 0.23904888958992054
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6851811505200615,
+    "hauteur_max": 0.1906197180752454,
+    "aire_bbox": 0.13060903774260638,
+    "aspect_ratio": 0.29411291178280646,
+    "centroide_x": -0.0006788786620369135,
+    "dispersion": 0.22899917856307567
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9587806090482085,
+    "hauteur_max": 0.2826902046631935,
+    "aire_bbox": 0.27103788659893935,
+    "aspect_ratio": 0.3117045867980182,
+    "centroide_x": -0.006850837524118891,
+    "dispersion": 0.4293891064808239
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18251694834682394,
+    "hauteur_max": 0.07662564361992985,
+    "aire_bbox": 0.013985478638620876,
+    "aspect_ratio": 0.44383608788908097,
+    "centroide_x": 0.028680293763705737,
+    "dispersion": 0.0632128071557219
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.46718161207147574,
+    "hauteur_max": 0.1121772714289246,
+    "aire_bbox": 0.05240715850394449,
+    "aspect_ratio": 0.2538462815336158,
+    "centroide_x": 0.0064316622519886325,
+    "dispersion": 0.19713528107545072
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14481363983450463,
+    "hauteur_max": 0.038783343901916324,
+    "aire_bbox": 0.005616357195389842,
+    "aspect_ratio": 0.2831310219813616,
+    "centroide_x": 0.010765768330198423,
+    "dispersion": 0.07153797737120689
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2589975249188267,
+    "hauteur_max": 0.05877322030145501,
+    "aire_bbox": 0.015222118589585786,
+    "aspect_ratio": 0.2399029278285847,
+    "centroide_x": 0.002989742637593957,
+    "dispersion": 0.10987980275790256
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12998080346845348,
+    "hauteur_max": 0.03015981048988373,
+    "aire_bbox": 0.003920196399931379,
+    "aspect_ratio": 0.24530198689523197,
+    "centroide_x": 0.020471014936144238,
+    "dispersion": 0.04965196169682847
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.20896098477809807,
+    "hauteur_max": 0.036590691697914804,
+    "aire_bbox": 0.007646026970908055,
+    "aspect_ratio": 0.1851215968469806,
+    "centroide_x": 0.012749604213325686,
+    "dispersion": 0.09486599376265771
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14901758221649677,
+    "hauteur_max": 0.07895601855258987,
+    "aire_bbox": 0.011765834986147805,
+    "aspect_ratio": 0.5601436312423972,
+    "centroide_x": 0.012617582751006134,
+    "dispersion": 0.07534799692331784
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23010884674867926,
+    "hauteur_max": 0.02939133233483264,
+    "aire_bbox": 0.0067632055879755055,
+    "aspect_ratio": 0.13503228986313143,
+    "centroide_x": 0.013017336783715453,
+    "dispersion": 0.10294327899641836
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.07931369135772713,
+    "hauteur_max": 0.09258167447894082,
+    "aire_bbox": 0.007342994355004275,
+    "aspect_ratio": 1.234038028483169,
+    "centroide_x": 0.01234645807608475,
+    "dispersion": 0.04907668854040847
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06047810432739794,
+    "hauteur_max": 0.028392521626925283,
+    "aire_bbox": 0.0017171258850710895,
+    "aspect_ratio": 0.4963150791640888,
+    "centroide_x": 0.02462966615923061,
+    "dispersion": 0.021662939671150547
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.1310364420162282,
+    "hauteur_max": 0.04648628064568583,
+    "aire_bbox": 0.006091396818378522,
+    "aspect_ratio": 0.3750458655871979,
+    "centroide_x": 0.010609882311865987,
+    "dispersion": 0.04543420516737667
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23007230168600606,
+    "hauteur_max": 0.2018372434937683,
+    "aire_bbox": 0.046437159176570125,
+    "aspect_ratio": 0.927446024387459,
+    "centroide_x": 0.0007043406508844025,
+    "dispersion": 0.10743951139887005
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5339068379811157,
+    "hauteur_max": 0.09588371902251558,
+    "aire_bbox": 0.05119297323718105,
+    "aspect_ratio": 0.1898589445748706,
+    "centroide_x": 0.032067565471933554,
+    "dispersion": 0.19098323502018008
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9244770091978066,
+    "hauteur_max": 0.1733712758577515,
+    "aire_bbox": 0.160277758585782,
+    "aspect_ratio": 0.19825890575833416,
+    "centroide_x": -0.0821276757240389,
+    "dispersion": 0.41225742466787646
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.6944083426307668,
+    "hauteur_max": 0.058513454329224994,
+    "aire_bbox": 0.040632230842358195,
+    "aspect_ratio": 0.08908251760512752,
+    "centroide_x": 0.03961717441387947,
+    "dispersion": 0.3227337418972281
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3165693758669011,
+    "hauteur_max": 0.05520091094914466,
+    "aire_bbox": 0.01747491792645511,
+    "aspect_ratio": 0.18434400539295923,
+    "centroide_x": 0.022836152584206515,
+    "dispersion": 0.1383884745187274
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5191604205099536,
+    "hauteur_max": 0.03353401734201655,
+    "aire_bbox": 0.01740953454466939,
+    "aspect_ratio": 0.06828663053676708,
+    "centroide_x": 0.0021741016449353433,
+    "dispersion": 0.23594507405696516
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6211024850908021,
+    "hauteur_max": 0.038232636373072885,
+    "aire_bbox": 0.023746385462888563,
+    "aspect_ratio": 0.06507627027712477,
+    "centroide_x": 0.0006696252647575134,
+    "dispersion": 0.29241676312401277
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.37084650038880085,
+    "hauteur_max": 0.030276902317112015,
+    "aire_bbox": 0.011228083266914567,
+    "aspect_ratio": 0.0863115527134636,
+    "centroide_x": 0.0033451253311298826,
+    "dispersion": 0.17293048321771995
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5260467898794592,
+    "hauteur_max": 0.05225752316532201,
+    "aire_bbox": 0.02748990230816912,
+    "aspect_ratio": 0.10502099336338835,
+    "centroide_x": 0.000228992299763146,
+    "dispersion": 0.2274930853126678
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6365841659581876,
+    "hauteur_max": 0.07332314061187888,
+    "aire_bbox": 0.046676350311847824,
+    "aspect_ratio": 0.1217690453907418,
+    "centroide_x": -0.0006759584498007598,
+    "dispersion": 0.29411061716857007
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.39028992777852595,
+    "hauteur_max": 0.05681786931034839,
+    "aire_bbox": 0.0221754421096656,
+    "aspect_ratio": 0.15390377580290113,
+    "centroide_x": 0.0015965624255351158,
+    "dispersion": 0.17610810836166954
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6143532324087003,
+    "hauteur_max": 0.03376416650908232,
+    "aire_bbox": 0.020743124834440307,
+    "aspect_ratio": 0.05810179644403392,
+    "centroide_x": -0.0002672014391185682,
+    "dispersion": 0.25152872405024873
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7153152204480175,
+    "hauteur_max": 0.057194131105987596,
+    "aire_bbox": 0.04091183250041233,
+    "aspect_ratio": 0.08452898913082071,
+    "centroide_x": -0.060971981283791846,
+    "dispersion": 0.32573688797202577
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.2953483753027206,
+    "hauteur_max": 0.04700957199885091,
+    "aire_bbox": 0.013884200713536885,
+    "aspect_ratio": 0.16826871793996567,
+    "centroide_x": 0.00339254141902251,
+    "dispersion": 0.12019713134662499
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6024125936286369,
+    "hauteur_max": 0.20287713261874557,
+    "aire_bbox": 0.12221573964879945,
+    "aspect_ratio": 0.35603339090293085,
+    "centroide_x": 0.009251421390321021,
+    "dispersion": 0.2392133167261085
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.3871642101501517,
+    "hauteur_max": 0.08576770035457477,
+    "aire_bbox": 0.033206183964173824,
+    "aspect_ratio": 0.23419641171577954,
+    "centroide_x": 0.02135031386287023,
+    "dispersion": 0.12802450969010626
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.40207595283189507,
+    "hauteur_max": 0.10945188350354772,
+    "aire_bbox": 0.04400797034893453,
+    "aspect_ratio": 0.28778411255240094,
+    "centroide_x": 0.0069011481476137,
+    "dispersion": 0.15206745665728308
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.25961438037325874,
+    "hauteur_max": 0.23890767241960664,
+    "aire_bbox": 0.062023867341633655,
+    "aspect_ratio": 0.9728660027854633,
+    "centroide_x": -0.0011637106346388511,
+    "dispersion": 0.12958958092115452
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.692209144124489,
+    "hauteur_max": 0.17740007828904072,
+    "aire_bbox": 0.12279795636007422,
+    "aspect_ratio": 0.2709368953364242,
+    "centroide_x": -0.005785482678399557,
+    "dispersion": 0.2531206521282188
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7634520474170277,
+    "hauteur_max": 0.15109668758738498,
+    "aire_bbox": 0.11535507549652005,
+    "aspect_ratio": 0.20923043324515175,
+    "centroide_x": 0.0056435019998679154,
+    "dispersion": 0.31494425131813963
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9644408285562998,
+    "hauteur_max": 0.29075431972133436,
+    "aire_bbox": 0.280415337018367,
+    "aspect_ratio": 0.31871482349613683,
+    "centroide_x": -0.01223305630292296,
+    "dispersion": 0.4301254147540984
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7053486936078469,
+    "hauteur_max": 0.16990097485140157,
+    "aire_bbox": 0.11983943065413576,
+    "aspect_ratio": 0.2546499992647462,
+    "centroide_x": 0.058517664841022714,
+    "dispersion": 0.28040169399456594
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4808856228279,
+    "hauteur_max": 0.1877831066679359,
+    "aire_bbox": 0.09030219620656833,
+    "aspect_ratio": 0.41282539155234277,
+    "centroide_x": 0.008362799595153243,
+    "dispersion": 0.16519280615895973
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9294881418632992,
+    "hauteur_max": 0.21364811363742373,
+    "aire_bbox": 0.19858338815744797,
+    "aspect_ratio": 0.24300034149826535,
+    "centroide_x": 0.07290637181365524,
+    "dispersion": 0.36841697806621604
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0049402705773942,
+    "hauteur_max": 0.2475992419599113,
+    "aire_bbox": 0.24882244920995095,
+    "aspect_ratio": 0.2604718146386682,
+    "centroide_x": -0.1071580059074266,
+    "dispersion": 0.4630400107907201
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7035690362985176,
+    "hauteur_max": 0.10733111852941853,
+    "aire_bbox": 0.07551485162858496,
+    "aspect_ratio": 0.1612763225333561,
+    "centroide_x": 0.0007586597142931306,
+    "dispersion": 0.27736969453535587
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.33962722627881187,
+    "hauteur_max": 0.15134334147559492,
+    "aire_bbox": 0.05140031928112337,
+    "aspect_ratio": 0.47109933910928886,
+    "centroide_x": 0.027447195978240628,
+    "dispersion": 0.12391501671198482
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.25561584644698143,
+    "hauteur_max": 0.1797874862025433,
+    "aire_bbox": 0.045956530466238106,
+    "aspect_ratio": 0.7435725713999669,
+    "centroide_x": 0.01826263882362945,
+    "dispersion": 0.08819207708002201
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.7919464848182312,
+    "hauteur_max": 0.07960722149462218,
+    "aire_bbox": 0.06304465922881237,
+    "aspect_ratio": 0.1062694188294383,
+    "centroide_x": 0.01306182936438098,
+    "dispersion": 0.2982258093879909
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6733548968168,
+    "hauteur_max": 0.061117715939982796,
+    "aire_bbox": 0.041153913310445614,
+    "aspect_ratio": 0.09595658151403255,
+    "centroide_x": 0.021398297433223627,
+    "dispersion": 0.26254257719824164
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.7915702257711065,
+    "hauteur_max": 0.08951202557836536,
+    "aire_bbox": 0.07085505429629572,
+    "aspect_ratio": 0.11954835637090654,
+    "centroide_x": 0.01482094419552401,
+    "dispersion": 0.3116448339213998
    }
   },
   "notes": ""
@@ -14729,9 +34826,7 @@ window.PRESETS_DB = [
     "height": 0.22894203270073635,
     "projection": 0.09641439410394494,
     "narine": 0.12991618456996468,
-    "evasement": 1.9884152359319935,
-    "compacite_narines": 0.19143926216565915,
-    "ratio_pointe_base": 0.5532792960278909
+    "compacite_narines": 0.19143926216565915
    },
    "joues": {
     "width": 1.0822537635714695,
@@ -14755,6 +34850,701 @@ window.PRESETS_DB = [
     "width": 0.8755082541011141,
     "height": 0.16518196895924286,
     "angle": 0.26488357242056665
+   },
+   "philtrum": {
+    "largeur_sup": 0.10971923617410471,
+    "largeur_milieu": 0.11527888113380572,
+    "largeur_inf": 0.10971416727458567,
+    "hauteur": 0.09769730419545906,
+    "profondeur_z": 0.0065308138728141785
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4659039268911126,
+    "hauteur_max": 0.20587343888647852,
+    "aire_bbox": 0.09591724361978783,
+    "aspect_ratio": 0.47731434942662443,
+    "centroide_x": 0.026565659636622385,
+    "dispersion": 0.1757521057849762
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6349732106950737,
+    "hauteur_max": 0.16155371967272028,
+    "aire_bbox": 0.1025822840803191,
+    "aspect_ratio": 0.2748287113667568,
+    "centroide_x": 0.02147322515339413,
+    "dispersion": 0.247417517607294
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.25681544780177185,
+    "hauteur_max": 0.08966391857130061,
+    "aire_bbox": 0.023027079399550173,
+    "aspect_ratio": 0.3771352387601551,
+    "centroide_x": -0.007319052998616792,
+    "dispersion": 0.10948523193240416
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.6882084374816205,
+    "hauteur_max": 0.11671588735251905,
+    "aire_bbox": 0.08032485846415796,
+    "aspect_ratio": 0.18319369651756995,
+    "centroide_x": -0.009675292908111926,
+    "dispersion": 0.25252374753677936
+   },
+   "joues__joues": {
+    "largeur_max": 1.0032307234056987,
+    "hauteur_max": 0.2479527025912154,
+    "aire_bbox": 0.2487537691909831,
+    "aspect_ratio": 0.2669737521105489,
+    "centroide_x": 0.04128500105509902,
+    "dispersion": 0.3779742693235192
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9997306882799846,
+    "hauteur_max": 0.48073154160833076,
+    "aire_bbox": 0.4806020749699946,
+    "aspect_ratio": 0.5194217568661949,
+    "centroide_x": -0.009470621100931503,
+    "dispersion": 0.4468156171053899
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5633381181013797,
+    "hauteur_max": 0.08208967596838986,
+    "aire_bbox": 0.04624424357558479,
+    "aspect_ratio": 0.1574055152783228,
+    "centroide_x": 0.021787810113029573,
+    "dispersion": 0.22983030334166632
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6571315948528472,
+    "hauteur_max": 0.1396124055413208,
+    "aire_bbox": 0.09174372271461062,
+    "aspect_ratio": 0.2294944589827168,
+    "centroide_x": 0.018371202045732,
+    "dispersion": 0.2741983657663672
+   },
+   "menton__menton": {
+    "largeur_max": 0.44414734476532775,
+    "hauteur_max": 0.14984923337021003,
+    "aire_bbox": 0.06655513911649873,
+    "aspect_ratio": 0.3644416447304768,
+    "centroide_x": 0.022973624031558514,
+    "dispersion": 0.16176542236031932
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.16783271339227254,
+    "hauteur_max": 0.1021714244592726,
+    "aire_bbox": 0.017147707398153324,
+    "aspect_ratio": 0.6575872362275179,
+    "centroide_x": 0.02214257303969242,
+    "dispersion": 0.07151428433326806
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.25017656872811345,
+    "hauteur_max": 0.13390218694092168,
+    "aire_bbox": 0.03349918967407019,
+    "aspect_ratio": 0.578151399248068,
+    "centroide_x": 0.0017819167435739465,
+    "dispersion": 0.10308748183198128
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.11533084361628272,
+    "hauteur_max": 0.0941156358920499,
+    "aire_bbox": 0.01085443568491301,
+    "aspect_ratio": 0.8814889138896183,
+    "centroide_x": 0.009777607255199479,
+    "dispersion": 0.053238741229777536
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.16768203184195668,
+    "hauteur_max": 0.06453800504073405,
+    "aire_bbox": 0.010821863816256728,
+    "aspect_ratio": 0.4157474091643794,
+    "centroide_x": 0.0007458674998554074,
+    "dispersion": 0.0646146820115453
+   },
+   "nez__nez": {
+    "largeur_max": 0.27091324884231044,
+    "hauteur_max": 0.1818623301989577,
+    "aire_bbox": 0.049268914716232654,
+    "aspect_ratio": 0.725125285684178,
+    "centroide_x": 0.01634524368437082,
+    "dispersion": 0.11484928744728891
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8226060540002101,
+    "hauteur_max": 0.12879187524202543,
+    "aire_bbox": 0.1059449762801299,
+    "aspect_ratio": 0.16912083255274382,
+    "centroide_x": -0.031475909143532314,
+    "dispersion": 0.2967049817137922
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.3983946099853387,
+    "hauteur_max": 0.09866235061838231,
+    "aire_bbox": 0.03930654869484716,
+    "aspect_ratio": 0.26750909173751447,
+    "centroide_x": -0.005203416193069855,
+    "dispersion": 0.13280280463314922
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.8811700546294575,
+    "hauteur_max": 0.20367053650349096,
+    "aire_bbox": 0.17946837777719205,
+    "aspect_ratio": 0.24967152860042333,
+    "centroide_x": 0.03221787745942441,
+    "dispersion": 0.3563518319417513
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9894549381921105,
+    "hauteur_max": 0.24598583618076428,
+    "aire_bbox": 0.24339190033437275,
+    "aspect_ratio": 0.26854348678967377,
+    "centroide_x": 0.06276958898309798,
+    "dispersion": 0.45100074763152037
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.717728175681715,
+    "hauteur_max": 0.1733264532088444,
+    "aire_bbox": 0.12440127905896603,
+    "aspect_ratio": 0.2608587429833184,
+    "centroide_x": -0.0021597369142827465,
+    "dispersion": 0.25860692942290975
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6635344493838012,
+    "hauteur_max": 0.06976826382483861,
+    "aire_bbox": 0.04629364652147807,
+    "aspect_ratio": 0.11357820032385693,
+    "centroide_x": 0.00524975232168752,
+    "dispersion": 0.24448987641180434
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.37584544475715487,
+    "hauteur_max": 0.041579455603792066,
+    "aire_bbox": 0.015627448984167604,
+    "aspect_ratio": 0.11950059028182476,
+    "centroide_x": -0.004927014809661929,
+    "dispersion": 0.17370618468964977
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.3173610914132618,
+    "hauteur_max": 0.04523522670185993,
+    "aire_bbox": 0.014355900916428589,
+    "aspect_ratio": 0.15396557661217367,
+    "centroide_x": 0.01819862328026383,
+    "dispersion": 0.12076532066356345
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.3615271781784928,
+    "hauteur_max": 0.08952836721911024,
+    "aire_bbox": 0.032366937967652804,
+    "aspect_ratio": 0.26749782510013764,
+    "centroide_x": 0.014112862249585998,
+    "dispersion": 0.12711540351575062
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.08777367009519471,
+    "hauteur_max": 0.004568963667441463,
+    "aire_bbox": 0.00040103470962293787,
+    "aspect_ratio": 0.056228175179940186,
+    "centroide_x": 0.015633311176153453,
+    "dispersion": 0.035424782744726636
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.24406891852514448,
+    "hauteur_max": 0.022177607317127944,
+    "aire_bbox": 0.005412864633366748,
+    "aspect_ratio": 0.09815281403679194,
+    "centroide_x": -0.002767240917978583,
+    "dispersion": 0.08137969905311326
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.3087551096175942,
+    "hauteur_max": 0.03367057863807359,
+    "aire_bbox": 0.010395963198286238,
+    "aspect_ratio": 0.11779774288682998,
+    "centroide_x": -0.0010634044532978827,
+    "dispersion": 0.12448716473150574
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.19983364975740217,
+    "hauteur_max": 0.014197482297222118,
+    "aire_bbox": 0.002837134704820002,
+    "aspect_ratio": 0.07674379265198299,
+    "centroide_x": 0.01746027094941176,
+    "dispersion": 0.07966381795885662
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.3224831990730923,
+    "hauteur_max": 0.025628808189815527,
+    "aire_bbox": 0.008264860053482379,
+    "aspect_ratio": 0.08584635500990581,
+    "centroide_x": 0.01719374857470527,
+    "dispersion": 0.10839280983915099
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10286395966305963,
+    "hauteur_max": 0.005820134371118949,
+    "aire_bbox": 0.0005986820671843665,
+    "aspect_ratio": 0.06111816631995855,
+    "centroide_x": 0.01706166792902969,
+    "dispersion": 0.04207861340044236
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.0995621166195064,
+    "hauteur_max": 0.024624304937277637,
+    "aire_bbox": 0.002451647919839523,
+    "aspect_ratio": 0.26715936494943177,
+    "centroide_x": 0.016274734227103516,
+    "dispersion": 0.04108650569369787
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.10595232945923852,
+    "hauteur_max": 0.02148981924168761,
+    "aire_bbox": 0.002276896408314769,
+    "aspect_ratio": 0.2190901212073269,
+    "centroide_x": 0.014481327416352743,
+    "dispersion": 0.042601555700166584
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.10962448607312855,
+    "hauteur_max": 0.011872532254624818,
+    "aire_bbox": 0.0013015202467998878,
+    "aspect_ratio": 0.11698665688926586,
+    "centroide_x": 0.013677723352375647,
+    "dispersion": 0.04506940227714211
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3444282025966139,
+    "hauteur_max": 0.05079686181500673,
+    "aire_bbox": 0.017495871812491338,
+    "aspect_ratio": 0.15930841624092498,
+    "centroide_x": 0.016049630315094682,
+    "dispersion": 0.14168743883958157
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.3185976618249504,
+    "hauteur_max": 0.04722914336633767,
+    "aire_bbox": 0.015047094646510549,
+    "aspect_ratio": 0.1601282756391399,
+    "centroide_x": 0.03726412538319093,
+    "dispersion": 0.1182672132313267
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.2207617611958173,
+    "hauteur_max": 0.0365800885283837,
+    "aire_bbox": 0.0080754847682249,
+    "aspect_ratio": 0.17898698178481884,
+    "centroide_x": 0.01428667392724752,
+    "dispersion": 0.08475546491434875
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11521109484888357,
+    "hauteur_max": 0.059173009412880506,
+    "aire_bbox": 0.006817387199961256,
+    "aspect_ratio": 0.55479162446423,
+    "centroide_x": 0.013123510991784533,
+    "dispersion": 0.04887916231404865
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.4372485932699199,
+    "hauteur_max": 0.09211533176663719,
+    "aire_bbox": 0.040277299233554074,
+    "aspect_ratio": 0.22756425327424715,
+    "centroide_x": -0.05942135117531836,
+    "dispersion": 0.19755099111484378
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.862680678239409,
+    "hauteur_max": 0.1669485091619819,
+    "aire_bbox": 0.14402325311491673,
+    "aspect_ratio": 0.20904174243248924,
+    "centroide_x": 0.011144889512663793,
+    "dispersion": 0.37538382163952616
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7640412661594214,
+    "hauteur_max": 0.2357756727861136,
+    "aire_bbox": 0.18014234356509168,
+    "aspect_ratio": 0.333336383906236,
+    "centroide_x": 0.017528600139419974,
+    "dispersion": 0.34237270790901897
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.7910079847179778,
+    "hauteur_max": 0.053139902518775546,
+    "aire_bbox": 0.04203408719948644,
+    "aspect_ratio": 0.07256721042665709,
+    "centroide_x": 0.0007101805766500361,
+    "dispersion": 0.3590229315376021
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6571315948528472,
+    "hauteur_max": 0.17462186458154796,
+    "aire_bbox": 0.11474954436865054,
+    "aspect_ratio": 0.2870429041267021,
+    "centroide_x": 0.016850436690996045,
+    "dispersion": 0.29193930553170666
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6349732106950737,
+    "hauteur_max": 0.1906793412079402,
+    "aire_bbox": 0.12107627350002727,
+    "aspect_ratio": 0.32437605110301415,
+    "centroide_x": 0.021454774482165054,
+    "dispersion": 0.23840651401301394
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6772876369954982,
+    "hauteur_max": 0.19239941156065574,
+    "aire_bbox": 0.13030974281524085,
+    "aspect_ratio": 0.3068535371871105,
+    "centroide_x": -0.0031944169666207833,
+    "dispersion": 0.22911979391265172
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9657643162290508,
+    "hauteur_max": 0.2877745775851235,
+    "aire_bbox": 0.2779224181496007,
+    "aspect_ratio": 0.32187097310902896,
+    "centroide_x": -0.00812223920100542,
+    "dispersion": 0.42943396496892344
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18116534481467367,
+    "hauteur_max": 0.07660666235426809,
+    "aire_bbox": 0.01387847240051226,
+    "aspect_ratio": 0.4567640960416164,
+    "centroide_x": 0.024113289731548724,
+    "dispersion": 0.06305034647305222
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.46337429206300723,
+    "hauteur_max": 0.11118571798652839,
+    "aire_bbox": 0.05152060335952476,
+    "aspect_ratio": 0.2591896241965106,
+    "centroide_x": 0.00245105259365977,
+    "dispersion": 0.1958261027872486
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.14453185375527572,
+    "hauteur_max": 0.039229127192916234,
+    "aire_bbox": 0.005669858474393679,
+    "aspect_ratio": 0.293187611415624,
+    "centroide_x": 0.0061351794536335935,
+    "dispersion": 0.07156753917160963
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.2590336710054537,
+    "hauteur_max": 0.06204470896396484,
+    "aire_bbox": 0.016071668729400794,
+    "aspect_ratio": 0.25873136157380366,
+    "centroide_x": -0.0007252945237254893,
+    "dispersion": 0.10992093087414552
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.12965494482166262,
+    "hauteur_max": 0.03336483789050188,
+    "aire_bbox": 0.0043259162156767395,
+    "aspect_ratio": 0.27797163210742,
+    "centroide_x": 0.01710863049990006,
+    "dispersion": 0.049455433878081316
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.20752317839932014,
+    "hauteur_max": 0.03824460083162462,
+    "aire_bbox": 0.007936641121192023,
+    "aspect_ratio": 0.19906919703572928,
+    "centroide_x": 0.009603807154178272,
+    "dispersion": 0.09338853278049501
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.14710853604961371,
+    "hauteur_max": 0.07829929663316901,
+    "aire_bbox": 0.011518494901419941,
+    "aspect_ratio": 0.5749373591367523,
+    "centroide_x": 0.008392178614044314,
+    "dispersion": 0.07449573960960122
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.2290193787311818,
+    "hauteur_max": 0.03168163476197475,
+    "aire_bbox": 0.007255708310375669,
+    "aspect_ratio": 0.1494293451997504,
+    "centroide_x": 0.010330800871443037,
+    "dispersion": 0.10244728941022004
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.0793339751609851,
+    "hauteur_max": 0.09234039330964777,
+    "aire_bbox": 0.007325730469183191,
+    "aspect_ratio": 1.2572830097931749,
+    "centroide_x": 0.007415537864160032,
+    "dispersion": 0.049475305791579834
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.05802619622686014,
+    "hauteur_max": 0.029683602686424816,
+    "aire_bbox": 0.001722426554202639,
+    "aspect_ratio": 0.5525773130059501,
+    "centroide_x": 0.020736087390212952,
+    "dispersion": 0.021164154444035608
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.13078167607006017,
+    "hauteur_max": 0.04695383951315406,
+    "aire_bbox": 0.006140701829454906,
+    "aspect_ratio": 0.38781513586931504,
+    "centroide_x": 0.005726269364492776,
+    "dispersion": 0.04562325407781012
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.22798678872181075,
+    "hauteur_max": 0.20051423055544523,
+    "aire_bbox": 0.04571459551736074,
+    "aspect_ratio": 0.9500272473033498,
+    "centroide_x": -0.0028946771682196544,
+    "dispersion": 0.10824898881175532
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.531844284888527,
+    "hauteur_max": 0.09081460465463204,
+    "aire_bbox": 0.04829922846997707,
+    "aspect_ratio": 0.18444706228575858,
+    "centroide_x": 0.0278818339672033,
+    "dispersion": 0.18916562481792026
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9236697071748923,
+    "hauteur_max": 0.1675503880312902,
+    "aire_bbox": 0.15476121784990138,
+    "aspect_ratio": 0.19594278653519256,
+    "centroide_x": -0.08314670923352571,
+    "dispersion": 0.4111670165616758
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.6968507699278714,
+    "hauteur_max": 0.054756830381494224,
+    "aire_bbox": 0.03815733941015411,
+    "aspect_ratio": 0.08487876645331405,
+    "centroide_x": 0.03457647643095666,
+    "dispersion": 0.3254857224754403
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3219528500270666,
+    "hauteur_max": 0.052971685091199636,
+    "aire_bbox": 0.017054384985847996,
+    "aspect_ratio": 0.17772644635706725,
+    "centroide_x": 0.020174881195320578,
+    "dispersion": 0.1408842068892607
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5231173040483064,
+    "hauteur_max": 0.0321435039170978,
+    "aire_bbox": 0.016814823111778374,
+    "aspect_ratio": 0.06637349295098652,
+    "centroide_x": -0.0019496590403853549,
+    "dispersion": 0.23845570581080514
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.62785501240589,
+    "hauteur_max": 0.03580257591779648,
+    "aire_bbox": 0.02247882674703093,
+    "aspect_ratio": 0.061596417109593855,
+    "centroide_x": -0.00413574896354998,
+    "dispersion": 0.29640582539560173
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.3756697576637626,
+    "hauteur_max": 0.02921898992392031,
+    "aire_bbox": 0.010976690863899064,
+    "aspect_ratio": 0.08401551745985414,
+    "centroide_x": 0.0001238468980699978,
+    "dispersion": 0.17527549052559543
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5349748862685682,
+    "hauteur_max": 0.04642072230384366,
+    "aire_bbox": 0.02483392063500355,
+    "aspect_ratio": 0.09373009157184484,
+    "centroide_x": -0.0038965697863603006,
+    "dispersion": 0.22949567728726156
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.6375627199068787,
+    "hauteur_max": 0.06610181837930224,
+    "aire_bbox": 0.04214405511669844,
+    "aspect_ratio": 0.11199304024563086,
+    "centroide_x": -0.005730448531645821,
+    "dispersion": 0.2976288798781357
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.3954554399295156,
+    "hauteur_max": 0.05259461055170991,
+    "aire_bbox": 0.020798824853647983,
+    "aspect_ratio": 0.14366276874883488,
+    "centroide_x": -0.0018320091178749475,
+    "dispersion": 0.17787893487018794
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6108580038718893,
+    "hauteur_max": 0.027278144914727732,
+    "aire_bbox": 0.01666307315193871,
+    "aspect_ratio": 0.04823642424790064,
+    "centroide_x": -0.004813335509398364,
+    "dispersion": 0.2505443132081814
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7147813187367239,
+    "hauteur_max": 0.05617578982409427,
+    "aire_bbox": 0.040153405131543134,
+    "aspect_ratio": 0.08489390998385965,
+    "centroide_x": -0.06593596813540754,
+    "dispersion": 0.32560897320841115
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.29820323350497113,
+    "hauteur_max": 0.04378977430048264,
+    "aire_bbox": 0.013058252290856808,
+    "aspect_ratio": 0.15862107947467624,
+    "centroide_x": 3.351437370654736e-05,
+    "dispersion": 0.12107536371168091
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6040079668789191,
+    "hauteur_max": 0.1997535654089348,
+    "aire_bbox": 0.12065274491946588,
+    "aspect_ratio": 0.35723369478552064,
+    "centroide_x": 0.007698498222832565,
+    "dispersion": 0.24147159131084647
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.39779044828067645,
+    "hauteur_max": 0.0836616772602371,
+    "aire_bbox": 0.03327981610126299,
+    "aspect_ratio": 0.227181393488452,
+    "centroide_x": 0.018858461474554562,
+    "dispersion": 0.13131958533466673
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4035405655242143,
+    "hauteur_max": 0.11243851770708861,
+    "aire_bbox": 0.04537350302222292,
+    "aspect_ratio": 0.3009736367158167,
+    "centroide_x": 0.004624092170199424,
+    "dispersion": 0.1528882800359039
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.25681544780177185,
+    "hauteur_max": 0.23711811130409005,
+    "aire_bbox": 0.06089559393647027,
+    "aspect_ratio": 0.9973420406550036,
+    "centroide_x": -0.004532640570605645,
+    "dispersion": 0.12909747922067927
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.6882084374816205,
+    "hauteur_max": 0.17026775966716728,
+    "aire_bbox": 0.11717970883403729,
+    "aspect_ratio": 0.2672470817703154,
+    "centroide_x": -0.009105673003983987,
+    "dispersion": 0.2511504677541382
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7587090656311879,
+    "hauteur_max": 0.15291632920949288,
+    "aire_bbox": 0.11601900525428548,
+    "aspect_ratio": 0.2177103787772858,
+    "centroide_x": 0.0037353997999207316,
+    "dispersion": 0.3144975032665632
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9701653381170563,
+    "hauteur_max": 0.2952000652253206,
+    "aire_bbox": 0.28639287109150025,
+    "aspect_ratio": 0.3286784555489337,
+    "centroide_x": -0.013098115928810565,
+    "dispersion": 0.42971570648037677
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.7002185998212095,
+    "hauteur_max": 0.17304660525593527,
+    "aire_bbox": 0.12117045163612454,
+    "aspect_ratio": 0.26695003607146944,
+    "centroide_x": 0.05667666306383962,
+    "dispersion": 0.2795243632747536
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.47576852102162503,
+    "hauteur_max": 0.19209632868273482,
+    "aire_bbox": 0.09139338619106871,
+    "aspect_ratio": 0.4361379758197183,
+    "centroide_x": 0.005477945799119676,
+    "dispersion": 0.1652048435248184
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9293385100968706,
+    "hauteur_max": 0.2162455608543661,
+    "aire_bbox": 0.20096532733945877,
+    "aspect_ratio": 0.251347059996526,
+    "centroide_x": 0.07091866393888646,
+    "dispersion": 0.3666447006989002
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0031547806452445,
+    "hauteur_max": 0.2560445867430505,
+    "aire_bbox": 0.2568523512496271,
+    "aspect_ratio": 0.2757072547446516,
+    "centroide_x": -0.10824843451062703,
+    "dispersion": 0.4632900664385068
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.6994428723071064,
+    "hauteur_max": 0.11197613412558155,
+    "aire_bbox": 0.07832090888264256,
+    "aspect_ratio": 0.17293136264229672,
+    "centroide_x": -0.002111010283936004,
+    "dispersion": 0.2760141272288268
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.33705249352030453,
+    "hauteur_max": 0.14984923337021003,
+    "aire_bbox": 0.05050705775953532,
+    "aspect_ratio": 0.48023910797502856,
+    "centroide_x": 0.02316901328047044,
+    "dispersion": 0.12324033329874615
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.25527668077134896,
+    "hauteur_max": 0.1818623301989577,
+    "aire_bbox": 0.04642521201053298,
+    "aspect_ratio": 0.7695416846099065,
+    "centroide_x": 0.014666513710604434,
+    "dispersion": 0.08882525156260666
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.7910079847179778,
+    "hauteur_max": 0.08123367046537362,
+    "aire_bbox": 0.0642564819660595,
+    "aspect_ratio": 0.11093172134268939,
+    "centroide_x": 0.010406349213730787,
+    "dispersion": 0.2986099689452951
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.6743498561365127,
+    "hauteur_max": 0.06081754482487515,
+    "aire_bbox": 0.041012302603230466,
+    "aspect_ratio": 0.09741910993599551,
+    "centroide_x": 0.01793909115080992,
+    "dispersion": 0.2643611103070212
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.7869055012303676,
+    "hauteur_max": 0.08288292145255516,
+    "aire_bbox": 0.0652210268490601,
+    "aspect_ratio": 0.11377399601998212,
+    "centroide_x": 0.009879154765632751,
+    "dispersion": 0.3103771292141405
    }
   },
   "notes": ""
@@ -15221,9 +36011,7 @@ window.PRESETS_DB = [
     "height": 0.22649553676111508,
     "projection": 0.10039458558367517,
     "narine": 0.13354194715720272,
-    "evasement": 1.9808806108455947,
-    "compacite_narines": 0.18510636022588925,
-    "ratio_pointe_base": 0.5556528695543748
+    "compacite_narines": 0.18510636022588925
    },
    "joues": {
     "width": 1.0634763303036305,
@@ -15247,6 +36035,701 @@ window.PRESETS_DB = [
     "width": 0.8620335952545699,
     "height": 0.16217931728491988,
     "angle": 0.2661806187385552
+   },
+   "philtrum": {
+    "largeur_sup": 0.1149270094324925,
+    "largeur_milieu": 0.11899174852505763,
+    "largeur_inf": 0.11381837164488118,
+    "hauteur": 0.0856803491541285,
+    "profondeur_z": 0.006705552339553833
+   },
+   "bouche__bouche": {
+    "largeur_max": 0.4764230610564812,
+    "hauteur_max": 0.2087482452198463,
+    "aire_bbox": 0.09945247797780815,
+    "aspect_ratio": 0.48536930779874693,
+    "centroide_x": 0.02809386581697545,
+    "dispersion": 0.18096938768018853
+   },
+   "bouche__exterieur_de_la_bouche_partie_sup": {
+    "largeur_max": 0.6534573309113448,
+    "hauteur_max": 0.1595878776615463,
+    "aire_bbox": 0.10428386858252028,
+    "aspect_ratio": 0.2705359079587415,
+    "centroide_x": 0.022160519323337142,
+    "dispersion": 0.25534339993828375
+   },
+   "front__front_partie_inferieure": {
+    "largeur_max": 0.2656242623722004,
+    "hauteur_max": 0.08917391797513535,
+    "aire_bbox": 0.02368675618498443,
+    "aspect_ratio": 0.3718881663347799,
+    "centroide_x": -0.010397599488098949,
+    "dispersion": 0.113021620104535
+   },
+   "front__front_partie_superieure": {
+    "largeur_max": 0.7067781911772708,
+    "hauteur_max": 0.11746865328438182,
+    "aire_bbox": 0.08302428228836535,
+    "aspect_ratio": 0.18411157862737512,
+    "centroide_x": -0.011928001529189266,
+    "dispersion": 0.26088337906620174
+   },
+   "joues__joues": {
+    "largeur_max": 1.0077012685226951,
+    "hauteur_max": 0.24910112839193355,
+    "aire_bbox": 0.2510195230709862,
+    "aspect_ratio": 0.27383322528635734,
+    "centroide_x": 0.04223483143887927,
+    "dispersion": 0.38518735869883575
+   },
+   "machoire__machoire": {
+    "largeur_max": 0.9972355888524616,
+    "hauteur_max": 0.4780151981225881,
+    "aire_bbox": 0.4766937675802052,
+    "aspect_ratio": 0.530989811484901,
+    "centroide_x": -0.006635688597371442,
+    "dispersion": 0.4494324928487678
+   },
+   "machoire__mandibule": {
+    "largeur_max": 0.5811395286850012,
+    "hauteur_max": 0.07667403543659013,
+    "aire_bbox": 0.044558312815997064,
+    "aspect_ratio": 0.14615381515330825,
+    "centroide_x": 0.02774323851402855,
+    "dispersion": 0.2386912294122688
+   },
+   "machoire__maxillaire": {
+    "largeur_max": 0.6748790406699638,
+    "hauteur_max": 0.13783096262909247,
+    "aire_bbox": 0.09301922783373957,
+    "aspect_ratio": 0.22623672261218256,
+    "centroide_x": 0.02109228246025254,
+    "dispersion": 0.2826442691328484
+   },
+   "menton__menton": {
+    "largeur_max": 0.46260588133685754,
+    "hauteur_max": 0.15204699656251108,
+    "aire_bbox": 0.07033783484942259,
+    "aspect_ratio": 0.3640901652948228,
+    "centroide_x": 0.028868743739554753,
+    "dispersion": 0.1689413003444753
+   },
+   "menton__menton_partie_superieure": {
+    "largeur_max": 0.17548440410063687,
+    "hauteur_max": 0.10508459338476857,
+    "aire_bbox": 0.01844070725028384,
+    "aspect_ratio": 0.6633500633504695,
+    "centroide_x": 0.02646725767217512,
+    "dispersion": 0.0751460893094436
+   },
+   "nez__arete_du_nez_cotes": {
+    "largeur_max": 0.2612073409906285,
+    "hauteur_max": 0.13047447852505528,
+    "aire_bbox": 0.03408089160266855,
+    "aspect_ratio": 0.5533277405139728,
+    "centroide_x": 0.0015738815532387366,
+    "dispersion": 0.1071737273129093
+   },
+   "nez__arete_du_nez_partie_centrale": {
+    "largeur_max": 0.12181269711770501,
+    "hauteur_max": 0.0898970740866257,
+    "aire_bbox": 0.010950605057482025,
+    "aspect_ratio": 0.8175140959569995,
+    "centroide_x": 0.00844211738860152,
+    "dispersion": 0.05410543024295265
+   },
+   "nez__arete_du_nez_partie_superieure": {
+    "largeur_max": 0.18367031835984557,
+    "hauteur_max": 0.06031542056702398,
+    "aire_bbox": 0.011078152497553272,
+    "aspect_ratio": 0.36377398177508447,
+    "centroide_x": -0.0008694457860769607,
+    "dispersion": 0.06810684386715223
+   },
+   "nez__nez": {
+    "largeur_max": 0.2817443223496812,
+    "hauteur_max": 0.18111535356163969,
+    "aire_bbox": 0.0510282225563471,
+    "aspect_ratio": 0.7121022321909387,
+    "centroide_x": 0.015602957207231805,
+    "dispersion": 0.1188228162126189
+   },
+   "sourcils__sourcils": {
+    "largeur_max": 0.8574238085476081,
+    "hauteur_max": 0.12711989640294105,
+    "aire_bbox": 0.1089956257159871,
+    "aspect_ratio": 0.1642329310482118,
+    "centroide_x": -0.03320072305610952,
+    "dispersion": 0.3132037951094614
+   },
+   "sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.42914724237477037,
+    "hauteur_max": 0.10179978061420143,
+    "aire_bbox": 0.04368709512494115,
+    "aspect_ratio": 0.2627742274945559,
+    "centroide_x": -0.0070502637599581955,
+    "dispersion": 0.14274264158056277
+   },
+   "sourcils__sourcils_partie_superieure_exterieure": {
+    "largeur_max": 0.9016257599107129,
+    "hauteur_max": 0.20645123409845614,
+    "aire_bbox": 0.18614175082852502,
+    "aspect_ratio": 0.2536491575244558,
+    "centroide_x": 0.031986744802057224,
+    "dispersion": 0.37155483049540183
+   },
+   "tete__tempes": {
+    "largeur_max": 0.9999782112514853,
+    "hauteur_max": 0.25159361319720375,
+    "aire_bbox": 0.2515881312872379,
+    "aspect_ratio": 0.27870921438968244,
+    "centroide_x": 0.060502162405331905,
+    "dispersion": 0.4603072855576687
+   },
+   "yeux__orbites": {
+    "largeur_max": 0.7463638937901956,
+    "hauteur_max": 0.1699285412499387,
+    "aire_bbox": 0.12682852771339212,
+    "aspect_ratio": 0.2522074781496483,
+    "centroide_x": -1.7210062957590394e-05,
+    "dispersion": 0.2705965690283092
+   },
+   "yeux__yeux": {
+    "largeur_max": 0.6889558296494936,
+    "hauteur_max": 0.07160955266519564,
+    "aire_bbox": 0.04933581876727897,
+    "aspect_ratio": 0.11513883572202409,
+    "centroide_x": 0.00934151624396798,
+    "dispersion": 0.253985966024451
+   },
+   "chair:bouche__commissures_des_levres": {
+    "largeur_max": 0.3807642021642934,
+    "hauteur_max": 0.03751688312738152,
+    "aire_bbox": 0.014285086071688467,
+    "aspect_ratio": 0.1091472734709694,
+    "centroide_x": -0.0028633789265669033,
+    "dispersion": 0.1761903543988516
+   },
+   "chair:bouche__epaisseur_de_la_levre_inferieure": {
+    "largeur_max": 0.32356513900651246,
+    "hauteur_max": 0.04608647149013715,
+    "aire_bbox": 0.0149119755540259,
+    "aspect_ratio": 0.15778073915043223,
+    "centroide_x": 0.02015361984235915,
+    "dispersion": 0.1217478714778586
+   },
+   "chair:bouche__epaisseur_de_la_levre_superieure": {
+    "largeur_max": 0.37308075579800754,
+    "hauteur_max": 0.0873526989006594,
+    "aire_bbox": 0.03258961092685379,
+    "aspect_ratio": 0.2593676051148382,
+    "centroide_x": 0.0135586905624275,
+    "dispersion": 0.1314697102280197
+   },
+   "chair:bouche__espacement_entre_les_levres_centre": {
+    "largeur_max": 0.09088156992057554,
+    "hauteur_max": 0.002617315871674652,
+    "aire_bbox": 0.00023786577539583202,
+    "aspect_ratio": 0.03190234228379673,
+    "centroide_x": 0.015676923585677877,
+    "dispersion": 0.03652225461244042
+   },
+   "chair:bouche__espacement_entre_les_levres_cotes": {
+    "largeur_max": 0.24887969422017392,
+    "hauteur_max": 0.02552776923425336,
+    "aire_bbox": 0.00635334340114414,
+    "aspect_ratio": 0.11362284330211568,
+    "centroide_x": -0.003142087839949627,
+    "dispersion": 0.08341771803626738
+   },
+   "chair:bouche__levre_inferieure_coins_inferieurs": {
+    "largeur_max": 0.30778029522185807,
+    "hauteur_max": 0.025118529243360388,
+    "aire_bbox": 0.007730988346060335,
+    "aspect_ratio": 0.09040566538684859,
+    "centroide_x": 0.0009483988844161464,
+    "dispersion": 0.12401294042380666
+   },
+   "chair:bouche__levre_inferieure_cotes_inferieurs": {
+    "largeur_max": 0.19868020381050686,
+    "hauteur_max": 0.008338402698538241,
+    "aire_bbox": 0.0016566755475996581,
+    "aspect_ratio": 0.04649117479510103,
+    "centroide_x": 0.01915706573417816,
+    "dispersion": 0.0792049849332991
+   },
+   "chair:bouche__levre_inferieure_cotes_superieurs": {
+    "largeur_max": 0.32354090405697034,
+    "hauteur_max": 0.02366973510668831,
+    "aire_bbox": 0.007658127495206945,
+    "aspect_ratio": 0.08104131046621509,
+    "centroide_x": 0.01854800988565357,
+    "dispersion": 0.10879137007635835
+   },
+   "chair:bouche__levre_inferieure_partie_inf_centrale": {
+    "largeur_max": 0.10304552895410167,
+    "hauteur_max": 0.0029926363754518306,
+    "aire_bbox": 0.0003083777982757195,
+    "aspect_ratio": 0.032171184378061816,
+    "centroide_x": 0.01833906830211868,
+    "dispersion": 0.042095726345097
+   },
+   "chair:bouche__levre_inferieure_partie_sup_centrale": {
+    "largeur_max": 0.10011498386860725,
+    "hauteur_max": 0.020526896991542157,
+    "aire_bbox": 0.0020550499611808057,
+    "aspect_ratio": 0.22712580173355493,
+    "centroide_x": 0.01667212635782447,
+    "dispersion": 0.04120502053019301
+   },
+   "chair:bouche__levre_superieure_centre_inferieur": {
+    "largeur_max": 0.11008715646759751,
+    "hauteur_max": 0.022040680497837178,
+    "aire_bbox": 0.0024263958426177265,
+    "aspect_ratio": 0.22178419667121135,
+    "centroide_x": 0.013417277595298802,
+    "dispersion": 0.04425786244965076
+   },
+   "chair:bouche__levre_superieure_centre_superieur": {
+    "largeur_max": 0.113780542412314,
+    "hauteur_max": 0.009511612492735678,
+    "aire_bbox": 0.0010822364286392076,
+    "aspect_ratio": 0.09260371313379005,
+    "centroide_x": 0.011840113580330762,
+    "dispersion": 0.046662645672213676
+   },
+   "chair:bouche__levre_superieure_coins_superieurs": {
+    "largeur_max": 0.3541960277636211,
+    "hauteur_max": 0.056566857627082405,
+    "aire_bbox": 0.02003575627458288,
+    "aspect_ratio": 0.17691335536650268,
+    "centroide_x": 0.016491531009914562,
+    "dispersion": 0.14679083848497326
+   },
+   "chair:bouche__levre_superieure_cotes_inferieurs": {
+    "largeur_max": 0.32622298999589844,
+    "hauteur_max": 0.054829701888561434,
+    "aire_bbox": 0.01788670929067027,
+    "aspect_ratio": 0.18618452143502381,
+    "centroide_x": 0.0380362927682722,
+    "dispersion": 0.12183316954339715
+   },
+   "chair:bouche__levre_superieure_cotes_superieurs": {
+    "largeur_max": 0.23012235241216222,
+    "hauteur_max": 0.03935837116367058,
+    "aire_bbox": 0.009057240959294884,
+    "aspect_ratio": 0.1894613223547882,
+    "centroide_x": 0.013099378444936713,
+    "dispersion": 0.08832530249190622
+   },
+   "chair:bouche__philtrum": {
+    "largeur_max": 0.11895134383142855,
+    "hauteur_max": 0.04893892570338957,
+    "aire_bbox": 0.005821350978084629,
+    "aspect_ratio": 0.45575068590481654,
+    "centroide_x": 0.012108132096188008,
+    "dispersion": 0.04787778038105694
+   },
+   "chair:bouche__plis_du_coin_de_la_bouche": {
+    "largeur_max": 0.44725813217787364,
+    "hauteur_max": 0.09243878351344198,
+    "aire_bbox": 0.04134399765501688,
+    "aspect_ratio": 0.22894872425927945,
+    "centroide_x": -0.05929669307966993,
+    "dispersion": 0.20299030617001673
+   },
+   "chair:joues__joues": {
+    "largeur_max": 0.8742341063632036,
+    "hauteur_max": 0.16545300740524038,
+    "aire_bbox": 0.14464466207402485,
+    "aspect_ratio": 0.2096472510641708,
+    "centroide_x": 0.012513049225827806,
+    "dispersion": 0.38293690345944953
+   },
+   "chair:joues__joues_partie_externe_inferieure": {
+    "largeur_max": 0.7788962587249301,
+    "hauteur_max": 0.23320557427127203,
+    "aire_bbox": 0.1816429493136926,
+    "aspect_ratio": 0.33166646457508964,
+    "centroide_x": 0.021032448610038487,
+    "dispersion": 0.3511739894667692
+   },
+   "chair:joues__joues_partie_externe_superieure": {
+    "largeur_max": 0.8127359871771912,
+    "hauteur_max": 0.0488927804932754,
+    "aire_bbox": 0.039736922220039904,
+    "aspect_ratio": 0.06664038504558638,
+    "centroide_x": 0.0028712560125074356,
+    "dispersion": 0.3702759109417986
+   },
+   "chair:joues__joues_partie_interne_inferieure": {
+    "largeur_max": 0.6748790406699638,
+    "hauteur_max": 0.17447614251441693,
+    "aire_bbox": 0.1177502916799256,
+    "aspect_ratio": 0.28638638157596447,
+    "centroide_x": 0.018622375795685018,
+    "dispersion": 0.30067458526815344
+   },
+   "chair:joues__joues_partie_interne_superieure": {
+    "largeur_max": 0.6534573309113448,
+    "hauteur_max": 0.18793353816283112,
+    "aire_bbox": 0.12280654823660898,
+    "aspect_ratio": 0.3185879223897417,
+    "centroide_x": 0.022060626527115178,
+    "dispersion": 0.2461695138638571
+   },
+   "chair:joues__yeux_partie_interne_superieure": {
+    "largeur_max": 0.6985771046177185,
+    "hauteur_max": 0.19173840377447574,
+    "aire_bbox": 0.1339440589527963,
+    "aspect_ratio": 0.30404440210156963,
+    "centroide_x": -0.0019472533045386978,
+    "dispersion": 0.23770113193358136
+   },
+   "chair:machoire__machoire": {
+    "largeur_max": 0.9533210965757324,
+    "hauteur_max": 0.2890776799102212,
+    "aire_bbox": 0.27558385080758063,
+    "aspect_ratio": 0.3359058819658995,
+    "centroide_x": -0.005783507299305363,
+    "dispersion": 0.431837433171299
+   },
+   "chair:menton__fossette_mentonniere": {
+    "largeur_max": 0.18991285441732525,
+    "hauteur_max": 0.07986412183460218,
+    "aire_bbox": 0.01516722334314233,
+    "aspect_ratio": 0.46584304020627926,
+    "centroide_x": 0.030671976161059225,
+    "dispersion": 0.06631425757412314
+   },
+   "chair:menton__menton_cotes": {
+    "largeur_max": 0.4832646484087354,
+    "hauteur_max": 0.11354883829973368,
+    "aire_bbox": 0.05487413941814115,
+    "aspect_ratio": 0.26027947409076524,
+    "centroide_x": 0.007520415879707948,
+    "dispersion": 0.20468490800649883
+   },
+   "chair:nez__exterieur_de_la_narine_partie_centrale": {
+    "largeur_max": 0.15073863680902108,
+    "hauteur_max": 0.03791463277711061,
+    "aire_bbox": 0.005715200059936283,
+    "aspect_ratio": 0.2786278492744538,
+    "centroide_x": 0.004475166722488293,
+    "dispersion": 0.07432074625387276
+   },
+   "chair:nez__exterieur_de_la_narine_partie_ext": {
+    "largeur_max": 0.27009566147648256,
+    "hauteur_max": 0.05980005578514135,
+    "aire_bbox": 0.01615173562361831,
+    "aspect_ratio": 0.24525972278039965,
+    "centroide_x": -0.0019240479443560974,
+    "dispersion": 0.11467721854960705
+   },
+   "chair:nez__narine_partie_inferieure": {
+    "largeur_max": 0.13519018560992152,
+    "hauteur_max": 0.03203194579211812,
+    "aire_bbox": 0.004330404697083393,
+    "aspect_ratio": 0.2624704456557844,
+    "centroide_x": 0.015979669528356194,
+    "dispersion": 0.051615526160526934
+   },
+   "chair:nez__narine_partie_superieure": {
+    "largeur_max": 0.21762526464995094,
+    "hauteur_max": 0.038471132980359944,
+    "aire_bbox": 0.008372290496234289,
+    "aspect_ratio": 0.19582490133095015,
+    "centroide_x": 0.008097190668986332,
+    "dispersion": 0.0981036563550016
+   },
+   "chair:nez__narine_partie_superieure_centrale": {
+    "largeur_max": 0.15443207366749712,
+    "hauteur_max": 0.08002112585626552,
+    "aire_bbox": 0.012357828403190853,
+    "aspect_ratio": 0.5739967143708198,
+    "centroide_x": 0.006430051433873899,
+    "dispersion": 0.07822719731248803
+   },
+   "chair:nez__narine_partie_superieure_exterieure": {
+    "largeur_max": 0.23904692349481044,
+    "hauteur_max": 0.03044986369794496,
+    "aire_bbox": 0.007278946237830054,
+    "aspect_ratio": 0.14110566386390677,
+    "centroide_x": 0.009425817045341994,
+    "dispersion": 0.10670462103974096
+   },
+   "chair:nez__pointe_du_nez_partie_inferieure": {
+    "largeur_max": 0.08314970456896495,
+    "hauteur_max": 0.09273716469278577,
+    "aire_bbox": 0.007711067846768584,
+    "aspect_ratio": 1.235478964551896,
+    "centroide_x": 0.004734549699018686,
+    "dispersion": 0.05117026649254179
+   },
+   "chair:nez__pointe_du_nez_partie_sous_jacente": {
+    "largeur_max": 0.06190940053559508,
+    "hauteur_max": 0.028769700051596864,
+    "aire_bbox": 0.0017811148837832407,
+    "aspect_ratio": 0.5147791961288392,
+    "centroide_x": 0.01946285377398913,
+    "dispersion": 0.022182431473961792
+   },
+   "chair:nez__pointe_du_nez_partie_superieure": {
+    "largeur_max": 0.135940858080613,
+    "hauteur_max": 0.04538004531538143,
+    "aire_bbox": 0.006169002299910053,
+    "aspect_ratio": 0.36979170958141916,
+    "centroide_x": 0.0033489479971929893,
+    "dispersion": 0.04710274931563785
+   },
+   "chair:sourcils__espace_entre_les_sourcils": {
+    "largeur_max": 0.23648575773479527,
+    "hauteur_max": 0.1995442521407502,
+    "aire_bbox": 0.04718937366912835,
+    "aspect_ratio": 0.9347091282135191,
+    "centroide_x": -0.00545218479685164,
+    "dispersion": 0.11174153329717225
+   },
+   "chair:sourcils__sourcils_partie_centrale": {
+    "largeur_max": 0.5517428403729571,
+    "hauteur_max": 0.09905859886478009,
+    "aire_bbox": 0.054654872701019146,
+    "aspect_ratio": 0.19888302943707062,
+    "centroide_x": 0.0277894314366443,
+    "dispersion": 0.19955450248763532
+   },
+   "chair:tete__tempes": {
+    "largeur_max": 0.9400490504795279,
+    "hauteur_max": 0.16878061020630183,
+    "aire_bbox": 0.15866205236378936,
+    "aspect_ratio": 0.198890614570671,
+    "centroide_x": -0.08875831849775954,
+    "dispersion": 0.42211346161215596
+   },
+   "chair:yeux__exterieur_du_coin_de_l_il": {
+    "largeur_max": 0.7232665612912804,
+    "hauteur_max": 0.05430050273591749,
+    "aire_bbox": 0.0392737378901948,
+    "aspect_ratio": 0.08316636419458952,
+    "centroide_x": 0.04063749602880257,
+    "dispersion": 0.3373777363371964
+   },
+   "chair:yeux__interieur_du_coin_de_l_il": {
+    "largeur_max": 0.3385806249707234,
+    "hauteur_max": 0.05383831525294133,
+    "aire_bbox": 0.018228610425711705,
+    "aspect_ratio": 0.17614552364099023,
+    "centroide_x": 0.023582451528273984,
+    "dispersion": 0.14892069828476162
+   },
+   "chair:yeux__paupiere_inferieure_partie_centrale": {
+    "largeur_max": 0.5428613932446412,
+    "hauteur_max": 0.03327009899457384,
+    "aire_bbox": 0.01806105229358149,
+    "aspect_ratio": 0.06789024692537898,
+    "centroide_x": 0.0019215412902614378,
+    "dispersion": 0.2476631024188238
+   },
+   "chair:yeux__paupiere_inferieure_partie_exterieure": {
+    "largeur_max": 0.6497454123581549,
+    "hauteur_max": 0.03668250051342476,
+    "aire_bbox": 0.023834286422423398,
+    "aspect_ratio": 0.06254001234633104,
+    "centroide_x": 0.0003136796725400227,
+    "dispersion": 0.3063829424610321
+   },
+   "chair:yeux__paupiere_inferieure_partie_interieure": {
+    "largeur_max": 0.39431449195639645,
+    "hauteur_max": 0.02986100669397812,
+    "aire_bbox": 0.011774627683842536,
+    "aspect_ratio": 0.08388879542058991,
+    "centroide_x": 0.002707262793021733,
+    "dispersion": 0.1840524759019034
+   },
+   "chair:yeux__paupiere_superieure_partie_centrale": {
+    "largeur_max": 0.5567083575135972,
+    "hauteur_max": 0.04541934228216192,
+    "aire_bbox": 0.025285327441250238,
+    "aspect_ratio": 0.0903764653376427,
+    "centroide_x": -0.0007812334548567187,
+    "dispersion": 0.24025846736219497
+   },
+   "chair:yeux__paupiere_superieure_partie_ext": {
+    "largeur_max": 0.669701824117147,
+    "hauteur_max": 0.06598411143818024,
+    "aire_bbox": 0.04418967979289841,
+    "aspect_ratio": 0.10914406958189783,
+    "centroide_x": -0.001703260426100975,
+    "dispersion": 0.30982984332906155
+   },
+   "chair:yeux__paupiere_superieure_partie_int": {
+    "largeur_max": 0.4132717720981307,
+    "hauteur_max": 0.05115775654350065,
+    "aire_bbox": 0.021142056703297257,
+    "aspect_ratio": 0.13712542937164457,
+    "centroide_x": -2.1549248726272458e-05,
+    "dispersion": 0.18718566372861453
+   },
+   "chair:yeux__pli_des_paupieres_partie_centrale": {
+    "largeur_max": 0.6486495445977667,
+    "hauteur_max": 0.028872010049320107,
+    "aire_bbox": 0.01872781617011363,
+    "aspect_ratio": 0.04930706532617089,
+    "centroide_x": -0.003054320677754956,
+    "dispersion": 0.2659895912966082
+   },
+   "chair:yeux__pli_des_paupieres_partie_exterieure": {
+    "largeur_max": 0.7463638937901956,
+    "hauteur_max": 0.055456798747921685,
+    "aire_bbox": 0.041390952250638074,
+    "aspect_ratio": 0.08230882967384354,
+    "centroide_x": -0.06610956676866758,
+    "dispersion": 0.3418565993298087
+   },
+   "chair:yeux__pli_des_paupieres_partie_interieure": {
+    "largeur_max": 0.3160025109916204,
+    "hauteur_max": 0.042947356245528104,
+    "aire_bbox": 0.013571472414038532,
+    "aspect_ratio": 0.15055256296378886,
+    "centroide_x": 0.0008705107322141168,
+    "dispersion": 0.12896744563434362
+   },
+   "graisse:bouche__cotes_de_la_bouche": {
+    "largeur_max": 0.6197087890024239,
+    "hauteur_max": 0.20705962468240158,
+    "aire_bbox": 0.1283166692632275,
+    "aspect_ratio": 0.370126362429021,
+    "centroide_x": 0.008974005797475735,
+    "dispersion": 0.24857768972756344
+   },
+   "graisse:bouche__levre_inferieure": {
+    "largeur_max": 0.4047954966682523,
+    "hauteur_max": 0.08052339164922132,
+    "aire_bbox": 0.032595506316058745,
+    "aspect_ratio": 0.2203579070841222,
+    "centroide_x": 0.02106666714884137,
+    "dispersion": 0.13300788096224878
+   },
+   "graisse:bouche__levre_superieure": {
+    "largeur_max": 0.4165580516215471,
+    "hauteur_max": 0.10982808198540872,
+    "aire_bbox": 0.04574977184517339,
+    "aspect_ratio": 0.29206540497993067,
+    "centroide_x": 0.004139314107667606,
+    "dispersion": 0.15802475851650707
+   },
+   "graisse:front__front_centre": {
+    "largeur_max": 0.2656242623722004,
+    "hauteur_max": 0.2386354498916781,
+    "aire_bbox": 0.06338736535333518,
+    "aspect_ratio": 0.9951979446213932,
+    "centroide_x": -0.006978214425985918,
+    "dispersion": 0.1360286164484852
+   },
+   "graisse:front__front_cotes": {
+    "largeur_max": 0.7067781911772708,
+    "hauteur_max": 0.17408864224900603,
+    "aire_bbox": 0.12304205567325949,
+    "aspect_ratio": 0.27285351325145674,
+    "centroide_x": -0.010807673757299116,
+    "dispersion": 0.26214190395673953
+   },
+   "graisse:joues__bajoue": {
+    "largeur_max": 0.7718226064566821,
+    "hauteur_max": 0.15250661020906653,
+    "aire_bbox": 0.11770804939343497,
+    "aspect_ratio": 0.21888370201190535,
+    "centroide_x": 0.006870056629464986,
+    "dispersion": 0.32288267525570363
+   },
+   "graisse:joues__joues_partie_inferieure": {
+    "largeur_max": 0.9636460506145912,
+    "hauteur_max": 0.2926385825982742,
+    "aire_bbox": 0.28200001437827876,
+    "aspect_ratio": 0.33640023530373975,
+    "centroide_x": -0.01202050202869822,
+    "dispersion": 0.4332626089330719
+   },
+   "graisse:joues__joues_partie_interieure_inferieure": {
+    "largeur_max": 0.717767722519435,
+    "hauteur_max": 0.17339136238581676,
+    "aire_bbox": 0.12445472328420973,
+    "aspect_ratio": 0.26759980127277355,
+    "centroide_x": 0.05804331511851115,
+    "dispersion": 0.2881292967033473
+   },
+   "graisse:joues__joues_partie_interieure_superieure": {
+    "largeur_max": 0.4939392781481306,
+    "hauteur_max": 0.1889730003858809,
+    "aire_bbox": 0.09334118740008843,
+    "aspect_ratio": 0.423807314526667,
+    "centroide_x": 0.005674292678604239,
+    "dispersion": 0.17142147711520186
+   },
+   "graisse:joues__joues_partie_superieure": {
+    "largeur_max": 0.9380228355910236,
+    "hauteur_max": 0.21604534724074853,
+    "aire_bbox": 0.20265546923501426,
+    "aspect_ratio": 0.2551371845452386,
+    "centroide_x": 0.07235719129274376,
+    "dispersion": 0.3742899492655768
+   },
+   "graisse:joues__tempes": {
+    "largeur_max": 1.0077012685226951,
+    "hauteur_max": 0.2531255054811731,
+    "aire_bbox": 0.2550748929688265,
+    "aspect_ratio": 0.27825716413091,
+    "centroide_x": -0.1103540750341079,
+    "dispersion": 0.4675102667364107
+   },
+   "graisse:machoire__machoire": {
+    "largeur_max": 0.7122306475141732,
+    "hauteur_max": 0.10281621619355881,
+    "aire_bbox": 0.07322886023449561,
+    "aspect_ratio": 0.1599127941015209,
+    "centroide_x": 0.002091471781449036,
+    "dispersion": 0.28333640411989347
+   },
+   "graisse:menton__menton": {
+    "largeur_max": 0.352815501173632,
+    "hauteur_max": 0.15204699656251108,
+    "aire_bbox": 0.053644537294147844,
+    "aspect_ratio": 0.4773890354647531,
+    "centroide_x": 0.02890942581340846,
+    "dispersion": 0.12928281966826943
+   },
+   "graisse:nez__nez": {
+    "largeur_max": 0.26681426967398225,
+    "hauteur_max": 0.18111535356163969,
+    "aire_bbox": 0.04832416078729397,
+    "aspect_ratio": 0.7519491408667165,
+    "centroide_x": 0.013274409842364391,
+    "dispersion": 0.09256584658104584
+   },
+   "graisse:yeux__cernes_partie_inferieure": {
+    "largeur_max": 0.8127359871771912,
+    "hauteur_max": 0.07806197672645826,
+    "aire_bbox": 0.06344377771578098,
+    "aspect_ratio": 0.10639771626787031,
+    "centroide_x": 0.012887095199319933,
+    "dispersion": 0.30873259711949813
+   },
+   "graisse:yeux__paupiere_inferieure": {
+    "largeur_max": 0.697142558528855,
+    "hauteur_max": 0.060127208778759524,
+    "aire_bbox": 0.04191723616522305,
+    "aspect_ratio": 0.09554142174147,
+    "centroide_x": 0.02144832157683039,
+    "dispersion": 0.2740363830682274
+   },
+   "graisse:yeux__paupiere_superieure": {
+    "largeur_max": 0.8206455415496043,
+    "hauteur_max": 0.08307144374436005,
+    "aire_bbox": 0.06817220993889785,
+    "aspect_ratio": 0.11213427929480353,
+    "centroide_x": 0.01259380964948891,
+    "dispersion": 0.32709992729733
    }
   },
   "notes": ""
