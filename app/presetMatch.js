@@ -124,6 +124,59 @@ function eigenvalues2x2(M) {
 const LIP_OUTER_INDICES = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146];
 const LIP_INNER_INDICES = [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308, 324, 318, 402, 317, 14, 87, 178, 88, 95];
 
+// ─── Phase 4.1 — Roll-alignment (axe inter-pupillaire) ──────────────────────
+// computeRollAlignedPoints(rawPoints) : retourne un dict {String(idx) -> {x,y,z}}
+// avec TOUS les points tournés de -theta autour du centre du visage, où theta
+// est l'angle de l'axe inter-pupillaire avec l'horizontale.
+//   centre yeux gauche  = moyenne iris L468..472 (sinon contour œil gauche)
+//   centre yeux droit   = moyenne iris L473..477 (sinon contour œil droit)
+//   theta = atan2(c_droite.y - c_gauche.y, c_droite.x - c_gauche.x)
+//   centre du visage    = milieu(L234, L454)
+// Si l'un des centres n'est pas calculable → retourne rawPoints inchangé
+// (rétro-compat : tout le pipeline existant reste valide). La rotation est
+// appliquée UNIQUEMENT aux features par zone (Phase 4.1) ; les chemins legacy
+// (extractMorphRatios, auto()) continuent d'utiliser rawPoints.
+function _meanXY(rawPoints, indices) {
+    let sx = 0, sy = 0, n = 0;
+    for (const i of indices) {
+        const p = rawPoints[String(i)];
+        if (!p) continue;
+        sx += p.x; sy += p.y; n++;
+    }
+    if (n === 0) return null;
+    return { x: sx / n, y: sy / n };
+}
+const _IRIS_LEFT_PRIMARY  = [468, 469, 470, 471, 472];
+const _IRIS_RIGHT_PRIMARY = [473, 474, 475, 476, 477];
+const _EYE_LEFT_FALLBACK  = [33, 133, 159, 145];   // contour œil gauche (MP)
+const _EYE_RIGHT_FALLBACK = [362, 263, 386, 374];  // contour œil droit (MP)
+function computeRollAlignedPoints(rawPoints) {
+    if (!rawPoints) return rawPoints;
+    let cL = _meanXY(rawPoints, _IRIS_LEFT_PRIMARY)
+          || _meanXY(rawPoints, _EYE_LEFT_FALLBACK);
+    let cR = _meanXY(rawPoints, _IRIS_RIGHT_PRIMARY)
+          || _meanXY(rawPoints, _EYE_RIGHT_FALLBACK);
+    const L234 = rawPoints['234'], L454 = rawPoints['454'];
+    if (!cL || !cR || !L234 || !L454) return rawPoints;
+    const theta = Math.atan2(cR.y - cL.y, cR.x - cL.x);
+    if (!Number.isFinite(theta) || Math.abs(theta) < 1e-9) return rawPoints;
+    const cosT = Math.cos(-theta), sinT = Math.sin(-theta);
+    const cx = (L234.x + L454.x) / 2, cy = (L234.y + L454.y) / 2;
+    const out = {};
+    for (const k in rawPoints) {
+        const p = rawPoints[k];
+        if (!p) continue;
+        const dx = p.x - cx, dy = p.y - cy;
+        out[k] = {
+            x: cx + dx * cosT - dy * sinT,
+            y: cy + dx * sinT + dy * cosT,
+            z: p.z,
+        };
+    }
+    return out;
+}
+if (typeof window !== 'undefined') window.computeRollAlignedPoints = computeRollAlignedPoints;
+
 // ─── calculateMixAttributes (OLD_script.js l.3868) ──────────────────────────
 function calculateMixAttributes(rawPoints) {
     // Convertit les points indexés (clé = index MP) en noms sémantiques
@@ -447,14 +500,23 @@ function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
     if (_zdef && _zdef.zones
         && faceWidthRaw > 1e-6 && faceHeightRaw > 1e-6
         && byIndex(234) && byIndex(454)) {
+        // Phase 4.1 — roll-aligned point cloud pour TOUTES les mesures par zone.
+        // Reste sans effet si l'axe inter-pupillaire est introuvable (fallback rawPoints).
+        const alignedPoints = (typeof computeRollAlignedPoints === 'function')
+            ? computeRollAlignedPoints(rawPoints)
+            : rawPoints;
         const cxFace = (byIndex(234).x + byIndex(454).x) / 2;
         for (const zoneKey of Object.keys(_zdef.zones)) {
             const zone = _zdef.zones[zoneKey];
             if (!zone || !Array.isArray(zone.landmarks_selected)) continue;
             // Ne pas écraser une zone déjà calculée (philtrum / nez / etc.)
             if (attributes[zoneKey] !== undefined) continue;
+            // geom_family ∈ {bande,contour,arc,pointe,patch} → features v2 typées
+            // Absent → 6 ratios v1 (rétro-compat le temps de la migration).
             attributes[zoneKey] = computeZoneGeometry(
-                rawPoints, zone.landmarks_selected, faceWidthRaw, faceHeightRaw, cxFace
+                alignedPoints, zone.landmarks_selected,
+                faceWidthRaw, faceHeightRaw, cxFace,
+                zone.geom_family
             );
         }
     }
@@ -462,29 +524,59 @@ function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
     return attributes;
 }
 
-// ─── computeZoneGeometry : 6 ratios géométriques universels ─────────────────
-// Générique, ne hardcode aucune zone : prend un nuage de landmarks identifié
-// par leurs indices MediaPipe et produit les 6 ratios normalisés.
-// `rawPoints` = dict {String(idx): {x,y,z}}, `landmarkIndices` = liste d'entiers.
-// Retourne {largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion}.
-// Si un landmark manque → toutes les valeurs à null (la Mahalanobis exclut
-// ces clés tant que les presets ne les ont pas, comme pour les mesures bouche).
-function computeZoneGeometry(rawPoints, landmarkIndices, faceW, faceH, cxFace) {
-    const nullOut = {
+// ─── computeZoneGeometry — v1 (legacy) + v2 (Phase 4.1, features typées) ─────
+//
+// SIGNATURE (rétro-compatible) :
+//   computeZoneGeometry(rawPoints, indices, faceW, faceH, cxFace, geomFamily?)
+//
+// • Sans geomFamily → renvoie les 6 ratios v1 historiques :
+//     { largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion }
+//
+// • Avec geomFamily ∈ {bande,contour,arc,pointe,patch} → renvoie les features
+//   morphométriques v2 (Phase 4.1), centroide_y commun à toutes les familles.
+//   Les valeurs non calculables (n<3, axes dégénérés, etc.) sont à null.
+//   IMPORTANT : `centroide_x` est SUPPRIMÉ partout (feature la + bruitée v1).
+//
+// Sémantique commune :
+//   - taille_centroide : sqrt(mean((p-mean)^2)) / faceW   (équivaut à v1 `dispersion`,
+//     renommée pour l'API v2 ; reste relative à la largeur du visage).
+//   - centroide_y  : (mean_y - cyFace) / faceH (cyFace = milieu vertical L10/L152
+//     si dispo, sinon faceH/2 reconstruit à partir des bornes).
+function computeZoneGeometry(rawPoints, landmarkIndices, faceW, faceH, cxFace, geomFamily) {
+    // ── garde-fous communs ─────────────────────────────────────────────
+    const nullV1 = {
         largeur_max: null, hauteur_max: null, aire_bbox: null,
         aspect_ratio: null, centroide_x: null, dispersion: null,
     };
+    const _nullV2 = (fam) => {
+        // Shape par famille — chaque famille a SA propre liste de clés.
+        // ⚠️ Phase 4.1.1 : `taille_centroide` retirée de la famille bande
+        // (doublon de largeur_axe, corr 0.94 sur les 41 presets). Conservée
+        // pour contour/arc/pointe/patch où elle reste informative.
+        if (fam === 'bande') {
+            return { epaisseur_perp: null, hauteur_perp: null, largeur_axe: null, centroide_y: null };
+        }
+        const out = { centroide_y: null, taille_centroide: null };
+        if (fam === 'contour')      { out.aire = null; out.perimetre = null; out.compacite = null; out.excentricite = null; }
+        else if (fam === 'arc')     { out.corde = null; out.longueur_arc = null; out.sinuosite = null; out.sagitta = null; }
+        else if (fam === 'pointe')  { out.largeur_base = null; out.hauteur = null; out.pointu = null; }
+        else /* patch */            { out.lambda1 = null; out.lambda2 = null; }
+        return out;
+    };
+    const useV2 = !!geomFamily;
     if (!rawPoints || !Array.isArray(landmarkIndices) || landmarkIndices.length === 0) {
-        return nullOut;
+        return useV2 ? _nullV2(geomFamily) : nullV1;
     }
-    if (!(faceW > 1e-6) || !(faceH > 1e-6)) return nullOut;
+    if (!(faceW > 1e-6) || !(faceH > 1e-6)) return useV2 ? _nullV2(geomFamily) : nullV1;
 
     const pts = [];
     for (let i = 0; i < landmarkIndices.length; i++) {
         const p = rawPoints[String(landmarkIndices[i])];
-        if (!p) return nullOut; // un seul landmark manquant → tout à null
+        if (!p) return useV2 ? _nullV2(geomFamily) : nullV1;
         pts.push(p);
     }
+
+    // ── stats de base (utilisées par les deux versions) ──────────────
     let minX = +Infinity, maxX = -Infinity;
     let minY = +Infinity, maxY = -Infinity;
     let sumX = 0, sumY = 0;
@@ -498,19 +590,180 @@ function computeZoneGeometry(rawPoints, landmarkIndices, faceW, faceH, cxFace) {
     }
     const n = pts.length;
     const meanX = sumX / n, meanY = sumY / n;
-    const dx = maxX - minX, dy = maxY - minY;
-    const largeur_max  = dx / faceW;
-    const hauteur_max  = dy / faceH;
-    const aire_bbox    = largeur_max * hauteur_max;
-    const aspect_ratio = (dx > 1e-12) ? (dy / dx) : null;
-    const centroide_x  = (meanX - cxFace) / faceW;
-    let sumSq = 0;
-    for (let i = 0; i < pts.length; i++) {
-        const ex = pts[i].x - meanX, ey = pts[i].y - meanY;
-        sumSq += ex * ex + ey * ey;
+
+    // ── V1 (legacy, conservé tel quel) ───────────────────────────────
+    if (!useV2) {
+        const dx = maxX - minX, dy = maxY - minY;
+        const largeur_max  = dx / faceW;
+        const hauteur_max  = dy / faceH;
+        const aire_bbox    = largeur_max * hauteur_max;
+        const aspect_ratio = (dx > 1e-12) ? (dy / dx) : null;
+        const centroide_x  = (meanX - cxFace) / faceW;
+        let sumSq = 0;
+        for (let i = 0; i < n; i++) {
+            const ex = pts[i].x - meanX, ey = pts[i].y - meanY;
+            sumSq += ex * ex + ey * ey;
+        }
+        const dispersion = Math.sqrt(sumSq / n) / faceW;
+        return { largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion };
     }
-    const dispersion = Math.sqrt(sumSq / n) / faceW;
-    return { largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion };
+
+    // ── V2 (Phase 4.1) ───────────────────────────────────────────────
+    // Centre vertical visage : si non fourni, on dérive du centre yeux→menton (faceH)
+    // en passant par le centroïde de la fenêtre — approximation suffisante car
+    // centroide_y reste relatif (le matching utilise la moyenne / écart).
+    // cxFace passe ici en abscisse du centre visage (déjà calculé côté appelant).
+    // cyFace : on tente d'utiliser 0.5 * faceH au-dessous du sommet du visage,
+    // mais en pratique on utilise le centre arithmétique de la fenêtre des points
+    // (toutes les zones sont quasi centrées si la pose est ok → équivalent).
+    const cyFace = (typeof rawPoints['10'] === 'object' && typeof rawPoints['152'] === 'object')
+                   ? (rawPoints['10'].y + rawPoints['152'].y) / 2
+                   : meanY;
+    const centroide_y = (meanY - cyFace) / faceH;
+
+    // taille_centroide (= ex-dispersion)
+    let sumSqAll = 0;
+    for (let i = 0; i < n; i++) {
+        const ex = pts[i].x - meanX, ey = pts[i].y - meanY;
+        sumSqAll += ex * ex + ey * ey;
+    }
+    const taille_centroide = Math.sqrt(sumSqAll / n) / faceW;
+
+    // Covariance 2x2 + axe principal (PCA analytique)
+    let cxx = 0, cxy = 0, cyy = 0;
+    for (let i = 0; i < n; i++) {
+        const ex = pts[i].x - meanX, ey = pts[i].y - meanY;
+        cxx += ex * ex; cxy += ex * ey; cyy += ey * ey;
+    }
+    cxx /= n; cxy /= n; cyy /= n;
+    const [lmax, lmin] = eigenvalues2x2([[cxx, cxy], [cxy, cyy]]);
+    // Vecteur propre principal (associé à lmax) : on choisit (cxy, lmax-cxx) si
+    // cxy non nul, sinon axe canonique. On normalise.
+    let vx, vy;
+    if (Math.abs(cxy) > 1e-12) {
+        vx = cxy;
+        vy = lmax - cxx;
+    } else {
+        if (cxx >= cyy) { vx = 1; vy = 0; } else { vx = 0; vy = 1; }
+    }
+    const vnorm = Math.hypot(vx, vy) || 1;
+    vx /= vnorm; vy /= vnorm;
+    // Axe orthogonal
+    const wx = -vy, wy = vx;
+
+    if (geomFamily === 'patch') {
+        return {
+            centroide_y,
+            taille_centroide,
+            lambda1: lmax / (faceW * faceW),
+            lambda2: lmin / (faceW * faceW),
+        };
+    }
+
+    if (geomFamily === 'contour') {
+        // Ordonner par angle autour du centroïde
+        const sorted = pts
+            .map(p => ({ p, a: Math.atan2(p.y - meanY, p.x - meanX) }))
+            .sort((u, v) => u.a - v.a)
+            .map(o => o.p);
+        const A = polygonArea(sorted);
+        const P = perimetre(sorted);
+        const aire        = A / (faceW * faceH);
+        const perimetre_n = P / faceW;
+        const compacite   = (P > 1e-12) ? (4 * Math.PI * A) / (P * P) : null;
+        const excentricite = (lmax > 1e-12) ? Math.sqrt(Math.max(0, 1 - lmin / lmax)) : null;
+        return { centroide_y, taille_centroide, aire, perimetre: perimetre_n, compacite, excentricite };
+    }
+
+    if (geomFamily === 'bande') {
+        // Phase 4.1.1 — estimateur PERPENDICULAIRE (purge du shoelace).
+        // Sur une bande fine (ratio ~11:1), l'ordre angulaire autour du centroïde
+        // entrelace bords sup/inf → polygone auto-intersecté → aire compressée
+        // non-linéaire. Mesurée 10 juin : rho(epaisseur_moy ↔ DNA ep_inf_RE) = -0.07.
+        // Remplacé par 2 mesures directes sur l'axe v (perpendiculaire à u) :
+        //   epaisseur_perp = 2 × moyenne(|d_i|) / faceH   (estimateur intégral)
+        //   hauteur_perp   = (max d_i − min d_i)  / faceH (équivalent roll-aligné de
+        //                                                  hauteur_max v1 qui faisait |rho|=0.65)
+        // Couverture finale : 2 features épaisseur (perp + largeur étendue dans v)
+        // vs 1 largeur (u) — le doublon `taille_centroide` (corr 0.94 avec largeur_axe)
+        // est SUPPRIMÉ de cette famille.
+        let pmin = +Infinity, pmax = -Infinity;      // projections sur u (axe long)
+        let qmin = +Infinity, qmax = -Infinity;      // projections sur v (axe perp)
+        let sumAbsQ = 0;
+        for (let i = 0; i < n; i++) {
+            const ex = pts[i].x - meanX, ey = pts[i].y - meanY;
+            const proj_u = ex * vx + ey * vy;
+            const proj_v = ex * wx + ey * wy;
+            if (proj_u < pmin) pmin = proj_u;
+            if (proj_u > pmax) pmax = proj_u;
+            if (proj_v < qmin) qmin = proj_v;
+            if (proj_v > qmax) qmax = proj_v;
+            sumAbsQ += Math.abs(proj_v);
+        }
+        const largeur_axe   = (pmax - pmin) / faceW;
+        const epaisseur_perp = (2 * (sumAbsQ / n)) / faceH;
+        const hauteur_perp   = (qmax - qmin) / faceH;
+        return { centroide_y, epaisseur_perp, hauteur_perp, largeur_axe };
+    }
+
+    if (geomFamily === 'arc') {
+        // Ordonner par projection sur l'axe principal
+        const proj = pts.map(p => ({ p, t: (p.x - meanX) * vx + (p.y - meanY) * vy }));
+        proj.sort((u, v) => u.t - v.t);
+        const ordered = proj.map(o => o.p);
+        // corde : distance entre 1er et dernier point ordonné
+        const a = ordered[0], b = ordered[ordered.length - 1];
+        const cord = Math.hypot(b.x - a.x, b.y - a.y);
+        // longueur de l'arc
+        let L = 0;
+        for (let i = 1; i < ordered.length; i++) {
+            L += Math.hypot(ordered[i].x - ordered[i - 1].x, ordered[i].y - ordered[i - 1].y);
+        }
+        const sinuosite = (cord > 1e-12) ? (L / cord) : null;
+        // sagitta : déviation perpendiculaire max à la corde, signée (axe w)
+        let saMax = 0;
+        const cmx = (a.x + b.x) / 2, cmy = (a.y + b.y) / 2;
+        for (let i = 0; i < ordered.length; i++) {
+            const d = (ordered[i].x - cmx) * wx + (ordered[i].y - cmy) * wy;
+            if (Math.abs(d) > Math.abs(saMax)) saMax = d;
+        }
+        const corde   = cord / faceW;
+        const longueur_arc = L / faceW;
+        const sagitta = saMax / faceH;
+        return { centroide_y, taille_centroide, corde, sinuosite, sagitta, longueur_arc };
+    }
+
+    if (geomFamily === 'pointe') {
+        // largeur_base = étendue PC1 ; hauteur = étendue PC2 ; pointu = 2|sagitta|/largeur_base
+        let p1min = +Infinity, p1max = -Infinity;
+        let p2min = +Infinity, p2max = -Infinity;
+        for (let i = 0; i < n; i++) {
+            const pp1 = (pts[i].x - meanX) * vx + (pts[i].y - meanY) * vy;
+            const pp2 = (pts[i].x - meanX) * wx + (pts[i].y - meanY) * wy;
+            if (pp1 < p1min) p1min = pp1; if (pp1 > p1max) p1max = pp1;
+            if (pp2 < p2min) p2min = pp2; if (pp2 > p2max) p2max = pp2;
+        }
+        const dx1 = p1max - p1min;
+        const dy2 = p2max - p2min;
+        const largeur_base = dx1 / faceW;
+        const hauteur      = dy2 / faceH;
+        // sagitta (signée sur axe w, mesurée par rapport au milieu PC1)
+        const proj = pts.map(p => ({ p, t: (p.x - meanX) * vx + (p.y - meanY) * vy }));
+        proj.sort((u, v) => u.t - v.t);
+        const ordered = proj.map(o => o.p);
+        const a = ordered[0], b = ordered[ordered.length - 1];
+        const cmx = (a.x + b.x) / 2, cmy = (a.y + b.y) / 2;
+        let saMax = 0;
+        for (let i = 0; i < ordered.length; i++) {
+            const d = (ordered[i].x - cmx) * wx + (ordered[i].y - cmy) * wy;
+            if (Math.abs(d) > Math.abs(saMax)) saMax = d;
+        }
+        const pointu = (dx1 > 1e-12) ? (2 * Math.abs(saMax) / dx1) : null;
+        return { centroide_y, taille_centroide, largeur_base, hauteur, pointu };
+    }
+
+    // famille inconnue → retomber sur null v2 patch
+    return _nullV2('patch');
 }
 if (typeof window !== 'undefined') window.computeZoneGeometry = computeZoneGeometry;
 
@@ -972,6 +1225,11 @@ window.lookupPresetDNAByFamily = lookupPresetDNAByFamily;
 window._zoneDefinitions = null;
 window._zoneRegressions = null;
 window._celebrityToOfficialPerZone = null;
+window._zoneValidity = null;
+window._zoneWeights = null;
+window._zoneGroups = null;
+window._groupSignatures = null;
+window._farkasFeatures = null;
 window._zoneArtifactsReady = false;
 
 async function loadZoneArtifacts() {
@@ -985,20 +1243,41 @@ async function loadZoneArtifacts() {
       return null;
     }
   };
-  const [defs, regs, c2o] = await Promise.all([
+  const [defs, regs, c2o, validity, weights, groups, signatures, farkas] = await Promise.all([
     safeFetch('./zone_definitions.json'),
     safeFetch('./zone_regressions.json'),
     safeFetch('./celebrity_to_official_per_zone.json'),
+    safeFetch('./zone_validity.json'),
+    safeFetch('./zone_weights.json'),
+    safeFetch('./zone_groups.json'),
+    safeFetch('./group_signatures.json'),
+    safeFetch('./farkas_features.json'),
   ]);
   window._zoneDefinitions = defs;
   window._zoneRegressions = regs;
   window._celebrityToOfficialPerZone = c2o;
+  window._zoneValidity = validity;
+  window._zoneWeights  = weights;
+  window._zoneGroups   = groups;
+  window._groupSignatures = signatures;
+  window._farkasFeatures = farkas;
   window._zoneArtifactsReady = true;
-  const n = defs && defs.zones ? Object.keys(defs.zones).length : 0;
-  const m = regs && regs.zones ? Object.keys(regs.zones).length : 0;
+  const n  = defs    && defs.zones    ? Object.keys(defs.zones).length    : 0;
+  const m  = regs    && regs.zones    ? Object.keys(regs.zones).length    : 0;
+  const nv = validity && validity.zones ? Object.keys(validity.zones).length : 0;
+  const nw = weights  && weights.zones  ? Object.keys(weights.zones).length  : 0;
+  const ng = groups   && groups.groups  ? Object.keys(groups.groups).length  : 0;
+  const nsig = signatures && signatures.groups ? Object.keys(signatures.groups).filter(k => !signatures.groups[k].signature_disabled).length : 0;
+  const nfark = farkas && farkas.groups ? Object.keys(farkas.groups).length : 0;
+  const wMeta = weights && weights._meta ? weights._meta : {};
   console.log('[Phase 4.0] Zone artifacts loaded:',
     `definitions=${n}`, `regressions=${m}`,
-    `c2o=${c2o ? Object.keys(c2o).filter(k => k !== '_meta').length : 0}`);
+    `c2o=${c2o ? Object.keys(c2o).filter(k => k !== '_meta').length : 0}`,
+    `validity=${nv}`,
+    `weights=${nw}${nw ? ` (n_intra=${wMeta.n_pairs_intra||0})` : ''}`,
+    `groups=${ng}`,
+    `signatures=${nsig}(enabled)`,
+    `farkas=${nfark}`);
 }
 window.loadZoneArtifacts = loadZoneArtifacts;
 loadZoneArtifacts();
@@ -1040,6 +1319,17 @@ function matchZoneByStats(userAttrs, zoneKey, allPresets) {
   }
 
   // Layer 1 — best preset (officiel ou célébrité) sur cette zone
+  // Phase 4.1.2 : distance Fisher-pondérée (Var_inter / Var_intra normalisées
+  // par zone, sommant à 1). Les features instables chez la même personne
+  // (var_intra élevée) sont écrasées ; les features discriminantes inter-presets
+  // pèsent jusqu'à 0.85+ (cf. zone_weights.json). Fail-open : sans zone_weights
+  // chargé, on retombe sur la distance euclidienne équipondérée historique.
+  const _zw = (typeof window !== 'undefined') ? window._zoneWeights : null;
+  const W   = (_zw && _zw.zones && _zw.zones[zoneKey] && Array.isArray(_zw.zones[zoneKey].weights))
+              ? _zw.zones[zoneKey].weights
+              : null;
+  const Nr  = ratios.length;
+  const wDefault = Nr > 0 ? (1 / Nr) : 0;
   let bestPreset = null, bestDist = Infinity;
   if (!Array.isArray(allPresets)) return null;
   for (let p_i = 0; p_i < allPresets.length; p_i++) {
@@ -1052,7 +1342,8 @@ function matchZoneByStats(userAttrs, zoneKey, allPresets) {
       if (typeof v !== 'number' || !Number.isFinite(v)) { ok = false; break; }
       const pn = (v - means[i]) / (stds[i] || 1);
       const diff = userVec[i] - pn;
-      d += diff * diff;
+      const w = (W && Number.isFinite(W[i])) ? W[i] : wDefault;
+      d += w * diff * diff;
     }
     if (!ok) continue;
     d = Math.sqrt(d);
@@ -1149,3 +1440,1301 @@ function matchZoneByStats(userAttrs, zoneKey, allPresets) {
   };
 }
 window.matchZoneByStats = matchZoneByStats;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 4.1.3 — Matching par GROUPE anatomique
+// ═══════════════════════════════════════════════════════════════════════════
+// Un niveau intermediaire entre la zone individuelle et le visage entier.
+// Pour les regions ou la realite physique etale 1 morpho sur ~10 sous-onglets
+// (ex. levre inferieure), le matching par zone seul fragmente la recette
+// (pioche dans 7 presets differents pour une seule levre) -> visage brise sur
+// un moteur non lineaire (Frostbite). Le niveau groupe choisit UN seul preset
+// p* par groupe via la moyenne des d_z (Fisher-ponderees), et impose une
+// marge stricte (facteur 2x) pour qu'un sous-onglet quitte le preset choisi.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Helper interne : distance Fisher-ponderee user<->preset sur UNE zone.
+// Retourne le scalaire (>=0) ou null si non calculable (zone def absente,
+// stats user manquantes, preset n'a pas la zone, feature non finie).
+// Reprend strictement la meme logique que matchZoneByStats (memes ratios,
+// memes means/stds, memes weights) -> coherence garantie avec le niveau zone.
+function _computeZoneDistanceForPreset(userAttrs, zoneKey, preset) {
+  if (!userAttrs || !preset) return null;
+  if (!window._zoneDefinitions || !window._zoneRegressions) return null;
+  const zoneDef = window._zoneDefinitions.zones && window._zoneDefinitions.zones[zoneKey];
+  if (!zoneDef) return null;
+  const zoneReg = window._zoneRegressions.zones && window._zoneRegressions.zones[zoneKey];
+  if (!zoneReg) return null;
+  const statsKey = zoneDef.scanned_stats_key || zoneKey;
+  const userZoneStats = userAttrs[statsKey];
+  if (!userZoneStats) return null;
+  const pStats = preset.scanned_stats && preset.scanned_stats[statsKey];
+  if (!pStats) return null;
+  const ratios = zoneDef.ratios;
+  const means  = zoneReg.ratios_mean;
+  const stds   = zoneReg.ratios_std;
+  if (!Array.isArray(ratios) || !Array.isArray(means) || !Array.isArray(stds)) return null;
+  const _zw = window._zoneWeights;
+  const W   = (_zw && _zw.zones && _zw.zones[zoneKey] && Array.isArray(_zw.zones[zoneKey].weights))
+              ? _zw.zones[zoneKey].weights : null;
+  const Nr  = ratios.length;
+  const wDefault = Nr > 0 ? (1 / Nr) : 0;
+  let d = 0;
+  for (let i = 0; i < ratios.length; i++) {
+    const uv = userZoneStats[ratios[i]];
+    const pv = pStats[ratios[i]];
+    if (typeof uv !== 'number' || !Number.isFinite(uv)) return null;
+    if (typeof pv !== 'number' || !Number.isFinite(pv)) return null;
+    const s = stds[i] || 1;
+    const un = (uv - means[i]) / s;
+    const pn = (pv - means[i]) / s;
+    const diff = un - pn;
+    const w = (W && Number.isFinite(W[i])) ? W[i] : wDefault;
+    d += w * diff * diff;
+  }
+  return Math.sqrt(d);
+}
+
+// Indique si une zone est marquee aveugle dans zone_validity.
+// Une zone aveugle ne porte pas de signal -> exclue du calcul groupe.
+function _isBlindZone(zoneKey) {
+  const v = window._zoneValidity;
+  if (!v || !v.zones) return false;
+  const z = v.zones[zoneKey];
+  return !!(z && z.status === 'aveugle');
+}
+
+// selectPresetForGroup(groupKey, userAttrs, presets) -> {
+//   group: groupKey,
+//   preset_id: p*,
+//   aggregate_distance: D(p*),
+//   n_zones_used: nombre de zones non aveugles + features completes pour p*,
+//   escaped_subtabs: Set<zoneKey> -- sous-onglets qui ont trouve mieux ailleurs
+//                                    avec marge 2x (d_z(p_z) < 0.5 * d_z(p*)),
+//   per_zone: { zoneKey -> { group_preset_distance, best_individual_preset_id,
+//                            best_individual_distance, escaped: bool } },
+// }
+// Retourne null si conditions non remplies (artifacts manquants, groupe inconnu,
+// aucun preset ne couvre >= 2 zones non aveugles).
+function selectPresetForGroup(groupKey, userAttrs, presets) {
+  if (!userAttrs || !Array.isArray(presets) || presets.length === 0) return null;
+  const groupsRoot = window._zoneGroups && window._zoneGroups.groups;
+  if (!groupsRoot) return null;
+  const gDef = groupsRoot[groupKey];
+  if (!gDef || !Array.isArray(gDef.subtabs) || gDef.subtabs.length === 0) return null;
+
+  // Filtre des sous-onglets aveugles -- ils ne participent pas a l'agregation.
+  const liveSubtabs = gDef.subtabs.filter(z => !_isBlindZone(z));
+  if (liveSubtabs.length === 0) {
+    console.warn(`[Phase 4.1.3] group '${groupKey}' entierement aveugle -> fallback zone-level`);
+    return null;
+  }
+
+  // 1) Pour chaque preset, accumuler sum(d_z^2) sur les zones live ou la feature
+  //    est calculable. Disqualifie si n_zones_utilisees < 2.
+  // 2) Pour chaque sous-onglet live, garder le best individual (p_z, d_z(p_z))
+  //    pour la regle de marge stricte.
+  const bestPerSubtab = {}; // zoneKey -> { preset_id, distance }
+  // perPresetPerZone : preset_idx -> zoneKey -> distance
+  const distMap = new Map();
+
+  for (let pi = 0; pi < presets.length; pi++) {
+    const p = presets[pi];
+    if (!p || !p.scanned_stats) continue;
+    const zoneDists = {};
+    let sumSq = 0;
+    let nUsed = 0;
+    for (const zKey of liveSubtabs) {
+      const d = _computeZoneDistanceForPreset(userAttrs, zKey, p);
+      if (d === null) continue;
+      zoneDists[zKey] = d;
+      sumSq += d * d;
+      nUsed++;
+      const cur = bestPerSubtab[zKey];
+      if (!cur || d < cur.distance) {
+        bestPerSubtab[zKey] = { preset_id: p.preset_id, distance: d };
+      }
+    }
+    if (nUsed < 2) continue;
+    distMap.set(pi, {
+      preset_id: p.preset_id,
+      preset: p,
+      aggregate: sumSq / nUsed,
+      n_used: nUsed,
+      zoneDists,
+    });
+  }
+
+  if (distMap.size === 0) {
+    console.warn(`[Phase 4.1.3] group '${groupKey}' : aucun preset avec >= 2 zones live -> fallback zone-level`);
+    return null;
+  }
+
+  // 3) argmin du D aggregé.
+  let best = null;
+  for (const entry of distMap.values()) {
+    if (!best || entry.aggregate < best.aggregate) best = entry;
+  }
+
+  // 4) Marge stricte : un sous-onglet quitte le preset de groupe seulement si
+  //    d_z(p_z) < 0.5 * d_z(p*) (i.e. ~2x meilleur ailleurs).
+  const MARGIN_FACTOR = 0.5;
+  const escaped = new Set();
+  const perZone = {};
+  for (const zKey of liveSubtabs) {
+    const dGroup = best.zoneDists[zKey];
+    const bestInd = bestPerSubtab[zKey];
+    if (dGroup === undefined) {
+      // p* n'avait pas cette zone calculable -> on laisse le matching individuel.
+      escaped.add(zKey);
+      perZone[zKey] = {
+        group_preset_distance: null,
+        best_individual_preset_id: bestInd ? bestInd.preset_id : null,
+        best_individual_distance: bestInd ? bestInd.distance : null,
+        escaped: true,
+        reason: 'group_preset_missing_zone',
+      };
+      continue;
+    }
+    const escapes = bestInd
+      && bestInd.preset_id !== best.preset_id
+      && bestInd.distance < MARGIN_FACTOR * dGroup;
+    if (escapes) escaped.add(zKey);
+    perZone[zKey] = {
+      group_preset_distance: dGroup,
+      best_individual_preset_id: bestInd ? bestInd.preset_id : null,
+      best_individual_distance: bestInd ? bestInd.distance : null,
+      escaped: !!escapes,
+    };
+  }
+
+  return {
+    group: groupKey,
+    preset_id: best.preset_id,
+    preset: best.preset,
+    aggregate_distance: best.aggregate,
+    n_zones_used: best.n_used,
+    escaped_subtabs: escaped,
+    per_zone: perZone,
+  };
+}
+window.selectPresetForGroup = selectPresetForGroup;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 4.2 — Signature globale par partie anatomique
+// ═══════════════════════════════════════════════════════════════════════════
+// Plutot que d'agreger les distances par sous-onglet (4.1.3), on calcule
+// une signature morphometrique sur le CONTOUR ENTIER de la partie (levre inf,
+// levre sup, yeux) puis on compare cette signature a celles des 41 presets.
+// Le matching de groupe = la forme rendue la plus proche, mesuree sur le MEME
+// objet semantique cote user et cote preset.
+//
+// Pour les groupes ou MediaPipe n'offre pas de contour ferme robuste (narines,
+// nez, joues, front, machoire_menton), `signature_disabled: true` -> on retombe
+// sur selectPresetForGroup (4.1.3). Fail-soft : si preset.group_signatures
+// manque (avant le re-batch), on retombe egalement sur 4.1.3 -> aucune
+// regression pendant la fenetre de migration.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Distance point<->segment 2D (pour epaisseur_moy_perp / hauteur_max_perp).
+function _pointToSegmentDistance(p, a, b) {
+  const abx = b.x - a.x, aby = b.y - a.y;
+  const apx = p.x - a.x, apy = p.y - a.y;
+  const ab2 = abx * abx + aby * aby;
+  if (ab2 < 1e-12) return Math.hypot(apx, apy);
+  let t = (apx * abx + apy * aby) / ab2;
+  if (t < 0) t = 0; else if (t > 1) t = 1;
+  const cx = a.x + t * abx, cy = a.y + t * aby;
+  return Math.hypot(p.x - cx, p.y - cy);
+}
+
+// Distance min d'un point a un poly-line (ferme ou ouvert). isClosed = true
+// boucle de pts[N-1] a pts[0] dans la comparaison.
+function _minDistToContour(p, contour, isClosed) {
+  const n = contour.length;
+  if (n === 0) return null;
+  if (n === 1) return Math.hypot(p.x - contour[0].x, p.y - contour[0].y);
+  let min = Infinity;
+  const N = isClosed ? n : (n - 1);
+  for (let i = 0; i < N; i++) {
+    const a = contour[i];
+    const b = contour[(i + 1) % n];
+    const d = _pointToSegmentDistance(p, a, b);
+    if (d < min) min = d;
+  }
+  return min;
+}
+
+// Extraction tableau de points 2D depuis rawPoints (cle = string idx).
+// Retourne null si un indice est manquant -> signature non calculable.
+function _gatherPoints2D(rawPoints, indices) {
+  if (!rawPoints || !Array.isArray(indices)) return null;
+  const out = [];
+  for (const idx of indices) {
+    const p = rawPoints[String(idx)];
+    if (!p || typeof p.x !== 'number' || typeof p.y !== 'number') return null;
+    out.push({ x: p.x, y: p.y });
+  }
+  return out;
+}
+
+// Construit la signature d'un contour ferme outer-only (oeil).
+// Retourne { aire, perimetre, compacite, largeur_axe, hauteur_axe,
+//            excentricite, asymetrie_gd, centroide_y, _centroid:{x,y} }.
+function _signClosedOuter(outer, faceW, faceH, cyFace) {
+  const n = outer.length;
+  if (n < 3) return null;
+  // moments
+  let sumX = 0, sumY = 0, minX = +Infinity, maxX = -Infinity;
+  for (const p of outer) {
+    sumX += p.x; sumY += p.y;
+    if (p.x < minX) minX = p.x;
+    if (p.x > maxX) maxX = p.x;
+  }
+  const meanX = sumX / n, meanY = sumY / n;
+  // shoelace + perimetre
+  const A = polygonArea(outer);
+  const P = perimetre(outer);
+  // covariance 2x2 -> PCA
+  let cxx = 0, cxy = 0, cyy = 0;
+  for (const p of outer) {
+    const dx = p.x - meanX, dy = p.y - meanY;
+    cxx += dx * dx; cxy += dx * dy; cyy += dy * dy;
+  }
+  cxx /= n; cxy /= n; cyy /= n;
+  const [lmax, lmin] = eigenvalues2x2([[cxx, cxy], [cxy, cyy]]);
+  // axes propres
+  let vx, vy;
+  if (Math.abs(cxy) > 1e-12) { vx = cxy; vy = lmax - cxx; }
+  else if (cxx >= cyy)       { vx = 1;   vy = 0; }
+  else                        { vx = 0;   vy = 1; }
+  const vnorm = Math.hypot(vx, vy) || 1;
+  vx /= vnorm; vy /= vnorm;
+  const wx = -vy, wy = vx;
+  let p1min = +Infinity, p1max = -Infinity;
+  let p2min = +Infinity, p2max = -Infinity;
+  for (const p of outer) {
+    const ex = p.x - meanX, ey = p.y - meanY;
+    const pp1 = ex * vx + ey * vy;
+    const pp2 = ex * wx + ey * wy;
+    if (pp1 < p1min) p1min = pp1; if (pp1 > p1max) p1max = pp1;
+    if (pp2 < p2min) p2min = pp2; if (pp2 > p2max) p2max = pp2;
+  }
+  const largeur_axe  = (p1max - p1min) / faceW;
+  const hauteur_axe  = (p2max - p2min) / faceH;
+  const excentricite = (lmax > 1e-12) ? Math.sqrt(Math.max(0, 1 - lmin / lmax)) : 0;
+  const bboxCx       = (minX + maxX) / 2;
+  const asymetrie_gd = (meanX - bboxCx) / faceW;
+  const centroide_y  = (meanY - cyFace) / faceH;
+  return {
+    aire:        A / (faceW * faceH),
+    perimetre:   P / faceW,
+    compacite:   (P > 1e-12) ? (4 * Math.PI * A) / (P * P) : 0,
+    largeur_axe,
+    hauteur_axe,
+    excentricite,
+    asymetrie_gd,
+    centroide_y,
+    _centroid: { x: meanX, y: meanY },
+  };
+}
+
+// Construit la signature d'un contour ferme outer + inner (levre).
+// outer/inner sont des tableaux de points 2D. Le polygone ferme du vermillon
+// = outer + reverse(inner). aire/perimetre/compacite sur ce polygone ferme.
+// epaisseur_moy_perp + hauteur_max_perp = distances perpendiculaires outer<->inner.
+// Retourne { aire, perimetre, compacite, epaisseur_moy_perp, hauteur_max_perp,
+//            largeur_axe, asymetrie_gd, centroide_y }.
+function _signClosedLip(outer, inner, faceW, faceH, cyFace) {
+  if (!outer || !inner || outer.length < 3 || inner.length < 3) return null;
+  // polygone ferme du vermillon
+  const ring = outer.slice();
+  for (let i = inner.length - 1; i >= 0; i--) ring.push(inner[i]);
+  // moments sur outer (la mesure de hauteur/asymetrie est pilotee par le bord visible)
+  let sumX = 0, sumY = 0, minX = +Infinity, maxX = -Infinity;
+  for (const p of outer) {
+    sumX += p.x; sumY += p.y;
+    if (p.x < minX) minX = p.x;
+    if (p.x > maxX) maxX = p.x;
+  }
+  const meanX = sumX / outer.length, meanY = sumY / outer.length;
+  // aire/perimetre sur ring complet
+  const A = polygonArea(ring);
+  const P = perimetre(ring);
+  // PC1 extent sur outer + inner (largeur visible de la levre)
+  const all = outer.concat(inner);
+  let amx = 0, amy = 0;
+  for (const p of all) { amx += p.x; amy += p.y; }
+  amx /= all.length; amy /= all.length;
+  let cxx = 0, cxy = 0, cyy = 0;
+  for (const p of all) {
+    const dx = p.x - amx, dy = p.y - amy;
+    cxx += dx * dx; cxy += dx * dy; cyy += dy * dy;
+  }
+  cxx /= all.length; cxy /= all.length; cyy /= all.length;
+  const [lmax] = eigenvalues2x2([[cxx, cxy], [cxy, cyy]]);
+  let vx, vy;
+  if (Math.abs(cxy) > 1e-12) { vx = cxy; vy = lmax - cxx; }
+  else if (cxx >= cyy)       { vx = 1;   vy = 0; }
+  else                        { vx = 0;   vy = 1; }
+  const vnorm = Math.hypot(vx, vy) || 1;
+  vx /= vnorm; vy /= vnorm;
+  let p1min = +Infinity, p1max = -Infinity;
+  for (const p of all) {
+    const ex = p.x - amx, ey = p.y - amy;
+    const pp1 = ex * vx + ey * vy;
+    if (pp1 < p1min) p1min = pp1; if (pp1 > p1max) p1max = pp1;
+  }
+  const largeur_axe = (p1max - p1min) / faceW;
+  // epaisseur perpendiculaire outer <-> inner (inner traite comme poly-line ouverte)
+  let sumDist = 0, maxDist = 0;
+  for (const p of outer) {
+    const d = _minDistToContour(p, inner, false);
+    if (d === null || !Number.isFinite(d)) continue;
+    sumDist += d;
+    if (d > maxDist) maxDist = d;
+  }
+  const epaisseur_moy_perp = (sumDist / outer.length) / faceH;
+  const hauteur_max_perp   = maxDist / faceH;
+  const bboxCx       = (minX + maxX) / 2;
+  const asymetrie_gd = (meanX - bboxCx) / faceW;
+  const centroide_y  = (meanY - cyFace) / faceH;
+  return {
+    aire:                A / (faceW * faceH),
+    perimetre:           P / faceW,
+    compacite:           (P > 1e-12) ? (4 * Math.PI * A) / (P * P) : 0,
+    epaisseur_moy_perp,
+    hauteur_max_perp,
+    largeur_axe,
+    asymetrie_gd,
+    centroide_y,
+  };
+}
+
+// Combine 2 signatures _signClosedOuter (G+D) en une signature yeux a 9 features.
+function _signCombineEyes(sigL, sigR, faceW) {
+  if (!sigL || !sigR) return null;
+  const avg = (a, b) => (a + b) / 2;
+  const aireSum = sigL.aire + sigR.aire;
+  const asymetrie_gd_inter = aireSum > 1e-12 ? (sigR.aire - sigL.aire) / aireSum : 0;
+  const dx = sigR._centroid.x - sigL._centroid.x;
+  const dy = sigR._centroid.y - sigL._centroid.y;
+  const espacement = Math.hypot(dx, dy) / faceW;
+  return {
+    aire:         avg(sigL.aire, sigR.aire),
+    perimetre:    avg(sigL.perimetre, sigR.perimetre),
+    compacite:    avg(sigL.compacite, sigR.compacite),
+    largeur_axe:  avg(sigL.largeur_axe, sigR.largeur_axe),
+    hauteur_axe:  avg(sigL.hauteur_axe, sigR.hauteur_axe),
+    excentricite: avg(sigL.excentricite, sigR.excentricite),
+    centroide_y:  avg(sigL.centroide_y, sigR.centroide_y),
+    asymetrie_gd: asymetrie_gd_inter,
+    espacement,
+  };
+}
+
+// Liste des features dans l'ordre, par groupe. Sert au matching (ordre stable)
+// et a l'ecriture des poids Fisher (zone_weights.group_signature_weights).
+const GROUP_SIGNATURE_FEATURES = {
+  levre_inferieure: [
+    'aire', 'perimetre', 'compacite',
+    'epaisseur_moy_perp', 'hauteur_max_perp',
+    'largeur_axe', 'asymetrie_gd', 'centroide_y',
+  ],
+  levre_superieure: [
+    'aire', 'perimetre', 'compacite',
+    'epaisseur_moy_perp', 'hauteur_max_perp',
+    'largeur_axe', 'asymetrie_gd', 'centroide_y',
+  ],
+  yeux: [
+    'aire', 'perimetre', 'compacite',
+    'largeur_axe', 'hauteur_axe', 'excentricite',
+    'centroide_y', 'asymetrie_gd', 'espacement',
+  ],
+};
+if (typeof window !== 'undefined') window.GROUP_SIGNATURE_FEATURES = GROUP_SIGNATURE_FEATURES;
+
+// computeGroupSignature(groupKey, rawLandmarks) -> {feature: number} | null
+//   - applique computeRollAlignedPoints sur rawLandmarks (cle = string idx)
+//   - calcule la signature selon groupKey ("kind" du group_signatures.json)
+//   - null si signature_disabled, indices manquants, faceW/faceH degeneres
+function computeGroupSignature(groupKey, rawLandmarks) {
+  if (!groupKey || !rawLandmarks) return null;
+  const root = window._groupSignatures && window._groupSignatures.groups;
+  if (!root) return null;
+  const def = root[groupKey];
+  if (!def || def.signature_disabled === true) return null;
+
+  // rawLandmarks accepte tableau MediaPipe (index numerique) OU objet {idx:point}
+  let rawPoints;
+  if (Array.isArray(rawLandmarks)) {
+    rawPoints = {};
+    for (let i = 0; i < rawLandmarks.length; i++) {
+      const p = rawLandmarks[i];
+      if (p) rawPoints[String(i)] = p;
+    }
+  } else {
+    rawPoints = rawLandmarks;
+  }
+
+  // Normalisation : roll-alignment puis faceW/faceH/cyFace
+  const aligned = (typeof computeRollAlignedPoints === 'function')
+    ? computeRollAlignedPoints(rawPoints)
+    : rawPoints;
+  const L234 = aligned['234'], L454 = aligned['454'];
+  const L10  = aligned['10'],  L152 = aligned['152'];
+  if (!L234 || !L454 || !L10 || !L152) return null;
+  const faceW = Math.hypot(L454.x - L234.x, L454.y - L234.y);
+  const faceH = Math.hypot(L152.x - L10.x,  L152.y - L10.y);
+  if (!(faceW > 1e-6) || !(faceH > 1e-6)) return null;
+  const cyFace = (L10.y + L152.y) / 2;
+
+  if (def.kind === 'closed_outer_inner') {
+    const outer = _gatherPoints2D(aligned, def.landmarks_outer);
+    const inner = _gatherPoints2D(aligned, def.landmarks_inner);
+    if (!outer || !inner) return null;
+    return _signClosedLip(outer, inner, faceW, faceH, cyFace);
+  }
+  if (def.kind === 'closed_dual_outer') {
+    const left  = _gatherPoints2D(aligned, def.landmarks_outer_left);
+    const right = _gatherPoints2D(aligned, def.landmarks_outer_right);
+    if (!left || !right) return null;
+    const sigL = _signClosedOuter(left,  faceW, faceH, cyFace);
+    const sigR = _signClosedOuter(right, faceW, faceH, cyFace);
+    const combined = _signCombineEyes(sigL, sigR, faceW);
+    return combined;
+  }
+  return null;
+}
+if (typeof window !== 'undefined') window.computeGroupSignature = computeGroupSignature;
+
+// Calcule la signature pour TOUS les groupes enables, retourne un dict.
+function computeAllGroupSignatures(rawLandmarks) {
+  const root = window._groupSignatures && window._groupSignatures.groups;
+  if (!root) return {};
+  const out = {};
+  for (const gk in root) {
+    if (root[gk].signature_disabled === true) continue;
+    const sig = computeGroupSignature(gk, rawLandmarks);
+    if (sig) out[gk] = sig;
+  }
+  return out;
+}
+if (typeof window !== 'undefined') window.computeAllGroupSignatures = computeAllGroupSignatures;
+
+// Lookup signature precalculee sur un preset. Le batch ecrit preset.group_signatures
+// = { groupKey: { feature: number } }. Fail-soft : retourne null si manquant.
+function _lookupPresetSignature(preset, groupKey) {
+  if (!preset || !preset.group_signatures) return null;
+  const sig = preset.group_signatures[groupKey];
+  if (!sig || typeof sig !== 'object') return null;
+  return sig;
+}
+
+// Recupere les poids Fisher pour les features de signature d'un groupe.
+// zone_weights.group_signature_weights[groupKey] = { features: [...], weights: [...] }
+// Si absent -> uniforme (1/N).
+function _signatureWeights(groupKey) {
+  const features = GROUP_SIGNATURE_FEATURES[groupKey];
+  if (!Array.isArray(features) || features.length === 0) return { features: [], weights: [] };
+  const N = features.length;
+  const W = window._zoneWeights;
+  const root = W && W.group_signature_weights;
+  const entry = root && root[groupKey];
+  if (entry && Array.isArray(entry.features) && Array.isArray(entry.weights)
+      && entry.features.length === N && entry.weights.length === N) {
+    // Verifie que l'ordre matche; sinon reordonne.
+    const orderOk = features.every((f, i) => entry.features[i] === f);
+    if (orderOk) return { features, weights: entry.weights.slice() };
+    const reordered = features.map(f => {
+      const idx = entry.features.indexOf(f);
+      return idx >= 0 ? entry.weights[idx] : (1 / N);
+    });
+    return { features, weights: reordered };
+  }
+  const uniform = features.map(() => 1 / N);
+  return { features, weights: uniform };
+}
+
+// matchGroupBySignature(groupKey, rawLandmarks, presets) -> {
+//   group, preset_id, preset, distance, n_used, escaped_subtabs:Set,
+//   per_zone: { zoneKey -> { ... } },
+//   signature_user, source: 'signature',
+// } ou null si conditions non remplies (signature_disabled, ratios manquants,
+// aucun preset n'a la signature). L'appelant doit alors retomber sur
+// selectPresetForGroup (4.1.3).
+function matchGroupBySignature(groupKey, rawLandmarks, presets) {
+  const root = window._groupSignatures && window._groupSignatures.groups;
+  if (!root) return null;
+  const def = root[groupKey];
+  if (!def || def.signature_disabled === true) return null;
+  const userSig = computeGroupSignature(groupKey, rawLandmarks);
+  if (!userSig) return null;
+  if (!Array.isArray(presets) || presets.length === 0) return null;
+
+  const { features, weights } = _signatureWeights(groupKey);
+  if (features.length === 0) return null;
+
+  // Vecteur user
+  const userVec = features.map(f => {
+    const v = userSig[f];
+    return Number.isFinite(v) ? v : null;
+  });
+  if (userVec.some(v => v === null)) return null;
+
+  // Statistiques inter-preset pour normaliser (mu, sigma par feature)
+  const presetVecs = [];
+  for (const p of presets) {
+    const sig = _lookupPresetSignature(p, groupKey);
+    if (!sig) continue;
+    const vec = features.map(f => {
+      const v = sig[f];
+      return Number.isFinite(v) ? v : null;
+    });
+    if (vec.some(v => v === null)) continue;
+    presetVecs.push({ preset: p, vec });
+  }
+  if (presetVecs.length < 2) return null;
+
+  const N = features.length;
+  const means = new Array(N).fill(0);
+  const stds  = new Array(N).fill(0);
+  for (const pv of presetVecs) for (let i = 0; i < N; i++) means[i] += pv.vec[i];
+  for (let i = 0; i < N; i++) means[i] /= presetVecs.length;
+  for (const pv of presetVecs) for (let i = 0; i < N; i++) {
+    const d = pv.vec[i] - means[i];
+    stds[i] += d * d;
+  }
+  for (let i = 0; i < N; i++) {
+    stds[i] = Math.sqrt(stds[i] / Math.max(1, presetVecs.length - 1));
+    if (stds[i] < 1e-9) stds[i] = 1;
+  }
+
+  // Distance Fisher-ponderee, espace standardise
+  const standardize = vec => vec.map((v, i) => (v - means[i]) / stds[i]);
+  const uZ = standardize(userVec);
+  let bestPreset = null, bestDist = Infinity, bestVec = null;
+  const scored = [];
+  for (const pv of presetVecs) {
+    const pZ = standardize(pv.vec);
+    let d = 0;
+    for (let i = 0; i < N; i++) {
+      const diff = uZ[i] - pZ[i];
+      d += (weights[i] || 0) * diff * diff;
+    }
+    d = Math.sqrt(d);
+    scored.push({ preset: pv.preset, distance: d });
+    if (d < bestDist) { bestDist = d; bestPreset = pv.preset; bestVec = pv.vec; }
+  }
+  if (!bestPreset) return null;
+
+  // Marge stricte signature : un sous-onglet ne quitte le preset de groupe
+  // que si son matching individuel est >= 3x meilleur (vs 2x en 4.1.3).
+  const MARGIN_FACTOR = 1 / 3;
+  const groupsRoot = window._zoneGroups && window._zoneGroups.groups;
+  const gDef = groupsRoot && groupsRoot[groupKey];
+  const liveSubtabs = (gDef && Array.isArray(gDef.subtabs))
+    ? gDef.subtabs.filter(z => !_isBlindZone(z))
+    : [];
+
+  // userAttrs requis pour le test des sous-onglets. Si pas dispo, on saute
+  // l'escape (= tout le groupe reste pilote par la signature).
+  // window.lastUserAttrs est setee par scanToSliders avant le matching pour
+  // que le test soit possible sans recalculer.
+  const userAttrs = window.lastUserAttrs || null;
+  const escaped = new Set();
+  const perZone = {};
+  if (userAttrs) {
+    for (const zKey of liveSubtabs) {
+      const dGroup = _computeZoneDistanceForPreset(userAttrs, zKey, bestPreset);
+      let bestInd = null, bestIndDist = Infinity;
+      for (const p of presets) {
+        const d = _computeZoneDistanceForPreset(userAttrs, zKey, p);
+        if (d === null) continue;
+        if (d < bestIndDist) { bestIndDist = d; bestInd = p; }
+      }
+      if (dGroup === null) {
+        // signature winner n'a pas cette zone -> reste sous matching individuel.
+        escaped.add(zKey);
+        perZone[zKey] = {
+          group_preset_distance: null,
+          best_individual_preset_id: bestInd ? bestInd.preset_id : null,
+          best_individual_distance: bestInd ? bestIndDist : null,
+          escaped: true,
+          reason: 'group_preset_missing_zone',
+        };
+        continue;
+      }
+      const escapes = bestInd
+        && bestInd.preset_id !== bestPreset.preset_id
+        && bestIndDist < MARGIN_FACTOR * dGroup;
+      if (escapes) escaped.add(zKey);
+      perZone[zKey] = {
+        group_preset_distance: dGroup,
+        best_individual_preset_id: bestInd ? bestInd.preset_id : null,
+        best_individual_distance: bestInd ? bestIndDist : null,
+        escaped: !!escapes,
+      };
+    }
+  }
+
+  scored.sort((a, b) => a.distance - b.distance);
+  return {
+    group: groupKey,
+    preset_id: bestPreset.preset_id,
+    preset: bestPreset,
+    distance: bestDist,
+    n_used: presetVecs.length,
+    escaped_subtabs: escaped,
+    per_zone: perZone,
+    signature_user: userSig,
+    signature_features: features,
+    signature_weights: weights,
+    source: 'signature',
+    top3: scored.slice(0, 3).map(s => ({ id: s.preset.preset_id, d: s.distance })),
+  };
+}
+if (typeof window !== 'undefined') window.matchGroupBySignature = matchGroupBySignature;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PHASE 4.3 — Architecture morphometrique deterministe (Farkas + Mahalanobis)
+// ═══════════════════════════════════════════════════════════════════════════
+// Remplace l'agregation z-score equipondere des groupes encore en aggregation
+// (visage_global, machoire_menton, joues, front, narines, nez) par des
+// features morphometriques 2D frontales publiees (Farkas 1994, Diomande 2018,
+// Yang 2023, He 2022) avec ICC > 0.70, et distance de Mahalanobis ponderee
+// Fisher sur les 41 presets.
+//
+// Implementation pragmatique :
+//   - Les formules dans farkas_features.json sont DOCUMENTAIRES uniquement.
+//     evaluateFarkasFormula() utilise un dispatch JS hardcode (plus robuste
+//     qu'un parseur de formule string).
+//   - _invertMatrix() existant (k=1/2/3 analytique, k>=4 Gauss-Jordan) sert
+//     pour l'inversion de la covariance.
+//   - Pitch correction simplifiee (multiplication uniforme y par 1/cos(theta)) :
+//     n'affecte PAS les features ratio (mathematiquement no-op), mais le angle
+//     theta estime est expose en debug pour iteration future avec 3DDFA pose.
+//   - Fail-soft total : si farkas_features.json non charge, si une feature
+//     est null, ou si le pool de presets a < 10 vecteurs complets, matchGroupByFarkas
+//     retourne null -> l'appelant retombe sur 4.2/4.1.3 sans casser.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ─── Helpers landmarks Farkas ───────────────────────────────────────────────
+
+// Recupere le landmark moyenne pour une cle Farkas (peut etre plusieurs idx).
+function _farkasLandmark(rawPoints, ids) {
+  if (!Array.isArray(ids) || ids.length === 0) return null;
+  let sx = 0, sy = 0, sz = 0, n = 0;
+  for (const i of ids) {
+    const p = rawPoints[String(i)];
+    if (!p) continue;
+    sx += p.x;
+    sy += p.y;
+    sz += (typeof p.z === 'number' ? p.z : 0);
+    n++;
+  }
+  if (n === 0) return null;
+  return { x: sx / n, y: sy / n, z: sz / n };
+}
+
+function _farkasDist(a, b) {
+  if (!a || !b) return null;
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function _distY(a, b) {
+  if (!a || !b) return null;
+  return Math.abs(a.y - b.y);
+}
+
+// Angle au point pivot entre les segments pivot->a et pivot->b. Radians, [0, PI].
+function _angleAt(pivot, a, b) {
+  if (!pivot || !a || !b) return null;
+  const ax = a.x - pivot.x, ay = a.y - pivot.y;
+  const bx = b.x - pivot.x, by = b.y - pivot.y;
+  const dot = ax * bx + ay * by;
+  const cross = ax * by - ay * bx;
+  const ang = Math.atan2(Math.abs(cross), dot);
+  return ang;
+}
+
+// Fit y = a*x^2 + b*x + c en moindres carres ordinaires (normal equations).
+// Retourne le coefficient quadratique 'a'. null si singulier ou n<3.
+function _polyfitQuadraticA(pts) {
+  if (!Array.isArray(pts) || pts.length < 3) return null;
+  // Construit A^T A (3x3) et A^T y (3) sans construire A (n x 3) explicitement.
+  let s0 = 0, s1 = 0, s2 = 0, s3 = 0, s4 = 0;
+  let sy = 0, sxy = 0, sx2y = 0;
+  for (const p of pts) {
+    const x = p.x, y = p.y;
+    const x2 = x * x;
+    s0 += 1;
+    s1 += x;
+    s2 += x2;
+    s3 += x2 * x;
+    s4 += x2 * x2;
+    sy   += y;
+    sxy  += x * y;
+    sx2y += x2 * y;
+  }
+  // M = [[s4, s3, s2], [s3, s2, s1], [s2, s1, s0]]
+  // r = [sx2y, sxy, sy]
+  const M = [[s4, s3, s2], [s3, s2, s1], [s2, s1, s0]];
+  const Minv = _invertMatrix(M);
+  if (!Minv) return null;
+  const a = Minv[0][0] * sx2y + Minv[0][1] * sxy + Minv[0][2] * sy;
+  return Number.isFinite(a) ? a : null;
+}
+
+// ─── Pitch estimation + correction (simpliste, voir note 4.3) ──────────────
+function estimatePitch(rawPoints, farkasDef) {
+  if (!rawPoints || !farkasDef) return 0;
+  const lm = farkasDef.landmarks_farkas;
+  const nasion    = _farkasLandmark(rawPoints, lm.Nasion);
+  const subnasale = _farkasLandmark(rawPoints, lm.Subnasale);
+  const gnathion  = _farkasLandmark(rawPoints, lm.Gnathion);
+  if (!nasion || !subnasale || !gnathion) return 0;
+  const upper = Math.abs(nasion.y - subnasale.y);
+  const lower = Math.abs(subnasale.y - gnathion.y);
+  if (lower < 1e-9) return 0;
+  const ratio = upper / lower;
+  const NEUTRAL = (farkasDef._meta && Number.isFinite(farkasDef._meta.neutral_pitch_ratio))
+                  ? farkasDef._meta.neutral_pitch_ratio : 0.95;
+  const deviation = (ratio - NEUTRAL) / NEUTRAL;
+  // small angle : 0.5 rad max par convention. Retourne en radians.
+  let theta = deviation * 0.5;
+  if (theta > 0.4) theta = 0.4;
+  if (theta < -0.4) theta = -0.4;
+  return theta;
+}
+if (typeof window !== 'undefined') window.estimatePitch = estimatePitch;
+
+// Correction pitch simpliste : multiplie y par 1/cos(theta). Ne modifie pas
+// les ratios verticaux (mathematiquement no-op pour upper/lower) mais
+// preserve le pipeline pour features non-ratio futures. Retourne un nouveau
+// dict { idx -> point }.
+function applyPitchCorrection(rawPoints, pitchAngle) {
+  if (!rawPoints) return rawPoints;
+  if (Math.abs(pitchAngle) < 1e-9) return rawPoints;
+  const c = Math.cos(pitchAngle);
+  if (Math.abs(c) < 1e-6) return rawPoints;
+  const k = 1 / c;
+  const out = {};
+  for (const key in rawPoints) {
+    const p = rawPoints[key];
+    if (!p) continue;
+    out[key] = { x: p.x, y: p.y * k, z: p.z };
+  }
+  return out;
+}
+if (typeof window !== 'undefined') window.applyPitchCorrection = applyPitchCorrection;
+
+// ─── Dispatch des formules Farkas (hardcode, evite parseur de string) ──────
+function evaluateFarkasFormula(featName, rawPoints, farkasDef, faceW, faceH) {
+  if (!rawPoints || !farkasDef) return null;
+  const lmd = farkasDef.landmarks_farkas;
+  const get = (key) => _farkasLandmark(rawPoints, lmd[key]);
+
+  const Nasion    = get('Nasion');
+  const Gnathion  = get('Gnathion');
+  const Subnasale = get('Subnasale');
+  const Pronasale = get('Pronasale');
+  const Trichion  = get('Trichion_centre');
+  const Glabella  = get('Glabella');
+  const ZygionG   = get('Zygion_G');
+  const ZygionD   = get('Zygion_D');
+  const FrontoG   = get('Frontotemporale_G');
+  const FrontoD   = get('Frontotemporale_D');
+  const GonionG   = get('Gonion_approx_G');
+  const GonionD   = get('Gonion_approx_D');
+  const AlareG    = get('Alare_G');
+  const AlareD    = get('Alare_D');
+  const ExoG      = get('Exocanthion_G');
+  const ExoD      = get('Exocanthion_D');
+  const StomionInf= get('Stomion_inf_proxy');
+  const DorsumG   = get('Nez_dorsum_G');
+  const DorsumD   = get('Nez_dorsum_D');
+
+  switch (featName) {
+    // ── visage_global ──────────────────────────────────────────────────
+    case 'indice_facial_prosopic': {
+      const num = _farkasDist(Nasion, Gnathion);
+      const den = _farkasDist(ZygionG, ZygionD);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return 100 * num / den;
+    }
+    case 'ratio_tiers_faciaux': {
+      const u = _distY(Nasion, Subnasale);
+      const l = _distY(Subnasale, Gnathion);
+      if (!Number.isFinite(u) || !Number.isFinite(l) || l < 1e-9) return null;
+      return u / l;
+    }
+    case 'asymetrie_globale': {
+      const pairs = farkasDef.symmetric_pairs_for_asymmetry || [];
+      if (!pairs.length || !(faceW > 1e-9)) return null;
+      let sum = 0, n = 0;
+      for (const [gKey, dKey] of pairs) {
+        const G = _farkasLandmark(rawPoints, lmd[gKey]);
+        const D = _farkasLandmark(rawPoints, lmd[dKey]);
+        if (!G || !D) continue;
+        sum += Math.abs(G.x - D.x);
+        n++;
+      }
+      if (n === 0) return null;
+      return (sum / n) / faceW;
+    }
+
+    // ── machoire_menton ────────────────────────────────────────────────
+    case 'angle_mandibulaire': {
+      // angle au Gnathion entre GonionG et GonionD
+      const a = _angleAt(Gnathion, GonionG, GonionD);
+      return Number.isFinite(a) ? a : null;
+    }
+    case 'angle_convergence_inferieur': {
+      // angle entre verticale (point virtuel directement sous Zygion) et segment Zygion->Gnathion.
+      // Calcul comme angle entre (0,1) et (Gnathion - Zygion). On somme G + D / 2.
+      const oneSide = (Z, Gn) => {
+        if (!Z || !Gn) return null;
+        const vx = Gn.x - Z.x, vy = Gn.y - Z.y;
+        const lenV = Math.hypot(vx, vy);
+        if (lenV < 1e-9) return null;
+        // verticale "vers le bas" = (0, 1) en convention image y croissant vers le bas
+        const dot = vy;  // (0,1) . (vx,vy)
+        const cross = vx; // sign info
+        return Math.atan2(Math.abs(cross), dot); // angle [0, PI]
+      };
+      const aG = oneSide(ZygionG, Gnathion);
+      const aD = oneSide(ZygionD, Gnathion);
+      const vals = [aG, aD].filter(v => Number.isFinite(v));
+      if (!vals.length) return null;
+      return vals.reduce((s, v) => s + v, 0) / vals.length;
+    }
+    case 'courbure_symphyse_menton': {
+      const ids = farkasDef.chin_curvature_landmarks || [];
+      const pts = [];
+      for (const i of ids) {
+        const p = rawPoints[String(i)];
+        if (!p) continue;
+        pts.push({ x: p.x, y: p.y });
+      }
+      if (pts.length < 3) return null;
+      const a = _polyfitQuadraticA(pts);
+      if (!Number.isFinite(a)) return null;
+      // Normaliser : la courbure brute depend de l'echelle (x²) -> normaliser
+      // par faceW pour rendre invariant a la taille du visage.
+      if (!(faceW > 1e-9)) return a;
+      return a * (faceW * faceW);
+    }
+    case 'ratio_hauteur_mentonniere': {
+      const num = _distY(Gnathion, StomionInf);
+      const den = _distY(Gnathion, Nasion);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+
+    // ── joues ──────────────────────────────────────────────────────────
+    case 'angle_zygomatique': {
+      // angle au Zygion entre Frontotemporale et Gonion. G et D, moyenne.
+      const aG = _angleAt(ZygionG, FrontoG, GonionG);
+      const aD = _angleAt(ZygionD, FrontoD, GonionD);
+      const vals = [aG, aD].filter(v => Number.isFinite(v));
+      if (!vals.length) return null;
+      return vals.reduce((s, v) => s + v, 0) / vals.length;
+    }
+    case 'ratio_jugo_mandibulaire': {
+      const num = _farkasDist(GonionG, GonionD);
+      const den = _farkasDist(ZygionG, ZygionD);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+    case 'indice_fronto_zygomatique': {
+      const num = _farkasDist(FrontoG, FrontoD);
+      const den = _farkasDist(ZygionG, ZygionD);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+    case 'hauteur_pommettes_normalisee': {
+      if (!ZygionG || !ZygionD || !ExoG || !ExoD) return null;
+      const zygY = (ZygionG.y + ZygionD.y) / 2;
+      const exoY = (ExoG.y + ExoD.y) / 2;
+      const den = _distY(Nasion, Gnathion);
+      if (!Number.isFinite(den) || den < 1e-9) return null;
+      // y croissant vers le bas : zygomatique au-dessus ou en-dessous des yeux selon la pose
+      return Math.abs(zygY - exoY) / den;
+    }
+
+    // ── front ──────────────────────────────────────────────────────────
+    case 'largeur_frontale_minimale': {
+      const d = _farkasDist(FrontoG, FrontoD);
+      if (!Number.isFinite(d) || !(faceW > 1e-9)) return null;
+      return d / faceW;
+    }
+    case 'indice_fronto_facial': {
+      const num = _farkasDist(FrontoG, FrontoD);
+      const den = _farkasDist(Nasion, Gnathion);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+    case 'ratio_hauteur_front': {
+      const num = _distY(Trichion, Glabella);
+      const den = _distY(Nasion, Gnathion);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+
+    // ── narines ────────────────────────────────────────────────────────
+    case 'indice_alaire': {
+      const num = _farkasDist(AlareG, AlareD);
+      const den = _farkasDist(ZygionG, ZygionD);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+    case 'ratio_base_nasale': {
+      const num = _distY(Subnasale, Pronasale);
+      const den = _farkasDist(AlareG, AlareD);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+    case 'visibilite_columellaire': {
+      const num = _distY(Subnasale, Pronasale);
+      if (!Number.isFinite(num) || !(faceW > 1e-9)) return null;
+      return num / faceW;
+    }
+
+    // ── nez ────────────────────────────────────────────────────────────
+    case 'indice_nasal': {
+      const num = _farkasDist(AlareG, AlareD);
+      const den = _distY(Nasion, Subnasale);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return 100 * num / den;
+    }
+    case 'longueur_pont_nasal_normalisee': {
+      const num = _distY(Pronasale, Nasion);
+      const den = _distY(Nasion, Gnathion);
+      if (!Number.isFinite(num) || !Number.isFinite(den) || den < 1e-9) return null;
+      return num / den;
+    }
+    case 'largeur_arete_milieu': {
+      if (!DorsumG || !DorsumD) return null;
+      const num = Math.abs(DorsumG.x - DorsumD.x);
+      if (!(faceW > 1e-9)) return null;
+      return num / faceW;
+    }
+  }
+  return null;
+}
+if (typeof window !== 'undefined') window.evaluateFarkasFormula = evaluateFarkasFormula;
+
+// ─── computeFarkasFeatures(rawLandmarks) -> { groupKey: { featName: value | null } } ──
+// Accepte tableau MediaPipe ou dict {idx:point}. Calcule via :
+//   1. roll-alignment (computeRollAlignedPoints, Phase 4.1)
+//   2. pitch estimation + correction
+//   3. dispatch evaluateFarkasFormula par feature
+// Retourne null si farkas_features non charge.
+function computeFarkasFeatures(rawLandmarks) {
+  const def = window._farkasFeatures;
+  if (!def) return null;
+  if (!rawLandmarks) return null;
+
+  // Normalise en dict {idx:point}
+  let rawPoints;
+  if (Array.isArray(rawLandmarks)) {
+    rawPoints = {};
+    for (let i = 0; i < rawLandmarks.length; i++) {
+      const p = rawLandmarks[i];
+      if (p) rawPoints[String(i)] = p;
+    }
+  } else {
+    rawPoints = rawLandmarks;
+  }
+
+  // 1. roll-alignment
+  const aligned = (typeof computeRollAlignedPoints === 'function')
+    ? computeRollAlignedPoints(rawPoints) : rawPoints;
+
+  // 2. pitch
+  const pitch = estimatePitch(aligned, def);
+  const corrected = applyPitchCorrection(aligned, pitch);
+
+  // 3. faceW / faceH
+  const L234 = corrected['234'], L454 = corrected['454'];
+  const L10  = corrected['10'],  L152 = corrected['152'];
+  let faceW = 1, faceH = 1;
+  if (L234 && L454) faceW = Math.hypot(L454.x - L234.x, L454.y - L234.y) || 1;
+  if (L10  && L152) faceH = Math.hypot(L152.x - L10.x,  L152.y - L10.y)  || 1;
+
+  // 4. dispatch
+  const out = { _pitch_radians: pitch };
+  for (const gKey in def.groups) {
+    const gDef = def.groups[gKey];
+    if (!gDef || !gDef.features) continue;
+    out[gKey] = {};
+    for (const fName in gDef.features) {
+      try {
+        out[gKey][fName] = evaluateFarkasFormula(fName, corrected, def, faceW, faceH);
+      } catch (e) {
+        out[gKey][fName] = null;
+      }
+    }
+  }
+
+  // ── Phase 4.3.1 — Fallback Zygion si indice_facial_prosopic aberrant ──
+  // Si l'indice sort de la plage humaine [70, 100], les landmarks Zygion 234/454
+  // (averages [234,127] / [454,356] dans landmarks_farkas) ont probablement
+  // derive sur la tempe/oreille. Recalcul avec [116] / [345], plus internes
+  // et plus stables. Le bloc adopte le recalcul s'il EST dans [70,100] OU s'il
+  // se rapproche strictement du plage par rapport au raw -- evite que la flag
+  // reste undefined alors que le fallback a tourne (bug observe sur Brahima
+  // raw=57.39 -> 116/345 trop internes -> nouveau >100, ancienne version
+  // n'adoptait rien). On expose explicitement `_zygion_fallback_used`
+  // (true/false) + `_zygion_fallback_quality` (in_range/closer/no_improvement
+  // /landmarks_missing) pour diagnostic. Scope strict : seul l'indice facial
+  // est recalcule, aucune cascade sur les autres features Zygion-dependantes.
+  const vgOut = out.visage_global;
+  if (vgOut) {
+    const idxFac = vgOut.indice_facial_prosopic;
+    if (typeof idxFac === 'number' && Number.isFinite(idxFac)
+        && (idxFac < 70 || idxFac > 100)) {
+      vgOut._indice_facial_prosopic_raw = idxFac;
+      const zyGalt = _farkasLandmark(corrected, [116]);
+      const zyDalt = _farkasLandmark(corrected, [345]);
+      const nasionAlt   = _farkasLandmark(corrected, def.landmarks_farkas.Nasion);
+      const gnathionAlt = _farkasLandmark(corrected, def.landmarks_farkas.Gnathion);
+      if (!zyGalt || !zyDalt || !nasionAlt || !gnathionAlt) {
+        vgOut._zygion_fallback_used = false;
+        vgOut._zygion_fallback_quality = 'landmarks_missing';
+        console.warn(`[Farkas Zygion] indice=${idxFac.toFixed(2)} hors [70,100] mais landmarks 116/345 absents -- raw conserve.`);
+      } else {
+        const newW = Math.abs(zyGalt.x - zyDalt.x);
+        const newH = Math.abs(nasionAlt.y - gnathionAlt.y);
+        const newIdx = (newW > 1e-9) ? (100 * newH / newW) : null;
+        if (newIdx === null || !Number.isFinite(newIdx)) {
+          vgOut._zygion_fallback_used = false;
+          vgOut._zygion_fallback_quality = 'recompute_failed';
+          console.warn(`[Farkas Zygion] indice=${idxFac.toFixed(2)} -- recompute newW=${newW} newH=${newH} non finite, raw conserve.`);
+        } else {
+          // Distance signee au plage [70,100] : 0 si dedans, sinon ecart absolu.
+          const distToRange = (v) => v < 70 ? (70 - v) : (v > 100 ? v - 100 : 0);
+          const inRange = (newIdx >= 70 && newIdx <= 100);
+          const improvement = distToRange(idxFac) - distToRange(newIdx);
+          const closer = !inRange && improvement > 1e-9;
+          const adopt  = inRange || closer;
+          if (adopt) {
+            vgOut.indice_facial_prosopic = newIdx;
+            vgOut._zygion_fallback_used = true;
+            vgOut._zygion_fallback_quality = inRange ? 'in_range' : 'closer';
+            console.warn(`[Farkas Zygion] indice=${idxFac.toFixed(2)} hors [70,100] -- fallback 116/345 -> ${newIdx.toFixed(2)} (${vgOut._zygion_fallback_quality}, adopte).`);
+          } else {
+            vgOut._zygion_fallback_used = false;
+            vgOut._zygion_fallback_quality = 'no_improvement';
+            console.warn(`[Farkas Zygion] indice=${idxFac.toFixed(2)} hors [70,100] -- fallback 116/345 -> ${newIdx.toFixed(2)} ne reduit pas l'ecart, raw conserve.`);
+          }
+        }
+      }
+    }
+  }
+
+  return out;
+}
+if (typeof window !== 'undefined') window.computeFarkasFeatures = computeFarkasFeatures;
+
+// ─── Mahalanobis : helpers + matchByMahalanobis ────────────────────────────
+
+function _matrixCovariance(vectors) {
+  const N = vectors.length;
+  if (N === 0) return null;
+  const D = vectors[0].length;
+  if (D === 0) return null;
+  const mean = new Array(D).fill(0);
+  for (const v of vectors) for (let i = 0; i < D; i++) mean[i] += v[i];
+  for (let i = 0; i < D; i++) mean[i] /= N;
+  const C = Array.from({ length: D }, () => new Array(D).fill(0));
+  for (const v of vectors) {
+    for (let i = 0; i < D; i++) {
+      const di = v[i] - mean[i];
+      for (let j = 0; j < D; j++) C[i][j] += di * (v[j] - mean[j]);
+    }
+  }
+  const denom = Math.max(1, N - 1);
+  for (let i = 0; i < D; i++) for (let j = 0; j < D; j++) C[i][j] /= denom;
+  return C;
+}
+
+function _matrixRegularize(M, lambda) {
+  if (!M || !M.length) return M;
+  const D = M.length;
+  let trace = 0;
+  for (let i = 0; i < D; i++) trace += M[i][i];
+  const ridge = lambda * (trace / D);
+  const out = M.map(row => row.slice());
+  for (let i = 0; i < D; i++) out[i][i] += ridge;
+  return out;
+}
+
+function _quadraticForm(vec, Minv) {
+  const D = vec.length;
+  let s = 0;
+  for (let i = 0; i < D; i++) {
+    let row = 0;
+    for (let j = 0; j < D; j++) row += Minv[i][j] * vec[j];
+    s += vec[i] * row;
+  }
+  return s;
+}
+
+// matchByMahalanobis(userVec, presetVecs, fisherWeights) -> [{idx, distance}]
+//   - applique W = diag(sqrt(weights)) en pre-multiplication (poids Fisher)
+//   - covariance regularisee Ledoit-Wolf (lambda=0.01 * trace/D)
+//   - distance d² = diff^T Σinv diff, garde-fou negatif
+//   - fail-soft : fallback diagonal si inversion echoue
+// Retourne un tableau trie par distance croissante avec l'indice dans presetVecs.
+function matchByMahalanobis(userVec, presetVecs, fisherWeights) {
+  if (!Array.isArray(userVec) || !Array.isArray(presetVecs) || presetVecs.length === 0) return [];
+  const D = userVec.length;
+  if (D === 0) return [];
+  const sw = (fisherWeights && fisherWeights.length === D)
+    ? fisherWeights.map(w => Math.sqrt(Math.max(0, Number.isFinite(w) ? w : 0)))
+    : new Array(D).fill(1);
+  const uW = userVec.map((v, i) => sw[i] * v);
+  const pW = presetVecs.map(pv => pv.map((v, i) => sw[i] * v));
+  const Sigma = _matrixCovariance(pW);
+  if (!Sigma) return [];
+  const Sreg = _matrixRegularize(Sigma, 0.01);
+  let Sinv = _invertMatrix(Sreg);
+  if (!Sinv) {
+    // Fallback diagonal
+    Sinv = Array.from({ length: D }, (_, i) =>
+      Array.from({ length: D }, (_, j) =>
+        i === j ? 1 / Math.max(Sreg[i][i], 1e-9) : 0));
+  }
+  const out = [];
+  for (let k = 0; k < pW.length; k++) {
+    const diff = new Array(D);
+    for (let i = 0; i < D; i++) diff[i] = uW[i] - pW[k][i];
+    let q = _quadraticForm(diff, Sinv);
+    if (!Number.isFinite(q) || q < 0) q = 0;
+    out.push({ idx: k, distance: Math.sqrt(q) });
+  }
+  out.sort((a, b) => a.distance - b.distance);
+  return out;
+}
+if (typeof window !== 'undefined') window.matchByMahalanobis = matchByMahalanobis;
+
+// ─── matchGroupByFarkas(groupKey, userFarkas, presets) -> meme shape que matchGroupBySignature ──
+// Construit le vecteur user pour le groupe, recupere les vecteurs preset
+// (preset.farkas_features[groupKey]), applique poids Fisher (loaded ou hint),
+// distance Mahalanobis, retourne le top + escapes via _computeZoneDistanceForPreset
+// (marge stricte 1/3 = 3x meilleur ailleurs).
+function matchGroupByFarkas(groupKey, userFarkas, presets) {
+  const def = window._farkasFeatures;
+  if (!def || !def.groups || !def.groups[groupKey]) return null;
+  if (!userFarkas || !userFarkas[groupKey]) return null;
+  if (!Array.isArray(presets) || presets.length === 0) return null;
+  const groupDef = def.groups[groupKey];
+  const featNames = Object.keys(groupDef.features || {});
+  if (featNames.length === 0) return null;
+
+  // Vecteur user complet (NaN/null -> abandon)
+  const userVec = [];
+  for (const fn of featNames) {
+    const v = userFarkas[groupKey][fn];
+    if (!Number.isFinite(v)) return null;
+    userVec.push(v);
+  }
+
+  // Poids Fisher : par defaut depuis weight_hint, override depuis
+  // zone_weights.farkas_feature_weights[groupKey] si dispo.
+  const W = window._zoneWeights;
+  const fwRoot = W && W.farkas_feature_weights;
+  const fwEntry = fwRoot && fwRoot[groupKey];
+  const weights = featNames.map((fn, i) => {
+    if (fwEntry && Array.isArray(fwEntry.features) && Array.isArray(fwEntry.weights)) {
+      const idx = fwEntry.features.indexOf(fn);
+      if (idx >= 0 && Number.isFinite(fwEntry.weights[idx])) return fwEntry.weights[idx];
+    }
+    const hint = groupDef.features[fn] && groupDef.features[fn].weight_hint;
+    return Number.isFinite(hint) ? hint : 1.0;
+  });
+
+  // Vecteurs preset complets
+  const presetVecs = [];
+  for (const p of presets) {
+    const pf = p && p.farkas_features && p.farkas_features[groupKey];
+    if (!pf) continue;
+    const vec = [];
+    let ok = true;
+    for (const fn of featNames) {
+      const v = pf[fn];
+      if (!Number.isFinite(v)) { ok = false; break; }
+      vec.push(v);
+    }
+    if (!ok) continue;
+    presetVecs.push({ preset: p, vec });
+  }
+  if (presetVecs.length < 10) return null; // fail-soft
+
+  const matches = matchByMahalanobis(userVec, presetVecs.map(p => p.vec), weights);
+  if (!matches.length) return null;
+  const best = matches[0];
+  const bestPreset = presetVecs[best.idx].preset;
+
+  // Escape rule : marge 3x sur les sous-onglets du groupe (si presents dans zone_groups).
+  const MARGIN_FACTOR = 1 / 3;
+  const groupsRoot = window._zoneGroups && window._zoneGroups.groups;
+  const gDef = groupsRoot && groupsRoot[groupKey];
+  const liveSubtabs = (gDef && Array.isArray(gDef.subtabs))
+    ? gDef.subtabs.filter(z => !_isBlindZone(z)) : [];
+  const userAttrs = window.lastUserAttrs || null;
+  const escaped = new Set();
+  const perZone = {};
+  if (userAttrs && liveSubtabs.length) {
+    for (const zKey of liveSubtabs) {
+      const dGroup = _computeZoneDistanceForPreset(userAttrs, zKey, bestPreset);
+      let bestInd = null, bestIndDist = Infinity;
+      for (const p of presets) {
+        const d = _computeZoneDistanceForPreset(userAttrs, zKey, p);
+        if (d === null) continue;
+        if (d < bestIndDist) { bestIndDist = d; bestInd = p; }
+      }
+      if (dGroup === null) {
+        escaped.add(zKey);
+        perZone[zKey] = {
+          group_preset_distance: null,
+          best_individual_preset_id: bestInd ? bestInd.preset_id : null,
+          best_individual_distance: bestInd ? bestIndDist : null,
+          escaped: true,
+          reason: 'group_preset_missing_zone',
+        };
+        continue;
+      }
+      const escapes = bestInd
+        && bestInd.preset_id !== bestPreset.preset_id
+        && bestIndDist < MARGIN_FACTOR * dGroup;
+      if (escapes) escaped.add(zKey);
+      perZone[zKey] = {
+        group_preset_distance: dGroup,
+        best_individual_preset_id: bestInd ? bestInd.preset_id : null,
+        best_individual_distance: bestInd ? bestIndDist : null,
+        escaped: !!escapes,
+      };
+    }
+  }
+
+  return {
+    group: groupKey,
+    preset_id: bestPreset.preset_id,
+    preset: bestPreset,
+    distance: best.distance,
+    n_used: presetVecs.length,
+    n_features_used: featNames.length,
+    escaped_subtabs: escaped,
+    per_zone: perZone,
+    feature_names: featNames,
+    feature_values_user: userVec,
+    weights_applied: weights,
+    method: 'mahalanobis',
+    source: 'farkas',
+    top3: matches.slice(0, 3).map(m => ({ id: presetVecs[m.idx].preset.preset_id, d: m.distance })),
+  };
+}
+if (typeof window !== 'undefined') window.matchGroupByFarkas = matchGroupByFarkas;

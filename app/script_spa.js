@@ -1166,6 +1166,51 @@ function renderZoneSliders(zk){
     return i === -1 ? 999 : i;
   };
 
+  // Phase 4.1 — Construit, à la volée, l'index slider→zoneKey à partir des
+  // définitions chargées en mémoire. Permet d'afficher un badge de confiance
+  // par sous-onglet (FIABLE / CORRECT / APPROX) si _meta.zone_matches est
+  // alimenté. Indépendant du rendu existant (rétro-compat totale).
+  const _zdef = (typeof window !== 'undefined') ? window._zoneDefinitions : null;
+  const _sliderToZones = (() => {
+    const m = new Map();
+    if (!_zdef || !_zdef.zones) return m;
+    for (const zk in _zdef.zones) {
+      const sl = _zdef.zones[zk] && _zdef.zones[zk].sliders;
+      if (!Array.isArray(sl)) continue;
+      for (const s of sl) {
+        if (!m.has(s)) m.set(s, []);
+        m.get(s).push(zk);
+      }
+    }
+    return m;
+  })();
+  const _zoneMatches = (S.sliders && S.sliders._meta && S.sliders._meta.zone_matches) || {};
+  // Phase 4.1.3 — badge GROUPE (violet) : zone matchee au niveau du groupe
+  // anatomique, recette coherente sur la region (un seul preset partage par
+  // plusieurs sous-onglets). Distinct des badges FIABLE/CORRECT/APPROX qui
+  // s'appliquent aux matches par zone individuelle.
+  const _confColor = c => c === 'FIABLE' ? '#00ff88'
+                       : c === 'CORRECT' ? '#ff9500'
+                       : c === 'APPROX'  ? '#ff5577'
+                       : c === 'GROUPE'  ? '#a78bfa' : '#6b7099';
+  const _confLabel = c => c === 'APPROX' ? 'APPROX.' : (c || '');
+  function _renderSubtabBadges(bucketEntries) {
+    const seen = new Set();
+    const out = [];
+    for (const [key] of bucketEntries) {
+      const zones = _sliderToZones.get(key) || [];
+      for (const zk of zones) {
+        if (seen.has(zk)) continue;
+        seen.add(zk);
+        const zm = _zoneMatches[zk];
+        if (!zm || !zm.confidence) continue;
+        const col = _confColor(zm.confidence);
+        out.push(`<span title="${zk}" style="font-size:9px;padding:2px 7px;border-radius:9px;background:${col}22;color:${col};letter-spacing:0.06em;font-weight:700;margin-left:6px;">${_confLabel(zm.confidence)}</span>`);
+      }
+    }
+    return out.join('');
+  }
+
   function renderGroup(entries, familyKey, color, fam) {
     if(!entries.length) return '';
     const order = SLIDER_SUBTAB.map(s => s[1]); // ordre de référence des labels
@@ -1204,7 +1249,8 @@ function renderZoneSliders(zk){
     let html = `<div class="slider-section-lbl" style="color:${color};">${familyKey}</div>`;
     noSub.forEach(e => { html += renderRow(e); });
     sortedLabels.forEach(label => {
-      html += `<div class="slider-subgroup-lbl">${esc(label)}</div>`;
+      const badges = _renderSubtabBadges(buckets.get(label));
+      html += `<div class="slider-subgroup-lbl">${esc(label)}${badges}</div>`;
       buckets.get(label).forEach(e => { html += renderRow(e); });
     });
     return html;

@@ -1,0 +1,126 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-06-10",
+    "notes": "Phase 4.1.3 — groupes anatomiques pour Mode A niveau 3. Marge stricte (facteur 2x) requise pour qu'un sous-onglet quitte le preset du groupe. Les zoneKey squelette utilisent les clés canoniques (long format) telles que présentes dans zone_definitions.json."
+  },
+  "groups": {
+    "levre_superieure": {
+      "subtabs": [
+        "bouche__bouche",
+        "bouche__exterieur_de_la_bouche_partie_sup",
+        "chair:bouche__epaisseur_de_la_levre_superieure",
+        "chair:bouche__levre_superieure_centre_superieur",
+        "chair:bouche__levre_superieure_centre_inferieur",
+        "chair:bouche__levre_superieure_cotes_superieurs",
+        "chair:bouche__levre_superieure_cotes_inferieurs",
+        "chair:bouche__levre_superieure_coins_superieurs",
+        "chair:bouche__philtrum",
+        "graisse:bouche__levre_superieure"
+      ]
+    },
+    "levre_inferieure": {
+      "subtabs": [
+        "chair:bouche__epaisseur_de_la_levre_inferieure",
+        "chair:bouche__levre_inferieure_partie_sup_centrale",
+        "chair:bouche__levre_inferieure_partie_inf_centrale",
+        "chair:bouche__levre_inferieure_cotes_superieurs",
+        "chair:bouche__levre_inferieure_cotes_inferieurs",
+        "chair:bouche__levre_inferieure_coins_inferieurs",
+        "chair:bouche__espacement_entre_les_levres_centre",
+        "chair:bouche__espacement_entre_les_levres_cotes",
+        "chair:bouche__commissures_des_levres",
+        "chair:bouche__plis_du_coin_de_la_bouche",
+        "graisse:bouche__levre_inferieure",
+        "graisse:bouche__cotes_de_la_bouche"
+      ]
+    },
+    "nez": {
+      "subtabs": [
+        "nez__nez",
+        "nez__arete_du_nez_cotes",
+        "nez__arete_du_nez_partie_centrale",
+        "nez__arete_du_nez_partie_superieure",
+        "chair:nez__pointe_du_nez_partie_superieure",
+        "chair:nez__pointe_du_nez_partie_sous_jacente",
+        "chair:nez__pointe_du_nez_partie_inferieure",
+        "graisse:nez__nez"
+      ]
+    },
+    "narines": {
+      "subtabs": [
+        "chair:nez__narine_partie_superieure",
+        "chair:nez__narine_partie_inferieure",
+        "chair:nez__narine_partie_superieure_centrale",
+        "chair:nez__narine_partie_superieure_exterieure",
+        "chair:nez__exterieur_de_la_narine_partie_ext",
+        "chair:nez__exterieur_de_la_narine_partie_centrale"
+      ]
+    },
+    "yeux": {
+      "subtabs": [
+        "yeux__yeux",
+        "yeux__orbites",
+        "chair:yeux__paupiere_superieure_partie_centrale",
+        "chair:yeux__paupiere_superieure_partie_ext",
+        "chair:yeux__paupiere_superieure_partie_int",
+        "chair:yeux__paupiere_inferieure_partie_centrale",
+        "chair:yeux__paupiere_inferieure_partie_exterieure",
+        "chair:yeux__paupiere_inferieure_partie_interieure",
+        "chair:yeux__pli_des_paupieres_partie_centrale",
+        "chair:yeux__pli_des_paupieres_partie_exterieure",
+        "chair:yeux__pli_des_paupieres_partie_interieure",
+        "chair:yeux__exterieur_du_coin_de_l_il",
+        "chair:yeux__interieur_du_coin_de_l_il",
+        "graisse:yeux__paupiere_superieure",
+        "graisse:yeux__paupiere_inferieure",
+        "graisse:yeux__cernes_partie_inferieure"
+      ]
+    },
+    "front": {
+      "subtabs": [
+        "front__front_partie_superieure",
+        "front__front_partie_inferieure",
+        "sourcils__sourcils",
+        "sourcils__sourcils_partie_centrale",
+        "sourcils__sourcils_partie_superieure_exterieure",
+        "chair:sourcils__sourcils_partie_centrale",
+        "chair:sourcils__espace_entre_les_sourcils",
+        "graisse:front__front_centre",
+        "graisse:front__front_cotes"
+      ]
+    },
+    "machoire_menton": {
+      "subtabs": [
+        "machoire__machoire",
+        "machoire__maxillaire",
+        "machoire__mandibule",
+        "menton__menton",
+        "menton__menton_partie_superieure",
+        "chair:machoire__machoire",
+        "chair:menton__fossette_mentonniere",
+        "chair:menton__menton_cotes",
+        "graisse:machoire__machoire",
+        "graisse:menton__menton",
+        "graisse:joues__bajoue"
+      ]
+    },
+    "joues": {
+      "subtabs": [
+        "joues__joues",
+        "chair:joues__joues",
+        "chair:joues__joues_partie_externe_superieure",
+        "chair:joues__joues_partie_externe_inferieure",
+        "chair:joues__joues_partie_interne_superieure",
+        "chair:joues__joues_partie_interne_inferieure",
+        "chair:joues__yeux_partie_interne_superieure",
+        "chair:tete__tempes",
+        "graisse:joues__joues_partie_superieure",
+        "graisse:joues__joues_partie_inferieure",
+        "graisse:joues__joues_partie_interieure_superieure",
+        "graisse:joues__joues_partie_interieure_inferieure",
+        "graisse:joues__tempes"
+      ]
+    }
+  }
+}

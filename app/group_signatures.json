@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "generated": "2026-06-10",
+    "phase": "4.2",
+    "notes": "Contours canoniques MediaPipe Face Mesh (478 landmarks) pour signature globale de partie anatomique. Signatures calculees sur points roll-alignes (computeRollAlignedPoints, Phase 4.1), normalisees par faceW/faceH. Les groupes signature_disabled retombent sur l'agregation par zones 4.1.3 (matching individuel + selectPresetForGroup).",
+    "feature_set_documentation": {
+      "lips": [
+        "aire = shoelace(outer_contour) / (faceW * faceH)",
+        "perimetre = perimetre(outer) / faceW",
+        "compacite = 4*pi*aire_brute / perimetre_brut^2  (sans dimension, 1 = cercle)",
+        "epaisseur_moy_perp = mean_i(dist_perp(outer_i, inner_segments)) / faceH (epaisseur vermillon)",
+        "hauteur_max_perp = max_i(dist_perp(outer_i, inner_segments)) / faceH",
+        "largeur_axe = etendue PC1 sur outer+inner / faceW",
+        "asymetrie_gd = (mean_x_outer - bbox_center_x) / faceW",
+        "centroide_y = (mean_y_outer - cyFace) / faceH"
+      ],
+      "eyes": [
+        "aire, perimetre, compacite (idem lips, sur outer seul)",
+        "largeur_axe = etendue PC1 / faceW",
+        "hauteur_axe = etendue PC2 / faceH",
+        "excentricite = sqrt(1 - lambda_min / lambda_max) sur covariance 2x2",
+        "asymetrie_gd (intra-oeil)",
+        "centroide_y"
+      ],
+      "eyes_combined": [
+        "8 features par oeil moyennees G+D, sauf asymetrie_gd_inter = (aire_D - aire_G) / (aire_D + aire_G)",
+        "9e feature : espacement = dist(centroide_G, centroide_D) / faceW"
+      ]
+    }
+  },
+  "groups": {
+    "levre_inferieure": {
+      "kind": "closed_outer_inner",
+      "landmarks_outer": [61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291],
+      "landmarks_inner": [78, 95, 88, 178, 87, 14, 317, 402, 318, 324, 308],
+      "comment": "Vermillon levre inferieure - FACEMESH_LIPS sous-segment. Outer L->bas->R, inner L->bas->R. Le code construit un polygone ferme (outer + inner reverse) pour aire/perimetre/compacite et compute l'epaisseur perpendiculaire outer<->inner."
+    },
+    "levre_superieure": {
+      "kind": "closed_outer_inner",
+      "landmarks_outer": [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291],
+      "landmarks_inner": [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308],
+      "comment": "Vermillon levre superieure - FACEMESH_LIPS sous-segment. Outer L->haut->R, inner L->haut->R."
+    },
+    "yeux": {
+      "kind": "closed_dual_outer",
+      "landmarks_outer_left": [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246],
+      "landmarks_outer_right": [263, 249, 390, 373, 374, 380, 381, 382, 362, 398, 384, 385, 386, 387, 388, 466],
+      "comment": "FACEMESH_LEFT_EYE + FACEMESH_RIGHT_EYE. 16 points par oeil. Signature 9 features : 8 features par oeil moyennees G+D + asymetrie_gd_inter + espacement."
+    },
+    "narines": {
+      "kind": "patch_disabled",
+      "signature_disabled": true,
+      "reason": "Contour ferme MediaPipe non standardise. FACEMESH_NOSE couvre l'arete mais pas les ailes/narines de maniere robuste sans manipulation manuelle. Fallback 4.1.3 (agregation des sous-onglets chair:nez__narine_*).",
+      "landmarks_hint": [98, 327, 2, 75, 240, 305, 460]
+    },
+    "nez": {
+      "kind": "patch_disabled",
+      "signature_disabled": true,
+      "reason": "Contour ferme MediaPipe ambigu pour le nez global (arete + ailes + pointe). Plusieurs landmarks de FACEMESH_NOSE sont sur l'axe central, pas un contour. Fallback 4.1.3 sur les zones squelette (nez__nez, arete_*) + sous-onglets chair:nez__pointe_*.",
+      "landmarks_hint": [168, 6, 197, 195, 5, 4, 1, 19, 2]
+    },
+    "joues": {
+      "kind": "patch_disabled",
+      "signature_disabled": true,
+      "reason": "Aucun contour ferme MediaPipe pour la surface zygomatique. Open patch -> signature non comparable entre presets. Fallback 4.1.3 (agregation joues_partie_*).",
+      "landmarks_hint_left": [123, 117, 118, 119, 120, 100],
+      "landmarks_hint_right": [352, 346, 347, 348, 349, 329]
+    },
+    "front": {
+      "kind": "arc_disabled",
+      "signature_disabled": true,
+      "reason": "Arc ouvert (sous-segment haut de FACE_OVAL). Pas de surface fermee mesurable. Fallback 4.1.3 (front_partie_superieure/inferieure + sourcils_*).",
+      "landmarks_hint": [10, 338, 297, 332, 284, 251, 67, 109, 21, 54, 103]
+    },
+    "machoire_menton": {
+      "kind": "arc_disabled",
+      "signature_disabled": true,
+      "reason": "Arc ouvert mandibulaire (sous-segment bas de FACE_OVAL). Pas de surface fermee. Fallback 4.1.3 (machoire/maxillaire/mandibule/menton_*).",
+      "landmarks_hint": [172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397]
+    }
+  }
+}

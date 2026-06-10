@@ -1,12 +1,13 @@
 {
   "_meta": {
-    "version": "4.3.0",
+    "version": "4.4.1",
     "n_zones": 22,
     "created": "2026-06-09",
     "notes": "v4.1.0 — Ajoute 20 sous-onglets squelette mappés via landmark_mapper.html (Alex, 8 juin). Format à 2 régimes :\n  • philtrum + nez (v4.0.x) gardent leurs ratios spécifiques (largeur_sup/milieu/inf/hauteur/profondeur_z et width/height/projection/narine/compacite_narines). Utilisés pour le matching GLOBAL computeGlobalDistance (présent dans `attributes.nez`).\n  • Les 20 nouvelles zones portent `landmarks_selected` + 6 ratios géométriques GÉNÉRIQUES (largeur_max, hauteur_max, aire_bbox, aspect_ratio, centroide_x, dispersion) calculés par `computeZoneGeometry()` dans presetMatch.js. Utilisés UNIQUEMENT pour le matching PAR ZONE (Mode A pur via matchZoneByStats).\n  • 'nez > nez' (nouveau, clé `nez__nez`) coexiste avec la macro 'nez' (ancienne) — usages séparés, pas de conflit.\n  • Typos mapper corrigées : 'bouuche > bouche' → 'bouche__bouche', 'machoire > maxilaire' → 'machoire__maxillaire'.\n  • Clés canoniques : lowercase + accents strippés + ' > ' → '__', non-alnum → '_'. Même règle réplicable côté audit_labels_303.md (groupe canonique '__' zone canonique).",
     "sliders_attached": "2026-06-09 : 20 zones squelette recoivent leurs slider_ids depuis audit_labels_303 (zone_sliders_squelette.json, vu 20/20, 88 sliders).",
     "chair_attached": "2026-06-09 : 49 zones chair (prefix 'chair:') depuis zone_landmark_mappings (8).json + zone_sliders_chair.json (cleaned). 21 typos raw->clean resolues (levres/levre, paupieres/paupiere, fossete/fossette, oeil/il, et remap PLI EXT/INT -> PAUPIERE SUPERIEURE).",
-    "graisse_attached": "2026-06-09 : 17 zones graisse (prefix 'graisse:') depuis zone_landmark_mappings (10).json + zone_sliders_graisse.json (cleaned). 4 typos raw->clean resolues (levres/levre x2, joue/joues, cerne/cernes)."
+    "graisse_attached": "2026-06-09 : 17 zones graisse (prefix 'graisse:') depuis zone_landmark_mappings (10).json + zone_sliders_graisse.json (cleaned). 4 typos raw->clean resolues (levres/levre x2, joue/joues, cerne/cernes).",
+    "phase4_1_notes": "v4.4.1 — Phase 4.1.1 (2026-06-10). Famille bande v2.1 : epaisseur_perp / hauteur_perp (projections sur l'axe perpendiculaire PCA), taille_centroide RETIREE (doublon prouve 0.94 avec largeur_axe sur les 41 presets, 10 juin). epaisseur_moy (shoelace) abandonnee (rho=-0.07 avec DNA epaisseur_levre_inf_RE : degeneree sur bandes fines en raison de l'auto-intersection du polygone). Autres familles inchangees. Macro philtrum / nez conservent leurs ratios legacy."
   },
   "zones": {
     "philtrum": {
@@ -79,12 +80,11 @@
         460
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "nez_reduire_elargir",
@@ -92,7 +92,8 @@
         "nez_arriere_avant",
         "nez_arrondi_angulaire",
         "nez_deplacement_gd"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "nez__arete_du_nez_cotes": {
       "family": "squelette",
@@ -125,19 +126,18 @@
         465
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "arete_nez_cotes_reduire_elargir",
         "arete_nez_cotes_bas_haut",
         "arete_nez_cotes_arriere_avant",
         "arete_nez_cotes_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "nez__arete_du_nez_partie_centrale": {
       "family": "squelette",
@@ -157,12 +157,10 @@
         419
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "arete_nez_centrale_reduire_elargir",
@@ -170,7 +168,8 @@
         "arete_nez_centrale_arriere_avant",
         "arete_nez_centrale_arrondi_angulaire",
         "arete_nez_centrale_deplacement_gd"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "nez__arete_du_nez_partie_superieure": {
       "family": "squelette",
@@ -186,12 +185,10 @@
         417
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "arete_nez_sup_reduire_elargir",
@@ -199,7 +196,8 @@
         "arete_nez_sup_arriere_avant",
         "arete_nez_sup_arrondi_angulaire",
         "arete_nez_sup_deplacement_gd"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "yeux__yeux": {
       "family": "squelette",
@@ -246,19 +244,19 @@
         477
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "yeux_reduire_elargir",
         "yeux_bas_haut",
         "yeux_arriere_avant",
         "yeux_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "yeux__orbites": {
       "family": "squelette",
@@ -310,19 +308,19 @@
         467
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "orbites_reduire_elargir",
         "orbites_bas_haut",
         "orbites_arriere_avant",
         "orbites_plus_grande_petite"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "joues__joues": {
       "family": "squelette",
@@ -364,19 +362,18 @@
         454
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_reduire_elargir",
         "joues_bas_haut",
         "joues_arriere_avant",
         "joues_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "front__front_partie_inferieure": {
       "family": "squelette",
@@ -392,19 +389,18 @@
         338
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "front_inf_reduire_elargir",
         "front_inf_bas_haut",
         "front_inf_arriere_avant",
         "front_inf_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "sourcils__sourcils_partie_superieure_exterieure": {
       "family": "squelette",
@@ -432,19 +428,18 @@
         383
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "sourcils_ext_sup_reduire_elargir",
         "sourcils_ext_sup_bas_haut",
         "sourcils_ext_sup_arriere_avant",
         "sourcils_ext_sup_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "front__front_partie_superieure": {
       "family": "squelette",
@@ -465,12 +460,10 @@
         338
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "front_sup_reduire_elargir",
@@ -478,7 +471,8 @@
         "front_sup_neutre_haut",
         "front_sup_arrondi_angulaire",
         "front_sup_deplacement_gd"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "menton__menton": {
       "family": "squelette",
@@ -506,12 +500,10 @@
         431
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "largeur_base",
+        "hauteur",
+        "pointu",
+        "centroide_y"
       ],
       "sliders": [
         "menton_reduire_elargir",
@@ -519,7 +511,8 @@
         "menton_arriere_avant",
         "menton_arrondi_angulaire",
         "menton_deplacement_gd"
-      ]
+      ],
+      "geom_family": "pointe"
     },
     "bouche__exterieur_de_la_bouche_partie_sup": {
       "family": "squelette",
@@ -542,19 +535,19 @@
         436
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "ext_bouche_sup_reduire_elargir",
         "ext_bouche_sup_bas_haut",
         "ext_bouche_sup_arriere_avant",
         "ext_bouche_sup_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "sourcils__sourcils": {
       "family": "squelette",
@@ -591,19 +584,18 @@
         383
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "sourcils_reduire_elargir",
         "sourcils_bas_haut",
         "sourcils_arriere_avant",
         "sourcils_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "sourcils__sourcils_partie_centrale": {
       "family": "squelette",
@@ -621,12 +613,10 @@
         337
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "sourcils_central_reduire_elargir",
@@ -634,7 +624,8 @@
         "sourcils_central_arriere_avant",
         "sourcils_central_arrondi_angulaire",
         "sourcils_central_deplacement_gd"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "machoire__mandibule": {
       "family": "squelette",
@@ -652,19 +643,18 @@
         400
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "mandibule_reduire_elargir",
         "mandibule_bas_haut",
         "mandibule_arriere_avant",
         "mandibule_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "bouche__bouche": {
       "family": "squelette",
@@ -695,12 +685,11 @@
         424
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "bouche_reduire_elargir",
@@ -708,7 +697,8 @@
         "bouche_arriere_avant",
         "bouche_arrondi_angulaire",
         "bouche_deplacement_gd"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "machoire__maxillaire": {
       "family": "squelette",
@@ -728,19 +718,18 @@
         434
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "maxillaire_reduire_elargir",
         "maxillaire_bas_haut",
         "maxillaire_arriere_avant",
         "maxillaire_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "machoire__machoire": {
       "family": "squelette",
@@ -779,19 +768,18 @@
         435
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "machoire_reduire_elargir",
         "machoire_bas_haut",
         "machoire_arriere_avant",
         "machoire_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "menton__menton_partie_superieure": {
       "family": "squelette",
@@ -810,12 +798,10 @@
         428
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "largeur_base",
+        "hauteur",
+        "pointu",
+        "centroide_y"
       ],
       "sliders": [
         "menton_sup_reduire_elargir",
@@ -823,7 +809,8 @@
         "menton_sup_arriere_avant",
         "menton_sup_arrondi_angulaire",
         "menton_sup_deplacement_gd"
-      ]
+      ],
+      "geom_family": "pointe"
     },
     "tete__tempes": {
       "family": "squelette",
@@ -847,19 +834,18 @@
         389
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "tempes_reduire_elargir",
         "tempes_bas_haut",
         "tempes_arriere_avant",
         "tempes_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:sourcils__sourcils_partie_centrale": {
       "family": "chair",
@@ -878,17 +864,16 @@
         337
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "sourcils_central_bas_haut",
         "sourcils_central_moins_plus"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "chair:sourcils__espace_entre_les_sourcils": {
       "family": "chair",
@@ -904,17 +889,16 @@
         337
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "espace_sourcils_bas_haut",
         "espace_sourcils_moins_plus"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__pli_des_paupieres_partie_centrale": {
       "family": "chair",
@@ -936,19 +920,18 @@
         444
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "pli_paupieres_central_reduire_elargir",
         "pli_paupieres_central_bas_haut",
         "pli_paupieres_central_arriere_avant",
         "pli_paupieres_central_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__pli_des_paupieres_partie_exterieure": {
       "family": "chair",
@@ -968,19 +951,18 @@
         467
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "pli_paupieres_ext_reduire_elargir",
         "pli_paupieres_ext_bas_haut",
         "pli_paupieres_ext_arriere_avant",
         "pli_paupieres_ext_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__pli_des_paupieres_partie_interieure": {
       "family": "chair",
@@ -998,19 +980,18 @@
         441
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "pli_paupieres_int_reduire_elargir",
         "pli_paupieres_int_bas_haut",
         "pli_paupieres_int_arriere_avant",
         "pli_paupieres_int_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__paupiere_inferieure_partie_centrale": {
       "family": "chair",
@@ -1030,18 +1011,17 @@
         477
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_inf_centrale_reduire_elargir",
         "paupiere_inf_centrale_bas_haut",
         "paupiere_inf_centrale_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__paupiere_inferieure_partie_exterieure": {
       "family": "chair",
@@ -1059,18 +1039,17 @@
         390
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_inf_ext_reduire_elargir",
         "paupiere_inf_ext_bas_haut",
         "paupiere_inf_ext_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__paupiere_inferieure_partie_interieure": {
       "family": "chair",
@@ -1086,18 +1065,17 @@
         381
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_inf_int_reduire_elargir",
         "paupiere_inf_int_bas_haut",
         "paupiere_inf_int_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__paupiere_superieure_partie_centrale": {
       "family": "chair",
@@ -1119,19 +1097,18 @@
         475
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_sup_centrale_reduire_elargir",
         "paupiere_sup_centrale_bas_haut",
         "paupiere_sup_centrale_neutre_avant",
         "paupiere_sup_centrale_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__paupiere_superieure_partie_ext": {
       "family": "chair",
@@ -1153,18 +1130,17 @@
         466
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_sup_ext_reduire_elargir",
         "paupiere_sup_ext_bas_haut",
         "paupiere_sup_ext_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__paupiere_superieure_partie_int": {
       "family": "chair",
@@ -1182,18 +1158,17 @@
         385
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_sup_int_reduire_elargir",
         "paupiere_sup_int_bas_haut",
         "paupiere_sup_int_plus_petite"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:yeux__exterieur_du_coin_de_l_il": {
       "family": "chair",
@@ -1212,18 +1187,17 @@
         467
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "coin_oeil_ext_reduire_elargir",
         "coin_oeil_ext_bas_haut",
         "coin_oeil_ext_plus_petite"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:yeux__interieur_du_coin_de_l_il": {
       "family": "chair",
@@ -1245,18 +1219,17 @@
         398
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "coin_oeil_int_reduire_elargir",
         "coin_oeil_int_bas_haut",
         "coin_oeil_int_plus_petite"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:joues__joues": {
       "family": "chair",
@@ -1278,17 +1251,16 @@
         433
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_bas_haut",
         "joues_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:joues__yeux_partie_interne_superieure": {
       "family": "chair",
@@ -1316,17 +1288,16 @@
         453
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_yeux_int_sup_bas_haut",
         "joues_yeux_int_sup_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:joues__joues_partie_externe_superieure": {
       "family": "chair",
@@ -1342,16 +1313,15 @@
         347
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_ext_sup_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:joues__joues_partie_interne_superieure": {
       "family": "chair",
@@ -1376,16 +1346,15 @@
         436
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_int_sup_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:joues__joues_partie_externe_inferieure": {
       "family": "chair",
@@ -1407,16 +1376,15 @@
         434
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_ext_inf_neutre_moins"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:joues__joues_partie_interne_inferieure": {
       "family": "chair",
@@ -1434,16 +1402,15 @@
         436
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_int_inf_neutre_moins"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:bouche__commissures_des_levres": {
       "family": "chair",
@@ -1467,19 +1434,18 @@
         409
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "commissures_levres_reduire_elargir",
         "commissures_levres_bas_haut",
         "commissures_levres_arriere_avant",
         "commissures_levres_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "chair:bouche__espacement_entre_les_levres_centre": {
       "family": "chair",
@@ -1495,19 +1461,18 @@
         317
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "espacement_levres_centre_reduire_elargir",
         "espacement_levres_centre_bas_haut",
         "espacement_levres_centre_arriere_avant",
         "espacement_levres_centre_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__espacement_entre_les_levres_cotes": {
       "family": "chair",
@@ -1530,19 +1495,18 @@
         402
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "espacement_levres_cotes_reduire_elargir",
         "espacement_levres_cotes_bas_haut",
         "espacement_levres_cotes_arriere_avant",
         "espacement_levres_cotes_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_superieure_centre_superieur": {
       "family": "chair",
@@ -1555,12 +1519,10 @@
         267
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_sup_centre_sup_reduire_elargir",
@@ -1568,7 +1530,8 @@
         "levre_sup_centre_sup_arriere_avant",
         "levre_sup_centre_sup_arrondi_angulaire",
         "levre_sup_centre_sup_deplacement_gd"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_superieure_cotes_superieurs": {
       "family": "chair",
@@ -1586,19 +1549,18 @@
         303
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_sup_cotes_sup_reduire_elargir",
         "levre_sup_cotes_sup_bas_haut",
         "levre_sup_cotes_sup_arriere_avant",
         "levre_sup_cotes_sup_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_superieure_coins_superieurs": {
       "family": "chair",
@@ -1620,19 +1582,18 @@
         409
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_sup_coins_sup_reduire_elargir",
         "levre_sup_coins_sup_bas_haut",
         "levre_sup_coins_sup_arriere_avant",
         "levre_sup_coins_sup_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_superieure_centre_inferieur": {
       "family": "chair",
@@ -1648,12 +1609,10 @@
         302
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_sup_centre_inf_reduire_elargir",
@@ -1661,7 +1620,8 @@
         "levre_sup_centre_inf_arriere_avant",
         "levre_sup_centre_inf_arrondi_angulaire",
         "levre_sup_centre_inf_deplacement_gd"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_superieure_cotes_inferieurs": {
       "family": "chair",
@@ -1693,19 +1653,18 @@
         415
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_sup_cotes_inf_reduire_elargir",
         "levre_sup_cotes_inf_bas_haut",
         "levre_sup_cotes_inf_arriere_avant",
         "levre_sup_cotes_inf_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__epaisseur_de_la_levre_superieure": {
       "family": "chair",
@@ -1727,19 +1686,18 @@
         393
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "epaisseur_levre_sup_reduire_elargir",
         "epaisseur_levre_sup_bas_haut",
         "epaisseur_levre_sup_arriere_avant",
         "epaisseur_levre_sup_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__epaisseur_de_la_levre_inferieure": {
       "family": "chair",
@@ -1757,19 +1715,18 @@
         405
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "epaisseur_levre_inf_reduire_elargir",
         "epaisseur_levre_inf_bas_haut",
         "epaisseur_levre_inf_arriere_avant",
         "epaisseur_levre_inf_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_inferieure_partie_sup_centrale": {
       "family": "chair",
@@ -1785,12 +1742,10 @@
         316
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_inf_centre_sup_reduire_elargir",
@@ -1798,7 +1753,8 @@
         "levre_inf_centre_sup_arriere_avant",
         "levre_inf_centre_sup_arrondi_angulaire",
         "levre_inf_centre_sup_deplacement_gd"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_inferieure_cotes_superieurs": {
       "family": "chair",
@@ -1822,19 +1778,18 @@
         404
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_inf_cotes_sup_reduire_elargir",
         "levre_inf_cotes_sup_bas_haut",
         "levre_inf_cotes_sup_arriere_avant",
         "levre_inf_cotes_sup_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_inferieure_partie_inf_centrale": {
       "family": "chair",
@@ -1847,12 +1802,10 @@
         314
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_inf_centre_inf_reduire_elargir",
@@ -1860,7 +1813,8 @@
         "levre_inf_centre_inf_arriere_avant",
         "levre_inf_centre_inf_arrondi_angulaire",
         "levre_inf_centre_inf_deplacement_gd"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_inferieure_cotes_inferieurs": {
       "family": "chair",
@@ -1874,19 +1828,18 @@
         405
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_inf_cotes_inf_reduire_elargir",
         "levre_inf_cotes_inf_bas_haut",
         "levre_inf_cotes_inf_arriere_avant",
         "levre_inf_cotes_inf_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__levre_inferieure_coins_inferieurs": {
       "family": "chair",
@@ -1905,19 +1858,18 @@
         405
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "levre_inf_coins_inf_reduire_elargir",
         "levre_inf_coins_inf_bas_haut",
         "levre_inf_coins_inf_arriere_avant",
         "levre_inf_coins_inf_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:bouche__plis_du_coin_de_la_bouche": {
       "family": "chair",
@@ -1933,16 +1885,15 @@
         424
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "corde",
+        "sinuosite",
+        "sagitta",
+        "centroide_y"
       ],
       "sliders": [
         "plis_coin_bouche_neutre_moins"
-      ]
+      ],
+      "geom_family": "arc"
     },
     "chair:menton__fossette_mentonniere": {
       "family": "chair",
@@ -1957,17 +1908,16 @@
         396
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "fossette_mentonniere_bas_haut",
         "fossette_mentonniere_deplacement_gd"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:menton__menton_cotes": {
       "family": "chair",
@@ -1988,16 +1938,15 @@
         400
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "menton_cotes_neutre_moins"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:machoire__machoire": {
       "family": "chair",
@@ -2028,16 +1977,15 @@
         435
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "machoire_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:tete__tempes": {
       "family": "chair",
@@ -2057,16 +2005,15 @@
         301
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "tempes_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "chair:bouche__philtrum": {
       "family": "chair",
@@ -2080,12 +2027,10 @@
         393
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "philtrum_reduire_elargir",
@@ -2093,7 +2038,8 @@
         "philtrum_arriere_avant",
         "philtrum_arrondi_angulaire",
         "philtrum_deplacement_gd"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "chair:nez__pointe_du_nez_partie_inferieure": {
       "family": "chair",
@@ -2112,12 +2058,10 @@
         281
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "largeur_base",
+        "hauteur",
+        "pointu",
+        "centroide_y"
       ],
       "sliders": [
         "pointe_nez_inf_reduire_elargir",
@@ -2125,7 +2069,8 @@
         "pointe_nez_inf_arriere_avant",
         "pointe_nez_inf_arrondi_angulaire",
         "pointe_nez_inf_deplacement_gd"
-      ]
+      ],
+      "geom_family": "pointe"
     },
     "chair:nez__pointe_du_nez_partie_sous_jacente": {
       "family": "chair",
@@ -2145,12 +2090,10 @@
         462
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "largeur_base",
+        "hauteur",
+        "pointu",
+        "centroide_y"
       ],
       "sliders": [
         "pointe_nez_sous_jacente_reduire_elargir",
@@ -2158,7 +2101,8 @@
         "pointe_nez_sous_jacente_arriere_avant",
         "pointe_nez_sous_jacente_arrondi_angulaire",
         "pointe_nez_sous_jacente_deplacement_gd"
-      ]
+      ],
+      "geom_family": "pointe"
     },
     "chair:nez__pointe_du_nez_partie_superieure": {
       "family": "chair",
@@ -2176,12 +2120,10 @@
         456
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "largeur_base",
+        "hauteur",
+        "pointu",
+        "centroide_y"
       ],
       "sliders": [
         "pointe_nez_sup_reduire_elargir",
@@ -2189,7 +2131,8 @@
         "pointe_nez_sup_arriere_avant",
         "pointe_nez_sup_arrondi_angulaire",
         "pointe_nez_sup_deplacement_gd"
-      ]
+      ],
+      "geom_family": "pointe"
     },
     "chair:nez__narine_partie_inferieure": {
       "family": "chair",
@@ -2211,19 +2154,19 @@
         462
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "narine_inf_reduire_elargir",
         "narine_inf_bas_haut",
         "narine_inf_arriere_avant",
         "narine_inf_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "chair:nez__exterieur_de_la_narine_partie_ext": {
       "family": "chair",
@@ -2242,19 +2185,19 @@
         429
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "ext_narine_ext_reduire_elargir",
         "ext_narine_ext_bas_haut",
         "ext_narine_ext_arriere_avant",
         "ext_narine_ext_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "chair:nez__exterieur_de_la_narine_partie_centrale": {
       "family": "chair",
@@ -2268,19 +2211,19 @@
         456
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "ext_narine_centrale_reduire_elargir",
         "ext_narine_centrale_bas_haut",
         "ext_narine_centrale_arriere_avant",
         "ext_narine_centrale_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "chair:nez__narine_partie_superieure_centrale": {
       "family": "chair",
@@ -2298,19 +2241,19 @@
         459
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "narine_sup_centrale_reduire_elargir",
         "narine_sup_centrale_bas_haut",
         "narine_sup_centrale_arriere_avant",
         "narine_sup_centrale_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "chair:nez__narine_partie_superieure_exterieure": {
       "family": "chair",
@@ -2332,19 +2275,19 @@
         460
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "narine_sup_ext_reduire_elargir",
         "narine_sup_ext_bas_haut",
         "narine_sup_ext_arriere_avant",
         "narine_sup_ext_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "chair:nez__narine_partie_superieure": {
       "family": "chair",
@@ -2362,19 +2305,19 @@
         438
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "aire",
+        "perimetre",
+        "compacite",
+        "excentricite",
+        "centroide_y"
       ],
       "sliders": [
         "narine_sup_reduire_elargir",
         "narine_sup_bas_haut",
         "narine_sup_arriere_avant",
         "narine_sup_arrondi_angulaire"
-      ]
+      ],
+      "geom_family": "contour"
     },
     "graisse:machoire__machoire": {
       "family": "graisse",
@@ -2391,17 +2334,16 @@
         379
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "machoire_bas_haut",
         "machoire_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:menton__menton": {
       "family": "graisse",
@@ -2431,17 +2373,16 @@
         428
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "menton_bas_haut",
         "menton_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:bouche__levre_inferieure": {
       "family": "graisse",
@@ -2468,17 +2409,16 @@
         406
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "levres_inf_bas_haut",
         "levres_inf_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:bouche__levre_superieure": {
       "family": "graisse",
@@ -2500,17 +2440,16 @@
         423
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "levres_sup_bas_haut",
         "levres_sup_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:bouche__cotes_de_la_bouche": {
       "family": "graisse",
@@ -2540,17 +2479,16 @@
         436
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "cotes_bouche_bas_haut",
         "cotes_bouche_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:joues__tempes": {
       "family": "graisse",
@@ -2576,17 +2514,16 @@
         454
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "tempes_bas_haut",
         "tempes_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:joues__joues_partie_interieure_inferieure": {
       "family": "graisse",
@@ -2607,17 +2544,16 @@
         436
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_int_inf_bas_haut",
         "joues_int_inf_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:joues__joues_partie_interieure_superieure": {
       "family": "graisse",
@@ -2647,17 +2583,16 @@
         437
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_int_sup_bas_haut",
         "joues_int_sup_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:joues__joues_partie_inferieure": {
       "family": "graisse",
@@ -2684,17 +2619,16 @@
         435
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_inf_bas_haut",
         "joues_inf_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:joues__joues_partie_superieure": {
       "family": "graisse",
@@ -2718,17 +2652,16 @@
         411
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "joues_sup_bas_haut",
         "joues_sup_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:yeux__paupiere_inferieure": {
       "family": "graisse",
@@ -2757,17 +2690,16 @@
         451
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_inf_bas_haut",
         "paupiere_inf_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:yeux__paupiere_superieure": {
       "family": "graisse",
@@ -2802,17 +2734,16 @@
         445
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "paupiere_sup_bas_haut",
         "paupiere_sup_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:front__front_cotes": {
       "family": "graisse",
@@ -2838,17 +2769,16 @@
         338
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "front_cotes_bas_haut",
         "front_cotes_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:front__front_centre": {
       "family": "graisse",
@@ -2870,17 +2800,16 @@
         338
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "front_centre_bas_haut",
         "front_centre_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:yeux__cernes_partie_inferieure": {
       "family": "graisse",
@@ -2909,17 +2838,16 @@
         451
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "epaisseur_perp",
+        "hauteur_perp",
+        "largeur_axe",
+        "centroide_y"
       ],
       "sliders": [
         "cernes_inf_bas_haut",
         "cernes_inf_moins_plus"
-      ]
+      ],
+      "geom_family": "bande"
     },
     "graisse:nez__nez": {
       "family": "graisse",
@@ -2997,16 +2925,15 @@
         462
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "nez_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     },
     "graisse:joues__bajoue": {
       "family": "graisse",
@@ -3028,17 +2955,16 @@
         434
       ],
       "ratios": [
-        "largeur_max",
-        "hauteur_max",
-        "aire_bbox",
-        "aspect_ratio",
-        "centroide_x",
-        "dispersion"
+        "taille_centroide",
+        "lambda1",
+        "lambda2",
+        "centroide_y"
       ],
       "sliders": [
         "bajoue_bas_haut",
         "bajoue_moins_plus"
-      ]
+      ],
+      "geom_family": "patch"
     }
   }
 }

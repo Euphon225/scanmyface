@@ -1246,10 +1246,236 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
     if (userAttrs && Array.isArray(window.PRESETS_DB)) {
       const FAMILY_OBJ = { squelette: S, chair: C, graisse: G };
       const zoneDefs = (window._zoneDefinitions && window._zoneDefinitions.zones) || {};
+      // Phase 4.1 — routage cohérence-d'abord : les zones "aveugles"
+      // (signal insuffisant sur les ratios actuels, cf. audit_zone_validity.py)
+      // ne sont PAS matchées par zone ; elles héritent du preset global via la
+      // 2e passe DNA. On écrit quand même une méta avec confidence=APPROX +
+      // source=global_fallback pour piloter le badge UI.
+      const _validityZones = (window._zoneValidity && window._zoneValidity.zones) || null;
+      const _globalMorpho = bestPreset ? bestPreset.preset_id : null;
+      let _blindCount = 0;
+
+      // Helper local (defini en const pour eviter toute ambiguite de hoisting) :
+      // verifie si une zoneKey est marquee aveugle dans le snapshot zone_validity.
+      const _isBlindZoneScan = (zoneKey, validityZones) => {
+        if (!validityZones) return false;
+        const z = validityZones[zoneKey];
+        return !!(z && z.status === 'aveugle');
+      };
+
+      // ── Phase 4.2 : matching par GROUPE anatomique via SIGNATURE globale
+      // (fallback Phase 4.1.3 si signature_disabled OU preset.group_signatures
+      // absent du batch). Pour chaque groupe :
+      //   1) Si une signature est definissable (contour ferme valide), on
+      //      calcule la signature user et on cherche le preset le plus proche
+      //      au sens Fisher-pondere sur les features de signature. Marge
+      //      stricte = 3x pour les escapes.
+      //   2) Sinon, fallback selectPresetForGroup (4.1.3, agregation des
+      //      sous-onglets, marge 2x).
+      // Les sous-onglets restants prendront le DNA de p* au lieu de leur
+      // matching individuel -> recette coherente sur la region anatomique.
+      //
+      // window.lastUserAttrs est expose AVANT l'appel matchGroupBy* pour que la
+      // regle d'escape (par sous-onglet, distance Fisher zone par zone) puisse
+      // evaluer chaque sous-onglet sans recalculer.
+      window.lastUserAttrs = userAttrs;
+
+      // Phase 4.3 : features Farkas calculees une fois et reutilisees
+      // sur tous les groupes encore en aggregation (machoire_menton, joues,
+      // front, narines, nez) + visage_global diagnostique.
+      let userFarkas = null;
+      if (typeof window.computeFarkasFeatures === 'function' && window._farkasFeatures) {
+        try {
+          userFarkas = window.computeFarkasFeatures(landmarks);
+        } catch (e) {
+          console.warn('[Phase 4.3] computeFarkasFeatures fail:', e && e.message ? e.message : e);
+        }
+        if (userFarkas) meta.farkas_user = userFarkas;
+      }
+
+      const groupResults = {};      // groupKey -> { preset_id, preset, source, ... }
+      const subtabToGroup = {};     // zoneKey -> groupKey
+      const groupedSubtabs = new Set(); // zones gerees par leur groupe (non escaped)
+      const userGroupSignatures = {}; // groupKey -> signature object (debug)
+      const groupsRoot = window._zoneGroups && window._zoneGroups.groups;
+      const sigsRoot   = window._groupSignatures && window._groupSignatures.groups;
+      const farkRoot   = window._farkasFeatures  && window._farkasFeatures.groups;
+
+      if (groupsRoot) {
+        for (const gKey in groupsRoot) {
+          const gDef = groupsRoot[gKey];
+          if (!gDef || !Array.isArray(gDef.subtabs)) continue;
+          for (const z of gDef.subtabs) subtabToGroup[z] = gKey;
+
+          let gres = null;
+          let mode = null;
+
+          // 1) Tentative signature 4.2
+          const sigDef = sigsRoot ? sigsRoot[gKey] : null;
+          const sigEnabled = sigDef && sigDef.signature_disabled !== true;
+          if (sigEnabled && typeof window.matchGroupBySignature === 'function') {
+            try {
+              gres = window.matchGroupBySignature(gKey, landmarks, window.PRESETS_DB);
+            } catch (e) {
+              console.warn(`[Phase 4.2] signature ${gKey} fail:`, e && e.message ? e.message : e);
+            }
+            if (gres) {
+              mode = 'signature';
+              if (gres.signature_user) userGroupSignatures[gKey] = gres.signature_user;
+            }
+          }
+          // 2) Tentative Farkas 4.3 (Mahalanobis sur features morphometriques)
+          //    Fail-soft : null si farkas_features manquant ou preset pool < 10.
+          if (!gres && userFarkas && farkRoot && farkRoot[gKey]
+              && typeof window.matchGroupByFarkas === 'function') {
+            try {
+              gres = window.matchGroupByFarkas(gKey, userFarkas, window.PRESETS_DB);
+            } catch (e) {
+              console.warn(`[Phase 4.3] farkas ${gKey} fail:`, e && e.message ? e.message : e);
+            }
+            if (gres) mode = 'farkas';
+          }
+          // 3) Fallback agregation 4.1.3
+          if (!gres && typeof window.selectPresetForGroup === 'function') {
+            try {
+              gres = window.selectPresetForGroup(gKey, userAttrs, window.PRESETS_DB);
+            } catch (e) {
+              console.warn(`[Phase 4.1.3] group ${gKey} match fail:`, e && e.message ? e.message : e);
+            }
+            if (gres) mode = 'aggregation';
+          }
+          if (!gres) continue;
+          gres._mode = mode;
+          groupResults[gKey] = gres;
+          for (const z of gDef.subtabs) {
+            if (gres.escaped_subtabs && gres.escaped_subtabs.has(z)) continue;
+            if (_isBlindZoneScan(z, _validityZones)) continue; // aveugle reste sur global_fallback
+            groupedSubtabs.add(z);
+          }
+        }
+
+        // Phase 4.3 : visage_global est diagnostique seulement (pas de sliders,
+        // pas dans zone_groups). On le calcule a part pour exposer dans meta.
+        if (userFarkas && farkRoot && farkRoot['visage_global']
+            && typeof window.matchGroupByFarkas === 'function') {
+          try {
+            const vg = window.matchGroupByFarkas('visage_global', userFarkas, window.PRESETS_DB);
+            if (vg) {
+              meta.global_farkas_match = {
+                preset_id: vg.preset_id,
+                distance: vg.distance,
+                n_features_used: vg.n_features_used,
+                top3: vg.top3,
+                source: 'farkas',
+                method: 'mahalanobis',
+              };
+            }
+          } catch (e) {
+            console.warn('[Phase 4.3] farkas visage_global fail:', e && e.message ? e.message : e);
+          }
+        }
+
+        if (Object.keys(groupResults).length) {
+          meta.group_matches = {};
+          for (const gKey in groupResults) {
+            const r = groupResults[gKey];
+            // Champs distance : signature/farkas emettent "distance", 4.1.3 emet "aggregate_distance"
+            const dist = (typeof r.distance === 'number') ? r.distance
+                       : (typeof r.aggregate_distance === 'number') ? r.aggregate_distance
+                       : null;
+            meta.group_matches[gKey] = {
+              preset_id: r.preset_id,
+              source: r._mode || (r.source || 'aggregation'),
+              method: r.method || null,
+              distance: dist,
+              n_used: r.n_used || r.n_zones_used || null,
+              n_features_used: r.n_features_used || null,
+              escaped_subtabs: Array.from(r.escaped_subtabs || []),
+              top3: r.top3 || null,
+            };
+          }
+          const sigCount  = Object.values(groupResults).filter(r => r._mode === 'signature').length;
+          const farkCount = Object.values(groupResults).filter(r => r._mode === 'farkas').length;
+          const aggCount  = Object.values(groupResults).filter(r => r._mode === 'aggregation').length;
+          console.log('[Phase 4.3] groups matched:', Object.keys(groupResults).length,
+                      '| signature:', sigCount,
+                      '| farkas:', farkCount,
+                      '| aggregation:', aggCount,
+                      '| zones covered:', groupedSubtabs.size);
+        }
+        if (Object.keys(userGroupSignatures).length) {
+          meta.group_signatures = userGroupSignatures;
+        }
+      }
+
+      // ── Helper local : applique le DNA du preset de groupe a une zone ────
+      // Reproduit la branche "sliders" de matchZoneByStats (lookup DNA par
+      // famille + softClamp) sans relancer le matching individuel.
+      const _applyGroupPresetToZone = (groupKey, zoneKey, def, target) => {
+        const gr = groupResults[groupKey];
+        if (!gr || !gr.preset) return null;
+        const family = def.family;
+        const lookup = window.lookupPresetDNAByFamily;
+        if (typeof lookup !== 'function') return null;
+        const sliderList = def.sliders || [];
+        let n = 0;
+        for (const sk of sliderList) {
+          const v = lookup(gr.preset, family, sk);
+          if (!Number.isFinite(v)) continue;
+          target[sk] = softClampSlider(v);
+          if (target._sources) target._sources[sk] = `group:${groupKey}`;
+          zoneCoveredSliders.add(`${family}:${sk}`);
+          n++;
+        }
+        return n;
+      };
+
+      let _groupedZoneCount = 0;
       for (const zoneKey in zoneDefs) {
         const def = zoneDefs[zoneKey];
         const target = FAMILY_OBJ[def && def.family];
         if (!target) continue;
+        const validity = _validityZones ? _validityZones[zoneKey] : null;
+        if (validity && validity.status === 'aveugle') {
+          // Pas de match par zone : on hérite du preset global (DNA pass2).
+          zoneResults[zoneKey] = {
+            morpho_id: _globalMorpho,
+            display_id: null,
+            distance: null,
+            confidence: 'APPROX',
+            source: 'global_fallback',
+          };
+          _blindCount++;
+          continue;
+        }
+        // Phase 4.1.3 : zone couverte par un groupe (non escaped) -> DNA du groupe.
+        const groupKey = subtabToGroup[zoneKey];
+        if (groupKey && groupedSubtabs.has(zoneKey)) {
+          const gr = groupResults[groupKey];
+          const nApplied = _applyGroupPresetToZone(groupKey, zoneKey, def, target);
+          const morphoId = gr.preset_id;
+          const isCelebMorpho = (typeof morphoId === 'number' && morphoId >= 10000);
+          let displayId = null;
+          if (isCelebMorpho && window._celebrityToOfficialPerZone
+              && window._celebrityToOfficialPerZone[zoneKey]) {
+            const m = window._celebrityToOfficialPerZone[zoneKey][String(morphoId)];
+            if (m && Number.isFinite(m.best_official) && m.best_official !== morphoId) {
+              displayId = m.best_official;
+            }
+          }
+          zoneResults[zoneKey] = {
+            morpho_id: morphoId,
+            display_id: displayId,
+            distance: gr.aggregate_distance,
+            confidence: 'GROUPE',
+            source: 'group_match',
+            group: groupKey,
+            sliders_written: nApplied || 0,
+          };
+          _groupedZoneCount++;
+          continue;
+        }
+        // Sinon (zone hors groupe OU escaped) : matching individuel comme avant.
         let r = null;
         try {
           r = window.matchZoneByStats(userAttrs, zoneKey, window.PRESETS_DB);
@@ -1271,6 +1497,8 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
           display_id: _displayId,
           distance: r.distance,
           confidence: r.confidence || null,
+          source: groupKey ? 'zone_match_escaped' : 'zone_match',
+          group: groupKey || undefined,
         };
         if (!r.sliders) continue;
         for (const sk in r.sliders) {
@@ -1283,8 +1511,13 @@ function scanToSliders(landmarks, tddfaResult = null, skinTone = 'Foncée', forc
       if (Object.keys(zoneResults).length) {
         _ds_stats.zone_matches = Object.keys(zoneResults).length;
         _ds_stats.zone_covered_sliders = zoneCoveredSliders.size;
+        _ds_stats.zone_blind_fallback   = _blindCount;
+        _ds_stats.zone_grouped          = _groupedZoneCount;
+        _ds_stats.groups_matched        = Object.keys(groupResults).length;
         meta.zone_matches = zoneResults;
-        console.log('[Phase 4.0] zones matched:', Object.keys(zoneResults),
+        console.log('[Phase 4.0] zones matched:', Object.keys(zoneResults).length,
+                    '| blind→global:', _blindCount,
+                    '| group-covered:', _groupedZoneCount,
                     '| sliders overridden:', zoneCoveredSliders.size);
       }
     }
@@ -1442,3 +1675,8 @@ if (typeof module !== 'undefined' && module.exports) {
 //   - Implémenter facialTransformationMatrixes pour l'espace canonique
 //   - Recalibrer les axes Z sur les mêmes 10 visages
 //   - Récupérer les *_moins_plus de la famille Graisse
+
+// Expose globalement pour script_spa.js
+if (typeof window !== 'undefined') {
+  window.scanToSliders = scanToSliders;
+}

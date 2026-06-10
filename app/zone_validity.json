@@ -1,0 +1,2098 @@
+{
+  "_meta": {
+    "generated": "2026-06-10T02:12:22+00:00",
+    "threshold": 0.35,
+    "n_presets": 41,
+    "features_version": "4.4.1",
+    "n_voyante": 53,
+    "n_aveugle": 35
+  },
+  "zones": {
+    "philtrum": {
+      "status": "voyante",
+      "max_rho": 0.4005,
+      "best_feature": "hauteur",
+      "per_slider": {
+        "philtrum_reduire_elargir": {
+          "rho": -0.3195,
+          "feature": "profondeur_z",
+          "n": 41
+        },
+        "philtrum_bas_haut": {
+          "rho": 0.33,
+          "feature": "profondeur_z",
+          "n": 41
+        },
+        "philtrum_arriere_avant": {
+          "rho": -0.1564,
+          "feature": "largeur_sup",
+          "n": 41
+        },
+        "philtrum_arrondi_angulaire": {
+          "rho": -0.4005,
+          "feature": "hauteur",
+          "n": 41
+        },
+        "philtrum_deplacement_gd": {
+          "rho": 0.3054,
+          "feature": "hauteur",
+          "n": 41
+        }
+      }
+    },
+    "nez": {
+      "status": "voyante",
+      "max_rho": 0.6515,
+      "best_feature": "width",
+      "per_slider": {
+        "nez_reduire_elargir": {
+          "rho": 0.6515,
+          "feature": "width",
+          "n": 41
+        },
+        "nez_bas_haut": {
+          "rho": 0.5185,
+          "feature": "projection",
+          "n": 41
+        },
+        "nez_arriere_avant": {
+          "rho": 0.0912,
+          "feature": "width",
+          "n": 41
+        },
+        "nez_arrondi_angulaire": {
+          "rho": 0.1231,
+          "feature": "width",
+          "n": 41
+        },
+        "nez_deplacement_gd": {
+          "rho": 0.2568,
+          "feature": "height",
+          "n": 41
+        }
+      }
+    },
+    "nez__nez": {
+      "status": "voyante",
+      "max_rho": 0.5793,
+      "best_feature": "excentricite",
+      "per_slider": {
+        "nez_reduire_elargir": {
+          "rho": 0.5793,
+          "feature": "excentricite",
+          "n": 41
+        },
+        "nez_bas_haut": {
+          "rho": -0.4651,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "nez_arriere_avant": {
+          "rho": -0.2447,
+          "feature": "compacite",
+          "n": 41
+        },
+        "nez_arrondi_angulaire": {
+          "rho": 0.2717,
+          "feature": "aire",
+          "n": 41
+        },
+        "nez_deplacement_gd": {
+          "rho": 0.2788,
+          "feature": "aire",
+          "n": 41
+        }
+      }
+    },
+    "nez__arete_du_nez_cotes": {
+      "status": "voyante",
+      "max_rho": 0.3568,
+      "best_feature": "corde",
+      "per_slider": {
+        "arete_nez_cotes_reduire_elargir": {
+          "rho": 0.3568,
+          "feature": "corde",
+          "n": 41
+        },
+        "arete_nez_cotes_bas_haut": {
+          "rho": -0.2953,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "arete_nez_cotes_arriere_avant": {
+          "rho": -0.1971,
+          "feature": "sinuosite",
+          "n": 41
+        },
+        "arete_nez_cotes_arrondi_angulaire": {
+          "rho": 0.2176,
+          "feature": "sagitta",
+          "n": 41
+        }
+      }
+    },
+    "nez__arete_du_nez_partie_centrale": {
+      "status": "voyante",
+      "max_rho": 0.4017,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "arete_nez_centrale_reduire_elargir": {
+          "rho": 0.2284,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "arete_nez_centrale_bas_haut": {
+          "rho": -0.1516,
+          "feature": "corde",
+          "n": 41
+        },
+        "arete_nez_centrale_arriere_avant": {
+          "rho": 0.4017,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "arete_nez_centrale_arrondi_angulaire": {
+          "rho": 0.3288,
+          "feature": "corde",
+          "n": 41
+        },
+        "arete_nez_centrale_deplacement_gd": {
+          "rho": 0.3187,
+          "feature": "corde",
+          "n": 41
+        }
+      }
+    },
+    "nez__arete_du_nez_partie_superieure": {
+      "status": "voyante",
+      "max_rho": 0.3977,
+      "best_feature": "sinuosite",
+      "per_slider": {
+        "arete_nez_sup_reduire_elargir": {
+          "rho": 0.1298,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "arete_nez_sup_bas_haut": {
+          "rho": 0.3977,
+          "feature": "sinuosite",
+          "n": 41
+        },
+        "arete_nez_sup_arriere_avant": {
+          "rho": 0.301,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "arete_nez_sup_arrondi_angulaire": {
+          "rho": 0.3625,
+          "feature": "sagitta",
+          "n": 41
+        },
+        "arete_nez_sup_deplacement_gd": {
+          "rho": -0.3331,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "yeux__yeux": {
+      "status": "voyante",
+      "max_rho": 0.3643,
+      "best_feature": "aire",
+      "per_slider": {
+        "yeux_reduire_elargir": {
+          "rho": 0.1913,
+          "feature": "aire",
+          "n": 41
+        },
+        "yeux_bas_haut": {
+          "rho": -0.2798,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "yeux_arriere_avant": {
+          "rho": 0.2315,
+          "feature": "compacite",
+          "n": 41
+        },
+        "yeux_arrondi_angulaire": {
+          "rho": -0.3643,
+          "feature": "aire",
+          "n": 41
+        }
+      }
+    },
+    "yeux__orbites": {
+      "status": "voyante",
+      "max_rho": 0.367,
+      "best_feature": "aire",
+      "per_slider": {
+        "orbites_reduire_elargir": {
+          "rho": 0.367,
+          "feature": "aire",
+          "n": 41
+        },
+        "orbites_bas_haut": {
+          "rho": -0.3569,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "orbites_arriere_avant": {
+          "rho": 0.2815,
+          "feature": "perimetre",
+          "n": 41
+        },
+        "orbites_plus_grande_petite": {
+          "rho": -0.2556,
+          "feature": "perimetre",
+          "n": 41
+        }
+      }
+    },
+    "joues__joues": {
+      "status": "voyante",
+      "max_rho": 0.4333,
+      "best_feature": "taille_centroide",
+      "per_slider": {
+        "joues_reduire_elargir": {
+          "rho": -0.4333,
+          "feature": "taille_centroide",
+          "n": 41
+        },
+        "joues_bas_haut": {
+          "rho": -0.1206,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "joues_arriere_avant": {
+          "rho": -0.2489,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "joues_arrondi_angulaire": {
+          "rho": 0.3086,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "front__front_partie_inferieure": {
+      "status": "aveugle",
+      "max_rho": 0.2765,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "front_inf_reduire_elargir": {
+          "rho": -0.0869,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "front_inf_bas_haut": {
+          "rho": -0.2765,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "front_inf_arriere_avant": {
+          "rho": -0.1537,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "front_inf_arrondi_angulaire": {
+          "rho": -0.1115,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "sourcils__sourcils_partie_superieure_exterieure": {
+      "status": "aveugle",
+      "max_rho": 0.321,
+      "best_feature": "corde",
+      "per_slider": {
+        "sourcils_ext_sup_reduire_elargir": {
+          "rho": 0.0986,
+          "feature": "sagitta",
+          "n": 41
+        },
+        "sourcils_ext_sup_bas_haut": {
+          "rho": -0.2531,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "sourcils_ext_sup_arriere_avant": {
+          "rho": 0.1575,
+          "feature": "sinuosite",
+          "n": 41
+        },
+        "sourcils_ext_sup_arrondi_angulaire": {
+          "rho": -0.321,
+          "feature": "corde",
+          "n": 41
+        }
+      }
+    },
+    "front__front_partie_superieure": {
+      "status": "aveugle",
+      "max_rho": 0.2531,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "front_sup_reduire_elargir": {
+          "rho": 0.2201,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "front_sup_arriere_avant": {
+          "rho": 0.2531,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "front_sup_neutre_haut": {
+          "rho": -0.1332,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "front_sup_arrondi_angulaire": {
+          "rho": 0.1733,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "front_sup_deplacement_gd": {
+          "rho": 0.2468,
+          "feature": "taille_centroide",
+          "n": 41
+        }
+      }
+    },
+    "menton__menton": {
+      "status": "voyante",
+      "max_rho": 0.3701,
+      "best_feature": "largeur_base",
+      "per_slider": {
+        "menton_reduire_elargir": {
+          "rho": -0.2212,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "menton_bas_haut": {
+          "rho": -0.3701,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "menton_arriere_avant": {
+          "rho": 0.3387,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "menton_arrondi_angulaire": {
+          "rho": 0.2515,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "menton_deplacement_gd": {
+          "rho": 0.3045,
+          "feature": "pointu",
+          "n": 41
+        }
+      }
+    },
+    "bouche__exterieur_de_la_bouche_partie_sup": {
+      "status": "voyante",
+      "max_rho": 0.3883,
+      "best_feature": "excentricite",
+      "per_slider": {
+        "ext_bouche_sup_reduire_elargir": {
+          "rho": 0.3883,
+          "feature": "excentricite",
+          "n": 41
+        },
+        "ext_bouche_sup_bas_haut": {
+          "rho": -0.3122,
+          "feature": "excentricite",
+          "n": 41
+        },
+        "ext_bouche_sup_arriere_avant": {
+          "rho": -0.3275,
+          "feature": "compacite",
+          "n": 41
+        },
+        "ext_bouche_sup_arrondi_angulaire": {
+          "rho": -0.2314,
+          "feature": "compacite",
+          "n": 41
+        }
+      }
+    },
+    "sourcils__sourcils": {
+      "status": "voyante",
+      "max_rho": 0.4786,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "sourcils_reduire_elargir": {
+          "rho": 0.286,
+          "feature": "corde",
+          "n": 41
+        },
+        "sourcils_bas_haut": {
+          "rho": -0.4786,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "sourcils_arriere_avant": {
+          "rho": 0.2951,
+          "feature": "sagitta",
+          "n": 41
+        },
+        "sourcils_arrondi_angulaire": {
+          "rho": -0.3239,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "sourcils__sourcils_partie_centrale": {
+      "status": "voyante",
+      "max_rho": 0.5515,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "sourcils_central_reduire_elargir": {
+          "rho": 0.2504,
+          "feature": "sinuosite",
+          "n": 41
+        },
+        "sourcils_central_bas_haut": {
+          "rho": -0.5515,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "sourcils_central_arriere_avant": {
+          "rho": 0.1762,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "sourcils_central_arrondi_angulaire": {
+          "rho": -0.2988,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "sourcils_central_deplacement_gd": {
+          "rho": -0.1506,
+          "feature": "corde",
+          "n": 41
+        }
+      }
+    },
+    "machoire__mandibule": {
+      "status": "voyante",
+      "max_rho": 0.404,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "mandibule_reduire_elargir": {
+          "rho": -0.1192,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "mandibule_bas_haut": {
+          "rho": -0.404,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "mandibule_arriere_avant": {
+          "rho": -0.1908,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "mandibule_arrondi_angulaire": {
+          "rho": 0.3707,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "bouche__bouche": {
+      "status": "voyante",
+      "max_rho": 0.6932,
+      "best_feature": "aire",
+      "per_slider": {
+        "bouche_reduire_elargir": {
+          "rho": -0.0506,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "bouche_bas_haut": {
+          "rho": -0.4887,
+          "feature": "aire",
+          "n": 41
+        },
+        "bouche_arriere_avant": {
+          "rho": 0.6932,
+          "feature": "aire",
+          "n": 41
+        },
+        "bouche_arrondi_angulaire": {
+          "rho": -0.3093,
+          "feature": "perimetre",
+          "n": 41
+        },
+        "bouche_deplacement_gd": {
+          "rho": 0.4305,
+          "feature": "compacite",
+          "n": 41
+        }
+      }
+    },
+    "machoire__maxillaire": {
+      "status": "voyante",
+      "max_rho": 0.5209,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "maxillaire_reduire_elargir": {
+          "rho": 0.5209,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "maxillaire_bas_haut": {
+          "rho": 0.3296,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "maxillaire_arriere_avant": {
+          "rho": -0.3984,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "maxillaire_arrondi_angulaire": {
+          "rho": 0.1809,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "machoire__machoire": {
+      "status": "aveugle",
+      "max_rho": 0.3437,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "machoire_reduire_elargir": {
+          "rho": -0.2924,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "machoire_bas_haut": {
+          "rho": -0.3437,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "machoire_arriere_avant": {
+          "rho": -0.0742,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "machoire_arrondi_angulaire": {
+          "rho": 0.2289,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "menton__menton_partie_superieure": {
+      "status": "voyante",
+      "max_rho": 0.5724,
+      "best_feature": "hauteur",
+      "per_slider": {
+        "menton_sup_reduire_elargir": {
+          "rho": 0.4301,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "menton_sup_bas_haut": {
+          "rho": 0.5724,
+          "feature": "hauteur",
+          "n": 41
+        },
+        "menton_sup_arriere_avant": {
+          "rho": 0.1998,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "menton_sup_arrondi_angulaire": {
+          "rho": 0.2718,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "menton_sup_deplacement_gd": {
+          "rho": 0.3113,
+          "feature": "largeur_base",
+          "n": 41
+        }
+      }
+    },
+    "tete__tempes": {
+      "status": "aveugle",
+      "max_rho": 0.2174,
+      "best_feature": "taille_centroide",
+      "per_slider": {
+        "tempes_reduire_elargir": {
+          "rho": 0.2174,
+          "feature": "taille_centroide",
+          "n": 41
+        },
+        "tempes_bas_haut": {
+          "rho": -0.1444,
+          "feature": "taille_centroide",
+          "n": 41
+        },
+        "tempes_arriere_avant": {
+          "rho": 0.1641,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "tempes_arrondi_angulaire": {
+          "rho": -0.1733,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "chair:sourcils__sourcils_partie_centrale": {
+      "status": "aveugle",
+      "max_rho": 0.3437,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "sourcils_central_bas_haut": {
+          "rho": -0.3437,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "sourcils_central_moins_plus": {
+          "rho": -0.1662,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:sourcils__espace_entre_les_sourcils": {
+      "status": "voyante",
+      "max_rho": 0.3834,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "espace_sourcils_bas_haut": {
+          "rho": 0.0727,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "espace_sourcils_moins_plus": {
+          "rho": 0.3834,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__pli_des_paupieres_partie_centrale": {
+      "status": "voyante",
+      "max_rho": 0.4417,
+      "best_feature": "largeur_axe",
+      "per_slider": {
+        "pli_paupieres_central_reduire_elargir": {
+          "rho": 0.0468,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "pli_paupieres_central_bas_haut": {
+          "rho": 0.247,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "pli_paupieres_central_arriere_avant": {
+          "rho": 0.4417,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "pli_paupieres_central_plus_petite": {
+          "rho": -0.4131,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__pli_des_paupieres_partie_exterieure": {
+      "status": "voyante",
+      "max_rho": 0.3675,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "pli_paupieres_ext_reduire_elargir": {
+          "rho": 0.3675,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "pli_paupieres_ext_bas_haut": {
+          "rho": 0.2402,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "pli_paupieres_ext_arriere_avant": {
+          "rho": -0.2295,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "pli_paupieres_ext_plus_petite": {
+          "rho": -0.3018,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__pli_des_paupieres_partie_interieure": {
+      "status": "aveugle",
+      "max_rho": 0.2614,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "pli_paupieres_int_reduire_elargir": {
+          "rho": 0.1858,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "pli_paupieres_int_bas_haut": {
+          "rho": -0.2226,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "pli_paupieres_int_arriere_avant": {
+          "rho": 0.1593,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "pli_paupieres_int_plus_petite": {
+          "rho": 0.2614,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__paupiere_inferieure_partie_centrale": {
+      "status": "aveugle",
+      "max_rho": 0.2929,
+      "best_feature": "largeur_axe",
+      "per_slider": {
+        "paupiere_inf_centrale_reduire_elargir": {
+          "rho": 0.2929,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "paupiere_inf_centrale_bas_haut": {
+          "rho": 0.2234,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "paupiere_inf_centrale_plus_petite": {
+          "rho": 0.2,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__paupiere_inferieure_partie_exterieure": {
+      "status": "aveugle",
+      "max_rho": 0.2797,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "paupiere_inf_ext_reduire_elargir": {
+          "rho": 0.2797,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "paupiere_inf_ext_bas_haut": {
+          "rho": -0.1439,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "paupiere_inf_ext_plus_petite": {
+          "rho": 0.2303,
+          "feature": "hauteur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__paupiere_inferieure_partie_interieure": {
+      "status": "voyante",
+      "max_rho": 0.3753,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "paupiere_inf_int_reduire_elargir": {
+          "rho": -0.2093,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "paupiere_inf_int_bas_haut": {
+          "rho": -0.1328,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "paupiere_inf_int_plus_petite": {
+          "rho": 0.3753,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__paupiere_superieure_partie_centrale": {
+      "status": "voyante",
+      "max_rho": 0.4326,
+      "best_feature": "largeur_axe",
+      "per_slider": {
+        "paupiere_sup_centrale_reduire_elargir": {
+          "rho": 0.4326,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "paupiere_sup_centrale_bas_haut": {
+          "rho": -0.2032,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "paupiere_sup_centrale_neutre_avant": {
+          "rho": -0.2897,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "paupiere_sup_centrale_plus_petite": {
+          "rho": -0.3847,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__paupiere_superieure_partie_ext": {
+      "status": "voyante",
+      "max_rho": 0.3814,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "paupiere_sup_ext_reduire_elargir": {
+          "rho": -0.1325,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "paupiere_sup_ext_bas_haut": {
+          "rho": 0.3631,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "paupiere_sup_ext_plus_petite": {
+          "rho": -0.3814,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__paupiere_superieure_partie_int": {
+      "status": "voyante",
+      "max_rho": 0.4618,
+      "best_feature": "hauteur_perp",
+      "per_slider": {
+        "paupiere_sup_int_reduire_elargir": {
+          "rho": 0.4618,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "paupiere_sup_int_bas_haut": {
+          "rho": 0.3011,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "paupiere_sup_int_plus_petite": {
+          "rho": -0.3164,
+          "feature": "hauteur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__exterieur_du_coin_de_l_il": {
+      "status": "aveugle",
+      "max_rho": 0.1057,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "coin_oeil_ext_reduire_elargir": {
+          "rho": -0.1057,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "coin_oeil_ext_bas_haut": {
+          "rho": -0.0345,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "coin_oeil_ext_plus_petite": {
+          "rho": -0.0262,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:yeux__interieur_du_coin_de_l_il": {
+      "status": "voyante",
+      "max_rho": 0.3548,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "coin_oeil_int_reduire_elargir": {
+          "rho": 0.3548,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "coin_oeil_int_bas_haut": {
+          "rho": 0.2336,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "coin_oeil_int_plus_petite": {
+          "rho": -0.2246,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "chair:joues__joues": {
+      "status": "aveugle",
+      "max_rho": 0.2131,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "joues_bas_haut": {
+          "rho": -0.2131,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "joues_moins_plus": {
+          "rho": 0.2025,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "chair:joues__yeux_partie_interne_superieure": {
+      "status": "aveugle",
+      "max_rho": 0.2827,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "joues_yeux_int_sup_bas_haut": {
+          "rho": 0.2827,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "joues_yeux_int_sup_moins_plus": {
+          "rho": -0.145,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "chair:joues__joues_partie_externe_superieure": {
+      "status": "aveugle",
+      "max_rho": 0.1561,
+      "best_feature": "taille_centroide",
+      "per_slider": {
+        "joues_ext_sup_moins_plus": {
+          "rho": 0.1561,
+          "feature": "taille_centroide",
+          "n": 41
+        }
+      }
+    },
+    "chair:joues__joues_partie_interne_superieure": {
+      "status": "aveugle",
+      "max_rho": 0.199,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "joues_int_sup_moins_plus": {
+          "rho": -0.199,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "chair:joues__joues_partie_externe_inferieure": {
+      "status": "aveugle",
+      "max_rho": 0.2346,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "joues_ext_inf_neutre_moins": {
+          "rho": 0.2346,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "chair:joues__joues_partie_interne_inferieure": {
+      "status": "aveugle",
+      "max_rho": 0.2963,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "joues_int_inf_neutre_moins": {
+          "rho": 0.2963,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__commissures_des_levres": {
+      "status": "voyante",
+      "max_rho": 0.5102,
+      "best_feature": "sinuosite",
+      "per_slider": {
+        "commissures_levres_reduire_elargir": {
+          "rho": 0.4168,
+          "feature": "corde",
+          "n": 41
+        },
+        "commissures_levres_bas_haut": {
+          "rho": -0.2581,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "commissures_levres_arriere_avant": {
+          "rho": -0.2245,
+          "feature": "sinuosite",
+          "n": 41
+        },
+        "commissures_levres_arrondi_angulaire": {
+          "rho": -0.5102,
+          "feature": "sinuosite",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__espacement_entre_les_levres_centre": {
+      "status": "voyante",
+      "max_rho": 0.5119,
+      "best_feature": "hauteur_perp",
+      "per_slider": {
+        "espacement_levres_centre_reduire_elargir": {
+          "rho": 0.0854,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "espacement_levres_centre_bas_haut": {
+          "rho": -0.5119,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "espacement_levres_centre_arriere_avant": {
+          "rho": 0.2448,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "espacement_levres_centre_arrondi_angulaire": {
+          "rho": 0.3186,
+          "feature": "hauteur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__espacement_entre_les_levres_cotes": {
+      "status": "voyante",
+      "max_rho": 0.4433,
+      "best_feature": "hauteur_perp",
+      "per_slider": {
+        "espacement_levres_cotes_reduire_elargir": {
+          "rho": 0.4433,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "espacement_levres_cotes_bas_haut": {
+          "rho": -0.1431,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "espacement_levres_cotes_arriere_avant": {
+          "rho": 0.3805,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "espacement_levres_cotes_arrondi_angulaire": {
+          "rho": 0.2926,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_superieure_centre_superieur": {
+      "status": "voyante",
+      "max_rho": 0.5549,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "levre_sup_centre_sup_reduire_elargir": {
+          "rho": 0.4371,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_sup_centre_sup_bas_haut": {
+          "rho": -0.5549,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "levre_sup_centre_sup_arriere_avant": {
+          "rho": 0.1334,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "levre_sup_centre_sup_arrondi_angulaire": {
+          "rho": -0.3502,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "levre_sup_centre_sup_deplacement_gd": {
+          "rho": -0.2246,
+          "feature": "hauteur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_superieure_cotes_superieurs": {
+      "status": "voyante",
+      "max_rho": 0.561,
+      "best_feature": "hauteur_perp",
+      "per_slider": {
+        "levre_sup_cotes_sup_reduire_elargir": {
+          "rho": 0.2276,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "levre_sup_cotes_sup_bas_haut": {
+          "rho": 0.561,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_sup_cotes_sup_arriere_avant": {
+          "rho": 0.1696,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_sup_cotes_sup_arrondi_angulaire": {
+          "rho": 0.2665,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_superieure_coins_superieurs": {
+      "status": "voyante",
+      "max_rho": 0.5896,
+      "best_feature": "largeur_axe",
+      "per_slider": {
+        "levre_sup_coins_sup_reduire_elargir": {
+          "rho": 0.5896,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_sup_coins_sup_bas_haut": {
+          "rho": 0.3662,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_sup_coins_sup_arriere_avant": {
+          "rho": 0.1835,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_sup_coins_sup_arrondi_angulaire": {
+          "rho": -0.0759,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_superieure_centre_inferieur": {
+      "status": "voyante",
+      "max_rho": 0.4015,
+      "best_feature": "hauteur_perp",
+      "per_slider": {
+        "levre_sup_centre_inf_reduire_elargir": {
+          "rho": -0.3962,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "levre_sup_centre_inf_bas_haut": {
+          "rho": 0.36,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_sup_centre_inf_arriere_avant": {
+          "rho": 0.4015,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_sup_centre_inf_arrondi_angulaire": {
+          "rho": 0.1959,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "levre_sup_centre_inf_deplacement_gd": {
+          "rho": -0.2114,
+          "feature": "largeur_axe",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_superieure_cotes_inferieurs": {
+      "status": "voyante",
+      "max_rho": 0.6489,
+      "best_feature": "hauteur_perp",
+      "per_slider": {
+        "levre_sup_cotes_inf_reduire_elargir": {
+          "rho": -0.0606,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_sup_cotes_inf_bas_haut": {
+          "rho": 0.3633,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_sup_cotes_inf_arriere_avant": {
+          "rho": 0.6489,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_sup_cotes_inf_arrondi_angulaire": {
+          "rho": 0.1148,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__epaisseur_de_la_levre_superieure": {
+      "status": "voyante",
+      "max_rho": 0.5792,
+      "best_feature": "largeur_axe",
+      "per_slider": {
+        "epaisseur_levre_sup_reduire_elargir": {
+          "rho": -0.3097,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "epaisseur_levre_sup_bas_haut": {
+          "rho": 0.5792,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "epaisseur_levre_sup_arriere_avant": {
+          "rho": 0.4866,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "epaisseur_levre_sup_arrondi_angulaire": {
+          "rho": -0.4477,
+          "feature": "hauteur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__epaisseur_de_la_levre_inferieure": {
+      "status": "voyante",
+      "max_rho": 0.8042,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "epaisseur_levre_inf_reduire_elargir": {
+          "rho": -0.6086,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "epaisseur_levre_inf_bas_haut": {
+          "rho": -0.8042,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "epaisseur_levre_inf_arriere_avant": {
+          "rho": 0.3118,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "epaisseur_levre_inf_arrondi_angulaire": {
+          "rho": -0.2842,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_inferieure_partie_sup_centrale": {
+      "status": "aveugle",
+      "max_rho": 0.307,
+      "best_feature": "largeur_axe",
+      "per_slider": {
+        "levre_inf_centre_sup_reduire_elargir": {
+          "rho": -0.2692,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "levre_inf_centre_sup_bas_haut": {
+          "rho": 0.307,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_inf_centre_sup_arriere_avant": {
+          "rho": -0.0661,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "levre_inf_centre_sup_arrondi_angulaire": {
+          "rho": -0.2434,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_inf_centre_sup_deplacement_gd": {
+          "rho": -0.1754,
+          "feature": "largeur_axe",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_inferieure_cotes_superieurs": {
+      "status": "voyante",
+      "max_rho": 0.5083,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "levre_inf_cotes_sup_reduire_elargir": {
+          "rho": 0.1597,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_inf_cotes_sup_bas_haut": {
+          "rho": -0.3494,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "levre_inf_cotes_sup_arriere_avant": {
+          "rho": 0.4838,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_inf_cotes_sup_arrondi_angulaire": {
+          "rho": -0.5083,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_inferieure_partie_inf_centrale": {
+      "status": "voyante",
+      "max_rho": 0.5825,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "levre_inf_centre_inf_reduire_elargir": {
+          "rho": -0.3946,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_inf_centre_inf_bas_haut": {
+          "rho": -0.5825,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "levre_inf_centre_inf_arriere_avant": {
+          "rho": 0.3558,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_inf_centre_inf_arrondi_angulaire": {
+          "rho": 0.3065,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_inf_centre_inf_deplacement_gd": {
+          "rho": -0.1795,
+          "feature": "largeur_axe",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_inferieure_cotes_inferieurs": {
+      "status": "voyante",
+      "max_rho": 0.8415,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "levre_inf_cotes_inf_reduire_elargir": {
+          "rho": -0.1613,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_inf_cotes_inf_bas_haut": {
+          "rho": -0.8415,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "levre_inf_cotes_inf_arriere_avant": {
+          "rho": 0.0296,
+          "feature": "hauteur_perp",
+          "n": 41
+        },
+        "levre_inf_cotes_inf_arrondi_angulaire": {
+          "rho": 0.4341,
+          "feature": "hauteur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__levre_inferieure_coins_inferieurs": {
+      "status": "voyante",
+      "max_rho": 0.7016,
+      "best_feature": "largeur_axe",
+      "per_slider": {
+        "levre_inf_coins_inf_reduire_elargir": {
+          "rho": 0.7016,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_inf_coins_inf_bas_haut": {
+          "rho": -0.5484,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "levre_inf_coins_inf_arriere_avant": {
+          "rho": -0.1832,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "levre_inf_coins_inf_arrondi_angulaire": {
+          "rho": -0.1565,
+          "feature": "largeur_axe",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__plis_du_coin_de_la_bouche": {
+      "status": "aveugle",
+      "max_rho": 0.2144,
+      "best_feature": "corde",
+      "per_slider": {
+        "plis_coin_bouche_neutre_moins": {
+          "rho": -0.2144,
+          "feature": "corde",
+          "n": 41
+        }
+      }
+    },
+    "chair:menton__fossette_mentonniere": {
+      "status": "aveugle",
+      "max_rho": 0.299,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "fossette_mentonniere_bas_haut": {
+          "rho": 0.299,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "fossette_mentonniere_deplacement_gd": {
+          "rho": 0.2239,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "chair:menton__menton_cotes": {
+      "status": "aveugle",
+      "max_rho": 0.282,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "menton_cotes_neutre_moins": {
+          "rho": -0.282,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "chair:machoire__machoire": {
+      "status": "aveugle",
+      "max_rho": 0.2839,
+      "best_feature": "taille_centroide",
+      "per_slider": {
+        "machoire_moins_plus": {
+          "rho": 0.2839,
+          "feature": "taille_centroide",
+          "n": 41
+        }
+      }
+    },
+    "chair:tete__tempes": {
+      "status": "aveugle",
+      "max_rho": 0.1622,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "tempes_moins_plus": {
+          "rho": -0.1622,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "chair:bouche__philtrum": {
+      "status": "aveugle",
+      "max_rho": 0.3252,
+      "best_feature": "epaisseur_perp",
+      "per_slider": {
+        "philtrum_reduire_elargir": {
+          "rho": 0.2549,
+          "feature": "largeur_axe",
+          "n": 41
+        },
+        "philtrum_bas_haut": {
+          "rho": -0.1858,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "philtrum_arriere_avant": {
+          "rho": 0.2573,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "philtrum_arrondi_angulaire": {
+          "rho": -0.3252,
+          "feature": "epaisseur_perp",
+          "n": 41
+        },
+        "philtrum_deplacement_gd": {
+          "rho": 0.2825,
+          "feature": "hauteur_perp",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__pointe_du_nez_partie_inferieure": {
+      "status": "voyante",
+      "max_rho": 0.5328,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "pointe_nez_inf_reduire_elargir": {
+          "rho": 0.3616,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "pointe_nez_inf_bas_haut": {
+          "rho": -0.5328,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "pointe_nez_inf_arriere_avant": {
+          "rho": -0.2853,
+          "feature": "hauteur",
+          "n": 41
+        },
+        "pointe_nez_inf_arrondi_angulaire": {
+          "rho": -0.283,
+          "feature": "hauteur",
+          "n": 41
+        },
+        "pointe_nez_inf_deplacement_gd": {
+          "rho": 0.1087,
+          "feature": "hauteur",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__pointe_du_nez_partie_sous_jacente": {
+      "status": "voyante",
+      "max_rho": 0.4323,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "pointe_nez_sous_jacente_reduire_elargir": {
+          "rho": -0.1962,
+          "feature": "pointu",
+          "n": 41
+        },
+        "pointe_nez_sous_jacente_bas_haut": {
+          "rho": -0.4323,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "pointe_nez_sous_jacente_arriere_avant": {
+          "rho": 0.201,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "pointe_nez_sous_jacente_arrondi_angulaire": {
+          "rho": 0.167,
+          "feature": "hauteur",
+          "n": 41
+        },
+        "pointe_nez_sous_jacente_deplacement_gd": {
+          "rho": -0.1904,
+          "feature": "pointu",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__pointe_du_nez_partie_superieure": {
+      "status": "aveugle",
+      "max_rho": 0.2495,
+      "best_feature": "pointu",
+      "per_slider": {
+        "pointe_nez_sup_reduire_elargir": {
+          "rho": 0.2352,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "pointe_nez_sup_bas_haut": {
+          "rho": 0.098,
+          "feature": "largeur_base",
+          "n": 41
+        },
+        "pointe_nez_sup_arriere_avant": {
+          "rho": -0.1397,
+          "feature": "hauteur",
+          "n": 41
+        },
+        "pointe_nez_sup_arrondi_angulaire": {
+          "rho": 0.2495,
+          "feature": "pointu",
+          "n": 41
+        },
+        "pointe_nez_sup_deplacement_gd": {
+          "rho": 0.216,
+          "feature": "largeur_base",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__narine_partie_inferieure": {
+      "status": "voyante",
+      "max_rho": 0.487,
+      "best_feature": "aire",
+      "per_slider": {
+        "narine_inf_reduire_elargir": {
+          "rho": 0.3313,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "narine_inf_bas_haut": {
+          "rho": 0.487,
+          "feature": "aire",
+          "n": 41
+        },
+        "narine_inf_arriere_avant": {
+          "rho": 0.1299,
+          "feature": "perimetre",
+          "n": 41
+        },
+        "narine_inf_arrondi_angulaire": {
+          "rho": -0.1846,
+          "feature": "aire",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__exterieur_de_la_narine_partie_ext": {
+      "status": "voyante",
+      "max_rho": 0.45,
+      "best_feature": "perimetre",
+      "per_slider": {
+        "ext_narine_ext_reduire_elargir": {
+          "rho": -0.3556,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "ext_narine_ext_bas_haut": {
+          "rho": 0.2616,
+          "feature": "aire",
+          "n": 41
+        },
+        "ext_narine_ext_arriere_avant": {
+          "rho": -0.45,
+          "feature": "perimetre",
+          "n": 41
+        },
+        "ext_narine_ext_arrondi_angulaire": {
+          "rho": -0.2709,
+          "feature": "aire",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__exterieur_de_la_narine_partie_centrale": {
+      "status": "aveugle",
+      "max_rho": 0.3317,
+      "best_feature": "compacite",
+      "per_slider": {
+        "ext_narine_centrale_reduire_elargir": {
+          "rho": -0.3317,
+          "feature": "compacite",
+          "n": 41
+        },
+        "ext_narine_centrale_bas_haut": {
+          "rho": 0.1049,
+          "feature": "excentricite",
+          "n": 41
+        },
+        "ext_narine_centrale_arriere_avant": {
+          "rho": -0.3139,
+          "feature": "aire",
+          "n": 41
+        },
+        "ext_narine_centrale_arrondi_angulaire": {
+          "rho": -0.1885,
+          "feature": "perimetre",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__narine_partie_superieure_centrale": {
+      "status": "voyante",
+      "max_rho": 0.4091,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "narine_sup_centrale_reduire_elargir": {
+          "rho": -0.1585,
+          "feature": "aire",
+          "n": 41
+        },
+        "narine_sup_centrale_bas_haut": {
+          "rho": -0.4091,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "narine_sup_centrale_arriere_avant": {
+          "rho": 0.0778,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "narine_sup_centrale_arrondi_angulaire": {
+          "rho": 0.2058,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__narine_partie_superieure_exterieure": {
+      "status": "voyante",
+      "max_rho": 0.5608,
+      "best_feature": "perimetre",
+      "per_slider": {
+        "narine_sup_ext_reduire_elargir": {
+          "rho": 0.5608,
+          "feature": "perimetre",
+          "n": 41
+        },
+        "narine_sup_ext_bas_haut": {
+          "rho": 0.0753,
+          "feature": "compacite",
+          "n": 41
+        },
+        "narine_sup_ext_arriere_avant": {
+          "rho": -0.1304,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "narine_sup_ext_arrondi_angulaire": {
+          "rho": -0.4023,
+          "feature": "perimetre",
+          "n": 41
+        }
+      }
+    },
+    "chair:nez__narine_partie_superieure": {
+      "status": "voyante",
+      "max_rho": 0.5038,
+      "best_feature": "perimetre",
+      "per_slider": {
+        "narine_sup_reduire_elargir": {
+          "rho": 0.5038,
+          "feature": "perimetre",
+          "n": 41
+        },
+        "narine_sup_bas_haut": {
+          "rho": -0.1846,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "narine_sup_arriere_avant": {
+          "rho": -0.2977,
+          "feature": "compacite",
+          "n": 41
+        },
+        "narine_sup_arrondi_angulaire": {
+          "rho": 0.2431,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "graisse:machoire__machoire": {
+      "status": "aveugle",
+      "max_rho": 0.2231,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "machoire_bas_haut": {
+          "rho": -0.2231,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "machoire_moins_plus": {
+          "rho": -0.1229,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "graisse:menton__menton": {
+      "status": "aveugle",
+      "max_rho": 0.2618,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "menton_bas_haut": {
+          "rho": 0.2618,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "menton_moins_plus": {
+          "rho": -0.2461,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "graisse:bouche__levre_inferieure": {
+      "status": "voyante",
+      "max_rho": 0.3839,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "levres_inf_bas_haut": {
+          "rho": -0.3839,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "levres_inf_moins_plus": {
+          "rho": -0.1718,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "graisse:bouche__levre_superieure": {
+      "status": "aveugle",
+      "max_rho": 0.3307,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "levres_sup_bas_haut": {
+          "rho": 0.316,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "levres_sup_moins_plus": {
+          "rho": 0.3307,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "graisse:bouche__cotes_de_la_bouche": {
+      "status": "aveugle",
+      "max_rho": 0.1674,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "cotes_bouche_bas_haut": {
+          "rho": 0.1278,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "cotes_bouche_moins_plus": {
+          "rho": 0.1674,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "graisse:joues__tempes": {
+      "status": "aveugle",
+      "max_rho": 0.2278,
+      "best_feature": "lambda1",
+      "per_slider": {
+        "tempes_bas_haut": {
+          "rho": -0.2278,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "tempes_moins_plus": {
+          "rho": 0.123,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "graisse:joues__joues_partie_interieure_inferieure": {
+      "status": "aveugle",
+      "max_rho": 0.3445,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "joues_int_inf_bas_haut": {
+          "rho": 0.2326,
+          "feature": "lambda1",
+          "n": 41
+        },
+        "joues_int_inf_moins_plus": {
+          "rho": 0.3445,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "graisse:joues__joues_partie_interieure_superieure": {
+      "status": "aveugle",
+      "max_rho": 0.3215,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "joues_int_sup_bas_haut": {
+          "rho": 0.0585,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "joues_int_sup_moins_plus": {
+          "rho": -0.3215,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "graisse:joues__joues_partie_inferieure": {
+      "status": "aveugle",
+      "max_rho": 0.3305,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "joues_inf_bas_haut": {
+          "rho": -0.3305,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "joues_inf_moins_plus": {
+          "rho": -0.1344,
+          "feature": "lambda1",
+          "n": 41
+        }
+      }
+    },
+    "graisse:joues__joues_partie_superieure": {
+      "status": "voyante",
+      "max_rho": 0.4263,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "joues_sup_bas_haut": {
+          "rho": 0.4263,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "joues_sup_moins_plus": {
+          "rho": -0.2617,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "graisse:yeux__paupiere_inferieure": {
+      "status": "voyante",
+      "max_rho": 0.3693,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "paupiere_inf_bas_haut": {
+          "rho": -0.2854,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "paupiere_inf_moins_plus": {
+          "rho": 0.3693,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "graisse:yeux__paupiere_superieure": {
+      "status": "voyante",
+      "max_rho": 0.4339,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "paupiere_sup_bas_haut": {
+          "rho": 0.2821,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "paupiere_sup_moins_plus": {
+          "rho": 0.4339,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "graisse:front__front_cotes": {
+      "status": "aveugle",
+      "max_rho": 0.2395,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "front_cotes_bas_haut": {
+          "rho": -0.2395,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "front_cotes_moins_plus": {
+          "rho": 0.2286,
+          "feature": "lambda2",
+          "n": 41
+        }
+      }
+    },
+    "graisse:front__front_centre": {
+      "status": "voyante",
+      "max_rho": 0.4016,
+      "best_feature": "taille_centroide",
+      "per_slider": {
+        "front_centre_bas_haut": {
+          "rho": -0.198,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "front_centre_moins_plus": {
+          "rho": 0.4016,
+          "feature": "taille_centroide",
+          "n": 41
+        }
+      }
+    },
+    "graisse:yeux__cernes_partie_inferieure": {
+      "status": "voyante",
+      "max_rho": 0.4025,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "cernes_inf_bas_haut": {
+          "rho": -0.4025,
+          "feature": "centroide_y",
+          "n": 41
+        },
+        "cernes_inf_moins_plus": {
+          "rho": 0.2893,
+          "feature": "epaisseur_perp",
+          "n": 41
+        }
+      }
+    },
+    "graisse:nez__nez": {
+      "status": "aveugle",
+      "max_rho": 0.0943,
+      "best_feature": "centroide_y",
+      "per_slider": {
+        "nez_moins_plus": {
+          "rho": 0.0943,
+          "feature": "centroide_y",
+          "n": 41
+        }
+      }
+    },
+    "graisse:joues__bajoue": {
+      "status": "voyante",
+      "max_rho": 0.3542,
+      "best_feature": "lambda2",
+      "per_slider": {
+        "bajoue_bas_haut": {
+          "rho": -0.3542,
+          "feature": "lambda2",
+          "n": 41
+        },
+        "bajoue_moins_plus": {
+          "rho": -0.0836,
+          "feature": "taille_centroide",
+          "n": 41
+        }
+      }
+    }
+  }
+}

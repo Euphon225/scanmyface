@@ -6,6 +6,15 @@
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" type="image/png" href="./assets/favicon.png">
   <link rel="apple-touch-icon" href="./assets/favicon.png">
+  <!-- Phase 4.1.2 : preload du fichier de poids Fisher (chargé par presetMatch.js
+       dans loadZoneArtifacts) pour démarrer le download en parallèle des scripts. -->
+  <link rel="preload" as="fetch" href="./zone_weights.json" crossorigin="anonymous">
+  <!-- Phase 4.1.3 : preload du nouveau fichier de groupes anatomiques. -->
+  <link rel="preload" as="fetch" href="./zone_groups.json" crossorigin="anonymous">
+  <!-- Phase 4.2 : preload des contours canoniques pour signature globale. -->
+  <link rel="preload" as="fetch" href="./group_signatures.json" crossorigin="anonymous">
+  <!-- Phase 4.3 : preload des definitions Farkas pour matching morphometrique. -->
+  <link rel="preload" as="fetch" href="./farkas_features.json" crossorigin="anonymous">
   <title>ScanMyFace · FC26 SPA</title>
   <link rel="stylesheet" href="./style.css">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">

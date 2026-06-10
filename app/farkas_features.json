@@ -1,0 +1,229 @@
+{
+  "_meta": {
+    "version": "4.3.0",
+    "generated": "2026-06-10",
+    "sources": [
+      "Farkas 1994",
+      "Diomande 2018",
+      "Ashok-Ganapathy 2019",
+      "Yang 2023",
+      "Li 2022",
+      "He 2022"
+    ],
+    "notes": "Features 2D frontales publiees avec ICC > 0.70. Pitch-compensees (correction simple uniforme y, valable surtout pour features non-ratio). Le parseur de formule en JSON est documentaire uniquement -- l'implementation reelle est en dispatch hardcode dans presetMatch.js (evaluateFarkasFormula).",
+    "neutral_pitch_ratio": 0.95
+  },
+  "landmarks_farkas": {
+    "Nasion": [168, 6],
+    "Trichion_centre": [10],
+    "Frontotemporale_G": [109, 67, 21],
+    "Frontotemporale_D": [338, 297, 251],
+    "Glabella": [9, 8],
+    "Subnasale": [2, 94, 19],
+    "Pronasale": [4, 1],
+    "Gnathion": [152, 175, 199],
+    "Zygion_G": [234, 127],
+    "Zygion_D": [454, 356],
+    "Gonion_approx_G": [172, 150, 136, 132],
+    "Gonion_approx_D": [397, 379, 365, 361],
+    "Endocanthion_G": [133],
+    "Endocanthion_D": [362],
+    "Exocanthion_G": [33],
+    "Exocanthion_D": [263],
+    "Alare_G": [129, 209, 220],
+    "Alare_D": [358, 429, 440],
+    "Cheilion_G": [61],
+    "Cheilion_D": [291],
+    "Stomion_inf_proxy": [17],
+    "Nez_dorsum_G": [195],
+    "Nez_dorsum_D": [419]
+  },
+  "symmetric_pairs_for_asymmetry": [
+    ["Frontotemporale_G", "Frontotemporale_D"],
+    ["Zygion_G", "Zygion_D"],
+    ["Endocanthion_G", "Endocanthion_D"],
+    ["Exocanthion_G", "Exocanthion_D"],
+    ["Alare_G", "Alare_D"],
+    ["Cheilion_G", "Cheilion_D"],
+    ["Gonion_approx_G", "Gonion_approx_D"]
+  ],
+  "chin_curvature_landmarks": [148, 176, 149, 150, 152, 377, 378, 379, 365],
+  "groups": {
+    "visage_global": {
+      "features": {
+        "indice_facial_prosopic": {
+          "formula": "100 * d(Nasion, Gnathion) / d(Zygion_G, Zygion_D)",
+          "icc": 0.92,
+          "discriminating_power": "tres haut",
+          "weight_hint": 1.0,
+          "reference": "Diomande 2018",
+          "warning": "compense pitch obligatoire"
+        },
+        "ratio_tiers_faciaux": {
+          "formula": "|Nasion.y - Subnasale.y| / |Subnasale.y - Gnathion.y|",
+          "icc": 0.85,
+          "discriminating_power": "haut",
+          "weight_hint": 0.8,
+          "reference": "Farkas 1994",
+          "warning": "compense pitch obligatoire"
+        },
+        "asymetrie_globale": {
+          "formula": "moyenne_paires |x_L - x_R| / W_face sur symmetric_pairs_for_asymmetry",
+          "icc": 0.78,
+          "discriminating_power": "moyen",
+          "weight_hint": 0.4,
+          "reference": "Farkas 1994"
+        }
+      }
+    },
+    "machoire_menton": {
+      "features": {
+        "angle_mandibulaire": {
+          "formula": "angle au Gnathion entre Gonion_approx_G et Gonion_approx_D (triplet sur 172/152/397)",
+          "icc": 0.62,
+          "discriminating_power": "moyen",
+          "weight_hint": 0.5,
+          "reference": "Diomande 2018"
+        },
+        "angle_convergence_inferieur": {
+          "formula": "angle moyen G/D entre verticale en Zygion et segment Zygion->Gnathion (Ashok-Ganapathy)",
+          "icc": 0.72,
+          "discriminating_power": "haut",
+          "weight_hint": 0.9,
+          "reference": "Ashok-Ganapathy 2019"
+        },
+        "courbure_symphyse_menton": {
+          "formula": "coefficient quadratique a du fit y=ax^2+bx+c sur chin_curvature_landmarks",
+          "icc": 0.81,
+          "discriminating_power": "haut",
+          "weight_hint": 0.9,
+          "reference": "Farkas 1994 derive"
+        },
+        "ratio_hauteur_mentonniere": {
+          "formula": "|Gnathion.y - Stomion_inf_proxy.y| / |Gnathion.y - Nasion.y|",
+          "icc": 0.98,
+          "discriminating_power": "haut",
+          "weight_hint": 1.0,
+          "reference": "Farkas 1994",
+          "warning": "compense pitch obligatoire"
+        }
+      },
+      "banned_features": [
+        "largeur_bigoniale_absolue: ICC 0.16 (He 2022)",
+        "evasement_jugomandibulaire_brut: trop bruite par head pose"
+      ]
+    },
+    "joues": {
+      "features": {
+        "angle_zygomatique": {
+          "formula": "angle moyen G/D au Zygion entre Frontotemporale et Gonion_approx (Diomande)",
+          "icc": 0.83,
+          "discriminating_power": "haut",
+          "weight_hint": 1.0,
+          "reference": "Diomande 2018"
+        },
+        "ratio_jugo_mandibulaire": {
+          "formula": "d(Gonion_approx_G, Gonion_approx_D) / d(Zygion_G, Zygion_D)",
+          "icc": 0.55,
+          "discriminating_power": "moyen",
+          "weight_hint": 0.3,
+          "reference": "Farkas 1994",
+          "warning": "ponderation faible (largeur gonion ICC=0.16)"
+        },
+        "indice_fronto_zygomatique": {
+          "formula": "d(Frontotemporale_G, Frontotemporale_D) / d(Zygion_G, Zygion_D)",
+          "icc": 0.91,
+          "discriminating_power": "haut",
+          "weight_hint": 0.95,
+          "reference": "Diomande 2018"
+        },
+        "hauteur_pommettes_normalisee": {
+          "formula": "(((Zygion_G.y + Zygion_D.y)/2) - ((Exocanthion_G.y + Exocanthion_D.y)/2)) / |Nasion.y - Gnathion.y|",
+          "icc": 0.79,
+          "discriminating_power": "moyen",
+          "weight_hint": 0.6,
+          "reference": "Farkas 1994"
+        }
+      }
+    },
+    "front": {
+      "features": {
+        "largeur_frontale_minimale": {
+          "formula": "d(Frontotemporale_G, Frontotemporale_D) / W_face",
+          "icc": 0.98,
+          "discriminating_power": "tres haut",
+          "weight_hint": 1.0,
+          "reference": "He 2022"
+        },
+        "indice_fronto_facial": {
+          "formula": "d(Frontotemporale_G, Frontotemporale_D) / d(Nasion, Gnathion)",
+          "icc": 0.88,
+          "discriminating_power": "haut",
+          "weight_hint": 0.85,
+          "reference": "Farkas 1994"
+        },
+        "ratio_hauteur_front": {
+          "formula": "|Trichion_centre.y - Glabella.y| / |Nasion.y - Gnathion.y|",
+          "icc": 0.62,
+          "discriminating_power": "moyen",
+          "weight_hint": 0.35,
+          "reference": "Farkas 1994",
+          "warning": "marqueur 10 destructeur in-the-wild"
+        }
+      },
+      "banned_features": [
+        "trichion_seul: marqueur 10 depend de cheveux"
+      ]
+    },
+    "narines": {
+      "features": {
+        "indice_alaire": {
+          "formula": "d(Alare_G, Alare_D) / d(Zygion_G, Zygion_D)",
+          "icc": 0.96,
+          "discriminating_power": "tres haut",
+          "weight_hint": 1.0,
+          "reference": "Yang 2023"
+        },
+        "ratio_base_nasale": {
+          "formula": "|Subnasale.y - Pronasale.y| / d(Alare_G, Alare_D)",
+          "icc": 0.81,
+          "discriminating_power": "haut",
+          "weight_hint": 0.7,
+          "reference": "Farkas 1994"
+        },
+        "visibilite_columellaire": {
+          "formula": "|Subnasale.y - Pronasale.y| / W_face",
+          "icc": 0.74,
+          "discriminating_power": "moyen",
+          "weight_hint": 0.5,
+          "reference": "Yang 2023"
+        }
+      }
+    },
+    "nez": {
+      "features": {
+        "indice_nasal": {
+          "formula": "d(Alare_G, Alare_D) / |Nasion.y - Subnasale.y| * 100",
+          "icc": 0.96,
+          "discriminating_power": "tres haut",
+          "weight_hint": 1.0,
+          "reference": "Farkas 1994"
+        },
+        "longueur_pont_nasal_normalisee": {
+          "formula": "|Pronasale.y - Nasion.y| / |Nasion.y - Gnathion.y|",
+          "icc": 0.79,
+          "discriminating_power": "haut",
+          "weight_hint": 0.7,
+          "reference": "Farkas 1994"
+        },
+        "largeur_arete_milieu": {
+          "formula": "|Nez_dorsum_G.x - Nez_dorsum_D.x| / W_face",
+          "icc": 0.68,
+          "discriminating_power": "moyen",
+          "weight_hint": 0.5,
+          "reference": "Yang 2023"
+        }
+      }
+    }
+  }
+}
