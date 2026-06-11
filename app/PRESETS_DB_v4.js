@@ -1053,6 +1053,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3181576403471492,
     "lambda1": 0.10063457057045681,
     "lambda2": 0.0005897135408091044
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6810020895710276,
+    "excentricite": 0.9173684106349748,
+    "angle_gonion_moyen": 137.6188505385445,
+    "largeur_50_ratio": 0.7575533699061242,
+    "largeur_75_ratio": 0.5545721036702418,
+    "taux_remplissage": 3.1422657362673077,
+    "aire_n": 0.2511496432570038,
+    "perimetre_n": 2.3270720169625614
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9095056858060561,
+    "longueur_nez_ic": 1.1668414002937935,
+    "position_nez_vert": 0.3918714908540521,
+    "aspect_nez": 0.7794595611512036,
+    "arete_ic": 0.14952176247779062,
+    "ratio_base_nasale": 0.2890202652605183
    }
   },
   "notes": "",
@@ -1099,10 +1117,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3655374525152664,
     "angle_convergence_inferieur": 0.6676693211361844,
     "courbure_symphyse_menton": -0.5900874105153711,
-    "ratio_hauteur_mentonniere": 0.3148832795374738,
-    "angularite_gonion": 2.6594410003302884,
-    "courbure_mandibulaire_max": 0.4688441176543763,
-    "courbure_mandibulaire_std": 0.12257112887694788
+    "ratio_hauteur_mentonniere": 0.3148832795374738
    },
    "joues": {
     "angle_zygomatique": 2.4107958323247276,
@@ -2181,6 +2196,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.31690198853467205,
     "lambda1": 0.09979185451226316,
     "lambda2": 0.000635015824966256
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6976597549470814,
+    "excentricite": 0.9038285083854489,
+    "angle_gonion_moyen": 140.95970309608884,
+    "largeur_50_ratio": 0.7269718665134345,
+    "largeur_75_ratio": 0.5250188734241827,
+    "taux_remplissage": 2.702083459859179,
+    "aire_n": 0.2752442665914172,
+    "perimetre_n": 2.3733803609985675
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9891177776726597,
+    "longueur_nez_ic": 1.256499791176135,
+    "position_nez_vert": 0.39942621821145974,
+    "aspect_nez": 0.7872009089208086,
+    "arete_ic": 0.16796485794554697,
+    "ratio_base_nasale": 0.25677693465723356
    }
   },
   "notes": "visage asiatique avec nez gros nez (nez de cochon)",
@@ -2227,10 +2260,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.2107981043610367,
     "angle_convergence_inferieur": 0.6486978286156462,
     "courbure_symphyse_menton": -0.753560759464447,
-    "ratio_hauteur_mentonniere": 0.27164997370048116,
-    "angularite_gonion": 2.719685133284847,
-    "courbure_mandibulaire_max": 0.4529119609292973,
-    "courbure_mandibulaire_std": 0.10624092340694594
+    "ratio_hauteur_mentonniere": 0.27164997370048116
    },
    "joues": {
     "angle_zygomatique": 2.363549158493572,
@@ -3309,6 +3339,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.31930837420668207,
     "lambda1": 0.1013875560311907,
     "lambda2": 0.0005702818073237924
+   },
+   "machoire_silhouette": {
+    "compacite": 0.678818362580877,
+    "excentricite": 0.9142859239029962,
+    "angle_gonion_moyen": 140.0136359178562,
+    "largeur_50_ratio": 0.7415788448570939,
+    "largeur_75_ratio": 0.5375041022811478,
+    "taux_remplissage": 2.942057967329661,
+    "aire_n": 0.26511332112673364,
+    "perimetre_n": 2.298206109716191
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9359560831623541,
+    "longueur_nez_ic": 1.1720048753840593,
+    "position_nez_vert": 0.39004182925750697,
+    "aspect_nez": 0.7985940185237256,
+    "arete_ic": 0.16389468433611676,
+    "ratio_base_nasale": 0.26990498188347317
    }
   },
   "notes": "visage asiatique",
@@ -3355,10 +3403,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.2874317858441087,
     "angle_convergence_inferieur": 0.6760411725208142,
     "courbure_symphyse_menton": -0.7586201158394403,
-    "ratio_hauteur_mentonniere": 0.2863678179328853,
-    "angularite_gonion": 2.690903463281738,
-    "courbure_mandibulaire_max": 0.43992335544236294,
-    "courbure_mandibulaire_std": 0.11118919913438807
+    "ratio_hauteur_mentonniere": 0.2863678179328853
    },
    "joues": {
     "angle_zygomatique": 2.3012617287123955,
@@ -4437,6 +4482,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.32443513361840404,
     "lambda1": 0.1044477434037511,
     "lambda2": 0.0008104125222405289
+   },
+   "machoire_silhouette": {
+    "compacite": 0.7025110012813345,
+    "excentricite": 0.9036122491938585,
+    "angle_gonion_moyen": 138.38504008898872,
+    "largeur_50_ratio": 0.7521110474079926,
+    "largeur_75_ratio": 0.5482801590700298,
+    "taux_remplissage": 2.9883881574058533,
+    "aire_n": 0.26271155757307396,
+    "perimetre_n": 2.3506429780327016
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9220476095630565,
+    "longueur_nez_ic": 1.209871607153794,
+    "position_nez_vert": 0.384847997766502,
+    "aspect_nez": 0.7621036844828193,
+    "arete_ic": 0.15871771306650656,
+    "ratio_base_nasale": 0.30410380515816426
    }
   },
   "notes": "joue creuse",
@@ -4483,10 +4546,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.267228306929284,
     "angle_convergence_inferieur": 0.6443694843376739,
     "courbure_symphyse_menton": -0.6560855792998722,
-    "ratio_hauteur_mentonniere": 0.2941580022819679,
-    "angularite_gonion": 2.682176025162767,
-    "courbure_mandibulaire_max": 0.43244123159688197,
-    "courbure_mandibulaire_std": 0.10397942633218678
+    "ratio_hauteur_mentonniere": 0.2941580022819679
    },
    "joues": {
     "angle_zygomatique": 2.391552315626133,
@@ -5565,6 +5625,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3270900539162161,
     "lambda1": 0.10654119797257637,
     "lambda2": 0.0004467053983367382
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6805307921617815,
+    "excentricite": 0.9141025448596046,
+    "angle_gonion_moyen": 141.07539899177718,
+    "largeur_50_ratio": 0.7303267849391811,
+    "largeur_75_ratio": 0.5317984143584534,
+    "taux_remplissage": 2.6467450773699066,
+    "aire_n": 0.27927646233627024,
+    "perimetre_n": 2.319731062156391
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0056301342158698,
+    "longueur_nez_ic": 1.149598766901254,
+    "position_nez_vert": 0.40402710449557583,
+    "aspect_nez": 0.8747661907524032,
+    "arete_ic": 0.1645619937782195,
+    "ratio_base_nasale": 0.21982968054234028
    }
   },
   "notes": "",
@@ -5607,16 +5685,14 @@ window.PRESETS_DB = [
     "ratio_tiers_faciaux": 0.6779286567279402,
     "asymetrie_globale": 0.5522709083044139,
     "_indice_facial_prosopic_raw": 68.73600273478613,
-    "_zygion_fallback_used": true
+    "_zygion_fallback_used": true,
+    "_zygion_fallback_quality": "in_range"
    },
    "machoire_menton": {
     "angle_mandibulaire": 2.240061756702373,
     "angle_convergence_inferieur": 0.6837859793380177,
     "courbure_symphyse_menton": -0.8261610681992932,
-    "ratio_hauteur_mentonniere": 0.2772430940661392,
-    "angularite_gonion": 2.7260319154780253,
-    "courbure_mandibulaire_max": 0.44423002834554026,
-    "courbure_mandibulaire_std": 0.11306837063287051
+    "ratio_hauteur_mentonniere": 0.2772430940661392
    },
    "joues": {
     "angle_zygomatique": 2.3031108812122323,
@@ -6695,6 +6771,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3343802789409488,
     "lambda1": 0.11111962612593979,
     "lambda2": 0.0006905448186869133
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6533575476640813,
+    "excentricite": 0.931233736673429,
+    "angle_gonion_moyen": 138.7982253006208,
+    "largeur_50_ratio": 0.7424962137642972,
+    "largeur_75_ratio": 0.5365117348596599,
+    "taux_remplissage": 2.9122062807115143,
+    "aire_n": 0.2542932808249579,
+    "perimetre_n": 2.2706728310790374
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0106612407782538,
+    "longueur_nez_ic": 1.0413223944836454,
+    "position_nez_vert": 0.37376476583817764,
+    "aspect_nez": 0.9705555610175893,
+    "arete_ic": 0.15920370108276918,
+    "ratio_base_nasale": 0.2539321653705632
    }
   },
   "notes": "enorme narrine",
@@ -6741,10 +6835,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3702978765183165,
     "angle_convergence_inferieur": 0.7103185740669259,
     "courbure_symphyse_menton": -0.6785467580786043,
-    "ratio_hauteur_mentonniere": 0.2526102720666726,
-    "angularite_gonion": 2.670406316916755,
-    "courbure_mandibulaire_max": 0.4807617074635142,
-    "courbure_mandibulaire_std": 0.12718660593146944
+    "ratio_hauteur_mentonniere": 0.2526102720666726
    },
    "joues": {
     "angle_zygomatique": 2.3472174311062903,
@@ -7823,6 +7914,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3253881856412097,
     "lambda1": 0.10518067402363218,
     "lambda2": 0.0006967973312461277
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6743310553889483,
+    "excentricite": 0.9249905554299297,
+    "angle_gonion_moyen": 136.05282639382625,
+    "largeur_50_ratio": 0.762278618778027,
+    "largeur_75_ratio": 0.5558461710857611,
+    "taux_remplissage": 3.0478035398425805,
+    "aire_n": 0.25647220652862945,
+    "perimetre_n": 2.3160022518276127
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0100225770673725,
+    "longueur_nez_ic": 1.1709905829847302,
+    "position_nez_vert": 0.3765869012507677,
+    "aspect_nez": 0.8625368911959416,
+    "arete_ic": 0.1671316092247838,
+    "ratio_base_nasale": 0.2861738543611824
    }
   },
   "notes": "",
@@ -7869,10 +7978,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3912887083418406,
     "angle_convergence_inferieur": 0.6873227997308715,
     "courbure_symphyse_menton": -0.5727767936052416,
-    "ratio_hauteur_mentonniere": 0.3133411673298606,
-    "angularite_gonion": 2.6398335229872956,
-    "courbure_mandibulaire_max": 0.4796374024454888,
-    "courbure_mandibulaire_std": 0.12531916053660952
+    "ratio_hauteur_mentonniere": 0.3133411673298606
    },
    "joues": {
     "angle_zygomatique": 2.3951287163230424,
@@ -8951,6 +9057,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.31994912122503405,
     "lambda1": 0.10184831237013228,
     "lambda2": 0.0005191278025392943
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6643492433681984,
+    "excentricite": 0.9231299422257637,
+    "angle_gonion_moyen": 139.94353422916586,
+    "largeur_50_ratio": 0.7529235062167148,
+    "largeur_75_ratio": 0.5551060818498367,
+    "taux_remplissage": 2.883270071584575,
+    "aire_n": 0.25404709955165916,
+    "perimetre_n": 2.2423310816442976
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9513812631420927,
+    "longueur_nez_ic": 1.1612822719267508,
+    "position_nez_vert": 0.39564790929604815,
+    "aspect_nez": 0.8192506560559137,
+    "arete_ic": 0.1664802361317293,
+    "ratio_base_nasale": 0.2750304702914627
    }
   },
   "notes": "",
@@ -8993,16 +9117,14 @@ window.PRESETS_DB = [
     "ratio_tiers_faciaux": 0.6546645827520777,
     "asymetrie_globale": 0.5364180874201802,
     "_indice_facial_prosopic_raw": 69.56052560884021,
-    "_zygion_fallback_used": true
+    "_zygion_fallback_used": true,
+    "_zygion_fallback_quality": "in_range"
    },
    "machoire_menton": {
     "angle_mandibulaire": 2.3420708029446216,
     "angle_convergence_inferieur": 0.7127532998415267,
     "courbure_symphyse_menton": -0.6852142003521787,
-    "ratio_hauteur_mentonniere": 0.31351550439874076,
-    "angularite_gonion": 2.7047835185669284,
-    "courbure_mandibulaire_max": 0.4151799313726614,
-    "courbure_mandibulaire_std": 0.10157022616693542
+    "ratio_hauteur_mentonniere": 0.31351550439874076
    },
    "joues": {
     "angle_zygomatique": 2.2960279651528355,
@@ -10081,6 +10203,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3272078485934358,
     "lambda1": 0.10635395496432697,
     "lambda2": 0.000711021216817809
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6812873268092404,
+    "excentricite": 0.9198416544817227,
+    "angle_gonion_moyen": 136.54463273706148,
+    "largeur_50_ratio": 0.7550968389882101,
+    "largeur_75_ratio": 0.5516602633280192,
+    "taux_remplissage": 3.174632741389588,
+    "aire_n": 0.254091697171887,
+    "perimetre_n": 2.3216009547606204
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9530332783773151,
+    "longueur_nez_ic": 1.200964288500748,
+    "position_nez_vert": 0.37969486830999627,
+    "aspect_nez": 0.7935567173001093,
+    "arete_ic": 0.1591005369545691,
+    "ratio_base_nasale": 0.3003197094642321
    }
   },
   "notes": "",
@@ -10127,10 +10267,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3644679340438213,
     "angle_convergence_inferieur": 0.667215576404772,
     "courbure_symphyse_menton": -0.611475966162626,
-    "ratio_hauteur_mentonniere": 0.2881089110517863,
-    "angularite_gonion": 2.6342327934845446,
-    "courbure_mandibulaire_max": 0.4921139339884695,
-    "courbure_mandibulaire_std": 0.1329830936301212
+    "ratio_hauteur_mentonniere": 0.2881089110517863
    },
    "joues": {
     "angle_zygomatique": 2.39293946101659,
@@ -11209,6 +11346,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.34155750711076394,
     "lambda1": 0.11604830809673819,
     "lambda2": 0.0006132225669813426
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6943070597981905,
+    "excentricite": 0.913731304420835,
+    "angle_gonion_moyen": 136.8432794968221,
+    "largeur_50_ratio": 0.7511223156104382,
+    "largeur_75_ratio": 0.5473122951105487,
+    "taux_remplissage": 2.9356474116157525,
+    "aire_n": 0.2723700125084353,
+    "perimetre_n": 2.3611901183008404
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.8757629407169847,
+    "longueur_nez_ic": 1.0815311608622307,
+    "position_nez_vert": 0.38754247675435144,
+    "aspect_nez": 0.8097436046306784,
+    "arete_ic": 0.15561968622378364,
+    "ratio_base_nasale": 0.27373972552496967
    }
   },
   "notes": "visage avec une jawline remarquable",
@@ -11255,10 +11410,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.296913196492346,
     "angle_convergence_inferieur": 0.6592279710047086,
     "courbure_symphyse_menton": -0.6542286515910153,
-    "ratio_hauteur_mentonniere": 0.287121423548587,
-    "angularite_gonion": 2.6612049369044595,
-    "courbure_mandibulaire_max": 0.46582757637585637,
-    "courbure_mandibulaire_std": 0.12120412235776354
+    "ratio_hauteur_mentonniere": 0.287121423548587
    },
    "joues": {
     "angle_zygomatique": 2.395834615610946,
@@ -12337,6 +12489,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3285192634092235,
     "lambda1": 0.10716056405644878,
     "lambda2": 0.0007643423744899423
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6622275185982782,
+    "excentricite": 0.9265159237109666,
+    "angle_gonion_moyen": 139.09681624336815,
+    "largeur_50_ratio": 0.7492593014150177,
+    "largeur_75_ratio": 0.5486926903429493,
+    "taux_remplissage": 2.9557005941172823,
+    "aire_n": 0.24922788250013408,
+    "perimetre_n": 2.2886805546069757
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0455263723356103,
+    "longueur_nez_ic": 1.0675236381062023,
+    "position_nez_vert": 0.3663472922838773,
+    "aspect_nez": 0.9793941183263958,
+    "arete_ic": 0.15615733894690642,
+    "ratio_base_nasale": 0.2598615416098089
    }
   },
   "notes": "",
@@ -12383,10 +12553,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3658227629136936,
     "angle_convergence_inferieur": 0.694641325269372,
     "courbure_symphyse_menton": -0.6499951544705643,
-    "ratio_hauteur_mentonniere": 0.2480619183757955,
-    "angularite_gonion": 2.6796242119078277,
-    "courbure_mandibulaire_max": 0.47611009966893514,
-    "courbure_mandibulaire_std": 0.11717964828441023
+    "ratio_hauteur_mentonniere": 0.2480619183757955
    },
    "joues": {
     "angle_zygomatique": 2.3793202277356644,
@@ -13465,6 +13632,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3070697443504374,
     "lambda1": 0.09392244200259055,
     "lambda2": 0.00036938589285239625
+   },
+   "machoire_silhouette": {
+    "compacite": 0.68130658475333,
+    "excentricite": 0.9133649416746248,
+    "angle_gonion_moyen": 141.4061564895423,
+    "largeur_50_ratio": 0.7270878018966946,
+    "largeur_75_ratio": 0.5212931843285362,
+    "taux_remplissage": 2.653225981854124,
+    "aire_n": 0.286711670375062,
+    "perimetre_n": 2.362034563677782
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9601527352828615,
+    "longueur_nez_ic": 1.1484009958166586,
+    "position_nez_vert": 0.3848507925109467,
+    "aspect_nez": 0.8360779368708847,
+    "arete_ic": 0.16147652390808476,
+    "ratio_base_nasale": 0.2509536305204614
    }
   },
   "notes": "visage rond asiatique",
@@ -13511,10 +13696,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.2332509883285243,
     "angle_convergence_inferieur": 0.6700910536752609,
     "courbure_symphyse_menton": -0.7723106157944649,
-    "ratio_hauteur_mentonniere": 0.26489863966497906,
-    "angularite_gonion": 2.7120757203957755,
-    "courbure_mandibulaire_max": 0.4239464614223962,
-    "courbure_mandibulaire_std": 0.11005817031450114
+    "ratio_hauteur_mentonniere": 0.26489863966497906
    },
    "joues": {
     "angle_zygomatique": 2.3044985929579695,
@@ -14593,6 +14775,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3172076731887499,
     "lambda1": 0.10017657898166177,
     "lambda2": 0.00044412894815898336
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6794509533197429,
+    "excentricite": 0.915989059269898,
+    "angle_gonion_moyen": 139.6504807598924,
+    "largeur_50_ratio": 0.7478499301267851,
+    "largeur_75_ratio": 0.545253415844559,
+    "taux_remplissage": 2.814716331101388,
+    "aire_n": 0.27855614107850873,
+    "perimetre_n": 2.3279539437002263
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.944690016027141,
+    "longueur_nez_ic": 1.205715621506148,
+    "position_nez_vert": 0.4032547945164061,
+    "aspect_nez": 0.7835098087615878,
+    "arete_ic": 0.15760811450223666,
+    "ratio_base_nasale": 0.2512564943223586
    }
   },
   "notes": "",
@@ -14635,16 +14835,14 @@ window.PRESETS_DB = [
     "ratio_tiers_faciaux": 0.6757570748970065,
     "asymetrie_globale": 0.5346552756453543,
     "_indice_facial_prosopic_raw": 69.34747396844719,
-    "_zygion_fallback_used": true
+    "_zygion_fallback_used": true,
+    "_zygion_fallback_quality": "in_range"
    },
    "machoire_menton": {
     "angle_mandibulaire": 2.2985086384719136,
     "angle_convergence_inferieur": 0.686155701493028,
     "courbure_symphyse_menton": -0.7073842583902302,
-    "ratio_hauteur_mentonniere": 0.3108394377825765,
-    "angularite_gonion": 2.695480370937286,
-    "courbure_mandibulaire_max": 0.4203973819703508,
-    "courbure_mandibulaire_std": 0.10590748899879243
+    "ratio_hauteur_mentonniere": 0.3108394377825765
    },
    "joues": {
     "angle_zygomatique": 2.3065189166482924,
@@ -15723,6 +15921,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3237357202316685,
     "lambda1": 0.10415204685652603,
     "lambda2": 0.0006527696973911148
+   },
+   "machoire_silhouette": {
+    "compacite": 0.652926265595263,
+    "excentricite": 0.9257635150553911,
+    "angle_gonion_moyen": 139.9505485641111,
+    "largeur_50_ratio": 0.7515546867940335,
+    "largeur_75_ratio": 0.5490908382067203,
+    "taux_remplissage": 3.177464706320175,
+    "aire_n": 0.24352621161255295,
+    "perimetre_n": 2.2370285637048015
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.8463831192415222,
+    "longueur_nez_ic": 1.1235469113541157,
+    "position_nez_vert": 0.42028465716665764,
+    "aspect_nez": 0.7533135561037221,
+    "arete_ic": 0.14757604027919385,
+    "ratio_base_nasale": 0.2823228541300787
    }
   },
   "notes": "",
@@ -15765,16 +15981,14 @@ window.PRESETS_DB = [
     "ratio_tiers_faciaux": 0.7249845331202174,
     "asymetrie_globale": 0.5354048413519447,
     "_indice_facial_prosopic_raw": 69.2859355092257,
-    "_zygion_fallback_used": true
+    "_zygion_fallback_used": true,
+    "_zygion_fallback_quality": "in_range"
    },
    "machoire_menton": {
     "angle_mandibulaire": 2.382698902968574,
     "angle_convergence_inferieur": 0.7105819533258142,
     "courbure_symphyse_menton": -0.6376108944460533,
-    "ratio_hauteur_mentonniere": 0.30234718143868416,
-    "angularite_gonion": 2.687197534670166,
-    "courbure_mandibulaire_max": 0.4403083531399363,
-    "courbure_mandibulaire_std": 0.11470100261708009
+    "ratio_hauteur_mentonniere": 0.30234718143868416
    },
    "joues": {
     "angle_zygomatique": 2.309498503109914,
@@ -16853,6 +17067,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3233383095677812,
     "lambda1": 0.10404722715144366,
     "lambda2": 0.000500435282706689
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6800574816087294,
+    "excentricite": 0.9134954516217995,
+    "angle_gonion_moyen": 140.81353975850277,
+    "largeur_50_ratio": 0.7352239022930577,
+    "largeur_75_ratio": 0.533835776473453,
+    "taux_remplissage": 2.7779003052670386,
+    "aire_n": 0.26691144088542706,
+    "perimetre_n": 2.296982831674394
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9653303440438111,
+    "longueur_nez_ic": 1.1730959091914226,
+    "position_nez_vert": 0.4057522896762468,
+    "aspect_nez": 0.822891237178708,
+    "arete_ic": 0.16735061939212914,
+    "ratio_base_nasale": 0.24435606130760856
    }
   },
   "notes": "Mono sourcils",
@@ -16899,10 +17131,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.2505434855261206,
     "angle_convergence_inferieur": 0.6810544562009607,
     "courbure_symphyse_menton": -0.7792550148673071,
-    "ratio_hauteur_mentonniere": 0.2629185067390814,
-    "angularite_gonion": 2.71961793652379,
-    "courbure_mandibulaire_max": 0.4295081079338168,
-    "courbure_mandibulaire_std": 0.10746495366619928
+    "ratio_hauteur_mentonniere": 0.2629185067390814
    },
    "joues": {
     "angle_zygomatique": 2.313743679268776,
@@ -17981,6 +18210,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.31468813105149707,
     "lambda1": 0.09855857408767761,
     "lambda2": 0.00047004573700655446
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6731257290996107,
+    "excentricite": 0.924710257022029,
+    "angle_gonion_moyen": 135.67534222737982,
+    "largeur_50_ratio": 0.7678668093730397,
+    "largeur_75_ratio": 0.5629443865085083,
+    "taux_remplissage": 3.22331334457345,
+    "aire_n": 0.26271131915265516,
+    "perimetre_n": 2.313274191076868
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.949057877123827,
+    "longueur_nez_ic": 1.1664535048284983,
+    "position_nez_vert": 0.3813660789785524,
+    "aspect_nez": 0.8136268382710765,
+    "arete_ic": 0.15325347046888246,
+    "ratio_base_nasale": 0.27543176578978906
    }
   },
   "notes": "",
@@ -18027,10 +18274,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3904720992313546,
     "angle_convergence_inferieur": 0.6839673429965902,
     "courbure_symphyse_menton": -0.5784088327849838,
-    "ratio_hauteur_mentonniere": 0.2855603633458332,
-    "angularite_gonion": 2.6261178031115193,
-    "courbure_mandibulaire_max": 0.5043980370979155,
-    "courbure_mandibulaire_std": 0.13653657071372546
+    "ratio_hauteur_mentonniere": 0.2855603633458332
    },
    "joues": {
     "angle_zygomatique": 2.3529003859581223,
@@ -19109,6 +19353,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3225386168072999,
     "lambda1": 0.1035510177681465,
     "lambda2": 0.0004801415638197108
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6594553993443485,
+    "excentricite": 0.926969868113896,
+    "angle_gonion_moyen": 137.6087819622009,
+    "largeur_50_ratio": 0.7612493243775463,
+    "largeur_75_ratio": 0.5578002128814834,
+    "taux_remplissage": 3.1965118377099713,
+    "aire_n": 0.25527389678340523,
+    "perimetre_n": 2.240353305884148
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.8750381903581987,
+    "longueur_nez_ic": 0.9778289520088616,
+    "position_nez_vert": 0.3811243098854519,
+    "aspect_nez": 0.8948785864445019,
+    "arete_ic": 0.1455380859103503,
+    "ratio_base_nasale": 0.24661630787046535
    }
   },
   "notes": "",
@@ -19151,16 +19413,14 @@ window.PRESETS_DB = [
     "ratio_tiers_faciaux": 0.6158333829769742,
     "asymetrie_globale": 0.5378855745682194,
     "_indice_facial_prosopic_raw": 66.27168179669016,
-    "_zygion_fallback_used": true
+    "_zygion_fallback_used": true,
+    "_zygion_fallback_quality": "in_range"
    },
    "machoire_menton": {
     "angle_mandibulaire": 2.382175489647541,
     "angle_convergence_inferieur": 0.7089255475168753,
     "courbure_symphyse_menton": -0.620517449397985,
-    "ratio_hauteur_mentonniere": 0.2994379688703308,
-    "angularite_gonion": 2.658667304694304,
-    "courbure_mandibulaire_max": 0.4656555027303857,
-    "courbure_mandibulaire_std": 0.12521042652030326
+    "ratio_hauteur_mentonniere": 0.2994379688703308
    },
    "joues": {
     "angle_zygomatique": 2.2895121563881093,
@@ -20239,6 +20499,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.31805499414374655,
     "lambda1": 0.10059998687269286,
     "lambda2": 0.0005589924270858002
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6786743671941482,
+    "excentricite": 0.9117837301407048,
+    "angle_gonion_moyen": 142.30703057578893,
+    "largeur_50_ratio": 0.7242917965839617,
+    "largeur_75_ratio": 0.5214381620166879,
+    "taux_remplissage": 2.692925723471825,
+    "aire_n": 0.2725091083797268,
+    "perimetre_n": 2.3078649969598675
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9004370754359087,
+    "longueur_nez_ic": 1.149792654071434,
+    "position_nez_vert": 0.4145221200353985,
+    "aspect_nez": 0.7831299602127799,
+    "arete_ic": 0.1541021286779317,
+    "ratio_base_nasale": 0.2565626826485394
    }
   },
   "notes": "visage asiatique",
@@ -20285,10 +20563,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.2308177209822846,
     "angle_convergence_inferieur": 0.6806562803100387,
     "courbure_symphyse_menton": -0.8060406144939081,
-    "ratio_hauteur_mentonniere": 0.260208269948876,
-    "angularite_gonion": 2.728406470654571,
-    "courbure_mandibulaire_max": 0.4249376377284486,
-    "courbure_mandibulaire_std": 0.10382419578679088
+    "ratio_hauteur_mentonniere": 0.260208269948876
    },
    "joues": {
     "angle_zygomatique": 2.2875305395366787,
@@ -21367,6 +21642,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.32278308040836917,
     "lambda1": 0.10356876824347695,
     "lambda2": 0.0006201487544386793
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6820902655511346,
+    "excentricite": 0.9162503529596584,
+    "angle_gonion_moyen": 138.2484442718657,
+    "largeur_50_ratio": 0.7470514702882378,
+    "largeur_75_ratio": 0.5397296005791197,
+    "taux_remplissage": 2.9889227650846424,
+    "aire_n": 0.2695518982134165,
+    "perimetre_n": 2.327875405243994
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9480462341624633,
+    "longueur_nez_ic": 1.2838716922706417,
+    "position_nez_vert": 0.4195251024121704,
+    "aspect_nez": 0.738427554614713,
+    "arete_ic": 0.16646017761292506,
+    "ratio_base_nasale": 0.2724814437963478
    }
   },
   "notes": "visage typé asie (thailandais)",
@@ -21413,10 +21706,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.315604696873693,
     "angle_convergence_inferieur": 0.6766206832073598,
     "courbure_symphyse_menton": -0.6496776381559861,
-    "ratio_hauteur_mentonniere": 0.29005333076633455,
-    "angularite_gonion": 2.6714675402690036,
-    "courbure_mandibulaire_max": 0.47106960982909607,
-    "courbure_mandibulaire_std": 0.11914423337418416
+    "ratio_hauteur_mentonniere": 0.29005333076633455
    },
    "joues": {
     "angle_zygomatique": 2.3383700324250487,
@@ -22495,6 +22785,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3331983093608933,
     "lambda1": 0.11039627015074704,
     "lambda2": 0.0006248432102105184
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6905709717552142,
+    "excentricite": 0.903039992757013,
+    "angle_gonion_moyen": 142.95132943202316,
+    "largeur_50_ratio": 0.7326460945518186,
+    "largeur_75_ratio": 0.5317540850140304,
+    "taux_remplissage": 2.670424788677995,
+    "aire_n": 0.2570591144898597,
+    "perimetre_n": 2.2822621184571625
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9008710318051217,
+    "longueur_nez_ic": 1.038464371359451,
+    "position_nez_vert": 0.38141562416584984,
+    "aspect_nez": 0.8675030715072043,
+    "arete_ic": 0.14868362748378552,
+    "ratio_base_nasale": 0.2571375891280029
    }
   },
   "notes": "",
@@ -22541,10 +22849,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.1820744363706956,
     "angle_convergence_inferieur": 0.6659037668200984,
     "courbure_symphyse_menton": -0.8458271468584543,
-    "ratio_hauteur_mentonniere": 0.23628021483771744,
-    "angularite_gonion": 2.7612280455569076,
-    "courbure_mandibulaire_max": 0.38711742837208263,
-    "courbure_mandibulaire_std": 0.08883506894641756
+    "ratio_hauteur_mentonniere": 0.23628021483771744
    },
    "joues": {
     "angle_zygomatique": 2.330980038650825,
@@ -23623,6 +23928,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3171276030148899,
     "lambda1": 0.10004498829445357,
     "lambda2": 0.0005249282995160593
+   },
+   "machoire_silhouette": {
+    "compacite": 0.7029507135626006,
+    "excentricite": 0.8993981677001904,
+    "angle_gonion_moyen": 140.99640901917113,
+    "largeur_50_ratio": 0.7343653866071056,
+    "largeur_75_ratio": 0.5334567143422362,
+    "taux_remplissage": 2.7353186609508855,
+    "aire_n": 0.272429131698672,
+    "perimetre_n": 2.3512262091747735
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0598799469942362,
+    "longueur_nez_ic": 1.3651038216341211,
+    "position_nez_vert": 0.4005235353976716,
+    "aspect_nez": 0.7764097720607717,
+    "arete_ic": 0.1800280582525963,
+    "ratio_base_nasale": 0.2603571979590263
    }
   },
   "notes": "",
@@ -23669,10 +23992,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.1961915206232776,
     "angle_convergence_inferieur": 0.6467732174956735,
     "courbure_symphyse_menton": -0.7776652297128782,
-    "ratio_hauteur_mentonniere": 0.2750488578759412,
-    "angularite_gonion": 2.728123432236964,
-    "courbure_mandibulaire_max": 0.41446444725552256,
-    "courbure_mandibulaire_std": 0.09835336139100276
+    "ratio_hauteur_mentonniere": 0.2750488578759412
    },
    "joues": {
     "angle_zygomatique": 2.3468382740042273,
@@ -24751,6 +25071,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3175112286970401,
     "lambda1": 0.1003528115364668,
     "lambda2": 0.0004605688122373252
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6249874035972043,
+    "excentricite": 0.943991732142276,
+    "angle_gonion_moyen": 135.03167486377254,
+    "largeur_50_ratio": 0.7828329318138268,
+    "largeur_75_ratio": 0.5811959516621386,
+    "taux_remplissage": 3.492210550367324,
+    "aire_n": 0.2595129938859107,
+    "perimetre_n": 2.262005460914303
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.8300134925328178,
+    "longueur_nez_ic": 0.9346092667624244,
+    "position_nez_vert": 0.3763452206165929,
+    "aspect_nez": 0.8880860933554229,
+    "arete_ic": 0.14135540611392192,
+    "ratio_base_nasale": 0.2603112364160859
    }
   },
   "notes": "",
@@ -24793,16 +25131,14 @@ window.PRESETS_DB = [
     "ratio_tiers_faciaux": 0.6034511929639615,
     "asymetrie_globale": 0.5380763760752467,
     "_indice_facial_prosopic_raw": 63.86091017590045,
-    "_zygion_fallback_used": true
+    "_zygion_fallback_used": true,
+    "_zygion_fallback_quality": "in_range"
    },
    "machoire_menton": {
     "angle_mandibulaire": 2.5303305335089883,
     "angle_convergence_inferieur": 0.7430973113031039,
     "courbure_symphyse_menton": -0.49712285566513853,
-    "ratio_hauteur_mentonniere": 0.3550326396641242,
-    "angularite_gonion": 2.5872417157891396,
-    "courbure_mandibulaire_max": 0.5417843586863778,
-    "courbure_mandibulaire_std": 0.16148638403179977
+    "ratio_hauteur_mentonniere": 0.3550326396641242
    },
    "joues": {
     "angle_zygomatique": 2.2852438551216183,
@@ -25881,6 +26217,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.33046797545364376,
     "lambda1": 0.10865337659087916,
     "lambda2": 0.0005557062095509144
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6659843493636375,
+    "excentricite": 0.9254167412586899,
+    "angle_gonion_moyen": 138.53757755149297,
+    "largeur_50_ratio": 0.7476009453965103,
+    "largeur_75_ratio": 0.5423880392883376,
+    "taux_remplissage": 2.9438502114729777,
+    "aire_n": 0.26574455589821305,
+    "perimetre_n": 2.320514926211278
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0269395954064633,
+    "longueur_nez_ic": 1.0348354776872004,
+    "position_nez_vert": 0.37276856475584463,
+    "aspect_nez": 0.9923699153624073,
+    "arete_ic": 0.15279127022807823,
+    "ratio_base_nasale": 0.23837110262349412
    }
   },
   "notes": "",
@@ -25927,10 +26281,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3397048472333974,
     "angle_convergence_inferieur": 0.686694389240637,
     "courbure_symphyse_menton": -0.6483067190777341,
-    "ratio_hauteur_mentonniere": 0.25036609283314315,
-    "angularite_gonion": 2.6719086086976835,
-    "courbure_mandibulaire_max": 0.49624544608641097,
-    "courbure_mandibulaire_std": 0.126880937632362
+    "ratio_hauteur_mentonniere": 0.25036609283314315
    },
    "joues": {
     "angle_zygomatique": 2.356123479928044,
@@ -27009,6 +27360,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.34046316609443017,
     "lambda1": 0.11543275332189706,
     "lambda2": 0.0004824141451464516
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6940451945416055,
+    "excentricite": 0.9070227978823183,
+    "angle_gonion_moyen": 140.77535354182336,
+    "largeur_50_ratio": 0.7437097671725801,
+    "largeur_75_ratio": 0.5426102367357524,
+    "taux_remplissage": 2.6725048912502216,
+    "aire_n": 0.261054311086781,
+    "perimetre_n": 2.2711402834333714
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9107417527635147,
+    "longueur_nez_ic": 0.9771377592873972,
+    "position_nez_vert": 0.3867808583298744,
+    "aspect_nez": 0.9320505160170011,
+    "arete_ic": 0.14984905349918237,
+    "ratio_base_nasale": 0.23442954359541535
    }
   },
   "notes": "",
@@ -27055,10 +27424,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.1993316257840765,
     "angle_convergence_inferieur": 0.6743458875300209,
     "courbure_symphyse_menton": -0.7890049561983893,
-    "ratio_hauteur_mentonniere": 0.23375144746474757,
-    "angularite_gonion": 2.745752145147831,
-    "courbure_mandibulaire_max": 0.39856519353777786,
-    "courbure_mandibulaire_std": 0.09164682780093747
+    "ratio_hauteur_mentonniere": 0.23375144746474757
    },
    "joues": {
     "angle_zygomatique": 2.327665356139562,
@@ -28137,6 +28503,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3266596394499976,
     "lambda1": 0.106144561893472,
     "lambda2": 0.0005619581521304189
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6630835685408859,
+    "excentricite": 0.925301081122769,
+    "angle_gonion_moyen": 139.4077393264401,
+    "largeur_50_ratio": 0.7465959260762512,
+    "largeur_75_ratio": 0.5461008406265918,
+    "taux_remplissage": 2.8679326398979272,
+    "aire_n": 0.26269296483787874,
+    "perimetre_n": 2.290115516567749
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0623656970322712,
+    "longueur_nez_ic": 1.1106555692778073,
+    "position_nez_vert": 0.38889205435329594,
+    "aspect_nez": 0.9565212892445709,
+    "arete_ic": 0.1670900462518383,
+    "ratio_base_nasale": 0.23009650594399078
    }
   },
   "notes": "",
@@ -28183,10 +28567,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3336208514641466,
     "angle_convergence_inferieur": 0.700909822734858,
     "courbure_symphyse_menton": -0.6583573653806379,
-    "ratio_hauteur_mentonniere": 0.25413941467799694,
-    "angularite_gonion": 2.693686861152529,
-    "courbure_mandibulaire_max": 0.4493963531869394,
-    "courbure_mandibulaire_std": 0.11534628758193122
+    "ratio_hauteur_mentonniere": 0.25413941467799694
    },
    "joues": {
     "angle_zygomatique": 2.3305760862100593,
@@ -29265,6 +29646,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.32038132709091055,
     "lambda1": 0.10201788805974496,
     "lambda2": 0.0006263066887880771
+   },
+   "machoire_silhouette": {
+    "compacite": 0.704752443003419,
+    "excentricite": 0.8983773942140667,
+    "angle_gonion_moyen": 140.3256598591886,
+    "largeur_50_ratio": 0.7375957669665831,
+    "largeur_75_ratio": 0.5350370479881036,
+    "taux_remplissage": 2.836035719693907,
+    "aire_n": 0.2702381124249987,
+    "perimetre_n": 2.375908906141263
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9514242224318248,
+    "longueur_nez_ic": 1.3736859138252986,
+    "position_nez_vert": 0.41024675347730244,
+    "aspect_nez": 0.6926068127046575,
+    "arete_ic": 0.16148307679413643,
+    "ratio_base_nasale": 0.28809169091491366
    }
   },
   "notes": "",
@@ -29311,10 +29710,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.228096398298623,
     "angle_convergence_inferieur": 0.6400756590087799,
     "courbure_symphyse_menton": -0.733158068404027,
-    "ratio_hauteur_mentonniere": 0.3115129981469655,
-    "angularite_gonion": 2.7091911825503363,
-    "courbure_mandibulaire_max": 0.41701670332318974,
-    "courbure_mandibulaire_std": 0.10337936249356328
+    "ratio_hauteur_mentonniere": 0.3115129981469655
    },
    "joues": {
     "angle_zygomatique": 2.380167338354335,
@@ -30393,6 +30789,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.323951929680503,
     "lambda1": 0.1042379371553694,
     "lambda2": 0.0007069155883521952
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6693168801785437,
+    "excentricite": 0.9201737267098834,
+    "angle_gonion_moyen": 139.32214378326557,
+    "largeur_50_ratio": 0.7446072572912893,
+    "largeur_75_ratio": 0.5429993260386858,
+    "taux_remplissage": 3.0621060045496313,
+    "aire_n": 0.25363822234412137,
+    "perimetre_n": 2.306130546131026
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 1.0369237100323754,
+    "longueur_nez_ic": 1.254844806800543,
+    "position_nez_vert": 0.4124529821515523,
+    "aspect_nez": 0.826336216568647,
+    "arete_ic": 0.15823367997949128,
+    "ratio_base_nasale": 0.2506948626966225
    }
   },
   "notes": "",
@@ -30439,10 +30853,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.3454491180890846,
     "angle_convergence_inferieur": 0.6821679083831207,
     "courbure_symphyse_menton": -0.6878811582462566,
-    "ratio_hauteur_mentonniere": 0.2499711639032359,
-    "angularite_gonion": 2.6850432377274496,
-    "courbure_mandibulaire_max": 0.47584907335360205,
-    "courbure_mandibulaire_std": 0.12100489488924868
+    "ratio_hauteur_mentonniere": 0.2499711639032359
    },
    "joues": {
     "angle_zygomatique": 2.3689471305154854,
@@ -31521,6 +31932,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3254754974345396,
     "lambda1": 0.10535070820686679,
     "lambda2": 0.000583591223394201
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6782505680959366,
+    "excentricite": 0.9142390747011055,
+    "angle_gonion_moyen": 140.74802881308256,
+    "largeur_50_ratio": 0.7386465343638964,
+    "largeur_75_ratio": 0.5393805321399912,
+    "taux_remplissage": 2.8274023318393287,
+    "aire_n": 0.26616883970465,
+    "perimetre_n": 2.3329233158634763
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.982207312246688,
+    "longueur_nez_ic": 1.1489887389200717,
+    "position_nez_vert": 0.39374388449973,
+    "aspect_nez": 0.8548450293515143,
+    "arete_ic": 0.16078619999946914,
+    "ratio_base_nasale": 0.24286068116373005
    }
   },
   "notes": "",
@@ -31567,10 +31996,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.277721414305038,
     "angle_convergence_inferieur": 0.6694194051558153,
     "courbure_symphyse_menton": -0.7235749614936648,
-    "ratio_hauteur_mentonniere": 0.28545142436660714,
-    "angularite_gonion": 2.7156514721802814,
-    "courbure_mandibulaire_max": 0.43084089874483844,
-    "courbure_mandibulaire_std": 0.10925892963706961
+    "ratio_hauteur_mentonniere": 0.28545142436660714
    },
    "joues": {
     "angle_zygomatique": 2.3441308832421193,
@@ -32649,6 +33075,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3116448339213998,
     "lambda1": 0.09651934375644654,
     "lambda2": 0.0006031587534503384
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6555711265067526,
+    "excentricite": 0.9281392043042002,
+    "angle_gonion_moyen": 138.48949808743959,
+    "largeur_50_ratio": 0.7397502926969799,
+    "largeur_75_ratio": 0.528898611404745,
+    "taux_remplissage": 3.126569245861512,
+    "aire_n": 0.2581495966082022,
+    "perimetre_n": 2.287212869477721
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9537007765862504,
+    "longueur_nez_ic": 1.2285401474437032,
+    "position_nez_vert": 0.4140350913104934,
+    "aspect_nez": 0.7762878393275731,
+    "arete_ic": 0.15667110504347279,
+    "ratio_base_nasale": 0.27189582575124693
    }
   },
   "notes": "",
@@ -32691,16 +33135,14 @@ window.PRESETS_DB = [
     "ratio_tiers_faciaux": 0.7065868368064414,
     "asymetrie_globale": 0.5349651297462297,
     "_indice_facial_prosopic_raw": 69.521489614879,
-    "_zygion_fallback_used": true
+    "_zygion_fallback_used": true,
+    "_zygion_fallback_quality": "in_range"
    },
    "machoire_menton": {
     "angle_mandibulaire": 2.389742205032598,
     "angle_convergence_inferieur": 0.7055714995137203,
     "courbure_symphyse_menton": -0.624122823523478,
-    "ratio_hauteur_mentonniere": 0.29936391906593995,
-    "angularite_gonion": 2.645591843424623,
-    "courbure_mandibulaire_max": 0.502316239587882,
-    "courbure_mandibulaire_std": 0.14160962222673232
+    "ratio_hauteur_mentonniere": 0.29936391906593995
    },
    "joues": {
     "angle_zygomatique": 2.3207293294786697,
@@ -33779,6 +34221,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.3103771292141405,
     "lambda1": 0.0957334332765306,
     "lambda2": 0.0006005290626806874
+   },
+   "machoire_silhouette": {
+    "compacite": 0.6566819786254796,
+    "excentricite": 0.9263566802448261,
+    "angle_gonion_moyen": 139.0450526395649,
+    "largeur_50_ratio": 0.7438383285019876,
+    "largeur_75_ratio": 0.5374176347993567,
+    "taux_remplissage": 3.1845697612384636,
+    "aire_n": 0.25698604307462813,
+    "perimetre_n": 2.3047956362044237
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9277349814228026,
+    "longueur_nez_ic": 1.2248681867033946,
+    "position_nez_vert": 0.4124108795971527,
+    "aspect_nez": 0.757416178731611,
+    "arete_ic": 0.15357612829155176,
+    "ratio_base_nasale": 0.2790371979525827
    }
   },
   "notes": "",
@@ -33825,10 +34285,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.388593287480477,
     "angle_convergence_inferieur": 0.692610639464553,
     "courbure_symphyse_menton": -0.6649105394665173,
-    "ratio_hauteur_mentonniere": 0.2850463937550143,
-    "angularite_gonion": 2.651237129340335,
-    "courbure_mandibulaire_max": 0.5075929090978253,
-    "courbure_mandibulaire_std": 0.1382396862349467
+    "ratio_hauteur_mentonniere": 0.2850463937550143
    },
    "joues": {
     "angle_zygomatique": 2.3386081475504787,
@@ -34907,6 +35364,24 @@ window.PRESETS_DB = [
     "taille_centroide": 0.32709992729733,
     "lambda1": 0.10637739415579062,
     "lambda2": 0.0006169682821279735
+   },
+   "machoire_silhouette": {
+    "compacite": 0.672166607886897,
+    "excentricite": 0.9243152092572665,
+    "angle_gonion_moyen": 136.04931383615394,
+    "largeur_50_ratio": 0.7660202450946529,
+    "largeur_75_ratio": 0.560339300823904,
+    "taux_remplissage": 3.2234706718096144,
+    "aire_n": 0.2561766833504124,
+    "perimetre_n": 2.303336504502779
+   },
+   "nez_v2": {
+    "largeur_alaire_ic": 0.9086345705289529,
+    "longueur_nez_ic": 1.1628501849468482,
+    "position_nez_vert": 0.4066799924024941,
+    "aspect_nez": 0.7813857556986028,
+    "arete_ic": 0.15257826537243258,
+    "ratio_base_nasale": 0.2847116369769154
    }
   },
   "notes": "",
@@ -34953,10 +35428,7 @@ window.PRESETS_DB = [
     "angle_mandibulaire": 2.400589528439924,
     "angle_convergence_inferieur": 0.6905505177693523,
     "courbure_symphyse_menton": -0.5723269861431058,
-    "ratio_hauteur_mentonniere": 0.3093226718056754,
-    "angularite_gonion": 2.635230210647512,
-    "courbure_mandibulaire_max": 0.4927669730311397,
-    "courbure_mandibulaire_std": 0.13460860652498566
+    "ratio_hauteur_mentonniere": 0.3093226718056754
    },
    "joues": {
     "angle_zygomatique": 2.3745432233180375,

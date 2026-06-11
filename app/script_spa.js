@@ -988,7 +988,13 @@ function renderStep3(){
   const hn=document.getElementById('hero-name');
   if(hn)hn.textContent=`${S.skinTone}`;
   const hs=document.querySelector('.hero-compact__score');
-  if(hs)hs.innerHTML=`${_meta.autoCount} sliders calculés · <b>${_meta.coverageRate}%</b> auto`;
+  if(hs){
+    // Phase 5.0 — identityCoverage = % sliders sourcés zone:/group: (la part « identité mesurée »).
+    // Fallback rétro-compat sur les anciens champs si scan d'avant le bump.
+    const cov = (_meta.identityCoverage != null) ? _meta.identityCoverage : _meta.coverageRate;
+    const cnt = (_meta.source_counts && (_meta.source_counts.zone + _meta.source_counts.group)) || _meta.autoCount;
+    hs.innerHTML = `${cnt|0} sliders identité · <b>${cov|0}%</b>`;
+  }
   const kk=document.querySelector('.hero-compact__kicker');
   if(kk){
     const dotColor=skinCategoryColor(S.skinTone);

@@ -521,6 +521,246 @@ function augmentAttributesWithCustomMetrics(rawPoints, attributes) {
         }
     }
 
+    // ── PILOTE 5.0.x — silhouette mâchoire (machoire_silhouette) ─────────
+    // Diagnostic UNIQUEMENT (jamais écrit en sliders). 6 features scale-free
+    // ou normalisées LOCALEMENT (W_gonion / H_jaw, pas /faceW) — leçon audit
+    // §10 : /faceW pénalise les visages larges. Roll-aligned points pour
+    // robustesse rotation. Fail-soft : un landmark manquant ou normalisateur
+    // dégénéré → bloc absent + warn (pas de throw).
+    //
+    // JAW_ARC_ORDER : arc mandibulaire canonique gauche→menton→droite
+    // (sous-séquence de FACEMESH_FACE_OVAL). Ordre fixe, PAS de tri angulaire
+    // (les segments consécutifs ne doivent jamais se croiser).
+    try {
+        const JAW_ARC_ORDER = [132, 58, 172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397, 288, 361];
+        // Toutes les mesures sur les points ROLL-ALIGNÉS.
+        const _alignedJaw = (typeof computeRollAlignedPoints === 'function')
+            ? computeRollAlignedPoints(rawPoints)
+            : rawPoints;
+        const _jawGet = (idx) => {
+            const p = _alignedJaw && _alignedJaw[String(idx)];
+            return (p && Number.isFinite(p.x) && Number.isFinite(p.y)) ? p : null;
+        };
+
+        const _jawPts = [];
+        let _jawOk = true;
+        for (const idx of JAW_ARC_ORDER) {
+            const p = _jawGet(idx);
+            if (!p) { _jawOk = false; break; }
+            _jawPts.push({ x: p.x, y: p.y });
+        }
+
+        // Ancres locales (gonions = moyenne 3 landmarks ; menton = L152).
+        const _jawGonion = (ids) => {
+            let sx = 0, sy = 0, n = 0;
+            for (const i of ids) {
+                const p = _jawGet(i);
+                if (!p) continue;
+                sx += p.x; sy += p.y; n++;
+            }
+            if (n === 0) return null;
+            return { x: sx / n, y: sy / n };
+        };
+        const G_g = _jawGonion([172, 136, 150]);
+        const G_d = _jawGonion([397, 365, 379]);
+        const menton = _jawGet(152);
+
+        if (_jawOk && G_g && G_d && menton) {
+            const W_gonion = Math.hypot(G_d.x - G_g.x, G_d.y - G_g.y);
+            const H_jaw    = Math.abs(menton.y - (G_g.y + G_d.y) / 2);
+
+            if (W_gonion > 1e-9 && H_jaw > 1e-9) {
+                // Aire (shoelace) + périmètre du polygone fermé (arc + corde implicite 361→132).
+                const A = polygonArea(_jawPts);
+                const P = perimetre(_jawPts);
+
+                // Feature 1 : compacité 4πA / P² (∈ [0,1], 1 = cercle).
+                const compacite = (P > 1e-12) ? (4 * Math.PI * A) / (P * P) : null;
+
+                // Feature 2 : excentricité = √(1 - λmin/λmax) sur la cov 2x2 des 17 points.
+                let mx = 0, my = 0;
+                for (const p of _jawPts) { mx += p.x; my += p.y; }
+                mx /= _jawPts.length; my /= _jawPts.length;
+                let cxx = 0, cxy = 0, cyy = 0;
+                for (const p of _jawPts) {
+                    const dx = p.x - mx, dy = p.y - my;
+                    cxx += dx * dx; cxy += dx * dy; cyy += dy * dy;
+                }
+                cxx /= _jawPts.length; cxy /= _jawPts.length; cyy /= _jawPts.length;
+                const [_lmax, _lmin] = eigenvalues2x2([[cxx, cxy], [cxy, cyy]]);
+                const excentricite = (_lmax > 1e-12)
+                    ? Math.sqrt(Math.max(0, 1 - _lmin / _lmax))
+                    : null;
+
+                // Feature 3 : angle au gonion entre (G→ancre_haute) et (G→menton), moyenne G/D, en degrés.
+                // Ancre_haute = L132 à gauche, L361 à droite. Atan2(|cross|, dot) ∈ [0, π].
+                const L132 = _jawGet(132), L361 = _jawGet(361);
+                let angle_gonion_moyen = null;
+                if (L132 && L361) {
+                    const _jawAngleAt = (pivot, a, b) => {
+                        const ax = a.x - pivot.x, ay = a.y - pivot.y;
+                        const bx = b.x - pivot.x, by = b.y - pivot.y;
+                        const dot = ax * bx + ay * by;
+                        const crs = ax * by - ay * bx;
+                        return Math.atan2(Math.abs(crs), dot) * (180 / Math.PI);
+                    };
+                    const aG = _jawAngleAt(G_g, L132, menton);
+                    const aD = _jawAngleAt(G_d, L361, menton);
+                    angle_gonion_moyen = (aG + aD) / 2;
+                }
+
+                // Features 4-5 : largeurs aux fractions 0.5 et 0.75 de H_jaw, en ratio sur W_gonion.
+                // y_mid descend du niveau gonion vers le menton (axe Y MediaPipe vers le bas).
+                // Pour chaque branche (gauche : G_g → menton via arc ; droite : menton → G_d),
+                // on intersecte les segments consécutifs avec la ligne horizontale y = y_target.
+                const _jawWidthAtFraction = (frac) => {
+                    const baseY  = (G_g.y + G_d.y) / 2;
+                    const y_tgt  = baseY + frac * H_jaw;
+                    // Indice de menton dans JAW_ARC_ORDER : L152 est au milieu (idx 8 sur 17).
+                    const idxMenton = JAW_ARC_ORDER.indexOf(152);
+                    const _intersectBranch = (start, end) => {
+                        // Cherche le 1er segment où la branche traverse y_tgt.
+                        for (let i = start; i < end; i++) {
+                            const A = _jawPts[i], B = _jawPts[i + 1];
+                            const y0 = A.y, y1 = B.y;
+                            if ((y0 - y_tgt) * (y1 - y_tgt) <= 0 && Math.abs(y1 - y0) > 1e-12) {
+                                const t = (y_tgt - y0) / (y1 - y0);
+                                return A.x + t * (B.x - A.x);
+                            }
+                        }
+                        return null;
+                    };
+                    const xG = _intersectBranch(0, idxMenton);
+                    const xD = _intersectBranch(idxMenton, _jawPts.length - 1);
+                    if (xG === null || xD === null) return null;
+                    return Math.abs(xD - xG) / W_gonion;
+                };
+                const largeur_50_ratio = _jawWidthAtFraction(0.5);
+                const largeur_75_ratio = _jawWidthAtFraction(0.75);
+
+                // Feature 6 : taux de remplissage du rectangle bounding gonion×H_jaw.
+                const taux_remplissage = A / (W_gonion * H_jaw);
+
+                // Stats de référence (non candidates, mais utiles diag).
+                const aire_n      = (faceWidthRaw > 1e-9 && faceHeightRaw > 1e-9)
+                                    ? A / (faceWidthRaw * faceHeightRaw) : null;
+                const perimetre_n = (faceWidthRaw > 1e-9) ? P / faceWidthRaw : null;
+
+                attributes.machoire_silhouette = {
+                    compacite,
+                    excentricite,
+                    angle_gonion_moyen,
+                    largeur_50_ratio,
+                    largeur_75_ratio,
+                    taux_remplissage,
+                    aire_n,
+                    perimetre_n,
+                };
+            } else {
+                console.warn('[pilote machoire_silhouette] W_gonion ou H_jaw dégénéré, bloc absent');
+            }
+        } else {
+            console.warn('[pilote machoire_silhouette] landmark manquant dans l\'arc, bloc absent');
+        }
+    } catch (e) {
+        console.warn('[pilote machoire_silhouette] erreur:', e && e.message ? e.message : e);
+    }
+
+    // ── PILOTE 5.0.x — nez_v2 (étalon inter-canthal) ─────────────────────
+    // Diagnostic UNIQUEMENT (jamais écrit en sliders). 6 features normalisées
+    // par IC = dist2D(L133, L362) (Endocanthion G/D) ou par d'autres ratios
+    // SANS faceW/faceH — ces deux normalisateurs s'annulent (nez court/visage
+    // court ≡ nez long/visage long) et zygion est contaminé par les cheveux.
+    // Ancres réutilisées (mêmes moyennes multi-landmarks que farkas_features) :
+    //   AlareG = mean(129, 209, 220), AlareD = mean(358, 429, 440)
+    //   Nasion = mean(168, 6)
+    //   Subnasale = mean(2, 94, 19)
+    //   Pronasale = mean(4, 1)
+    //   Gnathion = mean(152, 175, 199)
+    //   Nez_dorsum_G = [195], Nez_dorsum_D = [419]
+    // Roll-aligned points. Fail-soft total (warn + bloc absent, pas de throw).
+    try {
+        const _alignedNz = (typeof computeRollAlignedPoints === 'function')
+            ? computeRollAlignedPoints(rawPoints)
+            : rawPoints;
+        const _nzGet = (idx) => {
+            const p = _alignedNz && _alignedNz[String(idx)];
+            return (p && Number.isFinite(p.x) && Number.isFinite(p.y)) ? p : null;
+        };
+        const _nzMean = (ids) => {
+            let sx = 0, sy = 0, n = 0;
+            for (const i of ids) {
+                const p = _nzGet(i);
+                if (!p) continue;
+                sx += p.x; sy += p.y; n++;
+            }
+            if (n === 0) return null;
+            return { x: sx / n, y: sy / n };
+        };
+
+        const Endo_G = _nzGet(133);   // Endocanthion gauche (interne œil G)
+        const Endo_D = _nzGet(362);   // Endocanthion droit  (interne œil D)
+        const AlareG = _nzMean([129, 209, 220]);
+        const AlareD = _nzMean([358, 429, 440]);
+        const Nasion    = _nzMean([168, 6]);
+        const Subnasale = _nzMean([2, 94, 19]);
+        const Pronasale = _nzMean([4, 1]);
+        const Gnathion  = _nzMean([152, 175, 199]);
+        const Dorsum_G  = _nzGet(195);
+        const Dorsum_D  = _nzGet(419);
+
+        if (Endo_G && Endo_D && AlareG && AlareD && Nasion && Subnasale
+            && Pronasale && Gnathion && Dorsum_G && Dorsum_D) {
+
+            const IC = Math.hypot(Endo_D.x - Endo_G.x, Endo_D.y - Endo_G.y);
+
+            if (IC > 1e-9) {
+                // 1. largeur alaire / IC (remplace indice_alaire dégénéré)
+                const alaire   = Math.hypot(AlareD.x - AlareG.x, AlareD.y - AlareG.y);
+                const largeur_alaire_ic = alaire / IC;
+
+                // 2. longueur du nez (Nasion → Subnasale, vertical) / IC
+                const longueur_nez_brut = Math.abs(Subnasale.y - Nasion.y);
+                const longueur_nez_ic   = longueur_nez_brut / IC;
+
+                // 3. position verticale du nez dans le visage
+                //    petite = nez haut (Pogba) ; grande = nez bas/tiers moyen
+                const denom_face = (Gnathion.y - Nasion.y);
+                const position_nez_vert = (denom_face > 1e-9)
+                    ? (Subnasale.y - Nasion.y) / denom_face
+                    : null;
+
+                // 4. aspect du nez (équivalent indice_nasal, scale-free conservé)
+                const aspect_nez = (longueur_nez_brut > 1e-9)
+                    ? alaire / longueur_nez_brut
+                    : null;
+
+                // 5. largeur d'arête / IC (remplace /faceW)
+                const arete_ic = Math.abs(Dorsum_G.x - Dorsum_D.x) / IC;
+
+                // 6. ratio_base_nasale (déjà locale et saine ; conservée)
+                const ratio_base_nasale = (alaire > 1e-9)
+                    ? Math.abs(Subnasale.y - Pronasale.y) / alaire
+                    : null;
+
+                attributes.nez_v2 = {
+                    largeur_alaire_ic,
+                    longueur_nez_ic,
+                    position_nez_vert,
+                    aspect_nez,
+                    arete_ic,
+                    ratio_base_nasale,
+                };
+            } else {
+                console.warn('[pilote nez_v2] IC dégénéré, bloc absent');
+            }
+        } else {
+            console.warn('[pilote nez_v2] ancre manquante (Endocanthion / Alare / Nasion / etc.), bloc absent');
+        }
+    } catch (e) {
+        console.warn('[pilote nez_v2] erreur:', e && e.message ? e.message : e);
+    }
+
     return attributes;
 }
 
@@ -1027,6 +1267,97 @@ function computeGlobalDistance(userAttr, presetAttr) {
   return totalDistance;
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// Phase 5.0 — CONTOUR GATE (sélection de la tête de réf par forme de tête)
+// ═══════════════════════════════════════════════════════════════════════════
+// Étage de pré-filtrage : Mahalanobis 9-zones converge vers le preset central
+// du pool (116 Ovale) pour tout visage hors-pool, choisissant un OVALE pour
+// un visage CARRÉ. On filtre le pool par signature de contour (4 ratios
+// dérivés des scanned_stats existants) AVANT computeGlobalDistance.
+const CONTOUR_GATE_K = 8;
+
+function computeContourSignature(stats) {
+  if (!stats || !stats.base || !stats.machoire || !stats.joues || !stats.front) return null;
+  const c1 = stats.base.width / stats.base.height;     // compacité L/H (élevé = large/court)
+  const c2 = stats.machoire.width / stats.joues.width; // taper bas du visage (élevé = carré)
+  const c3 = stats.machoire.angle;                     // angularité mandibulaire
+  const c4 = stats.front.width / stats.base.width;     // largeur frontale relative
+  const sig = { c1, c2, c3, c4 };
+  for (const k in sig) if (!Number.isFinite(sig[k])) return null;
+  return sig;
+}
+
+// Médiane + MAD par feature sur un pool. MAD < 1e-9 → null (drop la feature).
+function _contourMedianMAD(values) {
+  if (!values || values.length === 0) return null;
+  const sorted = values.slice().sort((a, b) => a - b);
+  const n = sorted.length;
+  const median = n % 2 ? sorted[(n - 1) / 2] : 0.5 * (sorted[n / 2 - 1] + sorted[n / 2]);
+  const abs = values.map(v => Math.abs(v - median)).sort((a, b) => a - b);
+  const mad = n % 2 ? abs[(n - 1) / 2] : 0.5 * (abs[n / 2 - 1] + abs[n / 2]);
+  if (!Number.isFinite(median) || !Number.isFinite(mad) || mad < 1e-9) return null;
+  return { median, mad };
+}
+
+// Applique le gate à un pool. Retourne { gated, topK } où gated est le pool
+// filtré (top-K) et topK est un tableau [{id, position, forme, dist}] pour
+// inspection. Si fail-soft, gated = pool tel quel + warn + topK = [].
+function _applyContourGate(pool, userSig, label) {
+  if (!userSig || !Array.isArray(pool) || pool.length < 3) {
+    console.warn(`[5.0] contour gate bypassé (${label || 'pool'}): pool=${pool && pool.length}, userSig=${!!userSig}`);
+    return { gated: pool || [], topK: [] };
+  }
+  // Collecte les signatures par preset (skip si null).
+  const presetSigs = [];
+  for (const p of pool) {
+    const sig = computeContourSignature(p.scanned_stats);
+    if (sig) presetSigs.push({ preset: p, sig });
+  }
+  if (presetSigs.length < 3) {
+    console.warn(`[5.0] contour gate bypassé (${label || 'pool'}): signatures valides=${presetSigs.length}`);
+    return { gated: pool, topK: [] };
+  }
+  const features = ['c1', 'c2', 'c3', 'c4'];
+  // Standardisation par feature (médiane/MAD du pool).
+  const stats = {};
+  const validFeatures = [];
+  for (const f of features) {
+    const vals = presetSigs.map(x => x.sig[f]);
+    const mm = _contourMedianMAD(vals);
+    if (mm) {
+      stats[f] = mm;
+      validFeatures.push(f);
+    } else {
+      console.warn(`[5.0] contour feature ${f}: MAD < 1e-9, dropped`);
+    }
+  }
+  if (validFeatures.length === 0) {
+    console.warn(`[5.0] contour gate bypassé (${label || 'pool'}): aucune feature valide`);
+    return { gated: pool, topK: [] };
+  }
+  const WEIGHTS = { c1: 1.0, c2: 1.0, c3: 0.6, c4: 0.6 };
+  const dist = (sig) => {
+    let s = 0;
+    for (const f of validFeatures) {
+      const z = (sig[f] - stats[f].median) / stats[f].mad;
+      s += (WEIGHTS[f] || 1.0) * z * z;
+    }
+    return Math.sqrt(s);
+  };
+  const ranked = presetSigs
+    .map(({ preset, sig }) => ({ preset, dist: dist(sig) }))
+    .sort((a, b) => a.dist - b.dist);
+  const K = Math.min(CONTOUR_GATE_K, ranked.length);
+  const gated = ranked.slice(0, K).map(r => r.preset);
+  const topK = ranked.slice(0, K).map(r => ({
+    id: r.preset.preset_id,
+    position: r.preset.position,
+    forme: r.preset.forme_visage,
+    dist: r.dist,
+  }));
+  return { gated, topK };
+}
+
 // ─── 7. SÉLECTION DU MEILLEUR PRESET ──────────────────────
 function selectBestPreset(landmarks, skinTone) {
   // Extrait et prépare les attributs de l'utilisateur
@@ -1042,7 +1373,7 @@ function selectBestPreset(landmarks, skinTone) {
 
   if (!userAttr) {
     console.warn('⚠️ selectBestPreset: userAttr non disponible');
-    return { bestPreset: null, ratios: {}, scores: [] };
+    return { bestPreset: null, ratios: {}, scores: [], contourUser: null, contourTop: [], contourTopOfficial: [] };
   }
 
   const resolvedSkinTone = normalizeSkinToneLabel(skinTone);
@@ -1057,7 +1388,15 @@ function selectBestPreset(landmarks, skinTone) {
   // Phase 2.0 Étape 1 : on ne pioche que dans le pool matchable (scanned_stats + _matchable!=false).
   const matchable = _matchablePool();
   const candidates = matchable.filter(p => allowedSkinTones.includes(p.couleur_peau));
-  const scoringPool = candidates.length > 0 ? candidates : matchable;
+  const scoringPoolBase = candidates.length > 0 ? candidates : matchable;
+
+  // Phase 5.0 — contour gate : Mahalanobis 9-zones tend vers le preset central.
+  // On filtre d'abord par signature de contour pour que la tête de réf ait la
+  // bonne forme de tête. Fail-soft : sig user null ou pool < 3 → bypass.
+  const contourUser = computeContourSignature(userAttr);
+  const { gated: scoringPool, topK: contourTop } = _applyContourGate(scoringPoolBase, contourUser, 'pool41');
+  console.log('[5.0 contour] user=', contourUser, '| topK=',
+              contourTop.map(t => t.id));
 
   const distances = [];
 
@@ -1100,39 +1439,100 @@ function selectBestPreset(landmarks, skinTone) {
   // ≥ 10001). Mais l'UI doit afficher une tête sélectionnable dans FC26 →
   // recalcul sur les officiels uniquement, en respectant la même
   // restriction carnation (neighborhoods).
-  const officialFromPool = scoringPool.filter(p => p.entry_type !== 'celebrity');
-  // Fallback : si la carnation user n'a aucun officiel proche, on élargit au
-  // pool officiel complet plutôt que de retomber sur les célébrités.
-  const officialScoringPool = officialFromPool.length > 0 ? officialFromPool : _officialPool();
+  // ── Phase 5.0.1 : bestOfficial DÉRIVÉ de `distances` (gaté contour) ──
+  // L'ancien Mahalanobis global sur `officialScoringPool` produisait une 2e
+  // vérité (Brahima : bestPreset=299 officiel, mais 2e classement choisissait
+  // 116, hors topK contour). Règle unique : on ne re-classe plus, on extrait.
+  //
+  // Le pool officiel gaté contour reste calculé pour servir de fallback
+  // (cas où aucun officiel n'est dans le topK pool-41) et pour computeZoneMix.
+  const officialFromPoolBase = scoringPoolBase.filter(p => p.entry_type !== 'celebrity');
+  const officialScoringPoolBase = officialFromPoolBase.length > 0 ? officialFromPoolBase : _officialPool();
+  const { gated: officialScoringPool, topK: contourTopOfficial } =
+    _applyContourGate(officialScoringPoolBase, contourUser, 'pool31');
 
-  const officialDistances = [];
-  for (const preset of officialScoringPool) {
-    if (!preset.scanned_stats) continue;
-    const distance = computeGlobalDistance(userAttr, preset.scanned_stats);
-    const D0 = 75;
-    const score = Math.max(0, 100 * Math.exp(-distance / D0));
-    officialDistances.push({
-      preset_id: preset.preset_id,
-      position: preset.position,
-      distance,
-      score,
-      preset,
-    });
+  // Officiels présents dans `distances` (déjà triés par Mahalanobis sur pool-41
+  // gaté contour). C'est la SEULE source de vérité.
+  const officialsFromDistances = distances.filter(d =>
+    d.preset && d.preset.entry_type !== 'celebrity'
+  );
+
+  let bestOfficial = null;
+  let bestOfficialVia = null;
+
+  if (bestPreset && bestPreset.entry_type !== 'celebrity') {
+    // Cas 1 : bestPreset déjà officiel → identité.
+    bestOfficial = bestPreset;
+    bestOfficialVia = 'bestPreset officiel';
+  } else if (officialsFromDistances.length > 0) {
+    // Cas 2 : bestPreset est célébrité → premier officiel dans `distances`.
+    bestOfficial = officialsFromDistances[0].preset;
+    bestOfficialVia = 'premier officiel gaté';
+  } else if (contourTopOfficial && contourTopOfficial.length > 0) {
+    // Cas 3 : aucun officiel dans le topK pool-41 → fallback contour pur sur
+    // les officiels gatés (PAS de Mahalanobis global qui ramènerait 116).
+    const fallbackId = contourTopOfficial[0].id;
+    bestOfficial = (officialScoringPool.find(p => p.preset_id === fallbackId)
+                 || officialScoringPoolBase.find(p => p.preset_id === fallbackId)
+                 || null);
+    bestOfficialVia = 'fallback contour';
+    console.warn('[5.0.1] aucun officiel dans le topK pool-41 → fallback contour');
+  } else {
+    bestOfficialVia = 'none';
+    console.warn('[5.0.1] aucun officiel trouvable');
   }
-  officialDistances.sort((a, b) => a.distance - b.distance);
+  console.log('[5.0.1] official =', bestOfficial ? bestOfficial.preset_id : null,
+              '| via:', bestOfficialVia);
 
-  const bestOfficial = officialDistances.length > 0 ? officialDistances[0].preset : null;
-  const officialTopPresets = officialDistances.slice(0, 4).map(s => ({
-    id: s.preset_id,
-    position: s.position,
-    forme: s.preset && s.preset.forme_visage,
-    carnation: s.preset && s.preset.couleur_peau,
-    score: s.score,
+  // officialTopPresets : officiels suivants de `distances` (gaté), excluant
+  // bestOfficial. Si moins de 4 dispo, on complète via contourTopOfficial.
+  const _topIds = new Set();
+  const officialTopPresets = [];
+  for (const d of officialsFromDistances) {
+    if (bestOfficial && d.preset.preset_id === bestOfficial.preset_id) continue;
+    if (_topIds.has(d.preset.preset_id)) continue;
+    _topIds.add(d.preset.preset_id);
+    officialTopPresets.push({
+      id: d.preset.preset_id,
+      position: d.preset.position,
+      forme: d.preset.forme_visage,
+      carnation: d.preset.couleur_peau,
+      score: d.score,
+    });
+    if (officialTopPresets.length >= 4) break;
+  }
+  if (officialTopPresets.length < 4 && Array.isArray(contourTopOfficial)) {
+    for (const t of contourTopOfficial) {
+      if (bestOfficial && t.id === bestOfficial.preset_id) continue;
+      if (_topIds.has(t.id)) continue;
+      _topIds.add(t.id);
+      const p = officialScoringPoolBase.find(p => p.preset_id === t.id);
+      if (!p) continue;
+      officialTopPresets.push({
+        id: p.preset_id,
+        position: p.position,
+        forme: p.forme_visage,
+        carnation: p.couleur_peau,
+        score: null, // fallback : pas de score Mahalanobis ici
+      });
+      if (officialTopPresets.length >= 4) break;
+    }
+  }
+
+  // officialScores : aucun consommateur prod (vérifié 5.0.1). Conservé pour
+  // rétro-compat avec la même forme {preset_id, position, distance, score, preset}.
+  const officialScores = officialsFromDistances.map(d => ({
+    preset_id: d.preset_id,
+    position: d.position,
+    distance: d.distance,
+    score: d.score,
+    preset: d.preset,
   }));
 
-  // Mix Frankenstein : calculé sur les OFFICIELS uniquement (sinon une zone
-  // pourrait renvoyer preset_id 10001+ → non sélectionnable en jeu).
-  const zoneMix = computeZoneMix(userAttr, officialScoringPool);
+  // Mix Frankenstein : calculé sur le pool officiel COMPLET (PAS le gate !)
+  // Le mix par zone est volontairement indépendant du gate contour — il pioche
+  // la meilleure tête par zone parmi tous les officiels admissibles carnation.
+  const zoneMix = computeZoneMix(userAttr, officialScoringPoolBase);
 
   return {
     bestPreset,           // pool 41 (DNA) — peut être célébrité
@@ -1140,8 +1540,12 @@ function selectBestPreset(landmarks, skinTone) {
     scores: distances,
     zoneMix,              // calculé sur officiels uniquement
     bestOfficial,         // pool 31 (UI tête de réf)
-    officialScores: officialDistances,
+    officialScores,       // dérivé de `distances` (rétro-compat)
     officialTopPresets,   // top 3-4 officiels pour le bloc Alternatives
+    // Phase 5.0 — signature contour user + top-K des deux gates (diag).
+    contourUser,
+    contourTop,
+    contourTopOfficial,
   };
 }
 window.selectBestPreset = selectBestPreset;
