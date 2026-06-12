@@ -98,8 +98,26 @@ __blobstorage__
 __queuestorage__
 __azurite_db*__.json
 
-# Internal-only admin tools (not deployed)
+# Internal-only admin tools (not deployed) — couvre app/admin/flame_spike/ entièrement
 app/admin/
+
+# Personal data protection (photos de test — JAMAIS commitées) — FLAME MVP 12 juin
+**/brahima*
+**/keita*
+**/KEITA*
+**/alex_*
+**/pere.*
+**/*.heic
+**/*.HEIC
+
+# Python hygiene (service FLAME app/server_flame/) — FLAME MVP 12 juin
+__pycache__/
+*.pyc
+*.pyo
+# données FLAME volumineuses : ne PAS committer le modèle ni les .npz (déployés à part)
+app/server_flame/data/
+app/server_flame/*.pkl
+app/server_flame/**/*.npz
 
 # Local validation artifacts
 ui_order_validation.json*.bak

@@ -3,7 +3,20 @@
  * ═══════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SMF = { AZURE: 'https://scanmyface-site-hdbheranbyd8htc5.germanywestcentral-01.azurewebsites.net' };
+const SMF = {
+  AZURE: 'https://scanmyface-site-hdbheranbyd8htc5.germanywestcentral-01.azurewebsites.net',
+  // FLAME matcher (droplet DigitalOcean, HTTPS, fra1). Override dev : window.__FLAME_API_URL__='http://localhost:8001'.
+  FLAME_API: 'https://flame.scanmyface.tech',
+};
+// Pipeline FLAME — rollout progressif (cf. ARCHITECTURE §D/§G). OFF par défaut en prod (zéro impact
+// utilisateur), opt-in via ?flame=1 pour valider l'e2e live. Ramp = passer ce défaut à true.
+// Bascule console sans reload : window.__USE_FLAME_MATCHING__ = true/false.
+(function(){
+  if (typeof window.__USE_FLAME_MATCHING__ !== 'undefined') return;
+  var on = false;
+  try { if (new URLSearchParams(location.search).get('flame') === '1') on = true; } catch(_){}
+  window.__USE_FLAME_MATCHING__ = on;
+})();
 
 // ─── i18n ─────────────────────────────────────────────────────────────
 const TR = {
@@ -929,7 +942,15 @@ function buildSwatches(activeKey){
       row.querySelectorAll('.swatch').forEach(x=>{x.classList.remove('is-active');x.setAttribute('aria-pressed','false');});
       s.classList.add('is-active');s.setAttribute('aria-pressed','true');
       S.skinTone = s.dataset.cat;
-      // recalcul LIVE du bestPreset avec la nouvelle catégorie
+      // En mode FLAME, le teint est indépendant des 303 sliders sculpt (FLAME juge
+      // la forme 3D, pas la carnation) → on ne recalcule PAS (sinon on écrase la
+      // recette FLAME par du legacy). On rafraîchit juste l'affichage.
+      const isFlame = S.sliders && S.sliders._meta && S.sliders._meta.engine==='flame';
+      if(isFlame){
+        if(typeof renderStep3==='function')renderStep3();
+        return;
+      }
+      // recalcul LIVE du bestPreset avec la nouvelle catégorie (legacy uniquement)
       if(S.landmarks){
         try{
           const tddfaSliders=(S.tddfa&&typeof computeFC26from3DDFA==='function')?computeFC26from3DDFA(S.tddfa,S.landmarks):null;
@@ -948,22 +969,159 @@ function renderSwatches(ita){
   if(sg)sg.innerHTML=`${t('suggests')} <b>${active}</b>`;
 }
 
+// ─── FLAME MATCHING (pipeline principal — MVP, juin 2026) ──────────────
+// Le client produit les 478 landmarks (MediaPipe), les envoie au service FLAME
+// (jamais la photo), reçoit les 303 sliders en Mode A pur. Fallback legacy
+// (scanToSliders) silencieux si échec/timeout + event Sentry (délégation #2).
+
+// Clés CHAIR/GRAISSE lèvres/yeux (3 groupes signatures MediaPipe) — restent
+// calculées côté client (legacy), JAMAIS écrasées par FLAME (DESIGN_MAPPING §C.3).
+// On EXCLUT le squelette : les signatures n'écrivent jamais de squelette (yeux/orbites
+// non whitelisté) → leur squelette doit venir du bestPresetGlobal FLAME (tête cohérente),
+// pas du bestPreset legacy.
+function flameLipsEyesKeys(){
+  const out=new Set();
+  const groups=window._zoneGroups&&window._zoneGroups.groups;
+  const zones=window._zoneDefinitions&&window._zoneDefinitions.zones;
+  if(!groups||!zones)return out;
+  for(const g of ['levre_superieure','levre_inferieure','yeux']){
+    const gd=groups[g]; if(!gd||!Array.isArray(gd.subtabs))continue;
+    for(const sub of gd.subtabs){
+      const zd=zones[sub]; if(!zd||!Array.isArray(zd.sliders))continue;
+      if(zd.family==='squelette')continue;            // squelette yeux/orbites → FLAME
+      for(const sk of zd.sliders)out.add(zd.family+':'+sk);
+    }
+  }
+  return out;
+}
+
+// Gate qualité yaw : FLAME mono-vue n'est fiable que de face (cf. alex_stress, VERDICT).
+// Proxy = asymétrie horizontale joue-G/joue-D vs nez. Seuil 0.22 (calibré : photos
+// frontales validées ≤ 0.13, vrai yaw 20°+ > 0.22). NB : ne gate que le YAW ; le
+// pitch/occlusion reste couvert par le quality gate Azure (bad_angle/bad_light) au scan.
+function flameYawProxy(lm){
+  if(!lm||!lm[4]||!lm[234]||!lm[454])return 0;
+  const l=Math.abs(lm[234].x-lm[4].x), r=Math.abs(lm[454].x-lm[4].x), s=l+r;
+  return s>1e-6 ? Math.abs(r-l)/s : 0;
+}
+const FLAME_YAW_MAX = 0.22;
+
+// Appel serveur FLAME. Retourne la réponse JSON, ou null (→ fallback legacy).
+async function callFlameMatch(landmarks, imgW, imgH){
+  if(window.__USE_FLAME_MATCHING__===false)return null;
+  if(!landmarks||!landmarks.length)return null;
+  const base=window.__FLAME_API_URL__||SMF.FLAME_API;
+  const body=JSON.stringify({
+    landmarks_478: landmarks.map(p=>[p.x,p.y,p.z]),
+    img_w: imgW||1, img_h: imgH||1,
+  });
+  const ctrl=new AbortController();
+  const to=setTimeout(()=>ctrl.abort(),30000);   // timeout 30 s → fallback
+  try{
+    const r=await fetch(base+'/api/flame-match',{method:'POST',
+      headers:{'Content-Type':'application/json'},body,signal:ctrl.signal});
+    clearTimeout(to);
+    if(!r.ok)throw new Error('FLAME HTTP '+r.status);
+    const j=await r.json();
+    if(!j||!j.sliders_303)throw new Error('FLAME réponse invalide');
+    return j;
+  }catch(e){
+    clearTimeout(to);
+    console.warn('[FLAME] échec, fallback legacy:',e&&e.message?e.message:e);
+    if(window.Sentry){try{Sentry.captureException(e,{tags:{component:'flame-match'}});}catch(_){}}
+    return null;
+  }
+}
+
+// Fusionne : base = FLAME (303), sauf lèvres/yeux = legacy (signatures client).
+// _meta vient du legacy (zoneMix/étape 3) + bloc flame ajouté.
+function flameMergeSliders(legacy, flame){
+  const lipsEyes=flameLipsEyesKeys();
+  const merged={
+    squelette:Object.assign({},legacy.squelette),
+    chair:Object.assign({},legacy.chair),
+    graisse:Object.assign({},legacy.graisse),
+    _meta:legacy._meta||{},
+  };
+  ['squelette','chair','graisse'].forEach(fam=>{
+    const fv=(flame.sliders_303&&flame.sliders_303[fam])||{};
+    const fs=(flame.sliders_303&&flame.sliders_303._sources&&flame.sliders_303._sources[fam])||{};
+    if(!merged[fam]._sources)merged[fam]._sources={};
+    for(const k in fv){
+      if(lipsEyes.has(fam+':'+k))continue;           // lèvres/yeux = legacy
+      merged[fam][k]=fv[k];
+      if(fs[k]!==undefined)merged[fam]._sources[k]=fs[k];
+    }
+  });
+  merged._meta=merged._meta||{};
+  merged._meta.flame={bestPresetGlobal:flame.bestPresetGlobal,zoneMatches:flame.zoneMatches,
+    applied:flame.applied,fit_time_s:flame.fit_time_s,version:flame.version};
+  if(flame.bestPresetGlobal)merged._meta.bestPresetId=flame.bestPresetGlobal;  // tête de réf affichée = FLAME
+  return merged;
+}
+
+// Skeleton loader (3 étapes) pendant l'appel FLAME.
+function showFlameLoader(){
+  let el=document.getElementById('flame-loader');
+  if(!el){
+    el=document.createElement('div');
+    el.id='flame-loader';
+    el.style.cssText='position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;'+
+      'align-items:center;justify-content:center;background:rgba(8,10,18,0.93);'+
+      'backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);color:#e8ecf4;'+
+      'font-family:inherit;gap:20px;text-align:center;padding:24px;';
+    el.innerHTML='<div style="width:54px;height:54px;border-radius:50%;'+
+      'border:3px solid rgba(255,255,255,0.12);border-top-color:#4f8cff;'+
+      'animation:flameSpin 0.9s linear infinite;"></div>'+
+      '<div id="flame-loader-step" style="font-size:15px;letter-spacing:.2px;opacity:.95;max-width:300px;">Analyse 3D du visage…</div>'+
+      '<div style="font-size:12px;opacity:.5;">Reconstruction morphologique FLAME · ~10 s</div>';
+    const st=document.createElement('style');
+    st.textContent='@keyframes flameSpin{to{transform:rotate(360deg)}}';
+    el.appendChild(st);
+    document.body.appendChild(el);
+  }
+  el.style.display='flex';
+  const steps=['Analyse 3D du visage…','Comparaison morphologique aux 41 presets…','Génération de ta recette FC26…'];
+  const stepEl=document.getElementById('flame-loader-step');
+  let i=0; if(stepEl)stepEl.textContent=steps[0];
+  el._timer=setInterval(()=>{i=Math.min(i+1,steps.length-1);if(stepEl)stepEl.textContent=steps[i];},4500);
+}
+function hideFlameLoader(){
+  const el=document.getElementById('flame-loader');
+  if(el){if(el._timer)clearInterval(el._timer);el.style.display='none';}
+}
+
 // ─── LAUNCH ───────────────────────────────────────────────────────────
 window.onLaunchClick=async function(){
   if(!S.landmarks){toast(t('scan_wait'));return;}
   const btn=document.getElementById('btn-launch');
   if(btn){btn.disabled=true;btn.textContent=t('analyzing');}
+  showFlameLoader();
   try{
     const tddfaSliders = (S.tddfa && typeof computeFC26from3DDFA === 'function')
       ? computeFC26from3DDFA(S.tddfa, S.landmarks)
       : null;
     S.tddfaSliders = tddfaSliders;   // pour lire S.tddfaSliders._debug en console
-    S.sliders=scanToSliders(S.landmarks, tddfaSliders, S.skinTone);
+    // Base legacy : TOUJOURS calculée (= _meta étape 3 + signatures lèvres/yeux + fallback).
+    const legacy = scanToSliders(S.landmarks, tddfaSliders, S.skinTone);
+    // Gate yaw : si la tête est tournée, FLAME mono-vue dérive → on saute FLAME (legacy).
+    const yaw = flameYawProxy(S.landmarks);
+    let flame = null;
+    if(yaw > FLAME_YAW_MAX){
+      toast('📐 Pour une recette 3D précise, prends une photo bien de face');
+      if(window.Sentry){try{Sentry.addBreadcrumb({category:'flame',message:'yaw_gate_skip',data:{yaw:Number(yaw.toFixed(3))}});}catch(_){}}
+    }else{
+      // FLAME = juge principal (envoie les landmarks finaux). null → fallback legacy silencieux.
+      flame = await callFlameMatch(S.landmarks, S.imgNaturalW, S.imgNaturalH);
+    }
+    S.sliders = flame ? flameMergeSliders(legacy, flame) : legacy;
+    if(S.sliders&&S.sliders._meta)S.sliders._meta.engine = flame ? 'flame' : 'legacy';
     renderStep3();
     if(window.goToStep)window.goToStep(3);
   }catch(e){
     console.error(e);if(window.Sentry)Sentry.captureException(e);toast('❌ Erreur analyse');
   }finally{
+    hideFlameLoader();
     if(btn){btn.disabled=false;btn.textContent=t('btn_launch');}
   }
 };

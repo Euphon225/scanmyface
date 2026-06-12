@@ -6065,7 +6065,7 @@ window.PRESETS_DB = [
    },
    "yeux": {
     "re": 75,
-    "bh": 56,
+    "bh": 34,
     "aa": 69,
     "ang": 50
    },
