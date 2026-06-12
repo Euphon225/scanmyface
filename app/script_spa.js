@@ -1055,6 +1055,7 @@ function flameMergeSliders(legacy, flame){
   });
   merged._meta=merged._meta||{};
   merged._meta.flame={bestPresetGlobal:flame.bestPresetGlobal,zoneMatches:flame.zoneMatches,
+    zoneDetails:flame.zoneDetails||null,  // {group:{preset_id,distance,separation,top3}} pour l'affichage étape 3
     applied:flame.applied,fit_time_s:flame.fit_time_s,version:flame.version};
   if(flame.bestPresetGlobal)merged._meta.bestPresetId=flame.bestPresetGlobal;  // tête de réf affichée = FLAME
   return merged;
@@ -1250,29 +1251,50 @@ function renderStep3(){
   const ml=document.getElementById('mix-list');
   if(!ml)return;ml.innerHTML='';
 
-  // Mix Frankenstein : meilleur preset PAR zone (stashé dans _meta.zoneMix par scanToSliders).
-  const zoneMix = (S.sliders && S.sliders._meta && S.sliders._meta.zoneMix) || null;
-  if(!zoneMix){
+  // Mix Frankenstein : meilleur preset PAR zone.
+  // En mode FLAME, les zones jugées par FLAME (front/nez/joues/menton/mâchoire) lisent
+  // _meta.flame.zoneDetails ; les zones signatures (sourcils/yeux/bouche) restent sur le legacy zoneMix.
+  const meta = (S.sliders && S.sliders._meta) || {};
+  const zoneMix = meta.zoneMix || null;
+  const isFlame = meta.engine === 'flame' && meta.flame;
+  const fd = isFlame ? (meta.flame.zoneDetails || null) : null;
+  const fm = isFlame ? (meta.flame.zoneMatches || null) : null;
+  if(!zoneMix && !isFlame){
     ml.innerHTML='<div style="font-size:11px;color:#64748b;padding:14px;text-align:center;">Mix non disponible</div>';
     return;
   }
+  // mapping zone d'affichage → groupe FLAME (narines non affichée ; menton+mâchoire = machoire_menton)
+  const FLAME_GROUP_OF={front:'front',nez:'nez',joues:'joues',menton:'machoire_menton',machoire:'machoire_menton'};
   const ZONE_LABELS=[
     ['front','Front'],['sourcils','Sourcils'],['yeux','Yeux'],['nez','Nez'],
     ['joues','Joues'],['bouche','Bouche'],['menton','Menton'],['machoire','Mâchoire']
   ];
   ZONE_LABELS.forEach(([k,lbl])=>{
-    const z=zoneMix[k]; if(!z) return;
-    // Pastille de confiance basée sur separation
+    // Source de la ligne : FLAME si zone couverte + mode flame, sinon legacy zoneMix.
+    let best=null, sep=null, dist=null, src='legacy';
+    const grp = FLAME_GROUP_OF[k];
+    if(isFlame && grp){
+      if(fd && fd[grp]){ best=fd[grp].preset_id; sep=fd[grp].separation; dist=fd[grp].distance; src='flame'; }
+      else if(fm && fm[grp]!=null){ best=fm[grp]; src='flame'; }
+    }
+    if(best==null){                       // zone signatures (sourcils/yeux/bouche) ou fallback legacy
+      const z=zoneMix&&zoneMix[k]; if(!z) return;
+      best=z.best; sep=z.separation; dist=z.distance; src=isFlame?'signature':'legacy';
+    }
+    // Pastille de confiance (mêmes seuils que la garde Mode A pur). sep null → neutre.
     let conf,confLbl;
-    if(z.separation>0.15){       conf='#00ff88'; confLbl='FIABLE'; }
-    else if(z.separation>=0.05){ conf='#ff9500'; confLbl='CORRECT'; }
-    else{                         conf='#ff5577'; confLbl='APPROX.'; }
+    if(sep==null){               conf='#9ea4c4'; confLbl=src==='signature'?'SIGNATURE':'—'; }
+    else if(sep>0.15){           conf='#00ff88'; confLbl='FIABLE'; }
+    else if(sep>=0.05){          conf='#ff9500'; confLbl='CORRECT'; }
+    else{                        conf='#ff5577'; confLbl='APPROX.'; }
     const row=document.createElement('div');
     row.style.cssText='display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.10);margin-bottom:6px;';
     row.innerHTML=`<span style="font-size:11px;letter-spacing:0.08em;color:#9ea4c4;font-weight:600;">${lbl}</span>
-      <span style="font-size:11px;color:#cfd5ff;font-weight:700;">Preset #${z.best}</span>
+      <span style="font-size:11px;color:#cfd5ff;font-weight:700;">Preset #${best}</span>
       <span style="font-size:9px;padding:3px 9px;border-radius:10px;background:${conf}22;color:${conf};letter-spacing:0.08em;font-weight:700;">${confLbl}</span>`;
-    row.title=`${lbl} · Preset #${z.best} · d=${z.distance.toFixed(2)} · sep=${z.separation.toFixed(2)}`;
+    const sepTxt=sep==null?'':` · sep=${sep.toFixed(2)}`;
+    const distTxt=dist==null?'':` · d=${(typeof dist==='number'?dist:0).toFixed(2)}`;
+    row.title=`${lbl} · Preset #${best} · ${src}${distTxt}${sepTxt}`;
     ml.appendChild(row);
   });
 }
