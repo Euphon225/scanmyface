@@ -1529,10 +1529,11 @@ function selectBestPreset(landmarks, skinTone) {
     preset: d.preset,
   }));
 
-  // Mix Frankenstein : calculé sur le pool officiel COMPLET (PAS le gate !)
-  // Le mix par zone est volontairement indépendant du gate contour — il pioche
-  // la meilleure tête par zone parmi tous les officiels admissibles carnation.
-  const zoneMix = computeZoneMix(userAttr, officialScoringPoolBase);
+  // Mix Frankenstein : par zone, on cherche parmi TOUS les presets matchables
+  // (41 : officiels + célébrités), SANS filtre couleur de peau ni gate contour.
+  // (Décision Alex 13 juin : chaque zone = pure forme, le teint est réglé en jeu.)
+  // NB : officialScoringPoolBase (filtré carnation) reste utilisé pour la tête/alternatives, inchangé.
+  const zoneMix = computeZoneMix(userAttr, _matchablePool());
 
   return {
     bestPreset,           // pool 41 (DNA) — peut être célébrité
